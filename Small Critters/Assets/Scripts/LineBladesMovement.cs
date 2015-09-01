@@ -23,7 +23,7 @@ public class LineBladesMovement : MonoBehaviour {
 	Vector3 secondBladeSetSpawnPoint;
 	// Use this for initialization
 	void Start () {
-		setupBlades();
+		//setupBlades();
 	}
 	
 	// Update is called once per frame
@@ -31,7 +31,7 @@ public class LineBladesMovement : MonoBehaviour {
 		moveFan();
 	}
 	
-	private void setupBlades()
+	public void setupBlades()
 	{
 		vectorToReceiver = receiver.transform.position - emitter.transform.position;
 		normalizedVectorToReceiver = vectorToReceiver.normalized;
@@ -46,9 +46,7 @@ public class LineBladesMovement : MonoBehaviour {
 		rotationToReceiver = Quaternion.AngleAxis(angle, Vector3.forward);
 		
 		numberOfBlades = (int)(vectorToReceiver.magnitude/distanceBetweenBladeCenters);
-		
-		
-		
+
 		blades = new GameObject[numberOfBlades*2];
 		
 		firstBladeSetSpawnPoint = receiver.transform.position + (normalizedVectorToEmitter * distanceBetweenBladeCenters);// + (normalizedVectorToEmitter * (receiver.GetComponent<CircleCollider2D>().radius + bladeLength * 0.5f));
@@ -56,6 +54,14 @@ public class LineBladesMovement : MonoBehaviour {
 		fan.transform.position = secondBladeSetSpawnPoint;
 		spawnBladePattern(0,firstBladeSetSpawnPoint);
 		spawnBladePattern(numberOfBlades, secondBladeSetSpawnPoint);
+	}
+	
+	public void preWarmFan(int percentOfMovementRange)
+	{
+		Vector3 offsetVector = receiver.transform.position - secondBladeSetSpawnPoint;
+		float offsetMagnitude = offsetVector.magnitude;
+		offsetMagnitude = offsetMagnitude * percentOfMovementRange * 0.01f;
+		fan.transform.position = fan.transform.position + offsetVector.normalized * offsetMagnitude;
 	}
 	
 	private void spawnBladePattern(int patternOffset, Vector3 spawnPoint)
@@ -78,7 +84,6 @@ public class LineBladesMovement : MonoBehaviour {
 		if(isBladeSegmentAtReceiver())
 		{
 			fanRigidBody.MovePosition(secondBladeSetSpawnPoint);
-			Debug.Log("Reset");
 		}
 	}
 	

@@ -7,10 +7,27 @@ public class GameController : MonoBehaviour {
 	public FloorPlanLayer floorLayer;
 	public GameObject frog;
 	public Camera mainCamera;
+	public Imovement movement;
+	public ObstacleSetter obstacleSetter;
 	// Use this for initialization
 	void Start () {
-		floorLayer.layFloorPlan(arenaWidth, arenaHeight);
+		floorLayer.configure(arenaWidth, arenaHeight);
+		floorLayer.layInitialFloorPlan();
 		placeFrog();
+		configureMovementScript();
+		configureObstacleSetter();
+		obstacleSetter.initialObstacleDeplayment();
+	}
+	
+	private void configureMovementScript()
+	{
+		movement = frog.GetComponent<Imovement>();
+		movement.configure(this);
+	}
+	
+	public void configureObstacleSetter()
+	{
+		obstacleSetter.configure(arenaWidth, arenaHeight);
 	}
 	
 	private void placeFrog()
@@ -22,10 +39,13 @@ public class GameController : MonoBehaviour {
 		frog.transform.position = frogStartLocation;
 		frogStartLocation.z = -10f;
 		mainCamera.transform.position = frogStartLocation;
+		mainCamera.orthographicSize = (arenaWidth + 1) *0.89f;
 	}
 	public void onMoveUp()
 	{
-		//floorLayer.
+		++arenaHeight;
+		floorLayer.layNextArenaRow(arenaHeight);
+		obstacleSetter.layNextObstacle(arenaHeight);
 	}
 
 }

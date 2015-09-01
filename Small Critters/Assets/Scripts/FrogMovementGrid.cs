@@ -12,6 +12,7 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 	public float moveCompletion;
 	Animation jumpAnim;
 	public float moveTimer;
+	public GameController gameController;
 	// Use this for initialization
 	void Start () {
 		myRigidBody = GetComponent<Rigidbody2D>();
@@ -24,6 +25,11 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 		{
 			updateMove();
 		}
+	}
+	
+	public void configure(GameController controller)
+	{
+		gameController = controller;
 	}
 	
 	public void updateMove()
@@ -90,6 +96,7 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 			if(direction.y > 0f)
 			{
 				moveVector = new Vector3(0f,1f,0f);
+				gameController.onMoveUp();
 			}
 			else
 			{

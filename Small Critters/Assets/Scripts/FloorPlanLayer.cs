@@ -14,31 +14,21 @@ public class FloorPlanLayer : MonoBehaviour {
 	void Start () {
 		//layFloorPlan();
 	}
+	public void configure(int width, int height)
+	{
+		arenaHeight = height;
+		arenaWidth = width+1;
+	}
 	
 	// Update is called once per frame
-	public void layFloorPlan(int width, int height)
+	public void layInitialFloorPlan()
 	{
-		arenaHeight = height+1;
-		arenaWidth = width+1;
+
 		
 		tilePosition = Vector3.zero;
-		for (int i = 0 ; i<= arenaWidth; i++)
+		for (int i = 0 ; i<= arenaHeight; i++)
 		{
-			for (int j =0 ; j <= arenaHeight ; j++)
-			{
-				tilePosition.x = i;
-				tilePosition.y = j;
-				tilePosition.z = this.transform.position.z;
-				if (i == 0 || i == arenaWidth)
-				{
-					newFloorTile = Instantiate(wallTile, tilePosition, Quaternion.identity) as GameObject;
-				}
-				else
-				{
-					newFloorTile = Instantiate(basicFloorTile, tilePosition, Quaternion.identity) as GameObject;
-				}
-				newFloorTile.transform.parent = this.transform;
-			}
+			layNextArenaRow(i);
 		}
 		//Vector3 recenteredFloorPosition = new Vector3((arenaWidth * -0.5f) + basicFloorTile.transform.localScale.x * 0.5f, 
 		//                                              (arenaHeight * -0.5f) + basicFloorTile.transform.localScale.y * 0.5f,
