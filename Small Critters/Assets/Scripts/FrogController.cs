@@ -4,11 +4,9 @@ using System.Collections;
 public class FrogController : MonoBehaviour {
 	private Imovement movementScript;
 	private FrogInputHandler inputScript;
-	private Animator myAnimator;
-	private Rigidbody2D myRigidBody;
 	public GameObject deadFrogSprite;
 	public GameObject frogExplosionPlayer;
-	private SpriteRenderer mySpriteRenderer;
+	public GameController myGameController;
 	
 	
 	// Use this for initialization
@@ -30,11 +28,9 @@ public class FrogController : MonoBehaviour {
 	// Update is called once per frame
 	private void getRequiredComponents()
 	{
-		movementScript = GetComponent<FrogMovementGrid>();
+		movementScript = GetComponent<Imovement>();
 		inputScript = GetComponent<FrogInputHandler>();
-		myAnimator = GetComponent<Animator>();
-		mySpriteRenderer = GetComponent<SpriteRenderer>();
-		myRigidBody = GetComponent<Rigidbody2D>();
+		myGameController = GetComponent<GameController>();
 	}
 
 	private void setupInputScript()
@@ -47,6 +43,7 @@ public class FrogController : MonoBehaviour {
 		Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
 		Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);
 		Destroy(gameObject);
+		myGameController.onFrogDeath();
 	}
 
 }

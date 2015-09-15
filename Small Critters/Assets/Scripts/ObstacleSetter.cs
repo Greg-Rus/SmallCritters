@@ -33,11 +33,15 @@ public class ObstacleSetter : MonoBehaviour {
 	
 	public void layNextObstacle(int row)
 	{
-		obstacleSpawnPosition.x = arenaWidth * 0.5f;
-		obstacleSpawnPosition.y = row;
-		nextLineBladesObstacle = Instantiate ( lineBlades, obstacleSpawnPosition, Quaternion.identity) as GameObject;
-		nextLineBladesObstacle.transform.parent = this.gameObject.transform;
-		configureLineBlades(nextLineBladesObstacle);
+		if(Random.Range(1,4) >1)
+		{
+			obstacleSpawnPosition.x = arenaWidth * 0.5f;
+			obstacleSpawnPosition.y = row;
+			nextLineBladesObstacle = Instantiate ( lineBlades, obstacleSpawnPosition, Quaternion.identity) as GameObject;
+			nextLineBladesObstacle.transform.parent = this.gameObject.transform;
+			configureLineBlades(nextLineBladesObstacle);
+		}
+
 	}
 	public void configureLineBlades(GameObject lineBladesObeject)
 	{

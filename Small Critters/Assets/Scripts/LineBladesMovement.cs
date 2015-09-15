@@ -10,7 +10,6 @@ public class LineBladesMovement : MonoBehaviour {
 	private Vector3 normalizedVectorToReceiver;
 	private Vector3 normalizedVectorToEmitter;
 	private Vector3 vectorToReceiver;
-	private float distanceToReciever;
 	private float bladeLength;
 	public int numberOfBlades;
 	private float distanceBetweenBladeCenters;
@@ -36,7 +35,6 @@ public class LineBladesMovement : MonoBehaviour {
 		vectorToReceiver = receiver.transform.position - emitter.transform.position;
 		normalizedVectorToReceiver = vectorToReceiver.normalized;
 		normalizedVectorToEmitter = normalizedVectorToReceiver *-1f;
-		distanceToReciever = vectorToReceiver.magnitude;
 		bladeLength = blade.GetComponent<BoxCollider2D>().size.x;
 		fanRigidBody = fan.GetComponent<Rigidbody2D>();
 	

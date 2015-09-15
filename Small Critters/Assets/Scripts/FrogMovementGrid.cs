@@ -66,7 +66,7 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 			inMotion=true;
 			calculateMoveVector(direction);
 			calculateDestination();
-			turnFrogToMoveVector();
+			//turnFrogToJumpVector(); This should no longer be needed ans the input script uses rotateToDirection
 			myAnimator.SetBool("Jumping",true);
 			myAnimator.SetFloat("JumpSpeed", JumpSpeed);
 			moveTimer = Time.timeSinceLevelLoad;			
@@ -96,7 +96,6 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 			if(direction.y > 0f)
 			{
 				moveVector = new Vector3(0f,1f,0f);
-				gameController.onMoveUp();
 			}
 			else
 			{
@@ -105,7 +104,7 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 		}
 	}
 	
-	private void turnFrogToMoveVector()
+	private void turnFrogToJumpVector()
 	{
 		Quaternion rotation = Quaternion.FromToRotation(Vector3.up, moveVector);
 		//this.transform.rotation = Quaternion.Euler(new Vector3 (0f,0f, angle));
@@ -123,6 +122,13 @@ public class FrogMovementGrid : MonoBehaviour, Imovement {
 			return false;
 		}
 		
+	}
+	public void rotateToDirection(Vector3 direction)
+	{
+		calculateMoveVector(direction);
+		Quaternion rotation = Quaternion.FromToRotation(Vector3.up, moveVector);
+		//this.transform.rotation = Quaternion.Euler(new Vector3 (0f,0f, angle));
+		this.transform.rotation = rotation;
 	}
 	
 

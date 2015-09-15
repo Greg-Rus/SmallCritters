@@ -53,12 +53,15 @@
      <Compile Include="Assets\Scripts\FrogController.cs" />
      <Compile Include="Assets\Scripts\FrogInputHandler.cs" />
      <Compile Include="Assets\Scripts\FrogMovementGrid.cs" />
+     <Compile Include="Assets\Scripts\FrogMovementPhysics.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Interfaces.cs" />
+     <Compile Include="Assets\Scripts\JumpLineRenderer.cs" />
      <Compile Include="Assets\Scripts\LineBladesEmitter.cs" />
      <Compile Include="Assets\Scripts\LineBladesMovement.cs" />
      <Compile Include="Assets\Scripts\LineBladesReceiver.cs" />
      <Compile Include="Assets\Scripts\ObstacleSetter.cs" />
+     <Compile Include="Assets\Scripts\Utilities.cs" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Cursor.shader" />
      <None Include="Assets\Editor\UnityTestTools\LICENSE.txt" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleAdditiveBlend.shader" />
