@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Interfaces.cs" />
      <Compile Include="Assets\Scripts\JumpLineRenderer.cs" />
+     <Compile Include="Assets\Scripts\JumpMarkerSensor.cs" />
      <Compile Include="Assets\Scripts\LineBladesEmitter.cs" />
      <Compile Include="Assets\Scripts\LineBladesMovement.cs" />
      <Compile Include="Assets\Scripts\LineBladesReceiver.cs" />

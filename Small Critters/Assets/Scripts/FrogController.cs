@@ -17,7 +17,7 @@ public class FrogController : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D coll) {
 		Debug.Log(coll.gameObject.name);
-		if (coll.gameObject.tag == "InstaGib")
+		if (coll.gameObject.tag == "Hazard")
 		{
 			
 			Debug.Log("should die");

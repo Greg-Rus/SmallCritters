@@ -48,6 +48,7 @@ public class FrogInputHandler : MonoBehaviour {
 			}
 			else
 			{
+				jumpLineRenderer.stopDrawingJumpLine();
 				//TODO frogMovement.tap(draggedPointerPosition);
 			}
 			
