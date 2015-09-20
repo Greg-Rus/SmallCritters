@@ -40,6 +40,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 			myRigidBody.drag = jumpingDrag;
 			myRigidBody.AddForce(direction.normalized * jumpForce, ForceMode2D.Impulse);
 			midJump = true;
+			gameObject.layer = 14;
 			myAnimator.SetFloat("JumpSpeed",calculateJumpAnimationSpeed(direction));
 			myAnimator.SetBool("Jumping",true);
 			jumpTimer = jumpForSeconds(calculateJumpTime(direction));
@@ -69,6 +70,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 		myRigidBody.drag = staticDrag;
 		myAnimator.SetBool("Jumping",false);
 		checkHighestRowReached();
+		gameObject.layer = 10;
 	}
 	
 	void checkHighestRowReached()

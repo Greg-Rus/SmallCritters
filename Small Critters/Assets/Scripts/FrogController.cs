@@ -16,12 +16,8 @@ public class FrogController : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D coll) {
-		Debug.Log(coll.gameObject.name);
-		if (coll.gameObject.tag == "Hazard")
+		if (coll.collider.tag == "Hazard")
 		{
-			
-			Debug.Log("should die");
-
 			die ();
 		}
 	}
@@ -38,7 +34,7 @@ public class FrogController : MonoBehaviour {
 		inputScript.frogMovement = movementScript;
 	}
 	
-	private void die()
+	public void die()
 	{
 		Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
 		Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);

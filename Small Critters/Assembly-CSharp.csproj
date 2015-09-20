@@ -58,10 +58,12 @@
      <Compile Include="Assets\Scripts\Interfaces.cs" />
      <Compile Include="Assets\Scripts\JumpLineRenderer.cs" />
      <Compile Include="Assets\Scripts\JumpMarkerSensor.cs" />
+     <Compile Include="Assets\Scripts\JumpPathSensor.cs" />
      <Compile Include="Assets\Scripts\LineBladesEmitter.cs" />
      <Compile Include="Assets\Scripts\LineBladesMovement.cs" />
      <Compile Include="Assets\Scripts\LineBladesReceiver.cs" />
      <Compile Include="Assets\Scripts\ObstacleSetter.cs" />
+     <Compile Include="Assets\Scripts\ProcessorHeater.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Cursor.shader" />
      <None Include="Assets\Editor\UnityTestTools\LICENSE.txt" />

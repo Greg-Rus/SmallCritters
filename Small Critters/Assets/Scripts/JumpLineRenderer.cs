@@ -3,20 +3,22 @@ using System.Collections;
 
 public class JumpLineRenderer : MonoBehaviour {
 	private LineRenderer lineRenderer;
-	public GameObject jumpMarkerPrefab;
-	private GameObject jumpMarker;
+	//public GameObject jumpMarkerPrefab;
+	public GameObject jumpMarker;
 	private RaycastHit2D hit;
 	private JumpMarkerSensor jumpMarkerSensor;
+	private JumpPathSensor jumpPathSensor;
 	// Use this for initialization
 	void Awake()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
+		jumpMarkerSensor = GetComponentInChildren<JumpMarkerSensor>();
+		jumpPathSensor = GetComponentInChildren<JumpPathSensor>();
 	}
 	void Start () {
 		//lineRenderer = GetComponent<LineRenderer>();
-		jumpMarker = Instantiate(jumpMarkerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 		jumpMarker.SetActive(false);
-		jumpMarkerSensor = jumpMarker.GetComponent<JumpMarkerSensor>();
+
 	}
 	
 	// Update is called once per frame
@@ -35,7 +37,7 @@ public class JumpLineRenderer : MonoBehaviour {
 		jumpMarker.transform.rotation = gameObject.transform.rotation;
 		lineRenderer.SetPosition(0, this.transform.position);
 		lineRenderer.SetPosition(1, jumpMarker.transform.position);
-		if(willDieOnLanding(dragVector))
+		if(willDieIfJumps(dragVector))
 		{
 			lineRenderer.SetColors(Color.red,Color.red);
 		}
@@ -51,9 +53,11 @@ public class JumpLineRenderer : MonoBehaviour {
 		lineRenderer.SetVertexCount(0);
 	}
 	
-	public bool willDieOnLanding(Vector3 dragVector)
+	public bool willDieIfJumps(Vector3 dragVector)
 	{
-		return jumpMarkerSensor.checkForHazards(dragVector);
+		bool result = jumpMarkerSensor.checkForHazardsInLandingZone() || jumpPathSensor.checkForHazardsInJumpPath(dragVector);
+		//Debug.Log ("Will die: " + result);
+		return result;
 	}
 	
 }
