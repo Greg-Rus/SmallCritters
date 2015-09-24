@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Dungeon Art Pack\AnimateSprite.cs" />
+     <Compile Include="Assets\Scripts\BladeSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
      <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
      <Compile Include="Assets\Scripts\FloorPlanLayer.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\Scripts\LineBladesReceiver.cs" />
      <Compile Include="Assets\Scripts\ObstacleSetter.cs" />
      <Compile Include="Assets\Scripts\ProcessorHeater.cs" />
+     <Compile Include="Assets\Scripts\ProcessorSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Cursor.shader" />
      <None Include="Assets\Editor\UnityTestTools\LICENSE.txt" />

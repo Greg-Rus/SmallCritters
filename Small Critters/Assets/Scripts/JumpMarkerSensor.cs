@@ -6,10 +6,10 @@ public class JumpMarkerSensor : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log(other.name);
+		//Debug.Log(other.name);
 		{
 			++hazardInTrigger;
-			Debug.Log ("Hazards in Trigger "+ hazardInTrigger);
+			//Debug.Log ("Hazards in Trigger "+ hazardInTrigger);
 		}
 	}
 	void OnTriggerExit2D(Collider2D other)

@@ -138,7 +138,7 @@ public class ProcessorHeater : MonoBehaviour {
 			totalCycleTime += timer;
 		}
 		float targetCycleTime = totalCycleTime * cycleProgressPercent;
-		Debug.Log ("TargetCycleTime: " + targetCycleTime);
+		//Debug.Log ("TargetCycleTime: " + targetCycleTime);
 		float skippedTime =0;
 		ProcessorState targetState = ProcessorState.Cool;
 		foreach(float timer in timers)
@@ -155,6 +155,6 @@ public class ProcessorHeater : MonoBehaviour {
 		
 		this.state = targetState;
 		expireTime = Time.timeSinceLevelLoad + targetStateTime;
-		Debug.Log ("State: " + targetState + " time left: " + targetStateTime);
+		//Debug.Log ("State: " + targetState + " time left: " + targetStateTime);
 	}
 }

@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour {
 	public ObstacleSetter obstacleSetter;
 	public int maxRowReached;
 	public Text score;
+	public int newLevelBufferRowCount;
+	private int newLevelThreshold;
 
 	// Use this for initialization
 	void Start () {
@@ -21,24 +23,27 @@ public class GameController : MonoBehaviour {
 	
 	private void startGame()
 	{
-		floorLayer.configure(arenaWidth, arenaHeight);
-		floorLayer.layInitialFloorPlan();
+		arenaHeight = 1;
+		floorLayer.configure(arenaWidth); //no more arena height
+		//floorLayer.layInitialFloorPlan();
 		placeFrog();
 		configureMovementScript();
 		configureObstacleSetter();
 		configureFrogController();
-		obstacleSetter.initialObstacleDeplayment();
+		//obstacleSetter.initialObstacleDeplayment();
+		
+		
+		buildNextLevel();
 	}
 	
 	public void updateMaxRowReached (int newMaxRowReached)
 	{
-		while (maxRowReached != newMaxRowReached)
+		if(newMaxRowReached >= newLevelThreshold)
 		{
-			addNewRow();
-			maxRowReached++;
+			buildNextLevel();
 		}
-		score.text = newMaxRowReached.ToString();
-		//TODO update score
+		maxRowReached = newMaxRowReached;
+		score.text = maxRowReached.ToString();
 	}
 	private void configureFrogController()
 	{
@@ -68,12 +73,6 @@ public class GameController : MonoBehaviour {
 		mainCamera.transform.position = frogStartLocation;
 		mainCamera.orthographicSize = (arenaWidth + 1) *0.89f;
 	}
-	private void addNewRow()
-	{
-		++arenaHeight;
-		floorLayer.layNextArenaRow(arenaHeight);
-		obstacleSetter.layNextObstacle(arenaHeight);
-	}
 	
 	public void onFrogDeath()
 	{
@@ -85,5 +84,10 @@ public class GameController : MonoBehaviour {
 		yield return new WaitForSeconds(seconds);
 		Application.LoadLevel(0);
 	}
-
+	public void buildNextLevel()
+	{
+		arenaHeight = obstacleSetter.buildNextLevel();
+		newLevelThreshold = arenaHeight - newLevelBufferRowCount;
+		floorLayer.layLevelFloorAndWalls(arenaHeight);
+	}
 }

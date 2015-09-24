@@ -4,15 +4,24 @@ using System.Collections;
 public class ObstacleSetter : MonoBehaviour {
 	public int arenaHeight;
 	public int arenaWidth;
-	public GameObject lineBlades;
+	//public GameObject lineBlades;
+	public BladeSectionBuilder bladeBuilder;
 	public GameObject processor;
-	private GameObject nextLineBladesObstacle;
-	private Vector3 obstacleSpawnPosition = Vector3.zero;
+	//private GameObject nextLineBladesObstacle;
+	//private Vector3 obstacleSpawnPosition = Vector3.zero;
 	public float processorCycleOffset = 0f;
 	private float processorCycleStage = 0f;
+	public int minBladeSegmentLenght;
+	public int maxBladeSegmentLength;
+	public int minProcessorSegmentLenght;
+	public int maxProcessorSegmentLength;
+	//private int currentArenaHeight;
+	private int newArenaHeight;
+	public int levelLength;
+	public int endOfCurrentLevel;
 	// Use this for initialization
-	void Start () {
-	
+	void Awake () {
+		bladeBuilder = GetComponent<BladeSectionBuilder>();
 	}
 	
 	// Update is called once per frame
@@ -21,50 +30,30 @@ public class ObstacleSetter : MonoBehaviour {
 	{
 		arenaHeight = height;
 		arenaWidth = width+1;
+		//endOfCurrentLevelStage = 0;
+		bladeBuilder.arenaWidth = arenaWidth;
 	}
 	
-	public void initialObstacleDeplayment()
-	{
-		for (int i = 1 ; i<= arenaHeight; i++)
-		{
-# if (UNITY_EDITOR)
-			layTestObstacle(i);
-# else		
-			layNextObstacle(i);
-# endif
-		}
-	}
+//	public void initialObstacleDeplayment()
+//	{
+//# if (UNITY_EDITOR)
+//		for (int i = 1 ; i<= arenaHeight; i++)
+//		{
+//			layTestObstacle(i);
+//		}
+//# else		
+//		buildNextLevelStage(0);
+//# endif
+		
+//	}
 	
-	public void layNextObstacle(int row)
-	{
-		if(Random.Range(1,4) >1)
-		{
-			obstacleSpawnPosition.x = arenaWidth * 0.5f;
-			obstacleSpawnPosition.y = row;
-			nextLineBladesObstacle = Instantiate ( lineBlades, obstacleSpawnPosition, Quaternion.identity) as GameObject;
-			nextLineBladesObstacle.transform.parent = this.gameObject.transform;
-			configureLineBlades(nextLineBladesObstacle);
-		}
-
-	}
-	public void configureLineBlades(GameObject lineBladesObeject)
-	{
-		LineBladesMovement lineBladesScript = lineBladesObeject.GetComponent<LineBladesMovement>();
-		if (Random.Range(0,2) >0)
-		{
-			lineBladesObeject.transform.Rotate(new Vector3(0f,0f,180f));
-		}
-		lineBladesScript.bladeSpeed = Random.Range(1,3);
-		lineBladesScript.gap = Random.Range(3,6);
-		lineBladesScript.setupBlades();
-		lineBladesScript.preWarmFan(Random.Range(1,100));
-
-	}
+	
+	
 	public void layTestObstacle(int row)
 	{
-		layProcessorRow(row);
+		layNextProcessorRow(row);
 	}
-	private void layProcessorRow(int row)
+	private void layNextProcessorRow(int row)
 	{
 		for (int i = 1; i < arenaWidth ; i++)
 		{
@@ -76,9 +65,76 @@ public class ObstacleSetter : MonoBehaviour {
 			newProcessor.transform.parent = this.transform;
 			
 			processorCycleStage = ((processorCycleStage + processorCycleOffset > 1f) ? 0f : processorCycleStage + processorCycleOffset);
-			Debug.Log (processorCycleStage);
+			//Debug.Log (processorCycleStage);
 			newProcessor.GetComponent<ProcessorHeater>().setProcessorState(processorCycleStage);
 		}
 	}
+	public void buildNextLevelSection() //Decide what the next section will be like and build it.
+	{
+		
+		int segmentType = 0;//Random.Range(0,0); //TODO Hardcoded to 0 for test
+		if(segmentType == 0)
+		{
+			selectNewArenaHeight(minBladeSegmentLenght, maxBladeSegmentLength);
+			bladeBuilder.buildBladeSection(arenaHeight+1, newArenaHeight);
+		}
+		else if(segmentType == 1)
+		{
+			selectNewArenaHeight(minProcessorSegmentLenght, maxProcessorSegmentLength);
+			buildProcessorSegment();
+		}
+	}
 	
+	public void buildProcessorSegment()
+	{
+		int processorSegmentVariant = Random.Range(0,3);
+		if(processorSegmentVariant == 0)
+		{
+			buildProcessorSegmentVariant(0.34f);
+		}
+		else if (processorSegmentVariant == 1)
+		{
+			buildProcessorSegmentVariant(0.26f);
+		}
+		else if (processorSegmentVariant == 2)
+		{
+			buildProcessorSegmentVariant(0.20f);
+		}
+		else if (processorSegmentVariant == 3)
+		{
+			buildProcessorSegmentVariant(0.15f);
+		}
+		
+	}
+	public void buildProcessorSegmentVariant(float cycleOffset)
+	{
+		
+		processorCycleOffset = cycleOffset;
+		for (int i = arenaHeight ; i < newArenaHeight ; i++)
+		{
+			layNextProcessorRow(i);
+		}
+	}
+	public void selectNewArenaHeight (int min, int max)
+	{
+		int newLevelLength = Random.Range (min , max);
+		newArenaHeight = arenaHeight + newLevelLength;
+	}
+	public int buildNextLevel()
+	{
+		//this.arenaHeight = currentArenaHeight;
+		//int i =0;
+		while ((arenaHeight <  endOfCurrentLevel + levelLength))// || i == 10)
+		{
+		//	Debug.Log ("here!");
+		buildNextLevelSection();
+		arenaHeight = newArenaHeight;
+		//	i++;
+			Debug.Log (arenaHeight + " expecting > " + endOfCurrentLevel+ " " + levelLength);
+		}
+		endOfCurrentLevel = arenaHeight;
+		//endOfCurrentLevelStage = currentArenaHeight;
+		Debug.Log (arenaHeight);
+		return arenaHeight;
+	}
 }
