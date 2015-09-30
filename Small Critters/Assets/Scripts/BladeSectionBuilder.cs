@@ -16,7 +16,6 @@ public class BladeSectionBuilder : MonoBehaviour {
 	
 	public void buildBladeSection(int fromRow, int toRow)
 	{
-		Debug.Log ("From: " + fromRow + "  " + "To: " + toRow);
 		currentArenaHeight = fromRow;
 		newArenaHeight = toRow;
 		

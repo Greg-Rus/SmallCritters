@@ -24,15 +24,11 @@ public class GameController : MonoBehaviour {
 	private void startGame()
 	{
 		arenaHeight = 1;
-		floorLayer.configure(arenaWidth); //no more arena height
-		//floorLayer.layInitialFloorPlan();
+		floorLayer.configure(arenaWidth);
 		placeFrog();
 		configureMovementScript();
 		configureObstacleSetter();
 		configureFrogController();
-		//obstacleSetter.initialObstacleDeplayment();
-		
-		
 		buildNextLevel();
 	}
 	
@@ -43,6 +39,7 @@ public class GameController : MonoBehaviour {
 			buildNextLevel();
 		}
 		maxRowReached = newMaxRowReached;
+		obstacleSetter.dismantleLevelSectionsBelowRowReached(maxRowReached);
 		score.text = maxRowReached.ToString();
 	}
 	private void configureFrogController()
@@ -77,10 +74,10 @@ public class GameController : MonoBehaviour {
 	public void onFrogDeath()
 	{
 		StartCoroutine(restartLevelAterSeconds(1));
-		
 	}
 	
-	IEnumerator restartLevelAterSeconds(float seconds) {
+	IEnumerator restartLevelAterSeconds(float seconds) 
+	{
 		yield return new WaitForSeconds(seconds);
 		Application.LoadLevel(0);
 	}

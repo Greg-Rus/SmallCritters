@@ -49,6 +49,7 @@
      <Compile Include="Assets\Dungeon Art Pack\AnimateSprite.cs" />
      <Compile Include="Assets\Scripts\BladeSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
+     <Compile Include="Assets\Scripts\ColdFogController.cs" />
      <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
      <Compile Include="Assets\Scripts\FloorPlanLayer.cs" />
      <Compile Include="Assets\Scripts\FrogController.cs" />
@@ -60,9 +61,11 @@
      <Compile Include="Assets\Scripts\JumpLineRenderer.cs" />
      <Compile Include="Assets\Scripts\JumpMarkerSensor.cs" />
      <Compile Include="Assets\Scripts\JumpPathSensor.cs" />
+     <Compile Include="Assets\Scripts\LevelSection.cs" />
      <Compile Include="Assets\Scripts\LineBladesEmitter.cs" />
      <Compile Include="Assets\Scripts\LineBladesMovement.cs" />
      <Compile Include="Assets\Scripts\LineBladesReceiver.cs" />
+     <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\ObstacleSetter.cs" />
      <Compile Include="Assets\Scripts\ProcessorHeater.cs" />
      <Compile Include="Assets\Scripts\ProcessorSectionBuilder.cs" />
@@ -78,6 +81,7 @@
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\ReflectiveBackgroundPlanar.shader" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\EnemySelfIlluminationReflective.shader" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\AngryInclude.cginc" />
+     <None Include="Assets\KY_effects\MagicEffectsPackFree\ReadMe.txt" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleAdditive.shader" />
      <None Include="Assets\Editor\UnityTestTools\changelog.txt" />
      <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\LaserScope.shader" />

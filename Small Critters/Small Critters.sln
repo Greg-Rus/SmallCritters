@@ -5,6 +5,8 @@ Project("{8E9EB368-D3C3-E889-4518-B201EE939F6D}") = "Small Critters", "Assembly-
 EndProject
 Project("{8E9EB368-D3C3-E889-4518-B201EE939F6D}") = "Small Critters", "Assembly-CSharp-Editor.csproj", "{688CDE8F-0F85-E4A0-0D4C-3B7B0091A0CA}"
 EndProject
+Project("{8E9EB368-D3C3-E889-4518-B201EE939F6D}") = "Small Critters", "Assembly-UnityScript.unityproj", "{70380DB6-776D-FF1B-1EA3-79C45F429B45}"
+EndProject
 Project("{8E9EB368-D3C3-E889-4518-B201EE939F6D}") = "Small Critters", "Assembly-UnityScript-Editor.unityproj", "{4A9A69AB-338F-74B0-4E14-36750D7E5552}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{688CDE8F-0F85-E4A0-0D4C-3B7B0091A0CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{688CDE8F-0F85-E4A0-0D4C-3B7B0091A0CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{688CDE8F-0F85-E4A0-0D4C-3B7B0091A0CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70380DB6-776D-FF1B-1EA3-79C45F429B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70380DB6-776D-FF1B-1EA3-79C45F429B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70380DB6-776D-FF1B-1EA3-79C45F429B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70380DB6-776D-FF1B-1EA3-79C45F429B45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4A9A69AB-338F-74B0-4E14-36750D7E5552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A9A69AB-338F-74B0-4E14-36750D7E5552}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A9A69AB-338F-74B0-4E14-36750D7E5552}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																									GlobalSection(MonoDevelopProperties) = preSolution
+																																																																		GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

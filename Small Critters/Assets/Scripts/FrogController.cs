@@ -38,7 +38,8 @@ public class FrogController : MonoBehaviour {
 	{
 		Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
 		Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);
-		Destroy(gameObject);
+		//Destroy(gameObject);
+		gameObject.SetActive(false);
 		myGameController.onFrogDeath();
 	}
 
