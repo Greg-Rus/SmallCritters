@@ -10,22 +10,25 @@ public class ProcessorSectionBuilder : MonoBehaviour {
 	private float processorCycleOffset = 0f;
 	private float processorCycleStage = 0f;
 	public int arenaWidth;
-	private ObjectPool processorPool;
+	private GameObjectPoolManager pools;
 	private GameObject newProcessor;
-	private GameObject[,] deployedProcessors;
+	private GameObject[] processorRow;
+	public ObstacleSetter myObstacleSetter;
+	private LevelRow newLevelRow;
 	
 	// Use this for initialization
-	void Awake () {
-		processorPool = new ObjectPool(processor, 100);
+	public void configure (int newArenaWidth, GameObjectPoolManager newPools, ObstacleSetter mySetter) {
+		arenaWidth = newArenaWidth;
+		pools = newPools;
+		pools.addPool(processor, arenaWidth * 50);
+		myObstacleSetter = mySetter;
 	}
 	
-	
-	public LevelSection buildProcessorSegment(int fromRow, int toRow)
+	public void buildProcessorSegment(int fromRow, int toRow)
 	{
 		processorCycleStage = 0;
 		currentArenaHeight = fromRow;
 		newArenaHeight = toRow;
-		deployedProcessors = new GameObject[arenaWidth -1, (toRow - fromRow)];
 		
 		int processorSegmentVariant = Random.Range(0,4);
 		if(processorSegmentVariant == 0)
@@ -45,8 +48,7 @@ public class ProcessorSectionBuilder : MonoBehaviour {
 			buildProcessorSegmentVariant(0.15f);
 		}
 		//Debug.Log ("Arena Start: " + (fromRow) + "Arena End: " + toRow);
-		LevelSection newSection = new LevelSection(fromRow, toRow, deployedProcessors, processorPool);
-		return newSection;
+		newLevelRow.addHazard(processorRow);
 	}
 	public void buildProcessorSegmentVariant(float cycleOffset)
 	{
@@ -56,22 +58,27 @@ public class ProcessorSectionBuilder : MonoBehaviour {
 		{
 			layNextProcessorRow(i);
 		}
+		myObstacleSetter.addHazardFreeRow(newArenaHeight);
 	}
 	private void layNextProcessorRow(int row)
 	{
+		newLevelRow = myObstacleSetter.getBaseLevelRow(row);
+		processorRow = new GameObject[arenaWidth-1];
 		for (int i = 1; i < arenaWidth ; i++)
 		{
+			
 			processorPosition.x = i;
 			processorPosition.y = row;
 			processorPosition.z = this.transform.position.z;
-			newProcessor = processorPool.retrieveObject();
+			newProcessor = pools.retrieveObject("Processor");
 			newProcessor.transform.position = processorPosition;
-			//GameObject newProcessor = Instantiate(processor, processorPosition, Quaternion.identity) as GameObject;
 			newProcessor.transform.parent = this.transform;
-			deployedProcessors[i - 1,row - currentArenaHeight] = newProcessor; //TODO the calculation of indexes is ugly. Improve it.
+			processorRow[i-1] = newProcessor;
 			processorCycleStage = ((processorCycleStage + processorCycleOffset > 1f) ? 0f : processorCycleStage + processorCycleOffset);
 			newProcessor.GetComponent<ProcessorHeater>().setProcessorState(processorCycleStage);
 		}
+		
+		newLevelRow.addHazard(processorRow);
+		myObstacleSetter.addNewFinishedLevelRow(newLevelRow);
 	}
-	
 }

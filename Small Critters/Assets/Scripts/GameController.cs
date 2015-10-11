@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 	public int arenaHeight;
 	public int arenaWidth;
-	public FloorPlanLayer floorLayer;
+	//public FloorPlanLayer floorLayer;
 	public GameObject frog;
 	public FrogController frogController;
 	public Camera mainCamera;
@@ -24,7 +24,6 @@ public class GameController : MonoBehaviour {
 	private void startGame()
 	{
 		arenaHeight = 1;
-		floorLayer.configure(arenaWidth);
 		placeFrog();
 		configureMovementScript();
 		configureObstacleSetter();
@@ -39,7 +38,7 @@ public class GameController : MonoBehaviour {
 			buildNextLevel();
 		}
 		maxRowReached = newMaxRowReached;
-		obstacleSetter.dismantleLevelSectionsBelowRowReached(maxRowReached);
+		//obstacleSetter.dismantleLevelSectionsBelowRowReached(maxRowReached);
 		score.text = maxRowReached.ToString();
 	}
 	private void configureFrogController()
@@ -56,12 +55,12 @@ public class GameController : MonoBehaviour {
 	
 	public void configureObstacleSetter()
 	{
-		obstacleSetter.configure(arenaWidth, arenaHeight);
+		obstacleSetter.configure(arenaWidth, arenaHeight);//, floorLayer);
 	}
 	
 	private void placeFrog()
 	{
-		Vector3 frogStartLocation = new Vector3((arenaWidth * 0.5f)+floorLayer.basicFloorTile.transform.localScale.x * 0.5f
+		Vector3 frogStartLocation = new Vector3((arenaWidth * 0.5f)+ 0.5f//floorLayer.basicFloorTile.transform.localScale.x * 0.5f
 		                                        ,0f
 		                                        ,0f);
 		                                        
@@ -85,6 +84,6 @@ public class GameController : MonoBehaviour {
 	{
 		arenaHeight = obstacleSetter.buildNextLevel();
 		newLevelThreshold = arenaHeight - newLevelBufferRowCount;
-		floorLayer.layLevelFloorAndWalls(arenaHeight);
+		//floorLayer.layLevelFloorAndWalls(arenaHeight);
 	}
 }

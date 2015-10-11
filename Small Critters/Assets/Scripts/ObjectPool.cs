@@ -19,6 +19,7 @@ public class ObjectPool {
 
 		for (int i = 0; i < quantity; i++) {		
 			GameObject newObject = GameObject.Instantiate(type, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+			newObject.name = type.name;
 			newObject.SetActive(false);
 			inactivePool[i] = newObject;
 		}
@@ -50,9 +51,11 @@ public class ObjectPool {
 		System.Array.Resize<GameObject> (ref inactivePool, quantity + expandAmount);
 		for (int i =quantity; i< quantity+expandAmount; i++) {
 			GameObject newObject = GameObject.Instantiate(type, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+			newObject.name = type.name;
 			newObject.SetActive(false);
 			inactivePool[i] = newObject;
 		}
 		quantity = quantity + expandAmount;
+		Debug.Log("Pool of " + type.name + " expanded to " + quantity);
 	}
 }

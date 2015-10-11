@@ -7,16 +7,17 @@ public class ColdFogController : MonoBehaviour {
 	public GameObject frog;
 	public float baseSpeed;
 	public float speedDivisor;
+	public float nextRow = 0;
+	public float rowDismantleOffset = 5f;
+	public ObstacleSetter myObstacleSetter;
 	
 	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
 		modifySpeedBasedOnDistanceToFrog();
 		moveUp();
+		checkFrozenRows();
 	}
 	void modifySpeedBasedOnDistanceToFrog()
 	{
@@ -35,6 +36,14 @@ public class ColdFogController : MonoBehaviour {
 		if(other.tag == "Player")
 		{
 			other.GetComponent<FrogController>().die();
+		}
+	}
+	void checkFrozenRows()
+	{
+		if(this.transform.position.y - rowDismantleOffset >= nextRow)
+		{
+			myObstacleSetter.dismantleOldestRow();
+			++nextRow;
 		}
 	}
 }
