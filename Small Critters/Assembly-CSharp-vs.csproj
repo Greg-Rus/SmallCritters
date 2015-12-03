@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\LevelBuilding\ObstacleSetter.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorHeater.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorSectionBuilder.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\old\FloorHandler.cs" />

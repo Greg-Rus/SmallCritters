@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ControllingCameraAspectScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\SmallCrittersGeneralTests.cs">
     <Files>
-      <File FileName="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\SampleTests.cs" Line="105" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces.cs" Line="10" Column="1" />
-      <File FileName="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\SmallCrittersGeneralTests.cs" Line="14" Column="32" />
-      <File FileName="Assets\Scripts\ControllingCameraAspectScript.cs" Line="28" Column="4" />
+      <File FileName="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\SmallCrittersGeneralTests.cs" Line="53" Column="107" />
+      <File FileName="Assets\Scripts\Interfaces.cs" Line="20" Column="18" />
+      <File FileName="Assets\Scripts\ControllingCameraAspectScript.cs" Line="13" Column="37" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" Line="4" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

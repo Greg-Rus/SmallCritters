@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ControllingCameraAspectScript : MonoBehaviour
 {
-	
+	//TODO Test if this thig even works. Try nonstandard resolutions perhaps?
 	// Use this for initialization
 	void Start()
 	{

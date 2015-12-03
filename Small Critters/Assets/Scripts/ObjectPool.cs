@@ -10,17 +10,20 @@ public class ObjectPool {
 	private int nextInactiveObject;
 	private int expandAmount;
 	private GameObject topInactiveObj;
+	//private Transform parentForObjects;
 
-	public ObjectPool(GameObject objectType, int number, int expand = 50){
+	public ObjectPool(GameObject objectType, int number, int expand = 50, Transform parentForObjects = null){
 		type = objectType;
 		quantity = number;
 		expandAmount = expand;
 		inactivePool = new GameObject[quantity];
+		//this.parentForObjects = parentForObjects;
 
 		for (int i = 0; i < quantity; i++) {		
 			GameObject newObject = GameObject.Instantiate(type, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			newObject.name = type.name;
 			newObject.SetActive(false);
+			newObject.transform.parent = parentForObjects;
 			inactivePool[i] = newObject;
 		}
 		nextInactiveObject = 0;

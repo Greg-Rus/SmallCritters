@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 public class GameObjectPoolManager{
 	private Dictionary<string,ObjectPool> pools;
+	private Transform parentForObjects;
 	
-	public GameObjectPoolManager()
+	public GameObjectPoolManager(Transform parentForObjects = null)
 	{
 		pools = new Dictionary<string, ObjectPool>();
+		this.parentForObjects = parentForObjects;
 	}
 	
 	public ObjectPool addPool(GameObject objectType, int number, int expand = 50)
@@ -14,7 +16,7 @@ public class GameObjectPoolManager{
 		
 		if(!pools.ContainsKey(objectType.name))
 		{
-			ObjectPool newPool = new ObjectPool(objectType, number, expand);
+			ObjectPool newPool = new ObjectPool(objectType, number, expand, parentForObjects);
 			pools.Add(objectType.name,newPool);
 			return newPool;
 		}
