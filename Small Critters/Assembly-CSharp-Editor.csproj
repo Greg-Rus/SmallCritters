@@ -93,6 +93,8 @@
      <Compile Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\CustomComponent.cs" />
      <Compile Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\DynamicIntegrationTest.cs" />
      <Compile Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\ThrowCustomException.cs" />
+     <Compile Include="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\LevelConstructionTests.cs" />
+     <Compile Include="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\MockClasses.cs" />
      <Compile Include="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\SampleTests.cs" />
      <Compile Include="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\SmallCrittersGeneralTests.cs" />
      <Compile Include="Assets\Editor\UnityTestTools\IntegrationTestsFramework\TestRunner\DTOFormatter.cs" />

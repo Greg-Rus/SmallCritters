@@ -12,19 +12,18 @@ public class SectionDesigner: ISectionDesigning
 
 	public int levelTop = 0;
 	
-	public SectionDesigner(ISectionBuilderSelection sectionBuilderSelector/*, ISectionBuilderConfiguration sectionBuilderConfigurator*/, LevelData levelData)
+	public SectionDesigner(ISectionBuilderSelection sectionBuilderSelector, LevelData levelData)
 	{
 		this.sectionBuilderSelector = sectionBuilderSelector;
-		//this.sectionBuilderConfigurator = sectionBuilderConfigurator;
 		this.levelData = levelData;
-		levelData.activeSectionBuilder = sectionBuilderSelector.selectNewSectionBuilder();
+		sectionBuilderSelector.selectNewSectionBuilder();
 	}
 	
 	public List<GameObject> buildNewRow(List<GameObject> row)
 	{
-		if(levelData.activeSectionBuilder.toRow == levelTop)
+		if(levelData.newSectionEnd == levelTop)
 		{
-			levelData.activeSectionBuilder = sectionBuilderSelector.selectNewSectionBuilder();
+			sectionBuilderSelector.selectNewSectionBuilder();
 		}
 		levelData.levelTop+=1;
 		return levelData.activeSectionBuilder.buildNewRow(row);

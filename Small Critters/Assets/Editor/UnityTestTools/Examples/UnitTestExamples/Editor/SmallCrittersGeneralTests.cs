@@ -17,7 +17,7 @@ namespace UnityTest
 		LevelHandler testLevelHandler;
 		SectionDesigner testSectionDesigner;
 		GameObject dummyObject = new GameObject();
-		LevelData testLevelData= new LevelData();
+		LevelData testLevelData;
 		//mockSectionDesigner mSectionBuilderHndl;
 		
 		[SetUp] public void Init()
@@ -27,6 +27,7 @@ namespace UnityTest
 			blade = Resources.Load("Blade") as GameObject;
 			poolManager.addPool(blade, 100);
 			mockGameData = new MockGameData();
+			testLevelData= new LevelData();
 			
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
@@ -61,23 +62,44 @@ namespace UnityTest
 		[Test]
 		public void SectionDesignerCreation()
 		{
-			testSectionDesigner = new SectionDesigner( new mockSectionBuilderSelector(new mockSectionBuilderConfigurator()), testLevelData);
+			testSectionDesigner = new SectionDesigner( new mockSectionBuilderSelector(new mockSectionBuilderConfigurator(), testLevelData), testLevelData);
 			Assert.IsNotNull(testSectionDesigner);
 			Assert.IsNotNull(testLevelData.activeSectionBuilder);
-			Assert.True(testLevelData.activeSectionBuilder.toRow == 0);
+			Assert.True(testLevelData.newSectionEnd == 0);
 		}
 		
 		[Test]
 		public void SectionDesignerNewRowTest()
 		{
 			List<GameObject> testRow = new List<GameObject>();
+			testLevelData.activeSectionBuilder = new mockSectionBuilder();
+			Assert.IsNotNull(testLevelData.activeSectionBuilder);
+			testSectionDesigner = new SectionDesigner( new mockSectionBuilderSelector(new mockSectionBuilderConfigurator(), testLevelData), testLevelData);
 			testSectionDesigner.buildNewRow(testRow);
-			Assert.IsNotNull(testRow);
+			Assert.IsNotNull(testLevelData.activeSectionBuilder);
 			Assert.True(testLevelData.levelTop == 1);
-			//test
 		}
 		
+		[Test]
+		public void SectionBuilderSelectorTest()
+		{
+			SectionBuilderSelector testSectionBuilderSelector = new SectionBuilderSelector(new mockSectionBuilderConfigurator(), testLevelData);
+			Assert.True(testLevelData.activeSectionBuilder == null);
+			testSectionBuilderSelector.addSectionBuilder(new mockSectionBuilder());
+			testSectionBuilderSelector.selectNewSectionBuilder();
+			Assert.True(testLevelData.activeSectionBuilder.type == sectionBuilderType.blade);
+		}
 		
+		[Test]
+		public void SectionBuilderConfiguratorTest()
+		{
+			testLevelData.activeSectionBuilder = new mockSectionBuilder();
+			SectionBuilderConfigurator testSBConfigurator = new SectionBuilderConfigurator(testLevelData);
+			Assert.True(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
+
+			testSBConfigurator.configureSectionBuilder();
+			Assert.False(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
+		}
 		
 		
 		
@@ -89,60 +111,4 @@ namespace UnityTest
 		
 	}
 	
-	internal class MockGameData: IGameData
-	{
-		public int getLevelWidth()
-		{
-			return 7;
-		}
-		public int getLevelLeght()
-		{
-			return 50;
-		}
-	}
-	
-	internal class mockSectionDesigner: ISectionDesigning
-	{
-		
-		public List<GameObject> buildNewRow(List<GameObject> row)
-		{
-			return row;
-		}
-	}
-	
-	internal class mockSectionBuilderConfigurator: ISectionBuilderConfiguration
-	{
-		
-	}
-	
-	internal class mockSectionBuilderSelector: ISectionBuilderSelection
-	{
-		ISectionBuilderConfiguration mockSBConfigurator;
-		public mockSectionBuilderSelector(ISectionBuilderConfiguration mSBC)
-		{
-			mockSBConfigurator = mSBC;
-		}
-		
-		public ISectionBuilder selectNewSectionBuilder()
-		{
-			return new mockSectionBuilder();
-		}
-	}
-	
-	internal class mockSectionBuilder: ISectionBuilder
-	{
-		public int fromRow {get;set;}
-		public int toRow {get;set;}
-		
-		public mockSectionBuilder()
-		{
-			fromRow = 0;
-			toRow = 0;
-		}
-		
-		public List<GameObject> buildNewRow(List<GameObject> row)
-		{
-			return row;
-		}
-	}
 }

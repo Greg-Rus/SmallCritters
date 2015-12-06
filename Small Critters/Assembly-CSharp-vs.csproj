@@ -70,6 +70,8 @@
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />

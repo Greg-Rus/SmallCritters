@@ -22,19 +22,17 @@ public interface ISectionDesigning
 
 public interface ISectionBuilderSelection
 {
-	ISectionBuilder selectNewSectionBuilder();
+	void selectNewSectionBuilder();
+	void addSectionBuilder (ISectionBuilder sectionBuilder);
 }
 
 public interface ISectionBuilderConfiguration
 {
-	
+	void configureSectionBuilder();
 }
 
 public interface ISectionBuilder
 {
 	List<GameObject> buildNewRow(List<GameObject> row);
-	int fromRow {get;set;}
-	int toRow {get;set;}
-	
-	
+	sectionBuilderType type {get;set;}
 }
