@@ -15,12 +15,26 @@ public interface IGameData
 	int getLevelLeght();
 }
 
-public interface ISectionBuilderHandling
+public interface ISectionDesigning
 {
 	List<GameObject> buildNewRow(List<GameObject> row);
 }
 
-public interface ISectionLenghtHandling
+public interface ISectionBuilderSelection
 {
+	ISectionBuilder selectNewSectionBuilder();
+}
+
+public interface ISectionBuilderConfiguration
+{
+	
+}
+
+public interface ISectionBuilder
+{
+	List<GameObject> buildNewRow(List<GameObject> row);
+	int fromRow {get;set;}
+	int toRow {get;set;}
+	
 	
 }

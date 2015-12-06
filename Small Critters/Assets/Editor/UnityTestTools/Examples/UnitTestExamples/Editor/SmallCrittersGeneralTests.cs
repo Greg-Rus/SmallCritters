@@ -15,7 +15,10 @@ namespace UnityTest
 		GameObject blade;
 		MockGameData mockGameData;
 		LevelHandler testLevelHandler;
-		mockSectionBuilderHndl mSectionBuilderHndl;
+		SectionDesigner testSectionDesigner;
+		GameObject dummyObject = new GameObject();
+		LevelData testLevelData= new LevelData();
+		//mockSectionDesigner mSectionBuilderHndl;
 		
 		[SetUp] public void Init()
 		{
@@ -24,6 +27,7 @@ namespace UnityTest
 			blade = Resources.Load("Blade") as GameObject;
 			poolManager.addPool(blade, 100);
 			mockGameData = new MockGameData();
+			
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
 	
@@ -36,14 +40,13 @@ namespace UnityTest
 		[Test]
 		public void LevelBuilderCreation()
 		{
-			testLevelHandler = new LevelHandler(mockGameData, new mockSectionBuilderHndl(), new mockSectionLenghtHndl());
+			testLevelHandler = new LevelHandler(mockGameData, new mockSectionDesigner());
 			Assert.IsNotNull(testLevelHandler);
 		}
 		
 		[Test]
 		public void NewRowFromLevelBuilder()
 		{
-			GameObject dummyObject = new GameObject();
 			List<GameObject> End = testLevelHandler.level.Peek();
 			End.Add(dummyObject);
 			
@@ -51,9 +54,28 @@ namespace UnityTest
 			
 			Assert.False (testLevelHandler.level.Peek().Contains(dummyObject));
 			Assert.True (testLevelHandler.level.ToArray()[testLevelHandler.level.Count - 1].Contains(dummyObject)); 
+			
+			
 		}
 		
+		[Test]
+		public void SectionDesignerCreation()
+		{
+			testSectionDesigner = new SectionDesigner( new mockSectionBuilderSelector(new mockSectionBuilderConfigurator()), testLevelData);
+			Assert.IsNotNull(testSectionDesigner);
+			Assert.IsNotNull(testLevelData.activeSectionBuilder);
+			Assert.True(testLevelData.activeSectionBuilder.toRow == 0);
+		}
 		
+		[Test]
+		public void SectionDesignerNewRowTest()
+		{
+			List<GameObject> testRow = new List<GameObject>();
+			testSectionDesigner.buildNewRow(testRow);
+			Assert.IsNotNull(testRow);
+			Assert.True(testLevelData.levelTop == 1);
+			//test
+		}
 		
 		
 		
@@ -62,6 +84,7 @@ namespace UnityTest
 		[TearDown] public void Dispose()
 		{
 			GameObject.DestroyImmediate(poolParent);
+			GameObject.DestroyImmediate(dummyObject);
 		}
 		
 	}
@@ -78,7 +101,7 @@ namespace UnityTest
 		}
 	}
 	
-	internal class mockSectionBuilderHndl: ISectionBuilderHandling
+	internal class mockSectionDesigner: ISectionDesigning
 	{
 		
 		public List<GameObject> buildNewRow(List<GameObject> row)
@@ -87,8 +110,39 @@ namespace UnityTest
 		}
 	}
 	
-	internal class mockSectionLenghtHndl: ISectionLenghtHandling
+	internal class mockSectionBuilderConfigurator: ISectionBuilderConfiguration
 	{
 		
+	}
+	
+	internal class mockSectionBuilderSelector: ISectionBuilderSelection
+	{
+		ISectionBuilderConfiguration mockSBConfigurator;
+		public mockSectionBuilderSelector(ISectionBuilderConfiguration mSBC)
+		{
+			mockSBConfigurator = mSBC;
+		}
+		
+		public ISectionBuilder selectNewSectionBuilder()
+		{
+			return new mockSectionBuilder();
+		}
+	}
+	
+	internal class mockSectionBuilder: ISectionBuilder
+	{
+		public int fromRow {get;set;}
+		public int toRow {get;set;}
+		
+		public mockSectionBuilder()
+		{
+			fromRow = 0;
+			toRow = 0;
+		}
+		
+		public List<GameObject> buildNewRow(List<GameObject> row)
+		{
+			return row;
+		}
 	}
 }

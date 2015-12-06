@@ -6,39 +6,24 @@ public class LevelHandler {
 
 	public Queue<List<GameObject>> level;
 	IGameData gameData;
-	ISectionBuilderHandling sectionBuilderHandler;
-	ISectionLenghtHandling sectionLenghtHandler;
+	ISectionDesigning sectionDesigner;
 	
-	public LevelHandler(IGameData gameData, ISectionBuilderHandling sectionBuilderHandler, ISectionLenghtHandling sectionLenghtHandler)
+	public LevelHandler(IGameData gameData, ISectionDesigning sectionDesigner)
 	{
 		this.gameData = gameData;
+		this.sectionDesigner = sectionDesigner;
 		
 		level = new Queue<List<GameObject>>();
 		for(int i =0; i< gameData.getLevelLeght(); ++i)
 		{
 			level.Enqueue(new List<GameObject>());
 		}
-		
-		this.sectionBuilderHandler = sectionBuilderHandler;
-		this.sectionLenghtHandler = sectionLenghtHandler;
 	}
 	
 	public void buildNewRow() //TODO subscribe this to an event triggered by the fog
 	{
 		List<GameObject> row = level.Dequeue();
-		level.Enqueue(sectionBuilderHandler.buildNewRow(row));
+		level.Enqueue(sectionDesigner.buildNewRow(row));
 	}
 }
 
-public class SectionBuildersHandler: ISectionBuilderHandling
-{
-	public List<GameObject> buildNewRow(List<GameObject> row)
-	{
-		return row;
-	}
-}
-
-public class SectionLenghtHandler
-{
-	
-}
