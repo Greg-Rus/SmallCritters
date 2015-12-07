@@ -21,9 +21,9 @@ namespace UnityTest
 	public class mockSectionDesigner: ISectionDesigning
 	{
 		
-		public List<GameObject> buildNewRow(List<GameObject> row)
+		public void buildNewRow(List<GameObject> row)
 		{
-			return row;
+			
 		}
 	}
 	
@@ -66,9 +66,9 @@ namespace UnityTest
 			type = sectionBuilderType.blade;
 		}
 		
-		public List<GameObject> buildNewRow(List<GameObject> row)
+		public void buildNewRow(List<GameObject> row)
 		{
-			return row;
+		
 		}
 	}
 	
@@ -86,10 +86,9 @@ namespace UnityTest
 			poolManager.addPool(blade, 100);
 		}
 		
-		public List<GameObject> buildNewRow(List<GameObject> row)
+		public void buildNewRow(List<GameObject> row)
 		{
 			row.Add(poolManager.retrieveObject("Blade"));
-			return row;
 		}
 	}
 	
@@ -107,10 +106,9 @@ namespace UnityTest
 			poolManager.addPool(processor, 100);
 		}
 		
-		public List<GameObject> buildNewRow(List<GameObject> row)
+		public void buildNewRow(List<GameObject> row)
 		{
 			row.Add(poolManager.retrieveObject("Processor"));
-			return row;
 		}
 	}
 }

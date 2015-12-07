@@ -23,7 +23,9 @@ public class LevelHandler {
 	public void buildNewRow() //TODO subscribe this to an event triggered by the fog
 	{
 		List<GameObject> row = level.Dequeue();
-		level.Enqueue(sectionDesigner.buildNewRow(row));
+		//TODO dismantleOldRow(row);
+		sectionDesigner.buildNewRow(row);
+		level.Enqueue(row);
 	}
 }
 

@@ -19,13 +19,13 @@ public class SectionDesigner: ISectionDesigning
 		sectionBuilderSelector.selectNewSectionBuilder();
 	}
 	
-	public List<GameObject> buildNewRow(List<GameObject> row)
+	public void buildNewRow(List<GameObject> row)
 	{
 		if(levelData.newSectionEnd == levelTop)
 		{
 			sectionBuilderSelector.selectNewSectionBuilder();
 		}
 		levelData.levelTop+=1;
-		return levelData.activeSectionBuilder.buildNewRow(row);
+		levelData.activeSectionBuilder.buildNewRow(row);
 	}
 }

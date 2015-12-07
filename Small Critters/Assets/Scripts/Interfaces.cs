@@ -17,7 +17,7 @@ public interface IGameData
 
 public interface ISectionDesigning
 {
-	List<GameObject> buildNewRow(List<GameObject> row);
+	void buildNewRow(List<GameObject> row);
 }
 
 public interface ISectionBuilderSelection
@@ -33,6 +33,6 @@ public interface ISectionBuilderConfiguration
 
 public interface ISectionBuilder
 {
-	List<GameObject> buildNewRow(List<GameObject> row);
+	void buildNewRow(List<GameObject> row);
 	sectionBuilderType type {get;set;}
 }
