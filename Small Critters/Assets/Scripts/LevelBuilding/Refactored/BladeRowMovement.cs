@@ -14,10 +14,10 @@ public class BladeRowMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.y >= moveCycleEndPoint.y)
-		//TODO so... Hello my future self. Gonna take a break to play BF with Tomek. Anyway the thing is that I need to start the row movement from 0 or level width and then make a
-		//proper bound excess check. Looks like the cycle points are correct but you might want to take a look at them. I'm a bit tired now so I'm gonna go. Altogether quite a decent
-		//peace of work did here today :)
+		//if((moveCycleEndPoint - transform.position).magnitude <= 0.1f)
+		//if(transform.position.x <= moveCycleEndPoint.y + 0.01f || transform.position.x <= moveCycleEndPoint.y - 0.01f)
+		if(direction > 0 && transform.position.x >= moveCycleEndPoint.x ||
+		   direction < 0 && transform.position.x <= moveCycleEndPoint.x)
 		{
 			transform.position = moveCycleStartPoint;
 		}
