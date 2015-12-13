@@ -71,6 +71,8 @@
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\BladeRowMovement.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" />
@@ -79,6 +81,7 @@
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\TestLevelBuilding.cs" />
      <Compile Include="Assets\Scripts\TestSectionBuilderBlades.cs" />
+     <Compile Include="Assets\Scripts\TestSectionBuilderProcessors.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\old\FloorHandler.cs" />
      <Compile Include="Assets\Scripts\old\FloorPlanLayer.cs" />

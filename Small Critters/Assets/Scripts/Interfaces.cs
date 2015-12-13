@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
+
 public interface Imovement {
 
 	void makeMove(Vector3 direction);

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ProcessorHeater : MonoBehaviour {
-	public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
+	
 	SpriteRenderer mySpriteRenderer;
 	public float heatUpTime;
 	public float coolDownTime;
