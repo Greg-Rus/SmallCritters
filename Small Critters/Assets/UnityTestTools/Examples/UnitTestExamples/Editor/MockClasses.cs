@@ -6,18 +6,6 @@ using UnityEngine;
 
 namespace UnityTest
 {
-	public class MockGameData: IGameData
-	{
-		public int getLevelWidth()
-		{
-			return 7;
-		}
-		public int getLevelLeght()
-		{
-			return 50;
-		}
-	}
-	
 	public class mockSectionDesigner: ISectionDesigning
 	{
 		

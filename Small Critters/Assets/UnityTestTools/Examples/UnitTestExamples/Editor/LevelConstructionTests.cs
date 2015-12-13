@@ -13,7 +13,6 @@ namespace UnityTest
 		GameObject poolParent;
 		GameObjectPoolManager poolManager;
 		//GameObject blade;
-		MockGameData mockGameData;
 		//SectionDesigner testSectionDesigner;
 		//GameObject dummyObject = new GameObject();
 		LevelData testLevelData;
@@ -25,7 +24,6 @@ namespace UnityTest
 			poolManager = new GameObjectPoolManager(poolParent.transform);
 			//blade = Resources.Load("Blade") as GameObject;
 			//poolManager.addPool(blade, 100);
-			mockGameData = new MockGameData();
 			testLevelData= new LevelData();
 			//Debug.Log(testLevelData);
 		}
@@ -69,7 +67,7 @@ namespace UnityTest
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderBlades(poolManager));
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderProcessors(poolManager));
 			ISectionDesigning testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, testLevelData) as ISectionDesigning;
-			LevelHandler testLevelHandler = new LevelHandler(mockGameData, testSectionDesigner);
+			LevelHandler testLevelHandler = new LevelHandler(testLevelData, testSectionDesigner);
 			Assert.IsNotNull(testLevelHandler);
 			Assert.IsNotNull(testLevelData.activeSectionBuilder);
 			Assert.False(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
@@ -89,7 +87,6 @@ namespace UnityTest
 	{
 		GameObject poolParent;
 		GameObjectPoolManager poolManager;
-		MockGameData mockGameData;
 		LevelData testLevelData;
 		LevelHandler testLevelHandler;
 		
@@ -97,14 +94,13 @@ namespace UnityTest
 		{
 			poolParent = new GameObject(); //.Instantiate(poolParent, Vector3.zero, Quaternion.identity) as GameObject;
 			poolManager = new GameObjectPoolManager(poolParent.transform);
-			mockGameData = new MockGameData();
 			testLevelData= new LevelData();
 			ISectionBuilderConfiguration testSectionBuilderConfigurator = new SectionBuilderConfigurator(testLevelData) as ISectionBuilderConfiguration;
 			ISectionBuilderSelection testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, testLevelData) as ISectionBuilderSelection;
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderBlades(poolManager));
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderProcessors(poolManager));
 			ISectionDesigning testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, testLevelData) as ISectionDesigning;
-			testLevelHandler = new LevelHandler(mockGameData, testSectionDesigner);
+			testLevelHandler = new LevelHandler(testLevelData, testSectionDesigner);
 		}
 		
 		[Test]

@@ -13,7 +13,6 @@ namespace UnityTest
 		GameObject poolParent;
 		GameObjectPoolManager poolManager;
 		GameObject blade;
-		MockGameData mockGameData;
 		LevelHandler testLevelHandler;
 		SectionDesigner testSectionDesigner;
 		GameObject dummyObject = new GameObject();
@@ -26,7 +25,6 @@ namespace UnityTest
 			poolManager = new GameObjectPoolManager(poolParent.transform);
 			blade = Resources.Load("Blade") as GameObject;
 			poolManager.addPool(blade, 100);
-			mockGameData = new MockGameData();
 			testLevelData= new LevelData();
 			
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
@@ -41,7 +39,7 @@ namespace UnityTest
 		[Test]
 		public void LevelBuilderCreation()
 		{
-			testLevelHandler = new LevelHandler(mockGameData, new mockSectionDesigner());
+			testLevelHandler = new LevelHandler(testLevelData, new mockSectionDesigner());
 			Assert.IsNotNull(testLevelHandler);
 		}
 		

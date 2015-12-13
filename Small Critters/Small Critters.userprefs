@@ -1,17 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TestLevelBuilding.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" Line="50" Column="42" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" Line="12" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" Line="32" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" Line="63" Column="23" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\BladeRowMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\UnityTestTools\Examples\UnitTestExamples\Editor\SmallCrittersGeneralTests.cs" Line="4" Column="1" />
-      <File FileName="Assets\Scripts\TestSectionBuilderBlades.cs" Line="5" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces.cs" Line="11" Column="1" />
+      <File FileName="Assets\UnityTestTools\Examples\UnitTestExamples\Editor\SmallCrittersGeneralTests.cs" Line="113" Column="1" />
+      <File FileName="Assets\Scripts\TestLevelBuilding.cs" Line="27" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

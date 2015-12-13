@@ -9,12 +9,6 @@ public interface Imovement {
 	void rotateToDirection(Vector3 direction);
 }
 
-public interface IGameData
-{
-	int getLevelWidth();
-	int getLevelLeght();
-}
-
 public interface ISectionDesigning
 {
 	void buildNewRow(List<GameObject> row);

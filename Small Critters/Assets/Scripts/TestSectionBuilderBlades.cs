@@ -16,8 +16,13 @@ public class TestSectionBuilderBlades : MonoBehaviour {
 		levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
 		testBuilder = new SectionBuilderBlades (levelData, poolManager);
-		testBuilder.buildNewRow(testRow);
-		testBladeRow = testRow[0];
+		
+		
+		for (int i = 0 ; i < 50 ; ++i)
+		{
+			levelData.levelTop+=1;
+			testBuilder.buildNewRow(testRow);
+		}
 		
 	}
 	

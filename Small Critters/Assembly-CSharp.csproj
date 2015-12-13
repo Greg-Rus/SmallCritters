@@ -73,9 +73,11 @@
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" />
      <Compile Include="Assets\Scripts\ObjectPool.cs" />
+     <Compile Include="Assets\Scripts\TestLevelBuilding.cs" />
      <Compile Include="Assets\Scripts\TestSectionBuilderBlades.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\old\FloorHandler.cs" />

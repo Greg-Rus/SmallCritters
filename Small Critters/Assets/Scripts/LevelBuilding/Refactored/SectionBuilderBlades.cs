@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SectionBuilderBlades: ISectionBuilder {
-
+	
 	public sectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
@@ -23,26 +23,29 @@ public class SectionBuilderBlades: ISectionBuilder {
 		
 		poolManager.addPool(blade, 100);
 		poolManager.addPool(bladeRow, 30);
-	
+		
 		bladeLength = blade.GetComponent<BoxCollider2D>().size.x;
+		//TODO 25% should be empty rows?
 	}
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-
-		
+		if(!shouldBeEmptyRow())
+		{
+			buildNewBladeRow(row);
+		}
+	}
+	
+	private void buildNewBladeRow(List<GameObject> row)
+	{
 		float bladeGap = Random.Range(2,5) + bladeLength;
-		Debug.Log (bladeGap);
 		float direction = Random.Range(0,2) == 1 ? 1f : -1f;
-		//Debug.Log (direction);
-		float speed = Random.Range (1,4);
+		float speed = Random.Range (1f,4f);
 		int numberOfBlades = (int)(levelData.levelWidth / (bladeLength + bladeGap)) + 2;
-		//if(numberOfBlades < 4) numberOfBlades = 4;
 		
 		GameObject newBladeRow = poolManager.retrieveObject("BladeRow");
 		row.Add (newBladeRow);
 		newBladeRow.transform.position = new Vector3(levelData.levelWidth * 0.5f, (float)levelData.levelTop + 1, 0f);
-	
 		
 		for(int i = 0 ; i<numberOfBlades ; ++i)
 		{
@@ -56,11 +59,17 @@ public class SectionBuilderBlades: ISectionBuilder {
 			{
 				newBladePosition = new Vector3(levelData.levelWidth - bladeGap * i,(float)levelData.levelTop + 1, 0f);
 			}
-			
 			newBlade.transform.position = newBladePosition;
 			newBlade.transform.parent = newBladeRow.transform;
 			newBladeRow.GetComponent<BladeRowMovement>().configure(speed, direction, bladeGap);
 			row.Add (newBlade);
 		}
+	}
+	
+	private bool shouldBeEmptyRow()
+	{
+		//TODO decide based on current difficulty (levelTop) 
+		bool isEmpty = (Random.Range(1,5)) == 4 ? true : false;
+		return isEmpty;
 	}
 }

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 public class LevelHandler {
 
 	public Queue<List<GameObject>> level;
-	IGameData gameData;
+	LevelData levelData;
 	ISectionDesigning sectionDesigner;
 	
-	public LevelHandler(IGameData gameData, ISectionDesigning sectionDesigner)
+	public LevelHandler(LevelData levelData, ISectionDesigning sectionDesigner)
 	{
-		this.gameData = gameData;
+		this.levelData = levelData;
 		this.sectionDesigner = sectionDesigner;
 		
 		level = new Queue<List<GameObject>>();
-		for(int i =0; i< gameData.getLevelLeght(); ++i)
+		for(int i =0; i< levelData.levelLength; ++i)
 		{
 			level.Enqueue(new List<GameObject>());
 		}
