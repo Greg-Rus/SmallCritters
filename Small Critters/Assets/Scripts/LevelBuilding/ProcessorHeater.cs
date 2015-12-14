@@ -56,8 +56,6 @@ public class ProcessorHeater : MonoBehaviour {
 	}
 	private void heatUp()
 	{
-		//float remainingHeatUpTime = expireTime - Time.timeSinceLevelLoad;
-		//float heatUpTimeElapsed = heatUpTime - remainingHeatUpTime;
 		float heatUpPercent = timerProgressPercent(heatUpTime);
 		colorProcessorSprite(Color.white, maxHeatupColor, heatUpPercent);
 		if(heatUpPercent >= 0.95)
