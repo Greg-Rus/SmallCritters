@@ -32,3 +32,7 @@ public interface ISectionBuilder
 	void buildNewRow(List<GameObject> row);
 	sectionBuilderType type {get;set;}
 }
+public interface IProcessorFSM
+{
+	void updateHeatupPhase(ProcessorManager processor);
+}

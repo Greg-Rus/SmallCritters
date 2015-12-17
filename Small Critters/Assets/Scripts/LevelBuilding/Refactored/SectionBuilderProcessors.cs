@@ -19,6 +19,7 @@ public class SectionBuilderProcessors : ISectionBuilder {
 		type = sectionBuilderType.processor;
 		GameObject processor = Resources.Load("Processor") as GameObject;
 		GameObject processorGroup = Resources.Load("ProcessorGroup") as GameObject;
+		processorGroup.GetComponent<ProcessorGroupController> ().processorStateMachine = new ProcessorFSM (); //strong coupupling here. Used some DI container.
 		poolManager.addPool(processor, 200);
 		poolManager.addPool(processorGroup, 20);
 	}
