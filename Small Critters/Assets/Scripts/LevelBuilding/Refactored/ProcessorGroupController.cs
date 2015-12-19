@@ -34,6 +34,18 @@ public class ProcessorGroupController : MonoBehaviour {
 	private void processorGroupInitialSetup(int patternVariant)
 	{
 		Debug.Log ("Initial Setup for pattern number " + patternVariant);
+
+		if (patternVariant == 1)
+		{
+			//float cycleOffset = processorStateMachin
+			for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
+			{
+				for(int j = 0 ; i < processorGroup.GetLength(1) ;++i)
+				{
+					processorStateMachine.setCycleCompletion(processorGroup[i,j],0f);
+				}
+			}
+		}
 	}
 	
 	private void repartentProcessors()

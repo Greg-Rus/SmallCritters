@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
 
 public interface Imovement {
-
+	
 	void makeMove(Vector3 direction);
 	void configure(GameController controller);
 	void rotateToDirection(Vector3 direction);
@@ -34,5 +34,7 @@ public interface ISectionBuilder
 }
 public interface IProcessorFSM
 {
+	void changeStateTimer(ProcessorState state, float time);
 	void updateHeatupPhase(ProcessorManager processor);
+	void setCycleCompletion(ProcessorManager processor, float cyclePercent);
 }

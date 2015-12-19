@@ -135,4 +135,56 @@ namespace UnityTest
 			GameObject.DestroyImmediate(poolParent);
 		}
 	}
+
+	internal class ProcessorObstacleTests
+	{
+		IProcessorFSM testProcessorFSM;
+		GameObject testProcessor;
+		ProcessorManager testProcessorManager;
+		
+		[SetUp] public void Init()
+		{
+			testProcessorFSM = new ProcessorFSM ();
+			testProcessor = Resources.Load ("Processor") as GameObject;
+			testProcessorManager = testProcessor.GetComponent<ProcessorManager> ();
+		}
+		
+		[Test]
+		public void processorCycleSetting20()
+		{
+			Assert.NotNull (testProcessorManager);
+			float time = Time.timeSinceLevelLoad;
+			testProcessorFSM.setCycleCompletion (testProcessorManager,0.2f);
+			Assert.True (testProcessorManager.state == ProcessorState.Cool);
+			//Assert.True (testProcessorManager.stateExitTime == (time + 0.2f));
+			Assert.True(float.Equals (Math.Round( (decimal)testProcessorManager.stateExitTime, 1), Math.Round((decimal)(time + 0.2f),1)));
+		}
+
+		[Test]
+		public void processorCycleSetting50()
+		{
+			float time = Time.timeSinceLevelLoad;
+			testProcessorFSM.setCycleCompletion (testProcessorManager,0.5f);
+			Debug.Log (testProcessorManager.stateExitTime);
+			Debug.Log (testProcessorManager.state);
+			Assert.True (testProcessorManager.state == ProcessorState.HeatingUp);
+			Assert.True(float.Equals (Math.Round( (decimal)testProcessorManager.stateExitTime, 1), Math.Round((decimal)(time + 0.0f),1)));
+		}
+
+		[Test]
+		public void processorCycleSettingHalfTimeOfHotState()
+		{
+			float time = Time.timeSinceLevelLoad;
+			testProcessorFSM.setCycleCompletion (testProcessorManager,0.625f);
+			Debug.Log (testProcessorManager.stateExitTime);
+			Debug.Log (testProcessorManager.state);
+			Assert.True (testProcessorManager.state == ProcessorState.Hot);
+			Assert.True(float.Equals (Math.Round( (decimal)testProcessorManager.stateExitTime, 1), Math.Round((decimal)(time + 0.5f),1)));
+		}
+		
+		[TearDown] public void Dispose()
+		{
+			//GameObject.DestroyImmediate(testProcessor);
+		}
+	}
 }

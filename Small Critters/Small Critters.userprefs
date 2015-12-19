@@ -1,17 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\ProcessorHeater.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="12" Column="5" />
+      <File FileName="Assets\UnityTestTools\Examples\UnitTestExamples\Editor\LevelConstructionTests.cs" Line="179" Column="51" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="45" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\ProcessorHeater.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\ProcessorSectionBuilder.cs" Line="49" Column="4" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="57" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces.cs" Line="34" Column="2" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" Line="10" Column="41" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" Line="165" Column="6" />
       <File FileName="Assets\Scripts\TestSectionBuilderProcessors.cs" Line="21" Column="66" />
-      <File FileName="Assets\Scripts\ServiceLocator.cs" Line="28" Column="86" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
