@@ -22,12 +22,12 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 	
 	private void bladeConfig()
 	{
-		levelData.newSectionEnd = Random.Range(6,10);
+		levelData.newSectionEnd = Random.Range(6,10); //TODO base on levelTop difficulty
 	}
 	
 	private void processorConfig()
 	{
-		levelData.newSectionEnd = Random.Range(4,7);
+			levelData.newSectionEnd = Random.Range(4,7); //TODO base on levelTop difficulty
 	}
 	
 }

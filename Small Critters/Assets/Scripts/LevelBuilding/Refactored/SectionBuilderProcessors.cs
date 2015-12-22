@@ -19,7 +19,7 @@ public class SectionBuilderProcessors : ISectionBuilder {
 		type = sectionBuilderType.processor;
 		GameObject processor = Resources.Load("Processor") as GameObject;
 		GameObject processorGroup = Resources.Load("ProcessorGroup") as GameObject;
-		processorGroup.GetComponent<ProcessorGroupController> ().processorStateMachine = new ProcessorFSM (); //strong coupupling here. Used some DI container.
+		//processorGroup.GetComponent<ProcessorGroupController> ().processorStateMachine = new ProcessorFSM (); //strong coupupling here. Used some DI container.
 		poolManager.addPool(processor, 200);
 		poolManager.addPool(processorGroup, 20);
 	}
@@ -44,7 +44,7 @@ public class SectionBuilderProcessors : ISectionBuilder {
 		if(levelData.levelTop+1 == levelData.newSectionEnd)
 		{
 			//activate the controller
-			int patternVariant = Random.Range(1,4);
+			int patternVariant = 6;//Random.Range(1,6);
 			newProcessorGroupController = poolManager.retrieveObject("ProcessorGroup");
 			newProcessorGroupController.GetComponent<ProcessorGroupController>().initialize(processorGroup, patternVariant);
 			row.Add(newProcessorGroupController);

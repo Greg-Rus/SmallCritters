@@ -100,7 +100,7 @@ public class ProcessorFSM: IProcessorFSM{
 	{
 		float heatUpPercent = timerProgressPercent(processor, stateTimers[ProcessorState.HeatingUp]);
 		processor.tintProcessorSprite(Color.white, maxHeatupColor, heatUpPercent);
-		if(heatUpPercent >= 0.95)
+		if(heatUpPercent >= 0.99f)
 		{
 			processor.setProcessorSpriteColor(Color.red);
 			transitionToHot(processor);
@@ -132,7 +132,7 @@ public class ProcessorFSM: IProcessorFSM{
 	{
 		float coolDownPercent = timerProgressPercent(processor, stateTimers[ProcessorState.CoolingDown]);
 		processor.tintProcessorSprite(maxHeatupColor, Color.white, coolDownPercent);
-		if(coolDownPercent >= 0.95)
+		if(coolDownPercent >= 0.99f)
 		{
 			processor.setProcessorSpriteColor(Color.white);
 			transitionToCool(processor);
@@ -159,7 +159,7 @@ public class ProcessorFSM: IProcessorFSM{
 		
 		while (targetStateStayTime < totalCycleTime * cyclePercent) 
 		{
-			Debug.Log (targetStateStayTime + "  " + totalCycleTime * cyclePercent);
+			//Debug.Log (targetStateStayTime + "  " + totalCycleTime * cyclePercent);
 			++targetState;
 			targetStateStayTime += stateTimers[targetState];
 			//++timesIndex;

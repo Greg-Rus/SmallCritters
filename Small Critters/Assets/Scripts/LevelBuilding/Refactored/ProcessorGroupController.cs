@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ProcessorGroupController : MonoBehaviour {
 	public ProcessorManager[,] processorGroup;
 	int patternVariant;
 	public IProcessorFSM processorStateMachine;
 
+	//TODO separate class
+	int oldI = 0;
+	int oldJ = 0;
+	float totalCycleOffset = 0;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () 
+	{
 		if (processorStateMachine == null) 
 			{
 			processorStateMachine = ServiceLocator.getService<IProcessorFSM>();
@@ -22,7 +29,8 @@ public class ProcessorGroupController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		foreach(ProcessorManager processor in processorGroup)
 		{
 			processorStateMachine.updateHeatupPhase(processor);
@@ -33,19 +41,106 @@ public class ProcessorGroupController : MonoBehaviour {
 	
 	private void processorGroupInitialSetup(int patternVariant)
 	{
-		Debug.Log ("Initial Setup for pattern number " + patternVariant);
+		//Debug.Log ("Initial Setup for pattern number " + patternVariant);
 
-		if (patternVariant == 1)
+		if (patternVariant == 1) //Right to left
 		{
-			//float cycleOffset = processorStateMachin
+			float cycleOffset = 1f / processorGroup.GetLength(0);
+			float processorColumnOffset = 0f;
 			for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
 			{
-				for(int j = 0 ; i < processorGroup.GetLength(1) ;++i)
+				for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
 				{
-					processorStateMachine.setCycleCompletion(processorGroup[i,j],0f);
+					processorStateMachine.setCycleCompletion(processorGroup[i,j],processorColumnOffset);
+				}
+				processorColumnOffset += cycleOffset;
+			}
+		}
+		if (patternVariant == 2) //Left to right
+		{
+			float cycleOffset = 1f / processorGroup.GetLength(0);
+			float processorColumnOffset = 1f;
+			for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
+			{
+				for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
+				{
+					processorStateMachine.setCycleCompletion(processorGroup[i,j],processorColumnOffset);
+				}
+				processorColumnOffset -= cycleOffset;
+			}
+		}
+		if (patternVariant == 3) //top to down
+		{
+			float cycleOffset = 1f / processorGroup.GetLength(0);
+			float processorColumnOffset = 0f;
+			for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
+			{
+				for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
+				{
+					processorStateMachine.setCycleCompletion(processorGroup[i,j],processorColumnOffset);
+					processorColumnOffset += cycleOffset;
+				}
+				processorColumnOffset = 0f;
+			}
+		}
+		if (patternVariant == 4) //top to down
+		{
+			float cycleOffset = 1f / processorGroup.GetLength(0);
+			float processorColumnOffset = 1f;
+			for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
+			{
+				for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
+				{
+					processorStateMachine.setCycleCompletion(processorGroup[i,j],processorColumnOffset);
+					processorColumnOffset -= cycleOffset;
+				}
+				processorColumnOffset = 1f;
+			}
+		}
+		if (patternVariant == 5) //Checkered
+		{
+			//float cycleOffset = 1f / processorGroup.GetLength(0);
+			float processorColumnOffset = 0f;
+			for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
+			{
+				for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
+				{
+					processorColumnOffset = ((j+i) % 2 == 0) ? 0f : 0.5f;
+					processorStateMachine.setCycleCompletion(processorGroup[i,j],processorColumnOffset);
 				}
 			}
 		}
+		if (patternVariant == 6)
+		{
+			DeployPatternToProcessorGroup(TopDown);
+		}
+	}
+
+	private void DeployPatternToProcessorGroup(Func<int,int,float> columnOffset)
+	{
+		for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
+		{
+			for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
+			{
+				processorStateMachine.setCycleCompletion(processorGroup[i,j],columnOffset(i,j));
+			}
+		}
+	}
+
+	private float GetCycleOffset()
+	{
+		return 1f / processorGroup.GetLength(0);
+	}
+
+	private float TopDown(int i, int j)
+	{
+		if (i != oldI) 
+		{
+			Debug.Log(i+" "+oldI);
+			totalCycleOffset += GetCycleOffset ();
+			oldI = i;
+		}
+		return totalCycleOffset;
 	}
 	
 	private void repartentProcessors()

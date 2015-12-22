@@ -13,12 +13,12 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 	private ServiceLocator services;
 	// Use this for initialization
 	void Start () {
+		services = new ServiceLocator ();
+		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		testRow = new List<GameObject>();
 		levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
 		testBuilder = new SectionBuilderProcessors (levelData, poolManager);
-		services = new ServiceLocator ();
-		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		levelData.newSectionStart = 1;
 		levelData.newSectionEnd = 5;
 		
