@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -131,17 +131,38 @@ public class ProcessorGroupController : MonoBehaviour {
 	{
 		return 1f / processorGroup.GetLength(0);
 	}
+	
+	private float GetCycleOffsetY()
+	{
+		return 1f / processorGroup.GetLength(1);
+	}
 
 	private float TopDown(int i, int j)
 	{
-		if (i != oldI) 
+		if(i==0 & j == 0)
 		{
-			Debug.Log(i+" "+oldI);
-			totalCycleOffset += GetCycleOffset ();
-			oldI = i;
+			totalCycleOffset = 1f;
 		}
+		if(i != oldI)
+		{
+			//Debug.Log("cycleOffsetX * i: " + (1f - GetCycleOffset() * i));
+			totalCycleOffset = 1f - (GetCycleOffset() * i) + GetCycleOffset();			
+			oldI = i;
+		} 
+		if (j != oldJ) 
+		{
+			totalCycleOffset -= GetCycleOffsetY ();
+			oldJ = j;
+		}
+		if(totalCycleOffset <= 0f)
+		{
+			totalCycleOffset = totalCycleOffset + 1f;
+		}
+		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		return totalCycleOffset;
 	}
+	
+	
 	
 	private void repartentProcessors()
 	{

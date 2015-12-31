@@ -38,10 +38,11 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 		}
 		
 		levelData.newSectionStart = 7;
-		levelData.newSectionEnd = 10;
+		//levelData.newSectionEnd = 10;
+		levelData.newSectionEnd = 8;
 		levelData.levelTop = 6;
 		
-		for(int i = 0; i < 4; ++i)
+		for(int i = 0; i < 2; ++i)//4; ++i)
 		{
 			testBuilder.buildNewRow(testRow);	
 			levelData.levelTop += 1;

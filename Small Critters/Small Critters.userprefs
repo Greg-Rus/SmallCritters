@@ -1,16 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="137" Column="18" />
-      <File FileName="Assets\UnityTestTools\Examples\UnitTestExamples\Editor\LevelConstructionTests.cs" Line="34" Column="1" />
+      <File FileName="Assets\Scripts\TestMixedLevelBuilding.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="135" Column="1" />
+      <File FileName="Assets\UnityTestTools\Examples\UnitTestExamples\Editor\LevelConstructionTests.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces.cs" Line="34" Column="2" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="47" Column="26" />
+      <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" Line="85" Column="51" />
-      <File FileName="Assets\Scripts\TestSectionBuilderProcessors.cs" Line="17" Column="66" />
-      <File FileName="Assets\Scripts\ServiceLocator.cs" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TestSectionBuilderProcessors.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ServiceLocator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" Line="63" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
