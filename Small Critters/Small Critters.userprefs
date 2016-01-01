@@ -1,18 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs">
     <Files>
-      <File FileName="Assets\Scripts\TestMixedLevelBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="135" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="7" Column="27" />
+      <File FileName="Assets\Scripts\TestMixedLevelBuilding.cs" Line="23" Column="5" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="1" Column="1" />
       <File FileName="Assets\UnityTestTools\Examples\UnitTestExamples\Editor\LevelConstructionTests.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TestSectionBuilderProcessors.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TestSectionBuilderProcessors.cs" Line="24" Column="17" />
       <File FileName="Assets\Scripts\ServiceLocator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" Line="63" Column="2" />
+      <File FileName="Assets\Scripts\TestLevelBuilding.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" Line="30" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

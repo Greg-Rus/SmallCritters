@@ -38,3 +38,7 @@ public interface IProcessorFSM
 	void updateHeatupPhase(ProcessorManager processor);
 	void setCycleCompletion(ProcessorManager processor, float cyclePercent);
 }
+public interface IProcessorPatternConfiguration
+{
+	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, int pattern);
+}

@@ -15,6 +15,7 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 	void Start () {
 		services = new ServiceLocator ();
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
+		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
 		testRow = new List<GameObject>();
 		levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
@@ -39,16 +40,16 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 		
 		levelData.newSectionStart = 7;
 		//levelData.newSectionEnd = 10;
-		levelData.newSectionEnd = 8;
+		levelData.newSectionEnd = 17;
 		levelData.levelTop = 6;
 		
-		for(int i = 0; i < 2; ++i)//4; ++i)
+		for(int i = 0; i < 11; ++i)//4; ++i)
 		{
 			testBuilder.buildNewRow(testRow);	
 			levelData.levelTop += 1;
 		}
 		
-		if(testRow.Count == 35 + 1 + 28 + 1)
+		if(testRow.Count == 35 + 1 + 77 + 1)
 		{
 			SecondSectionOK = true;
 		}

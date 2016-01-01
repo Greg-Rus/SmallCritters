@@ -19,12 +19,16 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 	
 	public void addSectionBuilder (ISectionBuilder sectionBuilder)
 	{
+		Debug.Log ("Builder added: " + sectionBuilder);
 		availableSectionBuilders.Add(sectionBuilder.type, sectionBuilder);
 	}
 	
 	public void selectNewSectionBuilder()
 	{
-		sectionBuilderType newBuilderType = (sectionBuilderType)(Random.Range(0, availableSectionBuilders.Count));
+		int randomBuilder = Random.Range(0, availableSectionBuilders.Count);
+		sectionBuilderType builderType = (sectionBuilderType)randomBuilder;
+		Debug.Log ("Builder type selected: " + builderType);
+		sectionBuilderType newBuilderType = builderType;//(sectionBuilderType)(Random.Range(0, availableSectionBuilders.Count));
 		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];
 		sectionBuilderConfigurator.configureSectionBuilder();
 	}

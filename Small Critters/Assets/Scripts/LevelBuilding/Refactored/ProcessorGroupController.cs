@@ -6,19 +6,26 @@ public class ProcessorGroupController : MonoBehaviour {
 	public ProcessorManager[,] processorGroup;
 	int patternVariant;
 	public IProcessorFSM processorStateMachine;
+	private IProcessorPatternConfiguration patternConfigurator;
 
 	//TODO separate class
-	int oldI = 0;
-	int oldJ = 0;
+	int oldI = -1;
+	int oldJ = -1;
 	float totalCycleOffset = 0;
+	private float minimalOffset = 0.2857f;
 
 	// Use this for initialization
 	void Awake () 
 	{
 		if (processorStateMachine == null) 
-			{
+		{
 			processorStateMachine = ServiceLocator.getService<IProcessorFSM>();
-			}
+		}
+		if(patternConfigurator == null)
+		{
+			patternConfigurator = ServiceLocator.getService<IProcessorPatternConfiguration>();
+		}
+		minimalOffset = (1f / 7f) * 4f;
 	}
 	
 	public void initialize(ProcessorManager[,] processorGroup, int patternVariant)
@@ -41,8 +48,10 @@ public class ProcessorGroupController : MonoBehaviour {
 	
 	private void processorGroupInitialSetup(int patternVariant)
 	{
+		int pattern = UnityEngine.Random.Range(1,9);
+		patternConfigurator.DeployPatternToProcessorGroup(processorGroup, pattern);
 		//Debug.Log ("Initial Setup for pattern number " + patternVariant);
-
+		/*
 		if (patternVariant == 1) //Right to left
 		{
 			float cycleOffset = 1f / processorGroup.GetLength(0);
@@ -114,8 +123,9 @@ public class ProcessorGroupController : MonoBehaviour {
 		{
 			DeployPatternToProcessorGroup(TopDown);
 		}
+		*/
 	}
-
+/*
 	private void DeployPatternToProcessorGroup(Func<int,int,float> columnOffset)
 	{
 		for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
@@ -127,41 +137,41 @@ public class ProcessorGroupController : MonoBehaviour {
 		}
 	}
 
-	private float GetCycleOffset()
+	private float GetCycleOffsetX()
 	{
-		return 1f / processorGroup.GetLength(0);
+		float offset = 1f / processorGroup.GetLength(0);
+		if(offset < minimalOffset)
+		{
+			offset = minimalOffset; 
+		}
+		return offset;
 	}
 	
 	private float GetCycleOffsetY()
 	{
-		return 1f / processorGroup.GetLength(1);
+		float offset = 1f / processorGroup.GetLength(1);
+		if(offset < minimalOffset)
+		{
+			offset = minimalOffset; 
+		}
+		return offset;
 	}
 
 	private float TopDown(int i, int j)
 	{
-		if(i==0 & j == 0)
+		if (i != oldI) 
 		{
-			totalCycleOffset = 1f;
-		}
-		if(i != oldI)
-		{
-			//Debug.Log("cycleOffsetX * i: " + (1f - GetCycleOffset() * i));
-			totalCycleOffset = 1f - (GetCycleOffset() * i) + GetCycleOffset();			
+			totalCycleOffset += GetCycleOffsetX ();
 			oldI = i;
-		} 
-		if (j != oldJ) 
-		{
-			totalCycleOffset -= GetCycleOffsetY ();
-			oldJ = j;
 		}
-		if(totalCycleOffset <= 0f)
+
+		if(totalCycleOffset >= 1f)
 		{
-			totalCycleOffset = totalCycleOffset + 1f;
+			totalCycleOffset = totalCycleOffset - 1f;
 		}
-		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		return totalCycleOffset;
 	}
-	
+*/	
 	
 	
 	private void repartentProcessors()

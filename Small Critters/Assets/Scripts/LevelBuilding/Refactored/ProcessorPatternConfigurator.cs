@@ -2,66 +2,100 @@
 using System.Collections;
 using System;
 
-public class ProcessorPatternConfigurator  {
+public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 
-	private ProcessorFSM processorStateMachine;
+	private IProcessorFSM processorStateMachine;
 	private ProcessorManager[,] processorGroup;
-	private int oldI = 0;
-	private int oldJ = 0;
+	private int oldI = -1;
+	private int oldJ = -1;
 	private float totalCycleOffset = 0;
+	private float minimalOffset = 0; //TODO calculate minimal offset so that long processor sections are not impassible. Can be made smaller as difficulty rises, but within reason.
 
-	public ProcessorPatternConfigurator(ProcessorFSM processorStateMachine)
+	public ProcessorPatternConfigurator(IProcessorFSM processorStateMachine)
 	{
 		this.processorStateMachine = processorStateMachine;
+		minimalOffset = (1f / 7f) * 1f;
 	}
 
 
 	public void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, int pattern)
 	{
 		this.processorGroup = processorGroup;
+		resetConfigurator();
+		ConfigureProcessorsBasedOnPattern(SelectPatternFunction(pattern));
+	}
+	
+	private void resetConfigurator()
+	{
+		oldI = -1;
+		oldJ = -1;
+		totalCycleOffset = 0;
 	}
 	
 	private Func<int,int,float> SelectPatternFunction(int pattern)
 	{
 		switch (pattern)
 		{
-		case 6: return RightToLeft; break;
+		case 1: return RightToLeft; break;
+		case 2: return LeftToRight; break;
+		case 3: return HorizontalStripes; break;
+		case 4: return VerticalStripes; break;
+		case 5: return Checkered; break;
+		case 6: return TopDown; break;
+		case 7: return BottomUp; break;
+		case 8: return BackSlashToLeft; break;
+		case 9: return BackSlashToLeft; break;
 		default: return RightToLeft;
 		}
 	}
 	
-	private void SetupProcessorCycleCompletion(Func<int,int,float> columnOffset)
+	private void ConfigureProcessorsBasedOnPattern(Func<int,int,float> PatternOffset)
 	{
 		for(int i = 0 ; i < processorGroup.GetLength(0) ;++i)
 		{
 			for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
 			{
-				processorStateMachine.setCycleCompletion(processorGroup[i,j],columnOffset(i,j));
+				processorStateMachine.setCycleCompletion(processorGroup[i,j],PatternOffset(i,j));
 			}
 		}
 	}
 	
 	private float GetCycleOffsetX()
 	{
-		return 1f / processorGroup.GetLength(0);
+		float offset = 1f / processorGroup.GetLength(0);
+		if(offset < minimalOffset)
+		{
+			offset = minimalOffset; 
+		}
+		return offset;
 	}
 	
 	private float GetCycleOffsetY()
 	{
-		return 1f / processorGroup.GetLength(1);
+		float offset = 1f / processorGroup.GetLength(1);
+		if(offset < minimalOffset)
+		{
+			offset = minimalOffset; 
+		}
+		return offset;
 	}
 	
-	private float RightToLeft(int i, int j)
+	private float RightToLeft(int i, int j) //gives an interresting effect with minimalOffset mutlipier of 3 and 4.
 	{
 		if (i != oldI) 
 		{
 			totalCycleOffset += GetCycleOffsetX ();
 			oldI = i;
 		}
+		
+		if(totalCycleOffset >= 1f)
+		{
+			totalCycleOffset = totalCycleOffset - 1f;
+		}
 		return totalCycleOffset;
 	}
 	
-	private float LeftToRight(int i, int j)
+	private float LeftToRight(int i, int j) //gives an interresting effect with minimalOffset mutlipier of 3 and 4.
 	{
 		if(i == 0 && j == 0)
 		{
@@ -71,6 +105,10 @@ public class ProcessorPatternConfigurator  {
 		{
 			totalCycleOffset -= GetCycleOffsetX ();
 			oldI = i;
+		}
+		if(totalCycleOffset <= 0f)
+		{
+			totalCycleOffset = totalCycleOffset + 1f;
 		}
 		return totalCycleOffset;
 	}
@@ -82,17 +120,20 @@ public class ProcessorPatternConfigurator  {
 		{
 			totalCycleOffset = 0;
 		} 
-		else if (j != oldJ) 
+		if (j != oldJ) 
 		{
 			totalCycleOffset += GetCycleOffsetY ();
 			oldJ = j;
+		}
+		if(totalCycleOffset >= 1f)
+		{
+			totalCycleOffset = totalCycleOffset - 1f;
 		}
 		return totalCycleOffset;
 	}
 	
 	private float BottomUp(int i, int j)
 	{
-		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		if (j == 0)
 		{
 			totalCycleOffset = 1;
@@ -102,12 +143,15 @@ public class ProcessorPatternConfigurator  {
 			totalCycleOffset -= GetCycleOffsetY ();
 			oldJ = j;
 		}
+		if(totalCycleOffset <= 0f)
+		{
+			totalCycleOffset = totalCycleOffset + 1f;
+		}
 		return totalCycleOffset;
 	}
 	
 	private float HorizontalStripes(int i, int j)
 	{
-		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		if (j != oldJ) 
 		{
 			if(j % 2 == 0)
@@ -121,7 +165,6 @@ public class ProcessorPatternConfigurator  {
 	
 	private float VerticalStripes(int i, int j)
 	{
-		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		if (i != oldI) 
 		{
 			if(i % 2 == 0)
@@ -135,7 +178,6 @@ public class ProcessorPatternConfigurator  {
 	
 	private float Checkered(int i, int j)
 	{
-		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		if((i+j) % 2 == 0)
 		{
 			totalCycleOffset = 0f;
@@ -152,14 +194,42 @@ public class ProcessorPatternConfigurator  {
 			totalCycleOffset = GetCycleOffsetX() * i;
 			oldI = i;
 		} 
+		
 		if (j != oldJ) 
 		{
 			totalCycleOffset += GetCycleOffsetY ();
 			oldJ = j;
 		}
+		
 		if(totalCycleOffset >= 1f)
 		{
 			totalCycleOffset = totalCycleOffset - 1f;
+		}
+		return totalCycleOffset;
+	}
+	
+	private float BackSlashToRight(int i, int j)
+	{
+		if(i==0 & j == 0)
+		{
+			totalCycleOffset = 1f;
+		}
+		
+		if(i != oldI)
+		{
+			totalCycleOffset = 1f - (GetCycleOffsetX() * i);		
+			oldI = i;
+		} 
+		
+		if (j != oldJ) 
+		{
+			totalCycleOffset -= GetCycleOffsetY ();
+			oldJ = j;
+		}
+		
+		if(totalCycleOffset <= 0f)
+		{
+			totalCycleOffset = totalCycleOffset + 1f;
 		}
 		return totalCycleOffset;
 	}
