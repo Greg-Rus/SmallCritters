@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum sectionBuilderType {blade, processor};
+
 
 public class SectionBuilderSelector: ISectionBuilderSelection {
 
-	public Dictionary<sectionBuilderType,ISectionBuilder> availableSectionBuilders;
+	public List<ISectionBuilder> availableSectionBuilders;
 	private ISectionBuilderConfiguration sectionBuilderConfigurator;
 	private LevelData levelData;
 	
@@ -14,22 +14,26 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 	{
 		this.sectionBuilderConfigurator = sectionBuilderConfigurator;
 		this.levelData = levelData;
-		availableSectionBuilders = new Dictionary<sectionBuilderType, ISectionBuilder>();
+		availableSectionBuilders = new List<ISectionBuilder>();
 	}
 	
 	public void addSectionBuilder (ISectionBuilder sectionBuilder)
 	{
-		Debug.Log ("Builder added: " + sectionBuilder);
-		availableSectionBuilders.Add(sectionBuilder.type, sectionBuilder);
+		availableSectionBuilders.Add(sectionBuilder);
 	}
 	
 	public void selectNewSectionBuilder()
 	{
-		int randomBuilder = Random.Range(0, availableSectionBuilders.Count);
-		sectionBuilderType builderType = (sectionBuilderType)randomBuilder;
-		Debug.Log ("Builder type selected: " + builderType);
-		sectionBuilderType newBuilderType = builderType;//(sectionBuilderType)(Random.Range(0, availableSectionBuilders.Count));
-		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];
+		int newBuilder;
+		if(levelData.activeSectionBuilder.type != sectionBuilderType.clear)
+		{
+			newBuilder = 0;
+		}
+		else
+		{
+			newBuilder = Random.Range(1, availableSectionBuilders.Count);
+		}
+		levelData.activeSectionBuilder = availableSectionBuilders[newBuilder];//[newBuilderType];
 		sectionBuilderConfigurator.configureSectionBuilder();
 	}
 

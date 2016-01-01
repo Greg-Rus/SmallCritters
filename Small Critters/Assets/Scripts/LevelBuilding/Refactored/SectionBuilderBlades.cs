@@ -9,7 +9,13 @@ public class SectionBuilderBlades: ISectionBuilder {
 	GameObjectPoolManager poolManager;
 	GameObject blade;
 	GameObject bladeRow;
+	//difficulty based
 	float minBaldeGap = 2f;
+	float maxBladeGap = 5f;
+	float minSpeed = 1f;
+	float maxSpeed = 3f;
+	float chanceForEmptyRow = 0.25f;
+	
 	float bladeLength;
 	int maxBladeNumber;
 	
@@ -38,9 +44,9 @@ public class SectionBuilderBlades: ISectionBuilder {
 	
 	private void buildNewBladeRow(List<GameObject> row)
 	{
-		float bladeGap = Random.Range(2,5) + bladeLength;
+		float bladeGap = Random.Range(minBaldeGap, maxBladeGap) + bladeLength;
 		float direction = Random.Range(0,2) == 1 ? 1f : -1f;
-		float speed = Random.Range (1f,4f);
+		float speed = Random.Range (minSpeed, maxSpeed);
 		int numberOfBlades = (int)(levelData.levelWidth / (bladeLength + bladeGap)) + 2;
 		
 		GameObject newBladeRow = poolManager.retrieveObject("BladeRow");
@@ -69,7 +75,7 @@ public class SectionBuilderBlades: ISectionBuilder {
 	private bool shouldBeEmptyRow()
 	{
 		//TODO decide based on current difficulty (levelTop) 
-		bool isEmpty = (Random.Range(1,5)) == 4 ? true : false;
+		bool isEmpty = (Random.Range(0f,1f)) <= chanceForEmptyRow ? true : false;
 		return isEmpty;
 	}
 }

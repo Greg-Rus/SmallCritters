@@ -115,7 +115,6 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 	
 	private float TopDown(int i, int j)
 	{
-		Debug.Log("i: " + i + ", j: " + j + ", offset: " + totalCycleOffset);
 		if (j == 0)
 		{
 			totalCycleOffset = 0;

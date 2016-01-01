@@ -20,11 +20,19 @@ public class TestMixedLevelBuilding : MonoBehaviour {
 		testSectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;
 		testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, levelData) as ISectionBuilderSelection;
 		
-		//testSectionBuilderSeclector.addSectionBuilder(new SectionBuilderBlades(levelData, poolManager));
-		testSectionBuilderSeclector.addSectionBuilder(new SectionBuilderProcessors (levelData, poolManager));
+		SectionBuilderClear clearBuilder = new SectionBuilderClear();
+		SectionBuilderBlades bladesBuilder = new SectionBuilderBlades(levelData, poolManager);
+		SectionBuilderProcessors processorsBuilder = new SectionBuilderProcessors (levelData, poolManager);
+		testSectionBuilderSeclector.addSectionBuilder(clearBuilder);
+		testSectionBuilderSeclector.addSectionBuilder(bladesBuilder);
+		testSectionBuilderSeclector.addSectionBuilder(processorsBuilder);
+		
+		levelData.activeSectionBuilder = clearBuilder;
 		
 		testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, levelData) as ISectionDesigning;
 		testLevelHandler = new LevelHandler(levelData, testSectionDesigner);
+		
+		
 		
 		for (int i = 0; i < 50; ++i)
 		{

@@ -17,6 +17,7 @@ namespace UnityTest
 		SectionDesigner testSectionDesigner;
 		GameObject dummyObject = new GameObject();
 		LevelData testLevelData;
+		SectionBuilderClear clearBuilder;
 		//mockSectionDesigner mSectionBuilderHndl;
 		
 		[SetUp] public void Init()
@@ -26,6 +27,8 @@ namespace UnityTest
 			blade = Resources.Load("Blade") as GameObject;
 			poolManager.addPool(blade, 100);
 			testLevelData= new LevelData();
+			clearBuilder = new SectionBuilderClear();
+			testLevelData.activeSectionBuilder = clearBuilder;
 			
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
@@ -82,7 +85,8 @@ namespace UnityTest
 		public void SectionBuilderSelectorTest()
 		{
 			SectionBuilderSelector testSectionBuilderSelector = new SectionBuilderSelector(new mockSectionBuilderConfigurator(), testLevelData);
-			Assert.True(testLevelData.activeSectionBuilder == null);
+			//Assert.True(testLevelData.activeSectionBuilder == null);
+			testSectionBuilderSelector.addSectionBuilder(clearBuilder);
 			testSectionBuilderSelector.addSectionBuilder(new mockSectionBuilder());
 			testSectionBuilderSelector.selectNewSectionBuilder();
 			Assert.True(testLevelData.activeSectionBuilder.type == sectionBuilderType.blade);

@@ -7,7 +7,7 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 	public SectionBuilderConfigurator(LevelData levelData)
 	{
 		this.levelData = levelData;
-	}
+	} 
 	
 	public void configureSectionBuilder()
 	{
@@ -15,19 +15,25 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 		
 		switch (levelData.activeSectionBuilder.type)
 		{
-		case sectionBuilderType.blade: bladeConfig(); break;
-		case sectionBuilderType.processor: processorConfig(); break;
+		case sectionBuilderType.clear: ClearConfig(); break;
+		case sectionBuilderType.blade: BladeConfig(); break;
+		case sectionBuilderType.processor: ProcessorConfig(); break;
 		}
 	}
 	
-	private void bladeConfig()
+	private void BladeConfig()
 	{
-		levelData.newSectionEnd = Random.Range(6,10); //TODO base on levelTop difficulty
+		levelData.newSectionEnd = levelData.newSectionStart + Random.Range(6,10); //TODO base on levelTop difficulty
 	}
 	
-	private void processorConfig()
+	private void ProcessorConfig()
 	{
-			levelData.newSectionEnd = Random.Range(4,7); //TODO base on levelTop difficulty
+		levelData.newSectionEnd = levelData.newSectionStart + Random.Range(4,7); //TODO base on levelTop difficulty
+	}
+	
+	private void ClearConfig()
+	{
+		levelData.newSectionEnd = levelData.newSectionStart; //TODO base on levelTop difficulty (or maybe not?). One clear row for now
 	}
 	
 }

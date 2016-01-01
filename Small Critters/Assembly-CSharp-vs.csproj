@@ -57,6 +57,8 @@
      <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameObjectPoolManager.cs" />
+     <Compile Include="Assets\Scripts\General\GameFramework.cs" />
+     <Compile Include="Assets\Scripts\General\MainGameController.cs" />
      <Compile Include="Assets\Scripts\Interfaces.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\BladeSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ColdFogController.cs" />
@@ -76,6 +78,7 @@
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderClear.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" />

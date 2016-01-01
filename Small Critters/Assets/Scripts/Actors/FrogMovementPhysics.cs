@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class FrogMovementPhysics : MonoBehaviour, Imovement {
 	public GameController gameController;
@@ -15,10 +16,13 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 	public Animator myAnimator;
 	public float jumpSpeed;
 	private IEnumerator jumpTimer;
+	public event EventHandler NewHighestRowReached;
 	
 	// Use this for initialization
 	void Start () {
 		higestRowReached = 0;
+		myRigidBody = GetComponent<Rigidbody2D>();
+		myAnimator = GetComponent<Animator>();
 	}
 	
 	void OnCollisionEnter()
@@ -78,7 +82,8 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 		if(this.transform.position.y > higestRowReached)
 		{
 			higestRowReached = (int)this.transform.position.y;
-			gameController.updateMaxRowReached(higestRowReached);
+			//gameController.updateMaxRowReached(higestRowReached); //TODO register event
+			//NewHighestRowReached.Invoke(this, 
 		}
 	}
 	

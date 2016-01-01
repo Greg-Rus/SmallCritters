@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
+public enum sectionBuilderType {clear, blade, processor};
 
 public interface Imovement {
 	

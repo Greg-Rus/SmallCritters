@@ -16,6 +16,7 @@ namespace UnityTest
 		//SectionDesigner testSectionDesigner;
 		//GameObject dummyObject = new GameObject();
 		LevelData testLevelData;
+		SectionBuilderClear clearBuilder;
 		//mockSectionDesigner mSectionBuilderHndl;
 		
 		[SetUp] public void Init()
@@ -25,6 +26,8 @@ namespace UnityTest
 			//blade = Resources.Load("Blade") as GameObject;
 			//poolManager.addPool(blade, 100);
 			testLevelData= new LevelData();
+			clearBuilder = new SectionBuilderClear();
+			testLevelData.activeSectionBuilder = clearBuilder;
 			//Debug.Log(testLevelData);
 		}
 		
@@ -53,6 +56,7 @@ namespace UnityTest
 		{ 
 			ISectionBuilderConfiguration testSectionBuilderConfigurator = new SectionBuilderConfigurator(testLevelData) as ISectionBuilderConfiguration;
 			ISectionBuilderSelection testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, testLevelData) as ISectionBuilderSelection;
+			testSectionBuilderSeclector.addSectionBuilder(clearBuilder);
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderBlades(poolManager));
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderProcessors(poolManager));
 			ISectionDesigning testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, testLevelData) as ISectionDesigning;
@@ -64,6 +68,7 @@ namespace UnityTest
 		{ 
 			ISectionBuilderConfiguration testSectionBuilderConfigurator = new SectionBuilderConfigurator(testLevelData) as ISectionBuilderConfiguration;
 			ISectionBuilderSelection testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, testLevelData) as ISectionBuilderSelection;
+			testSectionBuilderSeclector.addSectionBuilder(clearBuilder);
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderBlades(poolManager));
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderProcessors(poolManager));
 			ISectionDesigning testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, testLevelData) as ISectionDesigning;
@@ -89,14 +94,18 @@ namespace UnityTest
 		GameObjectPoolManager poolManager;
 		LevelData testLevelData;
 		LevelHandler testLevelHandler;
+		SectionBuilderClear clearBuilder;
 		
 		[SetUp] public void Init()
 		{
 			poolParent = new GameObject(); //.Instantiate(poolParent, Vector3.zero, Quaternion.identity) as GameObject;
 			poolManager = new GameObjectPoolManager(poolParent.transform);
 			testLevelData= new LevelData();
+			clearBuilder = new SectionBuilderClear();
+			testLevelData.activeSectionBuilder = clearBuilder;
 			ISectionBuilderConfiguration testSectionBuilderConfigurator = new SectionBuilderConfigurator(testLevelData) as ISectionBuilderConfiguration;
 			ISectionBuilderSelection testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, testLevelData) as ISectionBuilderSelection;
+			testSectionBuilderSeclector.addSectionBuilder(clearBuilder);
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderBlades(poolManager));
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderProcessors(poolManager));
 			ISectionDesigning testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, testLevelData) as ISectionDesigning;

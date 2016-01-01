@@ -6,11 +6,8 @@ public class SectionDesigner: ISectionDesigning
 {
 	
 	ISectionBuilderSelection sectionBuilderSelector;
-	//ISectionBuilderConfiguration sectionBuilderConfigurator;
 	LevelData levelData;
 	public ISectionBuilder activeSectionBuilder;
-
-	public int levelTop = 0;
 	
 	public SectionDesigner(ISectionBuilderSelection sectionBuilderSelector, LevelData levelData)
 	{
@@ -21,11 +18,11 @@ public class SectionDesigner: ISectionDesigning
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-		if(levelData.newSectionEnd == levelTop)
+		if(levelData.newSectionEnd == levelData.levelTop)
 		{
 			sectionBuilderSelector.selectNewSectionBuilder();
 		}
-		levelData.levelTop+=1;
 		levelData.activeSectionBuilder.buildNewRow(row);
+		levelData.levelTop+=1;
 	}
 }
