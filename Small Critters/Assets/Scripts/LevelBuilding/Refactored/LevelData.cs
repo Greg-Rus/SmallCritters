@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
+[Serializable]
 public class LevelData {
 	public int levelLength = 50;
 	public int levelWidth = 9;

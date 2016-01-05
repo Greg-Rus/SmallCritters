@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class FrogController : MonoBehaviour {
 	private Imovement movementScript;
 	private FrogInputHandler inputScript;
 	public GameObject deadFrogSprite;
 	public GameObject frogExplosionPlayer;
-	public GameController myGameController;
-	
+	//public GameController myGameController;
+	public event EventHandler FrogDeath; 
 	
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,7 @@ public class FrogController : MonoBehaviour {
 	{
 		movementScript = GetComponent<Imovement>();
 		inputScript = GetComponent<FrogInputHandler>();
-		myGameController = GetComponent<GameController>();
+		//myGameController = GetComponent<GameController>();
 	}
 
 	private void setupInputScript()
@@ -40,7 +41,16 @@ public class FrogController : MonoBehaviour {
 		Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);
 		//Destroy(gameObject);
 		gameObject.SetActive(false);
-		myGameController.onFrogDeath();
+		//myGameController.onFrogDeath();
+		OnFrogDeath();
+	}
+	
+	private void OnFrogDeath()
+	{
+		if (FrogDeath != null)
+		{
+			FrogDeath(this, EventArgs.Empty);
+		}
 	}
 
 }

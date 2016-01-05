@@ -48,8 +48,8 @@ public class ProcessorGroupController : MonoBehaviour {
 	
 	private void processorGroupInitialSetup(int patternVariant)
 	{
-		int pattern = UnityEngine.Random.Range(1,9);
-		patternConfigurator.DeployPatternToProcessorGroup(processorGroup, pattern);
+		//int pattern = UnityEngine.Random.Range(1,9);
+		patternConfigurator.DeployPatternToProcessorGroup(processorGroup, patternVariant);
 		//Debug.Log ("Initial Setup for pattern number " + patternVariant);
 		/*
 		if (patternVariant == 1) //Right to left

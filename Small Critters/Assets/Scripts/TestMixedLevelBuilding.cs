@@ -9,12 +9,16 @@ public class TestMixedLevelBuilding : MonoBehaviour {
 	ISectionBuilderSelection testSectionBuilderSeclector;
 	ISectionDesigning testSectionDesigner;
 	LevelHandler testLevelHandler;
+	DifficultyManager difficultyManager;
 	private ServiceLocator services;
 	// Use this for initialization
 	void Start () {
+		difficultyManager = new DifficultyManager();
 		services = new ServiceLocator ();
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
+		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
+		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 		levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
 		testSectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;

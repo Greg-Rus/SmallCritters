@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GameFramework {
 
-	LevelData levelData;
+	public LevelData levelData;
+	public DifficultyManager difficultyManager;
 	GameObjectPoolManager poolManager;
 	ISectionBuilderConfiguration sectionBuilderConfigurator;
 	ISectionBuilderSelection sectionBuilderSeclector;
@@ -13,12 +14,18 @@ public class GameFramework {
 	SectionBuilderClear clearBuilder;
 	SectionBuilderBlades bladesBuilder;
 	SectionBuilderProcessors processorsBuilder;
+	
+	public GameFramework( LevelData levelData, DifficultyManager difficultyManager)
+	{
+		this.levelData = levelData;
+		this.difficultyManager = difficultyManager;
+	}
 
-	public void BuildGameFramework()
+	public LevelHandler BuildGameFramework()
 	{
 		SetupServiceLocator();
 		
-		levelData = new LevelData();
+		//levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
 		sectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;
 		sectionBuilderSeclector = new SectionBuilderSelector(sectionBuilderConfigurator, levelData) as ISectionBuilderSelection;
@@ -27,6 +34,8 @@ public class GameFramework {
 		
 		sectionDesigner = new SectionDesigner(sectionBuilderSeclector, levelData) as ISectionDesigning;
 		levelHandler = new LevelHandler(levelData, sectionDesigner);
+		
+		return levelHandler;
 	}
 	
 	private void SetupServiceLocator()
@@ -34,6 +43,8 @@ public class GameFramework {
 		services = new ServiceLocator ();
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
+		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
+		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 	}
 	
 	private void SetupSectionBuilders()

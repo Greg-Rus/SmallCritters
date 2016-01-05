@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour {
 	private void configureFrogController()
 	{
 		frogController = frog.GetComponent<FrogController>();
-		frogController.myGameController = this;
+		//frogController.myGameController = this;
 	}
 	
 	private void configureMovementScript()

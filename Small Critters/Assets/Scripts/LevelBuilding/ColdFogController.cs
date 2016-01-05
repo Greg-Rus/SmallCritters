@@ -17,7 +17,7 @@ public class ColdFogController : MonoBehaviour {
 	void Update () {
 		modifySpeedBasedOnDistanceToFrog();
 		moveUp();
-		checkFrozenRows();
+		//checkFrozenRows();
 	}
 	void modifySpeedBasedOnDistanceToFrog()
 	{
@@ -38,7 +38,7 @@ public class ColdFogController : MonoBehaviour {
 			other.GetComponent<FrogController>().die();
 		}
 	}
-	void checkFrozenRows()
+	void checkFrozenRows()  //Obsolete?
 	{
 		if(this.transform.position.y - rowDismantleOffset >= nextRow)
 		{

@@ -18,6 +18,8 @@ namespace UnityTest
 		GameObject dummyObject = new GameObject();
 		LevelData testLevelData;
 		SectionBuilderClear clearBuilder;
+		ServiceLocator serviceLocator;
+		DifficultyManager difficultyManager;
 		//mockSectionDesigner mSectionBuilderHndl;
 		
 		[SetUp] public void Init()
@@ -29,7 +31,10 @@ namespace UnityTest
 			testLevelData= new LevelData();
 			clearBuilder = new SectionBuilderClear();
 			testLevelData.activeSectionBuilder = clearBuilder;
-			
+			serviceLocator = new ServiceLocator();
+			difficultyManager = new DifficultyManager();
+			ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
+			ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
 	

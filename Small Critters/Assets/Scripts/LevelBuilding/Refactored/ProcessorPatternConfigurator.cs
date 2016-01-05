@@ -44,7 +44,7 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 		case 6: return TopDown; break;
 		case 7: return BottomUp; break;
 		case 8: return BackSlashToLeft; break;
-		case 9: return BackSlashToLeft; break;
+		case 9: return BackSlashToRight; break;
 		default: return RightToLeft;
 		}
 	}

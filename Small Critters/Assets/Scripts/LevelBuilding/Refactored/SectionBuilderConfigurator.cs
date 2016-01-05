@@ -4,9 +4,13 @@ using System.Collections;
 public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 
 	private LevelData levelData; 
+	private IBladeSectionLength bladeSectionLenghtManager;
+	private IProcessorSectionLenght processorSectionLenghtManager;
 	public SectionBuilderConfigurator(LevelData levelData)
 	{
 		this.levelData = levelData;
+		bladeSectionLenghtManager = ServiceLocator.getService<IBladeSectionLength>();
+		processorSectionLenghtManager = ServiceLocator.getService<IProcessorSectionLenght>();
 	} 
 	
 	public void configureSectionBuilder()
@@ -23,12 +27,14 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 	
 	private void BladeConfig()
 	{
-		levelData.newSectionEnd = levelData.newSectionStart + Random.Range(6,10); //TODO base on levelTop difficulty
+		//levelData.newSectionEnd = levelData.newSectionStart + Random.Range(6,10); //TODO base on levelTop difficulty
+		levelData.newSectionEnd = levelData.newSectionStart + bladeSectionLenghtManager.GetNewBladeSectionLenght();
 	}
 	
 	private void ProcessorConfig()
 	{
-		levelData.newSectionEnd = levelData.newSectionStart + Random.Range(4,7); //TODO base on levelTop difficulty
+		//levelData.newSectionEnd = levelData.newSectionStart + Random.Range(4,7); //TODO base on levelTop difficulty
+		levelData.newSectionEnd = levelData.newSectionStart + processorSectionLenghtManager.GetNewProcessorSectionLenght();
 	}
 	
 	private void ClearConfig()

@@ -43,3 +43,17 @@ public interface IProcessorPatternConfiguration
 {
 	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, int pattern);
 }
+
+public interface IBladeSectionLength
+{
+	int GetNewBladeSectionLenght();
+}
+
+public interface IProcessorSectionLenght
+{
+	int GetNewProcessorSectionLenght();
+}
+public interface IProcessorGroupPattern
+{
+	int GetNewProcessorGroupPattern();
+}

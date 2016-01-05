@@ -35,7 +35,7 @@ public class ProcessorManager : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D other) {
 		if(state == ProcessorState.Hot && other.tag == "Player")
 		{
-			other.GetComponent<FrogController>().die(); //TODO should be an event
+			other.GetComponent<FrogController>().die();
 		}
 	}
 }

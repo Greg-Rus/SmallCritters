@@ -57,8 +57,10 @@
      <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameObjectPoolManager.cs" />
+     <Compile Include="Assets\Scripts\General\DifficultyManager.cs" />
      <Compile Include="Assets\Scripts\General\GameFramework.cs" />
      <Compile Include="Assets\Scripts\General\MainGameController.cs" />
+     <Compile Include="Assets\Scripts\General\NewRowReached.cs" />
      <Compile Include="Assets\Scripts\Interfaces.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\BladeSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ColdFogController.cs" />
