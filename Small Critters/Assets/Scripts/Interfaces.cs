@@ -41,7 +41,7 @@ public interface IProcessorFSM
 }
 public interface IProcessorPatternConfiguration
 {
-	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, int pattern);
+	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup);
 }
 
 public interface IBladeSectionLength
@@ -53,7 +53,8 @@ public interface IProcessorSectionLenght
 {
 	int GetNewProcessorSectionLenght();
 }
-public interface IProcessorGroupPattern
+public interface IProcessorGroupPatternSelection
 {
 	int GetNewProcessorGroupPattern();
 }
+

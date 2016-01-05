@@ -2,29 +2,22 @@
 using System.Collections;
 using System;
 
-[Serializable]
-public class DifficultyManager: IBladeSectionLength, IProcessorSectionLenght, IProcessorGroupPattern {
+public class DifficultyManager: MonoBehaviour, IBladeSectionLength, IProcessorSectionLenght, IProcessorGroupPatternSelection {
 	public int highestRowReached;
-	public float bladeSpeedMin;
-	public float bladeSpeedMax;
+	public float bladeSpeedMin = 0.5f;
+	public float bladeSpeedMax = 3f;
 	public int bladeSectionLengthMin = 4;
 	public int bladeSectionLengthMax = 10;
 	public int bladeProcessorLengthMin = 4;
 	public int bladeProcessorLengthMax = 7;
-	private int[] processorPatternWeitghts;
-	public int[] ProcessorPatternWeitghts //= {5,5,4,4,3,2,0,0,0};
-	{
-		get
-		{
-			return  processorPatternWeitghts;
-		}
-		set
-		{
-			processorPatternWeitghts = value;
-			RecvalculateHistogram();
-		}
-	}
+	public int[] processorPatternWeitghts = {5,5,4,4,3,2,0,0,0};
 	public float[] processorPatternWeitghtsHistogram;
+	
+	public void Start()
+	{
+		processorPatternWeitghtsHistogram = new float[processorPatternWeitghts.Length];
+		CalculateProcessorPatternHistogram();
+	}
 	
 	public float GetBladeSpeed()
 	{
@@ -48,11 +41,32 @@ public class DifficultyManager: IBladeSectionLength, IProcessorSectionLenght, IP
 	
 	public int GetNewProcessorGroupPattern()
 	{
-		return 1;
+		float randomPercent = UnityEngine.Random.Range (0f,1f);
+		int bucketNumber = 0;
+			for( ; bucketNumber <  processorPatternWeitghtsHistogram.Length ; ++bucketNumber)
+		{
+			if(randomPercent <= processorPatternWeitghtsHistogram[bucketNumber])
+			{
+				break;
+			}
+		}
+		return bucketNumber;
 	}
-	private void RecvalculateHistogram()
+	private void CalculateProcessorPatternHistogram()
 	{
+		int weightSum = 0;
+		foreach(int weight in processorPatternWeitghts)
+		{
+			weightSum += weight;
+		}
 		
+		float normalizedUnit = 1f / weightSum;
+		
+		processorPatternWeitghtsHistogram[0] = processorPatternWeitghts[0] * normalizedUnit;
+		for (int i = 1; i < processorPatternWeitghtsHistogram.Length; ++i)
+		{
+			processorPatternWeitghtsHistogram[i] = processorPatternWeitghts[i] * normalizedUnit + processorPatternWeitghtsHistogram[i-1];
+		}
 	}
 
 }

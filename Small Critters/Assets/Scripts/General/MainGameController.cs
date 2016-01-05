@@ -12,6 +12,7 @@ public class MainGameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//levelData = new LevelData();
+		difficultyManager = GetComponent<DifficultyManager>();
 		gameFramework = new GameFramework(levelData, difficultyManager);
 		levelHandler = gameFramework.BuildGameFramework();
 		StartNewGame();

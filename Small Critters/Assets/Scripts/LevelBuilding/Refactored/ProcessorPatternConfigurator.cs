@@ -10,18 +10,21 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 	private int oldJ = -1;
 	private float totalCycleOffset = 0;
 	private float minimalOffset = 0; //TODO calculate minimal offset so that long processor sections are not impassible. Can be made smaller as difficulty rises, but within reason.
-
+	private IProcessorGroupPatternSelection patternSelection;
+	
 	public ProcessorPatternConfigurator(IProcessorFSM processorStateMachine)
 	{
 		this.processorStateMachine = processorStateMachine;
+		patternSelection = ServiceLocator.getService<IProcessorGroupPatternSelection>();
 		minimalOffset = (1f / 7f) * 1f;
 	}
 
 
-	public void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, int pattern)
+	public void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup)
 	{
 		this.processorGroup = processorGroup;
 		resetConfigurator();
+		int pattern = patternSelection.GetNewProcessorGroupPattern();
 		ConfigureProcessorsBasedOnPattern(SelectPatternFunction(pattern));
 	}
 	

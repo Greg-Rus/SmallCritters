@@ -28,11 +28,11 @@ public class ProcessorGroupController : MonoBehaviour {
 		minimalOffset = (1f / 7f) * 4f;
 	}
 	
-	public void initialize(ProcessorManager[,] processorGroup, int patternVariant)
+	public void initialize(ProcessorManager[,] processorGroup)
 	{
 		this.processorGroup = processorGroup;
 		repartentProcessors();
-		processorGroupInitialSetup(patternVariant);
+		processorGroupInitialSetup();
 	}
 	
 	// Update is called once per frame
@@ -46,10 +46,10 @@ public class ProcessorGroupController : MonoBehaviour {
 	
 
 	
-	private void processorGroupInitialSetup(int patternVariant)
+	private void processorGroupInitialSetup()
 	{
 		//int pattern = UnityEngine.Random.Range(1,9);
-		patternConfigurator.DeployPatternToProcessorGroup(processorGroup, patternVariant);
+		patternConfigurator.DeployPatternToProcessorGroup(processorGroup);
 		//Debug.Log ("Initial Setup for pattern number " + patternVariant);
 		/*
 		if (patternVariant == 1) //Right to left

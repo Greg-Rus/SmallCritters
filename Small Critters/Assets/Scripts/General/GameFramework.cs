@@ -41,10 +41,12 @@ public class GameFramework {
 	private void SetupServiceLocator()
 	{
 		services = new ServiceLocator ();
-		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
-		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
+		
 		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
 		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
+		ServiceLocator.addService<IProcessorGroupPatternSelection>(difficultyManager);
+		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
+		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
 	}
 	
 	private void SetupSectionBuilders()
