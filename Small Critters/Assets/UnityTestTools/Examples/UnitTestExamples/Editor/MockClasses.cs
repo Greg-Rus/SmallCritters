@@ -25,12 +25,12 @@ namespace UnityTest
 	
 	public class mockSectionBuilderSelector: ISectionBuilderSelection
 	{
-		ISectionBuilderConfiguration mockSBConfigurator;
+		//ISectionBuilderConfiguration mockSBConfigurator;
 		LevelData levelData;
 		
 		public mockSectionBuilderSelector(ISectionBuilderConfiguration mSBC, LevelData levelData)
 		{
-			mockSBConfigurator = mSBC;
+			//mockSBConfigurator = mSBC;
 			this.levelData = levelData;
 		}
 		
@@ -97,6 +97,19 @@ namespace UnityTest
 		public void buildNewRow(List<GameObject> row)
 		{
 			row.Add(poolManager.retrieveObject("Processor"));
+		}
+	}
+	
+	public class mockDifficultyManager: IBladeSectionLength, IProcessorSectionLenght
+	{
+		public int GetNewBladeSectionLenght()
+		{
+			return 6;
+		}
+	
+		public int GetNewProcessorSectionLenght()
+		{
+			return 4;
 		}
 	}
 }

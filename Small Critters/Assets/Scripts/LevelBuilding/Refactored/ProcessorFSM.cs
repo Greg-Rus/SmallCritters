@@ -4,31 +4,7 @@ using System.Collections.Generic;
 
 public class ProcessorFSM: IProcessorFSM{
 	
-	//private float _heatUpTime = 1;
-	//private float _coolDownTime = 1;
-	//private float _stayHotTime = 1;
-	//private float _stayCoolTime = 1;
-/*	public float heatUpTime
-	{
-		get{return this._heatUpTime;}
-		set{this._heatUpTime = value; calculateTotalCycleTime();}
-	}
-	public float coolDownTime
-	{
-		get{return this._coolDownTime;}
-		set{this._coolDownTime = value; calculateTotalCycleTime();}
-	}
-	public float stayHotTime
-	{
-		get{return this._stayHotTime;}
-		set{this._stayHotTime = value; calculateTotalCycleTime();}
-	}
-	public float stayCoolTime
-	{
-		get{return this._stayCoolTime;}
-		set{this._stayCoolTime = value; calculateTotalCycleTime();}
-	}
-	*/
+
 	public Color maxHeatupColor = Color.red;
 	public float totalCycleTime;
 	private float[] stateStayTimes;
@@ -47,16 +23,26 @@ public class ProcessorFSM: IProcessorFSM{
 		//stateStayTimes = new float[]{_stayCoolTime, _heatUpTime, _stayHotTime, _coolDownTime};
 	}
 
-	public void changeStateTimer(ProcessorState state, float time)
+	public void SetStateTimes(float[] timers)
 	{
-		stateTimers [state] = time;
+		//Debug.Log ("Count: " + stateTimers.Count);
+		for(int i = 0; i < stateTimers.Count ;++i)
+		{
+			//Debug.Log ("Cast: " + (ProcessorState)i + " = " + timers[i]);
+			stateTimers [(ProcessorState)i] = timers[i];	
+		}
 		calculateTotalCycleTime ();
 	}
 	
 	private void calculateTotalCycleTime()
 	{
+		totalCycleTime = 0;
 		foreach (float time in stateTimers.Values)
+		{
 			totalCycleTime += time;
+			//Debug.Log ("Time: " + time + " total: " + totalCycleTime);
+		}
+			
 	}
 	
 	
@@ -151,7 +137,7 @@ public class ProcessorFSM: IProcessorFSM{
 		return timeElapsed / stateStayTime;
 	}
 	
-	public void setCycleCompletion(ProcessorManager processor, float cyclePercent)
+	public void SetCycleCompletion(ProcessorManager processor, float cyclePercent)
 	{
 		ProcessorState targetState = ProcessorState.Cool;
 		//int timesIndex = 0;

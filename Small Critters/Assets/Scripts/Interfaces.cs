@@ -35,13 +35,13 @@ public interface ISectionBuilder
 }
 public interface IProcessorFSM
 {
-	void changeStateTimer(ProcessorState state, float time);
 	void updateHeatupPhase(ProcessorManager processor);
-	void setCycleCompletion(ProcessorManager processor, float cyclePercent);
+	void SetStateTimes(float[] timers);
+	void SetCycleCompletion(ProcessorManager processor, float cyclePercent);
 }
 public interface IProcessorPatternConfiguration
 {
-	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup);
+	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, IProcessorFSM processorGroupFSM);
 }
 
 public interface IBladeSectionLength
@@ -53,8 +53,15 @@ public interface IProcessorSectionLenght
 {
 	int GetNewProcessorSectionLenght();
 }
-public interface IProcessorGroupPatternSelection
+public interface IProcessorGroupPatternDifficulty
 {
 	int GetNewProcessorGroupPattern();
+	float GetProcessorPatternCycleOffset();
+	float[] GetProcessorFSMTimers();
+}
+
+public interface IRowCleanup
+{
+	void DismantleRow(List<GameObject> row);
 }
 

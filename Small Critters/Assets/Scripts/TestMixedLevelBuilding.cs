@@ -11,12 +11,13 @@ public class TestMixedLevelBuilding : MonoBehaviour {
 	LevelHandler testLevelHandler;
 	DifficultyManager difficultyManager;
 	private ServiceLocator services;
+	IRowCleanup rowCleaner;
 	// Use this for initialization
 	void Start () {
 		difficultyManager = new DifficultyManager();
 		services = new ServiceLocator ();
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
-		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
+		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
 		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
 		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 		levelData = new LevelData();
@@ -34,7 +35,8 @@ public class TestMixedLevelBuilding : MonoBehaviour {
 		levelData.activeSectionBuilder = clearBuilder;
 		
 		testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, levelData) as ISectionDesigning;
-		testLevelHandler = new LevelHandler(levelData, testSectionDesigner);
+		rowCleaner = new RowCleaner(poolManager);
+		testLevelHandler = new LevelHandler(levelData, testSectionDesigner, rowCleaner);
 		
 		
 		

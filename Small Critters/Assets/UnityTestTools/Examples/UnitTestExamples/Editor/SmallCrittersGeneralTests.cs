@@ -19,8 +19,9 @@ namespace UnityTest
 		LevelData testLevelData;
 		SectionBuilderClear clearBuilder;
 		ServiceLocator serviceLocator;
-		DifficultyManager difficultyManager;
-		//mockSectionDesigner mSectionBuilderHndl;
+		mockDifficultyManager difficultyManager;
+		mockSectionDesigner mSectionBuilderHndl;
+		IRowCleanup rowCleaner;
 		
 		[SetUp] public void Init()
 		{
@@ -32,9 +33,10 @@ namespace UnityTest
 			clearBuilder = new SectionBuilderClear();
 			testLevelData.activeSectionBuilder = clearBuilder;
 			serviceLocator = new ServiceLocator();
-			difficultyManager = new DifficultyManager();
+			difficultyManager = new mockDifficultyManager();
 			ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
 			ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
+			rowCleaner = new RowCleaner(poolManager);
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
 	
@@ -47,7 +49,7 @@ namespace UnityTest
 		[Test]
 		public void LevelBuilderCreation()
 		{
-			testLevelHandler = new LevelHandler(testLevelData, new mockSectionDesigner());
+			testLevelHandler = new LevelHandler(testLevelData, new mockSectionDesigner(), rowCleaner);
 			Assert.IsNotNull(testLevelHandler);
 		}
 		

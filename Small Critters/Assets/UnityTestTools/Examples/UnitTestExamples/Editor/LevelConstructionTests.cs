@@ -18,7 +18,7 @@ namespace UnityTest
 		LevelData testLevelData;
 		SectionBuilderClear clearBuilder;
 		ServiceLocator services;
-		DifficultyManager difficultyManager;
+		mockDifficultyManager difficultyManager;
 		//mockSectionDesigner mSectionBuilderHndl;
 		
 		[SetUp] public void Init()
@@ -26,7 +26,7 @@ namespace UnityTest
 			poolParent = new GameObject(); //.Instantiate(poolParent, Vector3.zero, Quaternion.identity) as GameObject;
 			poolManager = new GameObjectPoolManager(poolParent.transform);
 			services = new ServiceLocator();
-			difficultyManager = new DifficultyManager();
+			difficultyManager = new mockDifficultyManager();
 			ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
 			ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 			//blade = Resources.Load("Blade") as GameObject;
@@ -78,7 +78,8 @@ namespace UnityTest
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderBlades(poolManager));
 			testSectionBuilderSeclector.addSectionBuilder(new mockSectionBuilderProcessors(poolManager));
 			ISectionDesigning testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, testLevelData) as ISectionDesigning;
-			LevelHandler testLevelHandler = new LevelHandler(testLevelData, testSectionDesigner);
+			IRowCleanup rowCleaner = new RowCleaner(poolManager);
+			LevelHandler testLevelHandler = new LevelHandler(testLevelData, testSectionDesigner, rowCleaner);
 			Assert.IsNotNull(testLevelHandler);
 			Assert.IsNotNull(testLevelData.activeSectionBuilder);
 			Assert.False(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
@@ -189,7 +190,7 @@ namespace UnityTest
 		{
 			Assert.NotNull (testProcessorManager);
 			float time = Time.timeSinceLevelLoad;
-			testProcessorFSM.setCycleCompletion (testProcessorManager,0.2f);
+			testProcessorFSM.SetCycleCompletion (testProcessorManager,0.2f);
 			Assert.True (testProcessorManager.state == ProcessorState.Cool);
 			//Assert.True (testProcessorManager.stateExitTime == (time + 0.2f));
 			Assert.True(float.Equals (Math.Round( (decimal)testProcessorManager.stateExitTime, 1), Math.Round((decimal)(time + 0.2f),1)));
@@ -199,7 +200,7 @@ namespace UnityTest
 		public void processorCycleSetting50()
 		{
 			float time = Time.timeSinceLevelLoad;
-			testProcessorFSM.setCycleCompletion (testProcessorManager,0.5f);
+			testProcessorFSM.SetCycleCompletion (testProcessorManager,0.5f);
 			Assert.True (testProcessorManager.state == ProcessorState.HeatingUp);
 			Assert.True(float.Equals (Math.Round( (decimal)testProcessorManager.stateExitTime, 1), Math.Round((decimal)(time + 0.0f),1)));
 		}
@@ -208,7 +209,7 @@ namespace UnityTest
 		public void processorCycleSettingHalfTimeOfHotState()
 		{
 			float time = Time.timeSinceLevelLoad;
-			testProcessorFSM.setCycleCompletion (testProcessorManager,0.625f);
+			testProcessorFSM.SetCycleCompletion (testProcessorManager,0.625f);
 			Assert.True (testProcessorManager.state == ProcessorState.Hot);
 			Assert.True(float.Equals (Math.Round( (decimal)testProcessorManager.stateExitTime, 1), Math.Round((decimal)(time + 0.5f),1)));
 		}

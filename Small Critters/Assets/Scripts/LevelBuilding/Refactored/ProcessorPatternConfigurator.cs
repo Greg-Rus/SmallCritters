@@ -4,27 +4,28 @@ using System;
 
 public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 
-	private IProcessorFSM processorStateMachine;
+	private IProcessorFSM processorGroupFSM;
 	private ProcessorManager[,] processorGroup;
 	private int oldI = -1;
 	private int oldJ = -1;
 	private float totalCycleOffset = 0;
 	private float minimalOffset = 0; //TODO calculate minimal offset so that long processor sections are not impassible. Can be made smaller as difficulty rises, but within reason.
-	private IProcessorGroupPatternSelection patternSelection;
+	private IProcessorGroupPatternDifficulty patternDifficulty;
 	
-	public ProcessorPatternConfigurator(IProcessorFSM processorStateMachine)
+	public ProcessorPatternConfigurator()
 	{
-		this.processorStateMachine = processorStateMachine;
-		patternSelection = ServiceLocator.getService<IProcessorGroupPatternSelection>();
-		minimalOffset = (1f / 7f) * 1f;
+		patternDifficulty = ServiceLocator.getService<IProcessorGroupPatternDifficulty>();
+		minimalOffset = patternDifficulty.GetProcessorPatternCycleOffset();
 	}
 
 
-	public void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup)
+	public void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, IProcessorFSM processorGroupFSM)
 	{
 		this.processorGroup = processorGroup;
+		this.processorGroupFSM = processorGroupFSM;
+		processorGroupFSM.SetStateTimes(patternDifficulty.GetProcessorFSMTimers());
 		resetConfigurator();
-		int pattern = patternSelection.GetNewProcessorGroupPattern();
+		int pattern = patternDifficulty.GetNewProcessorGroupPattern();
 		ConfigureProcessorsBasedOnPattern(SelectPatternFunction(pattern));
 	}
 	
@@ -39,15 +40,15 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 	{
 		switch (pattern)
 		{
-		case 1: return RightToLeft; break;
-		case 2: return LeftToRight; break;
-		case 3: return HorizontalStripes; break;
-		case 4: return VerticalStripes; break;
-		case 5: return Checkered; break;
-		case 6: return TopDown; break;
-		case 7: return BottomUp; break;
-		case 8: return BackSlashToLeft; break;
-		case 9: return BackSlashToRight; break;
+		case 0: return RightToLeft;
+		case 1: return LeftToRight;
+		case 2: return HorizontalStripes;
+		case 3: return VerticalStripes;
+		case 4: return Checkered;
+		case 5: return TopDown;
+		case 6: return BottomUp;
+		case 7: return BackSlashToLeft;
+		case 8: return BackSlashToRight;
 		default: return RightToLeft;
 		}
 	}
@@ -58,7 +59,7 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 		{
 			for(int j = 0 ; j < processorGroup.GetLength(1) ;++j)
 			{
-				processorStateMachine.setCycleCompletion(processorGroup[i,j],PatternOffset(i,j));
+				processorGroupFSM.SetCycleCompletion(processorGroup[i,j],PatternOffset(i,j));
 			}
 		}
 	}

@@ -1,20 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\GameFramework.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\MainGameController.cs">
     <Files>
-      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="17" Column="3" />
-      <File FileName="Assets\Scripts\Actors\FrogController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\MainGameController.cs" Line="15" Column="57" />
+      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="82" Column="3" />
+      <File FileName="Assets\Scripts\General\MainGameController.cs" Line="80" Column="173" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\GameFramework.cs" Line="44" Column="3" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\General\GameFramework.cs" Line="37" Column="3" />
+      <File FileName="Assets\Scripts\Interfaces.cs" Line="65" Column="42" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces.cs" Line="44" Column="71" />
-      <File FileName="Assets\Scripts\TestMixedLevelBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TestLevelBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="48" Column="98" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="31" Column="59" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" Line="5" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" Line="9" Column="2" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" Line="18" Column="3" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" Line="36" Column="5" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\RowCleaner.cs" Line="22" Column="4" />
+      <File FileName="Assets\Scripts\TestMixedLevelBuilding.cs" Line="46" Column="4" />
+      <File FileName="Assets\Scripts\GameObjectPoolManager.cs" Line="47" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

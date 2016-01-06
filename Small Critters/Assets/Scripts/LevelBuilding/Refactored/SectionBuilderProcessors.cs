@@ -43,7 +43,6 @@ public class SectionBuilderProcessors : ISectionBuilder {
 		if(levelData.levelTop+1 == levelData.newSectionEnd)
 		{
 			//activate the controller
-			int patternVariant = 6;//Random.Range(1,6);
 			newProcessorGroupController = poolManager.retrieveObject("ProcessorGroup");
 			newProcessorGroupController.GetComponent<ProcessorGroupController>().initialize(processorGroup);
 			row.Add(newProcessorGroupController);

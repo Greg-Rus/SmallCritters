@@ -14,6 +14,7 @@ public class GameFramework {
 	SectionBuilderClear clearBuilder;
 	SectionBuilderBlades bladesBuilder;
 	SectionBuilderProcessors processorsBuilder;
+	IRowCleanup rowCleaner;
 	
 	public GameFramework( LevelData levelData, DifficultyManager difficultyManager)
 	{
@@ -33,7 +34,8 @@ public class GameFramework {
 		SetupSectionBuilders();
 		
 		sectionDesigner = new SectionDesigner(sectionBuilderSeclector, levelData) as ISectionDesigning;
-		levelHandler = new LevelHandler(levelData, sectionDesigner);
+		rowCleaner = new RowCleaner(poolManager);
+		levelHandler = new LevelHandler(levelData, sectionDesigner, rowCleaner);
 		
 		return levelHandler;
 	}
@@ -44,9 +46,9 @@ public class GameFramework {
 		
 		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
 		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
-		ServiceLocator.addService<IProcessorGroupPatternSelection>(difficultyManager);
+		ServiceLocator.addService<IProcessorGroupPatternDifficulty>(difficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
-		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
+		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
 	}
 	
 	private void SetupSectionBuilders()

@@ -13,6 +13,7 @@ public class TestLevelBuilding : MonoBehaviour {
 	SectionBuilderBlades bladesBuilder;
 	ServiceLocator services;
 	DifficultyManager difficultyManager;
+	IRowCleanup rowCleaner;
 	// Use this for initialization
 	void Start () {
 		levelData = new LevelData();
@@ -29,7 +30,8 @@ public class TestLevelBuilding : MonoBehaviour {
 		testSectionBuilderSeclector.addSectionBuilder(clearBuilder);
 		testSectionBuilderSeclector.addSectionBuilder(bladesBuilder);
 		testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, levelData) as ISectionDesigning;
-		testLevelHandler = new LevelHandler(levelData, testSectionDesigner);
+		rowCleaner = new RowCleaner(poolManager);
+		testLevelHandler = new LevelHandler(levelData, testSectionDesigner, rowCleaner);
 		
 		for (int i = 0; i < 50; ++i)
 		{

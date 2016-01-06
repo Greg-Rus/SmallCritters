@@ -5,17 +5,20 @@ using System.Collections.Generic;
 public class TestSectionBuilderProcessors : MonoBehaviour {
 	List<GameObject> testRow;
 	SectionBuilderProcessors testBuilder;
-	LevelData levelData;
+	public LevelData levelData;
 	GameObjectPoolManager poolManager;
 	GameObject testBladeRow;
+	public DifficultyManager difficultyManager;
 	public bool firstSectionOK;
 	public bool SecondSectionOK;
 	private ServiceLocator services;
 	// Use this for initialization
 	void Start () {
 		services = new ServiceLocator ();
-		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
-		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator (ServiceLocator.getService<IProcessorFSM>()));
+		//ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
+		ServiceLocator.addService<IProcessorGroupPatternDifficulty>(difficultyManager);
+		difficultyManager.levelData = levelData;
+		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
 		testRow = new List<GameObject>();
 		levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
