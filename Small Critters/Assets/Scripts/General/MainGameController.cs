@@ -34,6 +34,7 @@ public class MainGameController : MonoBehaviour {
 	
 	private void BuildInitialLevel() 
 	{
+		
 		for (int i = 0; i < levelData.levelLength; ++i)
 		{
 			levelHandler.buildNewRow();
@@ -76,7 +77,13 @@ public class MainGameController : MonoBehaviour {
 	private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)
 	{
 		//TODO hook this up to UI score
-		levelHandler.buildNewRow(); //TODO can't call this once per event as the player could have juped several rows!! Calculate the number of calls
+		int rowsToBuild = newRowReachedEventArgs.newRowReached - difficultyManager.HighestRowReached;
+		for(int i = 0; i < rowsToBuild; ++i)
+		{
+			levelHandler.buildNewRow();
+		}
+		difficultyManager.HighestRowReached = newRowReachedEventArgs.newRowReached;
+		 //TODO can't call this once per event as the player could have juped several rows!! Calculate the number of calls
 		//TODO The frog should be placed in the middle of the level. Wait untill row 25 is reached befor calling for new row or make first 25 rows empty and place the frog at 24.
 	}
 

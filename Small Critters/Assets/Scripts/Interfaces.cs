@@ -44,17 +44,18 @@ public interface IProcessorPatternConfiguration
 	void DeployPatternToProcessorGroup(ProcessorManager[,] processorGroup, IProcessorFSM processorGroupFSM);
 }
 
-public interface IBladeSectionLength
+public interface IBladeSectionDifficulty
 {
 	int GetNewBladeSectionLenght();
+	float GetBladeGap();
+	bool IsEmptyRow();
+	float GetBladeSpeed();
+	
 }
 
-public interface IProcessorSectionLenght
+public interface IProcessorGroupDifficulty
 {
 	int GetNewProcessorSectionLenght();
-}
-public interface IProcessorGroupPatternDifficulty
-{
 	int GetNewProcessorGroupPattern();
 	float GetProcessorPatternCycleOffset();
 	float[] GetProcessorFSMTimers();

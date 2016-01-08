@@ -13,7 +13,7 @@ public class SectionDesigner: ISectionDesigning
 	{
 		this.sectionBuilderSelector = sectionBuilderSelector;
 		this.levelData = levelData;
-		sectionBuilderSelector.selectNewSectionBuilder();
+		//sectionBuilderSelector.selectNewSectionBuilder();
 	}
 	
 	public void buildNewRow(List<GameObject> row)

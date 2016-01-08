@@ -16,7 +16,7 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 	void Start () {
 		services = new ServiceLocator ();
 		//ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
-		ServiceLocator.addService<IProcessorGroupPatternDifficulty>(difficultyManager);
+		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
 		difficultyManager.levelData = levelData;
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
 		testRow = new List<GameObject>();

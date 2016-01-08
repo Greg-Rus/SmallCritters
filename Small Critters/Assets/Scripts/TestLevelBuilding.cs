@@ -22,8 +22,8 @@ public class TestLevelBuilding : MonoBehaviour {
 		difficultyManager = new DifficultyManager();
 		testSectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;
 		testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, levelData) as ISectionBuilderSelection;
-		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
-		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
+		ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);
+		//ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 		clearBuilder = new SectionBuilderClear();
 		levelData.activeSectionBuilder = clearBuilder;
 		bladesBuilder = new SectionBuilderBlades(levelData, poolManager);

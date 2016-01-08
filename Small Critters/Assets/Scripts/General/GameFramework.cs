@@ -44,9 +44,9 @@ public class GameFramework {
 	{
 		services = new ServiceLocator ();
 		
-		ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
-		ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
-		ServiceLocator.addService<IProcessorGroupPatternDifficulty>(difficultyManager);
+		ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);
+		//ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
+		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
 	}

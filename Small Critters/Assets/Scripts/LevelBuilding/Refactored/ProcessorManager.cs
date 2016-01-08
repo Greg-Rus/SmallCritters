@@ -7,11 +7,13 @@ public class ProcessorManager : MonoBehaviour {
 	//public float cycleTime;
 	public float stateExitTime; //Time.timeSinceLevelLoad + some state timer
 	public float stateStayTimeCompletion; // 0.0-1.0 %
+	private ParticleSystem steamRing;
 	
 	// Use this for initialization
 	void Start () {
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		gameObject.layer = 8;
+		steamRing = GetComponent<ParticleSystem>();
 	}
 
 	
@@ -26,10 +28,13 @@ public class ProcessorManager : MonoBehaviour {
 	public void setHazadrousLayer()
 	{
 		gameObject.layer = 15;
+		steamRing.Play();
+		//StartSteamParticles();
 	}
 	public void setSafeLayer()
 	{
 		gameObject.layer = 8;
+		steamRing.Stop();
 	}
 	
 	void OnTriggerStay2D(Collider2D other) {

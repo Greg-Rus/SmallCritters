@@ -4,13 +4,13 @@ using System.Collections;
 public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 
 	private LevelData levelData; 
-	private IBladeSectionLength bladeSectionLenghtManager;
-	private IProcessorSectionLenght processorSectionLenghtManager;
+	private IBladeSectionDifficulty bladeSectionLenghtManager;
+	private IProcessorGroupDifficulty processorSectionDifficultyManager;
 	public SectionBuilderConfigurator(LevelData levelData)
 	{
 		this.levelData = levelData;
-		bladeSectionLenghtManager = ServiceLocator.getService<IBladeSectionLength>();
-		processorSectionLenghtManager = ServiceLocator.getService<IProcessorSectionLenght>();
+		bladeSectionLenghtManager = ServiceLocator.getService<IBladeSectionDifficulty>();
+		processorSectionDifficultyManager = ServiceLocator.getService<IProcessorGroupDifficulty>();
 	} 
 	
 	public void configureSectionBuilder()
@@ -32,7 +32,7 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 	
 	private void ProcessorConfig()
 	{
-		levelData.newSectionEnd = levelData.newSectionStart + processorSectionLenghtManager.GetNewProcessorSectionLenght();
+		levelData.newSectionEnd = levelData.newSectionStart + processorSectionDifficultyManager.GetNewProcessorSectionLenght();
 	}
 	
 	private void ClearConfig()

@@ -34,8 +34,8 @@ namespace UnityTest
 			testLevelData.activeSectionBuilder = clearBuilder;
 			serviceLocator = new ServiceLocator();
 			difficultyManager = new mockDifficultyManager();
-			ServiceLocator.addService<IBladeSectionLength>(difficultyManager);
-			ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
+			ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);
+			ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
 			rowCleaner = new RowCleaner(poolManager);
 			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
@@ -57,12 +57,12 @@ namespace UnityTest
 		public void NewRowFromLevelBuilder()
 		{
 			List<GameObject> End = testLevelHandler.level.Peek();
-			End.Add(dummyObject);
-			
+			Assert.True(ReferenceEquals(End,testLevelHandler.level.Peek()));
+			//End.Add(dummyObject);
 			testLevelHandler.buildNewRow();
-			
-			Assert.False (testLevelHandler.level.Peek().Contains(dummyObject));
-			Assert.True (testLevelHandler.level.ToArray()[testLevelHandler.level.Count - 1].Contains(dummyObject)); 
+			Assert.True (ReferenceEquals( End , testLevelHandler.level.ToArray()[testLevelHandler.level.Count - 1]));
+			//Assert.False (testLevelHandler.level.Peek().Contains(dummyObject));
+			//Assert.True (testLevelHandler.level.ToArray()[testLevelHandler.level.Count - 1].Contains(dummyObject)); 
 			
 			
 		}

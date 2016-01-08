@@ -10,11 +10,11 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 	private int oldJ = -1;
 	private float totalCycleOffset = 0;
 	private float minimalOffset = 0; //TODO calculate minimal offset so that long processor sections are not impassible. Can be made smaller as difficulty rises, but within reason.
-	private IProcessorGroupPatternDifficulty patternDifficulty;
+	private IProcessorGroupDifficulty patternDifficulty;
 	
 	public ProcessorPatternConfigurator()
 	{
-		patternDifficulty = ServiceLocator.getService<IProcessorGroupPatternDifficulty>();
+		patternDifficulty = ServiceLocator.getService<IProcessorGroupDifficulty>();
 		minimalOffset = patternDifficulty.GetProcessorPatternCycleOffset();
 	}
 

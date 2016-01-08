@@ -9,12 +9,13 @@ public class SectionBuilderBlades: ISectionBuilder {
 	GameObjectPoolManager poolManager;
 	GameObject blade;
 	GameObject bladeRow;
+	IBladeSectionDifficulty difficultyManager;
 	//difficulty based
-	float minBaldeGap = 2f;
-	float maxBladeGap = 5f;
-	float minSpeed = 1f;
-	float maxSpeed = 3f;
-	float chanceForEmptyRow = 0.25f;
+	//float minBaldeGap = 2f;
+	//float maxBladeGap = 5f;
+	//float minSpeed = 1f;
+	//float maxSpeed = 3f;
+	//float chanceForEmptyRow = 0.25f;
 	
 	float bladeLength;
 	int maxBladeNumber;
@@ -23,6 +24,7 @@ public class SectionBuilderBlades: ISectionBuilder {
 	{
 		this.levelData = levelData;
 		this.poolManager = poolManager;
+		difficultyManager = ServiceLocator.getService<IBladeSectionDifficulty>();
 		type = sectionBuilderType.blade;
 		blade = Resources.Load("Blade") as GameObject;
 		bladeRow = Resources.Load("BladeRow") as GameObject;
@@ -36,7 +38,7 @@ public class SectionBuilderBlades: ISectionBuilder {
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-		if(!shouldBeEmptyRow())
+		if(!difficultyManager.IsEmptyRow())
 		{
 			buildNewBladeRow(row);
 		}
@@ -44,9 +46,9 @@ public class SectionBuilderBlades: ISectionBuilder {
 	
 	private void buildNewBladeRow(List<GameObject> row)
 	{
-		float bladeGap = Random.Range(minBaldeGap, maxBladeGap) + bladeLength;
+		float bladeGap = difficultyManager.GetBladeGap(); //Random.Range(minBaldeGap, maxBladeGap) + bladeLength;
 		float direction = Random.Range(0,2) == 1 ? 1f : -1f;
-		float speed = Random.Range (minSpeed, maxSpeed);
+		float speed = difficultyManager.GetBladeSpeed();//Random.Range (minSpeed, maxSpeed);
 		int numberOfBlades = (int)(levelData.levelWidth / (bladeLength + bladeGap)) + 2;
 		
 		GameObject newBladeRow = poolManager.retrieveObject("BladeRow");
@@ -72,10 +74,10 @@ public class SectionBuilderBlades: ISectionBuilder {
 		}
 	}
 	
-	private bool shouldBeEmptyRow()
-	{
+//	private bool shouldBeEmptyRow()
+//	{
 		//TODO decide based on current difficulty (levelTop) 
-		bool isEmpty = (Random.Range(0f,1f)) <= chanceForEmptyRow ? true : false;
-		return isEmpty;
-	}
+//		bool isEmpty = (Random.Range(0f,1f)) <= chanceForEmptyRow ? true : false;
+//		return isEmpty;
+//	}
 }

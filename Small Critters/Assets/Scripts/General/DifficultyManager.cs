@@ -3,35 +3,61 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class DifficultyManager: MonoBehaviour, IBladeSectionLength, IProcessorSectionLenght, IProcessorGroupPatternDifficulty {
-	public int highestRowReached;
-	public float bladeSpeedMin = 0.5f;
-	public float bladeSpeedMax = 3f;
+public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcessorGroupDifficulty {
+	//TODO difficulty progression
+	private int highestRowReached = 0;
+	public int HighestRowReached
+	{
+		get{ return highestRowReached;}
+		set
+		{ 
+		highestRowReached = value;
+		ScaleDifficulty();
+		}
+	}
+	public int difficultyScalingThreshold = 50;
+	private int nextDifficultySclingPoint;
+	public float bladeSpeedMin = 0.5f; //scales up until Max value is reached.
+	public float bladeSpeedMax = 3f; //TODO if max value is reached similar rows will apear in sequence. Offset the cycle or make random return varied results
+	public float bladeSpeedScalingFactor = 0.2f; 
+	
 	public int bladeSectionLengthMin = 4;
 	public int bladeSectionLengthMax = 10;
-	public int bladeProcessorLengthMin = 4;
-	public int bladeProcessorLengthMax = 7;
-	public int[] processorPatternWeitghts = {5,5,4,4,3,2,0,0,0};
+	
+	public float bladeGapMin = 3;
+	public float bladeGapMax = 5; //scales down until Min value is reached.
+	public float bladeGapScalingFactor = -0.2f;
+	
+	public float chanceForAnEmptyRowInBladeSection = 0.25f;
+	public float EmptyRowInBladeSectionScalingFactor = -0.01f; //scales to zero
+	
+	public int processorSectionLengthMin = 4;
+	public int processorSectionLengthMax = 7;
+	
+	public int[] processorPatternWeitghts = {5,4,3,2,1,0,0,0,0};
 	public float[] processorPatternWeitghtsHistogram;
+	
 	public float processorPatternCyclesPerGroup = 1;
+	
 	public float stayCoolTime = 1;
 	public float heatUpTime = 1;
 	public float stayHotTime = 1;
 	public float coolDownTime = 1;
+	
 	private float processorPatternCycleOffset;
-	//private IProcessorFSM processorFSM;
-	//[NonSerialized]
+	[NonSerialized]
 	public LevelData levelData;
 	
 	public void Start()
 	{
 		processorPatternWeitghtsHistogram = new float[processorPatternWeitghts.Length];
 		CalculateProcessorPatternHistogram();
+		nextDifficultySclingPoint = difficultyScalingThreshold;
 	}
 	
 	public float GetBladeSpeed()
 	{
-		return bladeSpeedMin;
+		return UnityEngine.Random.Range(bladeSpeedMin,bladeSpeedMax);
 	}
 	
 	public void HanldeNewHighestRowReached(object sender, NewRowReached newHighestRowReached)
@@ -46,7 +72,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionLength, IProcessorSe
 	
 	public int GetNewProcessorSectionLenght()
 	{
-		return UnityEngine.Random.Range(bladeProcessorLengthMin, bladeProcessorLengthMax);
+		return UnityEngine.Random.Range(processorSectionLengthMin, processorSectionLengthMax);
 	}
 	
 	public int GetNewProcessorGroupPattern()
@@ -87,6 +113,66 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionLength, IProcessorSe
 	{
 		float[] timers = new float[]{stayCoolTime, heatUpTime, stayHotTime, coolDownTime};
 		return timers;
+	}
+	public float GetBladeGap()
+	{
+		return UnityEngine.Random.Range(bladeGapMin, bladeGapMax);
+	}
+	public bool IsEmptyRow()
+	{
+		float roll = UnityEngine.Random.Range (0f,1f);
+		if(roll <= chanceForAnEmptyRowInBladeSection)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	public void ScaleDifficulty()
+	{
+		if(highestRowReached >= nextDifficultySclingPoint)
+		{
+			nextDifficultySclingPoint += difficultyScalingThreshold;
+			ScaleBladeSectionDifficulty();
+			SclaeProcessorSectionDifficulty();
+		}
+	}
+	private void ScaleBladeSectionDifficulty()
+	{
+
+		if(bladeSpeedMin + bladeSpeedScalingFactor < bladeSpeedMax)
+		{
+			bladeSpeedMin += bladeSpeedScalingFactor;
+		}
+		else
+		{
+			bladeSpeedMin = bladeSpeedMax;
+		}
+		
+		if(chanceForAnEmptyRowInBladeSection + EmptyRowInBladeSectionScalingFactor > 0f)
+		{
+			chanceForAnEmptyRowInBladeSection += EmptyRowInBladeSectionScalingFactor;
+		}
+		else
+		{
+			chanceForAnEmptyRowInBladeSection = 0f;
+		}
+		
+		if(bladeGapMax + bladeGapScalingFactor > bladeGapMin)
+		{
+			bladeGapMax += bladeGapScalingFactor;
+		}
+		else
+		{
+			bladeGapMax = bladeGapMin;
+		}
+	}
+	private void SclaeProcessorSectionDifficulty()
+	{
+	
 	}
 
 }

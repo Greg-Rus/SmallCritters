@@ -100,16 +100,17 @@ namespace UnityTest
 		}
 	}
 	
-	public class mockDifficultyManager: IBladeSectionLength, IProcessorSectionLenght
+	public class mockDifficultyManager: IBladeSectionDifficulty, IProcessorGroupDifficulty
 	{
-		public int GetNewBladeSectionLenght()
-		{
-			return 6;
-		}
-	
-		public int GetNewProcessorSectionLenght()
-		{
-			return 4;
-		}
+		public int GetNewBladeSectionLenght(){return 6;}
+		public float GetBladeGap(){ return 5f;	}
+		public bool IsEmptyRow(){return true;}
+		public float GetBladeSpeed(){return 2;}
+		
+		public int GetNewProcessorSectionLenght(){return 4;	}
+		public int GetNewProcessorGroupPattern(){return 1;}
+		public float GetProcessorPatternCycleOffset(){return 1f;}
+		public float[] GetProcessorFSMTimers(){return new float[]{1f};}
+		
 	}
 }
