@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class ProcessorFSM: IProcessorFSM{
 	
@@ -9,6 +10,7 @@ public class ProcessorFSM: IProcessorFSM{
 	public float totalCycleTime;
 	private float[] stateStayTimes;
 	private Dictionary<ProcessorState, float> stateTimers;
+	private Dictionary <ProcessorState, Action<ProcessorManager>> transitions;
 
 	
 	public ProcessorFSM()
@@ -18,6 +20,13 @@ public class ProcessorFSM: IProcessorFSM{
 		stateTimers.Add (ProcessorState.HeatingUp, 1f);
 		stateTimers.Add (ProcessorState.Hot, 1f);
 		stateTimers.Add (ProcessorState.CoolingDown, 1f);
+		
+		transitions = new Dictionary<ProcessorState, Action<ProcessorManager>>();
+		transitions.Add (ProcessorState.Cool, transitionToHeatingUp);
+		transitions.Add (ProcessorState.HeatingUp, transitionToHot);
+		transitions.Add (ProcessorState.Hot, transitionToCoolingDown);
+		transitions.Add (ProcessorState.CoolingDown, transitionToCool);
+		
 
 		calculateTotalCycleTime ();
 		//stateStayTimes = new float[]{_stayCoolTime, _heatUpTime, _stayHotTime, _coolDownTime};
@@ -78,8 +87,9 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	private void transitionToHeatingUp(ProcessorManager processor)
 	{
-		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.HeatingUp];
-		processor.state = ProcessorState.HeatingUp;
+		SetStateAndTimer(processor, ProcessorState.HeatingUp);
+		//processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.HeatingUp];
+		//processor.state = ProcessorState.HeatingUp;
 	}
 	
 	private void heatUp(ProcessorManager processor)
@@ -95,9 +105,11 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	private void transitionToHot(ProcessorManager processor)
 	{
-		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.Hot];
 		processor.setHazadrousLayer();
-		processor.state = ProcessorState.Hot;
+		SetStateAndTimer(processor, ProcessorState.Hot);
+		//processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.Hot];
+		
+		//processor.state = ProcessorState.Hot;
 	}
 	
 	private void stayHot(ProcessorManager processor)
@@ -109,9 +121,11 @@ public class ProcessorFSM: IProcessorFSM{
 	}
 	private void transitionToCoolingDown(ProcessorManager processor)
 	{
-		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.CoolingDown];
 		processor.setSafeLayer();
-		processor.state = ProcessorState.CoolingDown;
+		SetStateAndTimer(processor, ProcessorState.CoolingDown);
+		//processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.CoolingDown];
+		
+		//processor.state = ProcessorState.CoolingDown;
 	}
 	
 	private void coolDown(ProcessorManager processor)
@@ -126,8 +140,9 @@ public class ProcessorFSM: IProcessorFSM{
 	}
 	private void transitionToCool(ProcessorManager processor)
 	{
-		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.Cool];
-		processor.state = ProcessorState.Cool;
+		SetStateAndTimer(processor, ProcessorState.Cool);
+		//processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[ProcessorState.Cool];
+		//processor.state = ProcessorState.Cool;
 	}
 	
 	private float timerProgressPercent(ProcessorManager processor, float stateStayTime)
@@ -139,6 +154,7 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	public void SetCycleCompletion(ProcessorManager processor, float cyclePercent)
 	{
+		transitions[ProcessorState.CoolingDown](processor);
 		ProcessorState targetState = ProcessorState.Cool;
 		//int timesIndex = 0;
 		float targetStateStayTime = stateTimers[targetState];
@@ -146,11 +162,19 @@ public class ProcessorFSM: IProcessorFSM{
 		while (targetStateStayTime < totalCycleTime * cyclePercent) 
 		{
 			//Debug.Log (targetStateStayTime + "  " + totalCycleTime * cyclePercent);
+			transitions[targetState](processor);
 			++targetState;
+			
 			targetStateStayTime += stateTimers[targetState];
 			//++timesIndex;
 		}
 		processor.state = targetState;
 		processor.stateExitTime = Time.timeSinceLevelLoad + (targetStateStayTime - (totalCycleTime * cyclePercent));
+	}
+	
+	private void SetStateAndTimer(ProcessorManager processor, ProcessorState state)
+	{
+		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[state];
+		processor.state = state;
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
 public enum sectionBuilderType {clear, blade, processor};
+public enum HeatVentState {Closed, Opening, WarmingUp, Venting, Closing};
 
 public interface Imovement {
 	

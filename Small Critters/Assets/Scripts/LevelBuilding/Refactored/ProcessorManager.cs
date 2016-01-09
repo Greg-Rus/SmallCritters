@@ -10,7 +10,7 @@ public class ProcessorManager : MonoBehaviour {
 	private ParticleSystem steamRing;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		gameObject.layer = 8;
 		steamRing = GetComponent<ParticleSystem>();

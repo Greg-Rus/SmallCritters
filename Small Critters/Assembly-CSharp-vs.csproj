@@ -73,8 +73,10 @@
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorHeater.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\BladeRowMovement.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\HeatVentFSM.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\Obstacles\HeatVentController.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" />
@@ -96,6 +98,7 @@
      <Compile Include="Assets\Scripts\old\FloorHandler.cs" />
      <Compile Include="Assets\Scripts\old\FloorPlanLayer.cs" />
      <Compile Include="Assets\Scripts\old\FrogMovementGrid.cs" />
+     <Compile Include="Assets\SimpleParticlePack\Scripts\ParticleTester.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\AssertionComponent.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\AssertionException.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\Assertions.cs" />
