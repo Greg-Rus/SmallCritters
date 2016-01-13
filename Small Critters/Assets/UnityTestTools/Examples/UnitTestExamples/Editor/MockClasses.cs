@@ -104,7 +104,7 @@ namespace UnityTest
 	{
 		public int GetNewBladeSectionLenght(){return 6;}
 		public float GetBladeGap(){ return 5f;	}
-		public bool IsEmptyRow(){return true;}
+		public bool IsBladeRowEmpty(){return true;}
 		public float GetBladeSpeed(){return 2;}
 		
 		public int GetNewProcessorSectionLenght(){return 4;	}

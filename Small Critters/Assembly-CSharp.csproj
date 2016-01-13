@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderClear.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderHeatVent.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderProcessors.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" />

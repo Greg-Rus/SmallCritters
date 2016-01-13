@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
-public enum sectionBuilderType {clear, blade, processor};
-public enum HeatVentState {Closed, Opening, WarmingUp, Venting, Closing};
+public enum sectionBuilderType {clear, blade, processor, heatVent};
+public enum HeatVentState {Start, Closed, Opening, WarmingUp, Venting, Closing};
 
 public interface Imovement {
 	
@@ -49,9 +49,19 @@ public interface IBladeSectionDifficulty
 {
 	int GetNewBladeSectionLenght();
 	float GetBladeGap();
-	bool IsEmptyRow();
 	float GetBladeSpeed();
+	bool IsBladeRowEmpty();
 	
+}
+
+public interface IHeatVentSectionDifficulty
+{
+	bool IsHeatVentRowEmpty();
+	float[] GetHeatVentFSMTimers();
+	float GetHeatVentLength();
+	Vector3 GetHeatVentRotation();
+	float GetHeatVentCycleOffset();
+	int GetNewHeatVentSectionLenght();
 }
 
 public interface IProcessorGroupDifficulty

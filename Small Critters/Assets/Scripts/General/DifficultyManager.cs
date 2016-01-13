@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcessorGroupDifficulty {
+public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcessorGroupDifficulty, IHeatVentSectionDifficulty {
 	//TODO difficulty progression
 	private int highestRowReached = 0;
 	public int HighestRowReached
@@ -39,14 +39,70 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	
 	public float processorPatternCyclesPerGroup = 1;
 	
-	public float stayCoolTime = 1;
-	public float heatUpTime = 1;
-	public float stayHotTime = 1;
-	public float coolDownTime = 1;
+	public float processorStayCoolTime = 1;
+	public float processorHeatUpTime = 1;
+	public float processorStayHotTime = 1;
+	public float processorCoolDownTime = 1;
 	
 	private float processorPatternCycleOffset;
+	
+	public int heatVentSectionLengthMin = 5;
+	public int heatVentSectionLengthMax = 10;
+	public float minHeatVentLenght = 2f;
+	public float maxHeatVentLenght = 7f;
+	public float chanceForEmptyRowInHeatVentSection = 0.5f;
+	public float heatVentClosedTime = 1f;
+	public float heatVentOpeningTime = 0.4f;
+	public float heatVentWarmingUpTime = 1f;
+	public float heatVentVentingTime = 1.5f;
+	public float heatVentClosingTime = 1f;
+
+	
 	[NonSerialized]
 	public LevelData levelData;
+	
+	public bool IsHeatVentRowEmpty()
+	{
+		return RollBelowPercent(chanceForEmptyRowInHeatVentSection);
+	}
+	public bool IsBladeRowEmpty()
+	{
+		return RollBelowPercent(chanceForAnEmptyRowInBladeSection);
+	}
+	
+	private float TimerModifier(float min, float max)
+	{
+		return UnityEngine.Random.Range(min,max);
+	}
+	
+	public float[] GetHeatVentFSMTimers()
+	{
+		
+		float[] timers = new float[]{heatVentClosedTime + TimerModifier(-0.5f, 2f), 
+									heatVentOpeningTime, 
+									heatVentWarmingUpTime + TimerModifier(-0.5f, 2f), 
+									heatVentVentingTime + TimerModifier(-1f, 1.5f), 
+									heatVentClosingTime};
+		return timers;
+	}
+	
+	public float GetHeatVentLength()
+	{
+		return UnityEngine.Random.Range(minHeatVentLenght,maxHeatVentLenght);
+	}
+	
+	public float GetHeatVentCycleOffset()
+	{
+		return UnityEngine.Random.Range(0f,1f);
+	}
+	
+	public Vector3 GetHeatVentRotation()
+	{
+		if(RollBelowPercent(0.5f))
+		{return Vector3.zero;}
+		else
+		{return new Vector3(0f,0f,180f);}
+	}
 	
 	public void Start()
 	{
@@ -73,6 +129,11 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	public int GetNewProcessorSectionLenght()
 	{
 		return UnityEngine.Random.Range(processorSectionLengthMin, processorSectionLengthMax);
+	}
+	
+	public int GetNewHeatVentSectionLenght()
+	{
+		return UnityEngine.Random.Range(heatVentSectionLengthMin, heatVentSectionLengthMax);
 	}
 	
 	public int GetNewProcessorGroupPattern()
@@ -111,17 +172,17 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	
 	public float[] GetProcessorFSMTimers()
 	{
-		float[] timers = new float[]{stayCoolTime, heatUpTime, stayHotTime, coolDownTime};
+		float[] timers = new float[]{processorStayCoolTime, processorHeatUpTime, processorStayHotTime, processorCoolDownTime};
 		return timers;
 	}
 	public float GetBladeGap()
 	{
 		return UnityEngine.Random.Range(bladeGapMin, bladeGapMax);
 	}
-	public bool IsEmptyRow()
+	public bool RollBelowPercent(float pecent)
 	{
 		float roll = UnityEngine.Random.Range (0f,1f);
-		if(roll <= chanceForAnEmptyRowInBladeSection)
+		if(roll <= pecent)
 		{
 			return true;
 		}
@@ -137,7 +198,9 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 		{
 			nextDifficultySclingPoint += difficultyScalingThreshold;
 			ScaleBladeSectionDifficulty();
-			SclaeProcessorSectionDifficulty();
+			ScaleProcessorSectionDifficulty();
+			ScaleHeatVentSectionDifficulty();
+			
 		}
 	}
 	private void ScaleBladeSectionDifficulty()
@@ -170,9 +233,13 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			bladeGapMax = bladeGapMin;
 		}
 	}
-	private void SclaeProcessorSectionDifficulty()
+	private void ScaleProcessorSectionDifficulty()
 	{
 	
+	}
+	private void ScaleHeatVentSectionDifficulty()
+	{
+		
 	}
 
 }

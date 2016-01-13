@@ -38,7 +38,7 @@ public class SectionBuilderBlades: ISectionBuilder {
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-		if(!difficultyManager.IsEmptyRow())
+		if(!difficultyManager.IsBladeRowEmpty())
 		{
 			buildNewBladeRow(row);
 		}
