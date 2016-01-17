@@ -51,6 +51,7 @@ public interface IBladeSectionDifficulty
 	float GetBladeGap();
 	float GetBladeSpeed();
 	bool IsBladeRowEmpty();
+	float GetBladeRowCycleOffset();
 	
 }
 
@@ -75,5 +76,15 @@ public interface IProcessorGroupDifficulty
 public interface IRowCleanup
 {
 	void DismantleRow(List<GameObject> row);
+}
+
+public interface IDifficultyScaling
+{
+	void ScaleDifficulty();
+}
+
+public interface IDifficultyBasedBuilderPicking
+{
+	sectionBuilderType GetSectionBuilder();
 }
 

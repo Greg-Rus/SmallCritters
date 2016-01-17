@@ -111,6 +111,7 @@ namespace UnityTest
 		public int GetNewProcessorGroupPattern(){return 1;}
 		public float GetProcessorPatternCycleOffset(){return 1f;}
 		public float[] GetProcessorFSMTimers(){return new float[]{1f};}
+		public float GetBladeRowCycleOffset(){return 1f;}
 		
 	}
 }

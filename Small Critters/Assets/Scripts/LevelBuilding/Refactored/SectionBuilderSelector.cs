@@ -6,35 +6,39 @@ using System.Collections.Generic;
 
 public class SectionBuilderSelector: ISectionBuilderSelection {
 
-	public List<ISectionBuilder> availableSectionBuilders;
+	public Dictionary<sectionBuilderType, ISectionBuilder> availableSectionBuilders;
 	private ISectionBuilderConfiguration sectionBuilderConfigurator;
 	private LevelData levelData;
+	private IDifficultyBasedBuilderPicking difficultyManager;
+	
 	
 	public SectionBuilderSelector (ISectionBuilderConfiguration sectionBuilderConfigurator, LevelData levelData)
 	{
 		this.sectionBuilderConfigurator = sectionBuilderConfigurator;
 		this.levelData = levelData;
-		availableSectionBuilders = new List<ISectionBuilder>();
+		difficultyManager = ServiceLocator.getService<IDifficultyBasedBuilderPicking>();
+		availableSectionBuilders = new Dictionary<sectionBuilderType, ISectionBuilder>();
 	}
 	
 	public void addSectionBuilder (ISectionBuilder sectionBuilder)
 	{
-		availableSectionBuilders.Add(sectionBuilder);
+		availableSectionBuilders.Add(sectionBuilder.type,sectionBuilder);
 	}
 	
 	public void selectNewSectionBuilder()
 	{
-		int newBuilder;
+		sectionBuilderType newBuilderType;
 		if(levelData.activeSectionBuilder.type != sectionBuilderType.clear)
 		{
-			newBuilder = 0;
+			newBuilderType = sectionBuilderType.clear;
 		}
 		else
 		{
-			newBuilder = Random.Range(1, availableSectionBuilders.Count); //TODO candidate for DefficultyManager
+			newBuilderType = difficultyManager.GetSectionBuilder();//Random.Range(1, availableSectionBuilders.Count); //TODO candidate for DefficultyManager
+			Debug.Log (newBuilderType);
 		}
 		
-		levelData.activeSectionBuilder = availableSectionBuilders[newBuilder];//[newBuilderType];
+		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];//[newBuilderType];
 		sectionBuilderConfigurator.configureSectionBuilder();
 	}
 

@@ -42,13 +42,13 @@ public class ProcessorPatternConfigurator :IProcessorPatternConfiguration  {
 		{
 		case 0: return RightToLeft;
 		case 1: return LeftToRight;
-		case 2: return HorizontalStripes;
-		case 3: return VerticalStripes;
-		case 4: return Checkered;
-		case 5: return TopDown;
-		case 6: return BottomUp;
-		case 7: return BackSlashToLeft;
-		case 8: return BackSlashToRight;
+		case 2: return BackSlashToLeft;
+		case 3: return BackSlashToRight;
+		case 4: return TopDown;
+		case 5: return BottomUp;
+		case 6: return Checkered;
+		case 7: return HorizontalStripes;
+		case 8: return VerticalStripes;
 		default: return RightToLeft;
 		}
 	}

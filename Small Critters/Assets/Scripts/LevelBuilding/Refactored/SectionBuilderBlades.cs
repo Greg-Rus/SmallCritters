@@ -49,6 +49,7 @@ public class SectionBuilderBlades: ISectionBuilder {
 		float bladeGap = difficultyManager.GetBladeGap(); //Random.Range(minBaldeGap, maxBladeGap) + bladeLength;
 		float direction = Random.Range(0,2) == 1 ? 1f : -1f;
 		float speed = difficultyManager.GetBladeSpeed();//Random.Range (minSpeed, maxSpeed);
+		float moveCycleOffset = difficultyManager.GetBladeRowCycleOffset();
 		int numberOfBlades = (int)(levelData.levelWidth / (bladeLength + bladeGap)) + 2;
 		
 		GameObject newBladeRow = poolManager.retrieveObject("BladeRow");
@@ -69,7 +70,8 @@ public class SectionBuilderBlades: ISectionBuilder {
 			}
 			newBlade.transform.position = newBladePosition;
 			newBlade.transform.parent = newBladeRow.transform;
-			newBladeRow.GetComponent<BladeRowMovement>().configure(speed, direction, bladeGap);
+			newBladeRow.GetComponent<BladeRowMovement>().configure(speed, direction, bladeGap, moveCycleOffset);
+		
 			row.Add (newBlade);
 		}
 	}

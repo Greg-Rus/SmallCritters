@@ -72,6 +72,7 @@ public class HeatVentController : MonoBehaviour {
 		fsm.SetStateTimes(timers);
 		fsm.SetCycleCompletion(this, cycleCompletion);
 		flame.startLifetime = length* 0.1f;
+		//tipStartPosition = lightTip.transform.localPosition;
 	}
 	
 	public void UpdateVentigState()
@@ -127,7 +128,7 @@ public class HeatVentController : MonoBehaviour {
 		Vector3 newTipThickness = new Vector3(newWidth, lightTip.transform.localScale.y, lightTip.transform.localScale.z);
 		lightTip.transform.localScale = newTipThickness;
 
-		Vector3 offset = transform.right * ( shaftLength + (lightTipHalfWidth * newWidth));
+		Vector3 offset = Vector3.right * ( shaftLength + (lightTipHalfWidth * newWidth));
 		Vector3 newTipPosition =  tipStartPosition + offset;
 
 		lightTip.transform.localPosition = newTipPosition;

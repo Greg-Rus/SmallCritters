@@ -8,7 +8,7 @@ public class BladeRowMovement : MonoBehaviour {
 	public Vector3 moveCycleEndPoint;
 	public Vector3 moveCycleStartPoint;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		myRigidbody = GetComponent<Rigidbody2D>();
 	}
 	
@@ -25,11 +25,12 @@ public class BladeRowMovement : MonoBehaviour {
 
 	}
 	
-	public void configure(float speed, float direction, float moveDistance)
+	public void configure(float speed, float direction, float moveDistance, float offset)
 	{
 		this.speed = speed;
 		this.direction = direction;
 		moveCycleEndPoint = transform.position + (Vector3.right * direction * moveDistance);
 		moveCycleStartPoint = transform.position;
+		myRigidbody.MovePosition(transform.position + (Vector3.right * direction * moveDistance * offset));
 	}
 }

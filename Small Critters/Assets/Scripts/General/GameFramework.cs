@@ -44,7 +44,7 @@ public class GameFramework {
 	private void SetupServiceLocator()
 	{
 		services = new ServiceLocator ();
-		
+		ServiceLocator.addService<IDifficultyBasedBuilderPicking>(difficultyManager);
 		ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);
 		//ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
