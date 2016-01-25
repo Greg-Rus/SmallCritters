@@ -35,7 +35,7 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 		else
 		{
 			newBuilderType = difficultyManager.GetSectionBuilder();//Random.Range(1, availableSectionBuilders.Count); //TODO candidate for DefficultyManager
-			Debug.Log (newBuilderType);
+			//Debug.Log (newBuilderType);
 		}
 		
 		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];//[newBuilderType];

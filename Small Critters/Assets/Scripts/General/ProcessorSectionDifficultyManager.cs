@@ -61,6 +61,10 @@ public class ProcessorSectionDifficultyManager : MonoBehaviour, IProcessorGroupD
 		
 		float normalizedUnit = 1f / weightSum;
 		
+		if(processorPatternWeitghtsHistogram == null)
+		{
+			processorPatternWeitghtsHistogram = new float[processorPatternWeitghts.Length];
+		}
 		processorPatternWeitghtsHistogram[0] = processorPatternWeitghts[0] * normalizedUnit;
 		for (int i = 1; i < processorPatternWeitghtsHistogram.Length; ++i)
 		{

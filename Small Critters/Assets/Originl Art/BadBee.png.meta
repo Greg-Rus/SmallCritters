@@ -1,0 +1,187 @@
+fileFormatVersion: 2
+guid: 30f5d01d822df5b4a85af48422cc6076
+timeCreated: 1453756965
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: BadBee_0
+    21300002: BadBee_1
+    21300004: BadBee_2
+    21300006: BadBee_3
+    21300008: BadBee_4
+    21300010: BadBee_5
+    21300012: BadBee_6
+    21300014: BadBee_7
+    21300016: BadBee_8
+    21300018: BadBee_9
+    21300020: BadBee_10
+    21300022: BadBee_11
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 512
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: BadBee_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 196
+        width: 330
+        height: 316
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_1
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 395
+        width: 145
+        height: 117
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_2
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 260
+        width: 145
+        height: 116
+      alignment: 2
+      pivot: {x: .5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_3
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 2
+        width: 229
+        height: 187
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_4
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 188
+        width: 8
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_5
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 185
+        width: 32
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_6
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 28
+        width: 112
+        height: 133
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_7
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 144
+        width: 126
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_8
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 72
+        width: 51
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_9
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 71
+        width: 57
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_10
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 2
+        width: 50
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: BadBee_11
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 4
+        width: 57
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

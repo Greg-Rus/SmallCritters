@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -24,9 +24,9 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	
 	//public BuilderWeight[] builderWeights;
 	public List<BuilderWeight> builderWeights;
-	public float useBladeBuilder = 1f;
-	public float useProcessorBuilder = 1f;
-	public float useHeatVentBuilder = 1f;
+	//public float useBladeBuilder = 1f;
+	//public float useProcessorBuilder = 1f;
+	//public float useHeatVentBuilder = 1f;
 	
 	private int nextDifficultyScalingPoint;
 	[NonSerialized]
@@ -45,7 +45,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			for (int i = 0; i<steps;++i)
 			{
 				ScaleDifficulty();
-				Debug.Log (difficultyLevel);
+				//Debug.Log (difficultyLevel);
 			}
 		}
 	}
@@ -63,7 +63,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			weightSum+=builderWeights[i].weight;
 		}
 		float goal = UnityEngine.Random.Range (0,weightSum);
-		Debug.Log ("Goal: " + goal);
+		//Debug.Log ("Goal: " + goal);
 		float progress = 0;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{
@@ -71,7 +71,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			if(progress>=goal)
 			{
 				builder = builderWeights[i].type;
-				Debug.Log ("GoalReached at: " + progress + " selecting: " + builder);
+				//Debug.Log ("GoalReached at: " + progress + " selecting: " + builder);
 				break;
 			}
 		}

@@ -5,8 +5,9 @@ public class BladeSectionDifficultyManager : MonoBehaviour , IBladeSectionDiffic
 
 	public DifficultyManager mainDifficultyManager;
 	public float bladeSpeedMin = 0.5f; //scales up until Max value is reached.
+	public float bladeSpeedMinCap = 2.8f;
 	public float bladeSpeedMax = 3f;
-	public float bladeSpeedScalingFactor = 0.2f; 
+	public float bladeSpeedScalingFactor = 0.02f; 
 	
 	public int bladeSectionLengthMin = 4;
 	public int bladeSectionLengthMax = 10;
