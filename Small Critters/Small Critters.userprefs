@@ -1,12 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ObjectPool.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\old\FloorHandler.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" Line="38" Column="6" />
-      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="28" Column="4" />
-      <File FileName="Assets\Scripts\General\ProcessorSectionDifficultyManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\BladeSectionDifficultyManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ObjectPool.cs" Line="62" Column="5" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\Obstacles\BeeController.cs" Line="48" Column="5" />
+      <File FileName="Assets\Scripts\old\FloorHandler.cs" Line="16" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

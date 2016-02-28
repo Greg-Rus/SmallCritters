@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\HeatVentFSM.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\Obstacles\BeeController.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\Obstacles\HeatVentController.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" />
