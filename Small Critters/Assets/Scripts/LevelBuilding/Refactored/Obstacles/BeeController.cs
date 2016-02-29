@@ -9,10 +9,15 @@ public class BeeController : MonoBehaviour {
 	GameObject frog;
 	Vector3 vectorToPlayer;
 	Vector3 heading;
+	float chargeEndTime;
+	public float chargeTime;
 	public float flySpeed;
-	public float chargePower;
+	public float chargeSpeed;
 	public float chargeDistance;
 	public float chargeRecoverVelocity;
+	public string state;
+	public float chaseTimeLeft;
+	
 	// Use this for initialization
 	void Start () {
 		currentAction = StayIdle;
@@ -42,14 +47,14 @@ public class BeeController : MonoBehaviour {
 	
 	private void StartFollowingPalyer()
 	{
+		state = "Folowing";
 		currentAction = FollowPlayer;
 		myAnimator.SetTrigger("Fly");
 	}
 	
 	private void FollowPlayer()
 	{
-		vectorToPlayer = frog.transform.position - this.transform.position;
-		heading = vectorToPlayer.normalized;
+		UpdatePlayerLocation();
 		float angle = Mathf.Atan2(heading.y,heading.x) * Mathf.Rad2Deg;
 		myRigidbody.MoveRotation(angle);
 		myRigidbody.AddForce(heading * flySpeed);
@@ -62,18 +67,29 @@ public class BeeController : MonoBehaviour {
 
 	public void StartChargingAtPlayer()
 	{
+		state = "Chasing";
 		currentAction = Charge;
 		myAnimator.SetTrigger("Charge");
-		myRigidbody.AddForce(heading * chargePower, ForceMode2D.Impulse);
+		chargeEndTime = Time.timeSinceLevelLoad + chargeTime;
+		myRigidbody.velocity = Vector3.zero;
+		//myRigidbody.AddForce(heading * chargePower, ForceMode2D.Impulse);
 	}
 	
 	public void Charge()
 	{
-		//myRigidbody.AddForce(heading * flySpeed);
-		if(myRigidbody.velocity.magnitude < chargeRecoverVelocity)
+		myRigidbody.AddForce(heading * chargeSpeed);
+		chaseTimeLeft = chargeEndTime - Time.timeSinceLevelLoad;
+		
+		if(/*myRigidbody.velocity.magnitude < chargeRecoverVelocity || */Time.timeSinceLevelLoad >= chargeEndTime)
 		{
 			StartFollowingPalyer();
 		}
+	}
+	
+	public void UpdatePlayerLocation()
+	{
+		vectorToPlayer = frog.transform.position - this.transform.position;
+		heading = vectorToPlayer.normalized;
 	}
 	
 	private void StayIdle()

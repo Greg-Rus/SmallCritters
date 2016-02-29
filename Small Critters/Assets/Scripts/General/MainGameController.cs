@@ -29,7 +29,11 @@ public class MainGameController : MonoBehaviour {
 		ResetGame();
 		BuildInitialLevel();
 		PlaceFrog();
-		PlaceColdFogWall();
+		if(difficultyManager.fogEnabled)
+		{
+			PlaceColdFogWall();
+		}
+		
 	}
 	
 	private void BuildInitialLevel() 

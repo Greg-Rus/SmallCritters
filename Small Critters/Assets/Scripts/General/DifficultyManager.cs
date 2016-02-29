@@ -31,6 +31,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	private int nextDifficultyScalingPoint;
 	[NonSerialized]
 	public LevelData levelData;
+	public bool fogEnabled;
 	
 	public void Awake()
 	{
