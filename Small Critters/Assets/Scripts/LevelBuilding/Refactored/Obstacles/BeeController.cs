@@ -15,9 +15,10 @@ public class BeeController : MonoBehaviour {
 	public float chargeSpeed;
 	public float chargeDistance;
 	public float chargeRecoverVelocity;
-	public string state;
+	public BeeState state;
 	public float chaseTimeLeft;
 	
+	public enum BeeState {Idle, Following, Charging};
 	// Use this for initialization
 	void Start () {
 		currentAction = StayIdle;
@@ -27,6 +28,7 @@ public class BeeController : MonoBehaviour {
 	void OnEnable() 
 	{
 		currentAction = StayIdle;
+		state = BeeState.Idle;
 	}
 	
 	// Update is called once per frame
@@ -36,9 +38,8 @@ public class BeeController : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D other) {
 		//Debug.Log (other.name);
-		if(other.tag == "Player")
+		if(other.tag == "Player" && state == BeeState.Idle)
 		{
-			Debug.Log ("Frog detected!");
 			frog = other.gameObject;
 			StartFollowingPalyer();
 		}
@@ -47,16 +48,16 @@ public class BeeController : MonoBehaviour {
 	
 	private void StartFollowingPalyer()
 	{
-		state = "Folowing";
+		state = BeeState.Following;
 		currentAction = FollowPlayer;
+		myAnimator.ResetTrigger("Charge");
 		myAnimator.SetTrigger("Fly");
 	}
 	
 	private void FollowPlayer()
 	{
 		UpdatePlayerLocation();
-		float angle = Mathf.Atan2(heading.y,heading.x) * Mathf.Rad2Deg;
-		myRigidbody.MoveRotation(angle);
+		RotateToFacePlayer();
 		myRigidbody.AddForce(heading * flySpeed);
 		if(vectorToPlayer.magnitude <= chargeDistance)
 		{
@@ -64,11 +65,15 @@ public class BeeController : MonoBehaviour {
 		}
 		
 	}
+	
+
 
 	public void StartChargingAtPlayer()
 	{
-		state = "Chasing";
+		RotateToFacePlayer();
+		state = BeeState.Charging;
 		currentAction = Charge;
+		//myAnimator.ResetTrigger("Fly");
 		myAnimator.SetTrigger("Charge");
 		chargeEndTime = Time.timeSinceLevelLoad + chargeTime;
 		myRigidbody.velocity = Vector3.zero;
@@ -82,7 +87,13 @@ public class BeeController : MonoBehaviour {
 		
 		if(/*myRigidbody.velocity.magnitude < chargeRecoverVelocity || */Time.timeSinceLevelLoad >= chargeEndTime)
 		{
-			StartFollowingPalyer();
+			UpdatePlayerLocation();
+			if(vectorToPlayer.magnitude <= chargeDistance)
+			{
+				Debug.Log(vectorToPlayer.magnitude);
+				StartChargingAtPlayer();
+			}
+			else StartFollowingPalyer();
 		}
 	}
 	
@@ -90,6 +101,12 @@ public class BeeController : MonoBehaviour {
 	{
 		vectorToPlayer = frog.transform.position - this.transform.position;
 		heading = vectorToPlayer.normalized;
+	}
+	
+	private void RotateToFacePlayer()
+	{
+		float angle = Mathf.Atan2(heading.y,heading.x) * Mathf.Rad2Deg;
+		myRigidbody.MoveRotation(angle);
 	}
 	
 	private void StayIdle()
