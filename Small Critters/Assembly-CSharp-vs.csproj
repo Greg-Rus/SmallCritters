@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Dungeon Art Pack\AnimateSprite.cs" />
+     <Compile Include="Assets\Scripts\Actors\BeeStunnEffect.cs" />
      <Compile Include="Assets\Scripts\Actors\FrogController.cs" />
      <Compile Include="Assets\Scripts\Actors\FrogInputHandler.cs" />
      <Compile Include="Assets\Scripts\Actors\FrogMovementPhysics.cs" />
@@ -57,6 +58,7 @@
      <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\GameObjectPoolManager.cs" />
+     <Compile Include="Assets\Scripts\General\BeeSectionDifficultyManager.cs" />
      <Compile Include="Assets\Scripts\General\BladeSectionDifficultyManager.cs" />
      <Compile Include="Assets\Scripts\General\BuilderWeight.cs" />
      <Compile Include="Assets\Scripts\General\DifficultyManager.cs" />
@@ -65,6 +67,7 @@
      <Compile Include="Assets\Scripts\General\MainGameController.cs" />
      <Compile Include="Assets\Scripts\General\NewRowReached.cs" />
      <Compile Include="Assets\Scripts\General\ProcessorSectionDifficultyManager.cs" />
+     <Compile Include="Assets\Scripts\Inspector\DifficultyParameter.cs" />
      <Compile Include="Assets\Scripts\Interfaces.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\BladeSectionBuilder.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ColdFogController.cs" />
@@ -87,6 +90,7 @@
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorManager.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorPatternConfigurator.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\RowCleaner.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBees.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderClear.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" />

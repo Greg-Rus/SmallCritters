@@ -9,16 +9,18 @@ public class BeeController : MonoBehaviour {
 	GameObject frog;
 	Vector3 vectorToPlayer;
 	Vector3 heading;
-	float chargeEndTime;
+	float stateExitTime;
+	public GameObject stunStars;
 	public float chargeTime;
 	public float flySpeed;
 	public float chargeSpeed;
 	public float chargeDistance;
-	public float chargeRecoverVelocity;
+	//public float chargeRecoverVelocity;
+	public float stunTime;
 	public BeeState state;
 	public float chaseTimeLeft;
 	
-	public enum BeeState {Idle, Following, Charging};
+	public enum BeeState {Idle, Following, Charging, Stunned};
 	// Use this for initialization
 	void Start () {
 		currentAction = StayIdle;
@@ -36,6 +38,44 @@ public class BeeController : MonoBehaviour {
 		currentAction();
 	}
 	
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		if(coll.gameObject.layer == 12) //12 is Obstacle
+		{
+			StartBeingStunned();
+		}
+		if (coll.collider.tag == "Hazard")
+		{
+			Die ();
+		}
+	}
+	
+	private void Die()
+	{
+		Destroy (gameObject);
+	}
+	
+	private void StartBeingStunned()
+	{
+		stateExitTime = Time.timeSinceLevelLoad + stunTime;
+		stunStars.SetActive(true);
+		state = BeeState.Stunned;
+		myAnimator.ResetTrigger("Charge");
+		myAnimator.ResetTrigger("Fly");
+		myAnimator.SetTrigger("Stunned");
+		currentAction = StayStunned;
+	}
+	
+	private void StayStunned()
+	{
+		if(CheckStateExitConditions())
+		{
+			stunStars.SetActive(false);
+		}
+	}
+	
+	
+	
 	void OnTriggerEnter2D(Collider2D other) {
 		//Debug.Log (other.name);
 		if(other.tag == "Player" && state == BeeState.Idle)
@@ -51,6 +91,7 @@ public class BeeController : MonoBehaviour {
 		state = BeeState.Following;
 		currentAction = FollowPlayer;
 		myAnimator.ResetTrigger("Charge");
+		myAnimator.ResetTrigger("Stunned");
 		myAnimator.SetTrigger("Fly");
 	}
 	
@@ -73,28 +114,32 @@ public class BeeController : MonoBehaviour {
 		RotateToFacePlayer();
 		state = BeeState.Charging;
 		currentAction = Charge;
-		//myAnimator.ResetTrigger("Fly");
 		myAnimator.SetTrigger("Charge");
-		chargeEndTime = Time.timeSinceLevelLoad + chargeTime;
+		stateExitTime = Time.timeSinceLevelLoad + chargeTime;
 		myRigidbody.velocity = Vector3.zero;
-		//myRigidbody.AddForce(heading * chargePower, ForceMode2D.Impulse);
 	}
 	
 	public void Charge()
 	{
 		myRigidbody.AddForce(heading * chargeSpeed);
-		chaseTimeLeft = chargeEndTime - Time.timeSinceLevelLoad;
+		chaseTimeLeft = stateExitTime - Time.timeSinceLevelLoad;
+		CheckStateExitConditions();
 		
-		if(/*myRigidbody.velocity.magnitude < chargeRecoverVelocity || */Time.timeSinceLevelLoad >= chargeEndTime)
+	}
+	
+	private bool CheckStateExitConditions()
+	{
+		if(Time.timeSinceLevelLoad >= stateExitTime)
 		{
 			UpdatePlayerLocation();
 			if(vectorToPlayer.magnitude <= chargeDistance)
 			{
-				Debug.Log(vectorToPlayer.magnitude);
 				StartChargingAtPlayer();
 			}
 			else StartFollowingPalyer();
+			return true;
 		}
+		return false;
 	}
 	
 	public void UpdatePlayerLocation()
@@ -111,6 +156,7 @@ public class BeeController : MonoBehaviour {
 	
 	private void StayIdle()
 	{
-		
+		//Dummy state behaviour to put in currentAction
 	}
+	
 }
