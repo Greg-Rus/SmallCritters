@@ -19,6 +19,7 @@ public class BeeController : MonoBehaviour {
 	public float stunTime;
 	public BeeState state;
 	public float chaseTimeLeft;
+	public GameObjectPoolManager poolManager;
 	
 	public enum BeeState {Idle, Following, Charging, Stunned};
 	// Use this for initialization
@@ -52,7 +53,14 @@ public class BeeController : MonoBehaviour {
 	
 	private void Die()
 	{
-		Destroy (gameObject);
+		if(poolManager != null)
+		{
+			poolManager.storeObject(this.gameObject);
+		}
+		else
+		{
+			Destroy (gameObject);
+		}
 	}
 	
 	private void StartBeingStunned()

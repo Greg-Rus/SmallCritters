@@ -15,6 +15,7 @@ public class GameFramework {
 	SectionBuilderBlades bladesBuilder;
 	SectionBuilderProcessors processorsBuilder;
 	SectionBuilderHeatVent heatVentBuilder;
+	SectionBuilderBees sectionBuilderBees;
 	IRowCleanup rowCleaner;
 	
 	public GameFramework( LevelData levelData, DifficultyManager difficultyManager)
@@ -49,6 +50,7 @@ public class GameFramework {
 		//ServiceLocator.addService<IProcessorSectionLenght>(difficultyManager);
 		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
 		ServiceLocator.addService<IHeatVentSectionDifficulty>(difficultyManager);
+		ServiceLocator.addService<IBeeSectionDifficulty>(difficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
 	}
@@ -59,10 +61,12 @@ public class GameFramework {
 		bladesBuilder = new SectionBuilderBlades(levelData, poolManager);
 		processorsBuilder = new SectionBuilderProcessors (levelData, poolManager);
 		heatVentBuilder = new SectionBuilderHeatVent(levelData, poolManager);
+		sectionBuilderBees = new SectionBuilderBees(levelData, poolManager);
 		sectionBuilderSeclector.addSectionBuilder(clearBuilder);
 		sectionBuilderSeclector.addSectionBuilder(bladesBuilder);
 		sectionBuilderSeclector.addSectionBuilder(processorsBuilder);
-		sectionBuilderSeclector.addSectionBuilder(heatVentBuilder); //New
+		sectionBuilderSeclector.addSectionBuilder(heatVentBuilder);
+		sectionBuilderSeclector.addSectionBuilder(sectionBuilderBees);
 		
 		levelData.activeSectionBuilder = clearBuilder;
 	}

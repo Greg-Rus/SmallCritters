@@ -73,6 +73,16 @@ public interface IProcessorGroupDifficulty
 	float[] GetProcessorFSMTimers();
 }
 
+public interface IBeeSectionDifficulty
+{
+	float GetChargeTime();
+	float GetFlySpeed();
+	float GetChargeSpeed();
+	float GetChargeDistance();
+	int GetNewBeeSectionLength();
+	bool IsBeePresent();
+}
+
 public interface IRowCleanup
 {
 	void DismantleRow(List<GameObject> row);
@@ -87,4 +97,6 @@ public interface IDifficultyBasedBuilderPicking
 {
 	sectionBuilderType GetSectionBuilder();
 }
+
+
 

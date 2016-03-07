@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcessorGroupDifficulty, IHeatVentSectionDifficulty , IDifficultyBasedBuilderPicking{
+public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcessorGroupDifficulty, IHeatVentSectionDifficulty, IBeeSectionDifficulty , IDifficultyBasedBuilderPicking{
 	//TODO difficulty progression
 	public BladeSectionDifficultyManager baldeSectionDifficultyManager;
 	public ProcessorSectionDifficultyManager processorSectionDifficultyManager;
 	public HeatVentDifficultyManager heatVentDifficultyManager;
+	public BeeSectionDifficultyManager beeSectionDifficultyManager;
 	private int highestRowReached = 0;
 	public int HighestRowReached
 	{
@@ -100,6 +101,14 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	public float GetHeatVentLength(){return heatVentDifficultyManager.GetHeatVentLength();}
 	public float GetHeatVentCycleOffset(){return heatVentDifficultyManager.GetHeatVentCycleOffset();}
 	public Vector3 GetHeatVentRotation(){return heatVentDifficultyManager.GetHeatVentRotation();}
+	//TODO why do I do this translation again?
+	//IBeeSectionDifficulty
+	public float GetChargeTime(){return beeSectionDifficultyManager.GetChargeTime() ;}
+	public float GetFlySpeed(){return beeSectionDifficultyManager.GetFlySpeed() ;}
+	public float GetChargeSpeed(){return beeSectionDifficultyManager.GetChargeSpeed() ;}
+	public float GetChargeDistance(){return beeSectionDifficultyManager.GetChargeDistance() ;}
+	public int GetNewBeeSectionLength(){return beeSectionDifficultyManager.GetNewBeeSectionLength() ;}
+	public bool IsBeePresent(){return beeSectionDifficultyManager.IsBeePresent() ;}
 	
 	
 	//Difficulty Scaling
@@ -118,6 +127,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 		baldeSectionDifficultyManager.ScaleDifficulty();
 		processorSectionDifficultyManager.ScaleDifficulty();
 		heatVentDifficultyManager.ScaleDifficulty();
+		beeSectionDifficultyManager.ScaleDifficulty();
 	}
 
 }

@@ -21,4 +21,17 @@ public class Utilities : MonoBehaviour {
 		}
 		
 	}
+	
+	public static float RoundToNearestOrderOfMagnitude(float number, float orderOfMagnitude, float roundingPoint = 0.5f)
+	{
+		float round = number / orderOfMagnitude;
+		float integerPart = (int)round;
+		float decimalPart = round - (int)round;
+		if(decimalPart >= roundingPoint)
+		{
+			++integerPart;
+		}
+		float rounded = integerPart * orderOfMagnitude;
+		return rounded;
+	}
 }

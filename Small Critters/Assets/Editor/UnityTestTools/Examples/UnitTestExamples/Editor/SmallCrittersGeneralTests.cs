@@ -110,6 +110,16 @@ namespace UnityTest
 			Assert.False(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
 		}
 		
+		[Test]
+		public void OrderOfMagnitydeRounding()
+		{
+			Debug.Log (Utilities.RoundToNearestOrderOfMagnitude(0.02f,0.1f));
+			Assert.True(Utilities.RoundToNearestOrderOfMagnitude(0.02f,0.1f, 0.1f) == 0.1f);
+			Assert.True(Utilities.RoundToNearestOrderOfMagnitude(0.28f,0.1f) == 0.3f);
+			Assert.True(Utilities.RoundToNearestOrderOfMagnitude(0.98f,0.1f) == 1f);
+			Assert.True(Utilities.RoundToNearestOrderOfMagnitude(0.036f,0.01f) == 0.04f);
+		}
+		
 		
 		
 		[TearDown] public void Dispose()
