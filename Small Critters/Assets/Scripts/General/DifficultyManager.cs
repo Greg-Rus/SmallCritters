@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcessorGroupDifficulty, IHeatVentSectionDifficulty, IBeeSectionDifficulty , IDifficultyBasedBuilderPicking{
-	//TODO difficulty progression
-	public BladeSectionDifficultyManager baldeSectionDifficultyManager;
+public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
+
+	public BladeSectionDifficultyManager bladeSectionDifficultyManager;
 	public ProcessorSectionDifficultyManager processorSectionDifficultyManager;
 	public HeatVentDifficultyManager heatVentDifficultyManager;
 	public BeeSectionDifficultyManager beeSectionDifficultyManager;
@@ -23,12 +23,8 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	public int difficultyLevel = 1;
 	public int startingDifficultyLevel = 1;
 	
-	//public BuilderWeight[] builderWeights;
 	public List<BuilderWeight> builderWeights;
-	//public float useBladeBuilder = 1f;
-	//public float useProcessorBuilder = 1f;
-	//public float useHeatVentBuilder = 1f;
-	
+
 	private int nextDifficultyScalingPoint;
 	[NonSerialized]
 	public LevelData levelData;
@@ -36,10 +32,6 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	
 	public void Awake()
 	{
-		//builderWeights = new BuilderWeight[]{new BuilderWeight(sectionBuilderType.blade, 1f),
-		//	new BuilderWeight(sectionBuilderType.processor, 1f),
-		//	new BuilderWeight(sectionBuilderType.heatVent, 1f)
-		//};
 		nextDifficultyScalingPoint = difficultyScalingThreshold;
 		if(difficultyLevel < startingDifficultyLevel)
 		{
@@ -47,7 +39,6 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			for (int i = 0; i<steps;++i)
 			{
 				ScaleDifficulty();
-				//Debug.Log (difficultyLevel);
 			}
 		}
 	}
@@ -65,7 +56,6 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			weightSum+=builderWeights[i].weight;
 		}
 		float goal = UnityEngine.Random.Range (0,weightSum);
-		//Debug.Log ("Goal: " + goal);
 		float progress = 0;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{
@@ -73,44 +63,12 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 			if(progress>=goal)
 			{
 				builder = builderWeights[i].type;
-				//Debug.Log ("GoalReached at: " + progress + " selecting: " + builder);
 				break;
 			}
 		}
 		return builder;
 	}
-	
-	
-	//IBladeSectionDifficulty
-	public bool IsBladeRowEmpty(){return baldeSectionDifficultyManager.IsBladeRowEmpty();}
-	public float GetBladeSpeed(){return baldeSectionDifficultyManager.GetBladeSpeed();}
-	public int GetNewBladeSectionLenght(){return baldeSectionDifficultyManager.GetNewBladeSectionLenght();}
-	public float GetBladeGap(){return baldeSectionDifficultyManager.GetBladeGap();}	
-	public float GetBladeRowCycleOffset(){return baldeSectionDifficultyManager.GetBladeRowCycleOffset();}
-	
-	//IProcessorGroupDifficulty
-	public int GetNewProcessorSectionLenght(){return processorSectionDifficultyManager.GetNewProcessorSectionLenght();}
-	public int GetNewProcessorGroupPattern(){return processorSectionDifficultyManager.GetNewProcessorGroupPattern();}
-	public float GetProcessorPatternCycleOffset(){return processorSectionDifficultyManager.GetProcessorPatternCycleOffset();}
-	public float[] GetProcessorFSMTimers(){return processorSectionDifficultyManager.GetProcessorFSMTimers();}
-
-	//IHeatVentSectionDifficulty
-	public bool IsHeatVentRowEmpty(){return heatVentDifficultyManager.IsHeatVentRowEmpty();}
-	public int GetNewHeatVentSectionLenght(){return heatVentDifficultyManager.GetNewHeatVentSectionLenght();}
-	public float[] GetHeatVentFSMTimers(){return heatVentDifficultyManager.GetHeatVentFSMTimers();}
-	public float GetHeatVentLength(){return heatVentDifficultyManager.GetHeatVentLength();}
-	public float GetHeatVentCycleOffset(){return heatVentDifficultyManager.GetHeatVentCycleOffset();}
-	public Vector3 GetHeatVentRotation(){return heatVentDifficultyManager.GetHeatVentRotation();}
-	//TODO why do I do this translation again?
-	//IBeeSectionDifficulty
-	public float GetChargeTime(){return beeSectionDifficultyManager.GetChargeTime() ;}
-	public float GetFlySpeed(){return beeSectionDifficultyManager.GetFlySpeed() ;}
-	public float GetChargeSpeed(){return beeSectionDifficultyManager.GetChargeSpeed() ;}
-	public float GetChargeDistance(){return beeSectionDifficultyManager.GetChargeDistance() ;}
-	public int GetNewBeeSectionLength(){return beeSectionDifficultyManager.GetNewBeeSectionLength() ;}
-	public bool IsBeePresent(){return beeSectionDifficultyManager.IsBeePresent() ;}
-	
-	
+		
 	//Difficulty Scaling
 	public void CheckDifficultyThreshold()
 	{
@@ -124,7 +82,7 @@ public class DifficultyManager: MonoBehaviour, IBladeSectionDifficulty, IProcess
 	public void ScaleDifficulty()
 	{
 		++difficultyLevel;
-		baldeSectionDifficultyManager.ScaleDifficulty();
+		bladeSectionDifficultyManager.ScaleDifficulty();
 		processorSectionDifficultyManager.ScaleDifficulty();
 		heatVentDifficultyManager.ScaleDifficulty();
 		beeSectionDifficultyManager.ScaleDifficulty();

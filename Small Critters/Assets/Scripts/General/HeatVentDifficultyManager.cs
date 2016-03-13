@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeatVentDifficultyManager : MonoBehaviour {
+public class HeatVentDifficultyManager : MonoBehaviour, IHeatVentSectionDifficulty {
 	public float difficultyPercent = 0f;
 	public float difficultyPercentStep = 0.01f;
 	public DifficultyParameter heatVentSectionLength;

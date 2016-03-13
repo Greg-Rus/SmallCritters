@@ -1,21 +1,20 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\ProcessorSectionDifficultyManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\DifficultyManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\General\BeeSectionDifficultyManager.cs" Line="20" Column="1" />
+      <File FileName="Assets\Scripts\General\BladeSectionDifficultyManager.cs" Line="5" Column="1" />
+      <File FileName="Assets\Scripts\General\BeeSectionDifficultyManager.cs" Line="22" Column="47" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\Obstacles\BeeController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Utilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="6" Column="47" />
       <File FileName="Assets\Scripts\General\MainGameController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBees.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\BladeSectionDifficultyManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Inspector\DifficultyParameter.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\GameFramework.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\old\FloorHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\ProcessorSectionDifficultyManager.cs" Line="133" Column="53" />
+      <File FileName="Assets\Scripts\General\GameFramework.cs" Line="47" Column="36" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" Line="41" Column="1" />
+      <File FileName="Assets\Scripts\General\HeatVentDifficultyManager.cs" Line="4" Column="83" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
