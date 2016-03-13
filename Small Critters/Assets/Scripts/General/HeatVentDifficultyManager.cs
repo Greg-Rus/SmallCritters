@@ -2,18 +2,11 @@
 using System.Collections;
 
 public class HeatVentDifficultyManager : MonoBehaviour {
-
-	public DifficultyManager mainDifficultyManager;
-	public int heatVentSectionLengthMin = 5;
-	public int heatVentSectionLengthMax = 10;
-	
-	public float minHeatVentLenght = 2f;
-	public float minHeatVentLenghtCap = 4f;
-	public float maxHeatVentLenght = 5f;
-	public float maxHeatVentLenghtCap = 7f;
-	public float lengthScalingStep = 0.1f;
-	
-	public float chanceForEmptyRowInHeatVentSection = 0.5f;
+	public float difficultyPercent = 0f;
+	public float difficultyPercentStep = 0.01f;
+	public DifficultyParameter heatVentSectionLength;
+	public DifficultyParameter heatVentLenght;
+	public DifficultyParameter emptyRowChance;
 	
 	public float heatVentClosedTime = 1f;
 	public float heatVentOpeningTime = 0.4f;
@@ -21,18 +14,14 @@ public class HeatVentDifficultyManager : MonoBehaviour {
 	public float heatVentVentingTime = 1.5f;
 	public float heatVentClosingTime = 1f;
 
-	// Use this for initialization
-	void Awake () {
-	
-	}
 	public bool IsHeatVentRowEmpty()
 	{
-		return Utilities.RollBelowPercent(chanceForEmptyRowInHeatVentSection);
+		return Utilities.RollBelowPercent(emptyRowChance.current);
 	}
 	
 	public int GetNewHeatVentSectionLenght()
 	{
-		return UnityEngine.Random.Range(heatVentSectionLengthMin, heatVentSectionLengthMax);
+		return (int)UnityEngine.Random.Range(heatVentSectionLength.min, heatVentSectionLength.current);
 	}
 	
 	public float[] GetHeatVentFSMTimers()
@@ -49,7 +38,7 @@ public class HeatVentDifficultyManager : MonoBehaviour {
 	
 	public float GetHeatVentLength()
 	{
-		return UnityEngine.Random.Range(minHeatVentLenght,maxHeatVentLenght);
+		return UnityEngine.Random.Range(heatVentLenght.min,heatVentLenght.current);
 	}
 	
 	public float GetHeatVentCycleOffset()
@@ -72,14 +61,10 @@ public class HeatVentDifficultyManager : MonoBehaviour {
 	
 	private void ScaleFlameLenght()
 	{
-		if(minHeatVentLenght < minHeatVentLenghtCap)
-		{
-			minHeatVentLenght += lengthScalingStep;
-		}
-		if(maxHeatVentLenght < maxHeatVentLenghtCap)
-		{
-			maxHeatVentLenght += lengthScalingStep;
-		}
+		difficultyPercent += difficultyPercentStep;
+		heatVentSectionLength.scaleCurrent(difficultyPercent);
+		heatVentLenght.scaleCurrent(difficultyPercent);
+		emptyRowChance.scaleCurrent(difficultyPercent);
 	}
 
 }
