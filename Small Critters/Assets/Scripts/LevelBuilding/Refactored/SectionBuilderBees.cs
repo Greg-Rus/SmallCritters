@@ -30,7 +30,7 @@ public class SectionBuilderBees : ISectionBuilder {
 	private void buildNewBeeRow(List<GameObject> row)
 	{
 		DeployBeeAtPosition(1.5f); //Next to left wall
-		DeployBeeAtPosition(levelData.navigableAreaWidth - 0.5f); //Next to rifht wall
+		DeployBeeAtPosition(levelData.navigableAreaWidth); //Next to rifht wall
 	}
 	
 	private void DeployBeeAtPosition(float xCoordiante)

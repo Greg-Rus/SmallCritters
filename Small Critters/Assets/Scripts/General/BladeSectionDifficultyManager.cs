@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BladeSectionDifficultyManager : MonoBehaviour , IBladeSectionDifficulty{
 
@@ -8,7 +9,8 @@ public class BladeSectionDifficultyManager : MonoBehaviour , IBladeSectionDiffic
 	public DifficultyParameter bladeSpeed;
 	public DifficultyParameter bladeSectionLength;
 	public DifficultyParameter bladeGap;
-	public DifficultyParameter emptyRowChance;	
+	public DifficultyParameter emptyRowChance;
+	public RectTransform BladePanel;
 	
 	public bool IsBladeRowEmpty()
 	{
@@ -41,5 +43,21 @@ public class BladeSectionDifficultyManager : MonoBehaviour , IBladeSectionDiffic
 			bladeGap.scaleCurrent(difficultyPercent);
 			emptyRowChance.scaleCurrent(difficultyPercent);
 		}
+	}
+	
+	public void OnUIUpdate()
+	{
+		UpdateDifficultyParam(bladeSpeed, "BladeSpeedPanel");
+		UpdateDifficultyParam(bladeSectionLength, "BladeSectionLenght");
+		UpdateDifficultyParam(bladeGap, "BladeGap");
+		UpdateDifficultyParam(emptyRowChance, "EmptyRow");
+	}
+	
+	private void UpdateDifficultyParam(DifficultyParameter param, string UIName)
+	{
+		Transform UIelement;
+		UIelement = BladePanel.Find(UIName);
+		float.TryParse(UIelement.Find("Init").GetComponent<InputField>().text, out param.min);
+		float.TryParse(UIelement.Find("Ult").GetComponent<InputField>().text, out param.max);
 	}
 }

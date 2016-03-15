@@ -1,20 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\DifficultyManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\General\BeeSectionDifficultyManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\General\BladeSectionDifficultyManager.cs" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\General\BeeSectionDifficultyManager.cs" Line="22" Column="47" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\Obstacles\BeeController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Utilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="6" Column="47" />
-      <File FileName="Assets\Scripts\General\MainGameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBlades.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBees.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Inspector\DifficultyParameter.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\GameFramework.cs" Line="47" Column="36" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderConfigurator.cs" Line="41" Column="1" />
-      <File FileName="Assets\Scripts\General\HeatVentDifficultyManager.cs" Line="4" Column="83" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\Obstacles\HeatVentController.cs" Line="52" Column="2" />
+      <File FileName="Assets\Scripts\Actors\JumpMarkerSensor.cs" Line="14" Column="5" />
+      <File FileName="Assets\Scripts\Actors\JumpPathSensor.cs" Line="13" Column="5" />
+      <File FileName="Assets\Scripts\Actors\JumpLineRenderer.cs" Line="64" Column="1" />
+      <File FileName="Assets\Scripts\General\BeeSectionDifficultyManager.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

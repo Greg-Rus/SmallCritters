@@ -49,8 +49,6 @@ public class JumpLineRenderer : MonoBehaviour {
 	}
 	public void stopDrawingJumpLine()
 	{
-		jumpMarkerSensor.reset();
-		jumpPathSensor.reset();
 		jumpMarker.SetActive(false);
 		lineRenderer.SetVertexCount(0);
 	}

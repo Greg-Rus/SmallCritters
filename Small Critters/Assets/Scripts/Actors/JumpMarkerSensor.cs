@@ -2,32 +2,19 @@
 using System.Collections;
 
 public class JumpMarkerSensor : MonoBehaviour {
-	private int hazardInTrigger = 0;
 
-	void OnTriggerEnter2D(Collider2D other)
+	CircleCollider2D myTrigger;
+	public LayerMask hazardousLayer;
+	
+	void Awake ()
 	{
-		//Debug.Log(other.name);
-		{
-			++hazardInTrigger;
-			//Debug.Log ("Hazards in Trigger "+ hazardInTrigger);
-		}
+		myTrigger = transform.GetComponent<CircleCollider2D>();
 	}
-	void OnTriggerExit2D(Collider2D other)
-	{
-		{
-			--hazardInTrigger;
-		}
-	}
-	public bool isTouchingHazard()
-	{
-		return (hazardInTrigger > 0) ? true : false;
-	}
-	public void reset()
-	{
-		hazardInTrigger = 0;
-	}
+
+//	public void reset()
+//	{}
 	public bool checkForHazardsInLandingZone()
 	{
-		return isTouchingHazard();
+		return myTrigger.IsTouchingLayers(hazardousLayer);//isTouchingHazard();
 	}
 }

@@ -2,34 +2,20 @@
 using System.Collections;
 
 public class JumpPathSensor : MonoBehaviour {
-	private int hazardInTrigger = 0;
+	//private int hazardInTrigger = 0;
 	private BoxCollider2D jumpPathCollider;
+	public LayerMask hazardousLayer;
 	
 	void Awake()
 	{
 		jumpPathCollider = GetComponent<BoxCollider2D>();
 	}
-	
-	void OnTriggerEnter2D(Collider2D other)
-	{
-			++hazardInTrigger;
-	}
-	void OnTriggerExit2D(Collider2D other)
-	{
-			--hazardInTrigger;
-	}
-	public bool isTouchingHazard()
-	{
-		return (hazardInTrigger > 0) ? true : false;
-	}
-	public void reset()
-	{
-		hazardInTrigger = 0;
-	}
+//	public void reset()
+//	{}
 	public bool checkForHazardsInJumpPath(Vector3 direction)
 	{
 		resizeJumpPathCollider(direction);
-		return isTouchingHazard();
+		return jumpPathCollider.IsTouchingLayers();//isTouchingHazard();
 	}
 	
 	private void resizeJumpPathCollider(Vector3 direction)
