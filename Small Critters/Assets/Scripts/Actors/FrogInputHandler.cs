@@ -23,23 +23,28 @@ public class FrogInputHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && !frogMovement.midJump)
 		{
-			inputStarted= true;
+			//inputStarted= true;
 			startPointerPositoin = Input.mousePosition;
 			jumpLineRenderer.setupJumpLine(worldStartPoint);
 		}
 		
-		if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0) && !frogMovement.midJump)
 		{
+			if(startPointerPositoin == Vector3.zero)
+			{
+				startPointerPositoin = Input.mousePosition;
+				jumpLineRenderer.setupJumpLine(worldStartPoint);
+			}
 			draggedPointerPosition = Input.mousePosition;
 			frogMovement.rotateToDirection(calcualteDragVector()); //Frog faces the drag direction during dragging
 			jumpLineRenderer.updateJumpLine(calcualteDragVector());
 		}
 		
-		if (Input.GetMouseButtonUp(0))
+		if (Input.GetMouseButtonUp(0) && !frogMovement.midJump)
 		{
-			inputStarted= false;
+			//inputStarted= false;
 			dragVector = calcualteDragVector();
 			if(dragVector.magnitude > minimalDragDistance)
 			{
@@ -51,7 +56,7 @@ public class FrogInputHandler : MonoBehaviour {
 				jumpLineRenderer.stopDrawingJumpLine();
 				//TODO frogMovement.tap(draggedPointerPosition);
 			}
-			
+			startPointerPositoin = Vector3.zero;
 		}
 	}
 	Vector3 calcualteDragVector()

@@ -10,7 +10,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 	public float closeEnoughDistance;
 	public float staticDrag;
 	public float jumpingDrag;
-	public bool midJump;
+	public bool midJump{get;set;}
 	public float jumpForce;
 	public int higestRowReached;
 	public Animator myAnimator;

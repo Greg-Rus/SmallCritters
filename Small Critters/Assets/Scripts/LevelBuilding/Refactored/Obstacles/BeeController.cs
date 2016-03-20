@@ -20,6 +20,7 @@ public class BeeController : MonoBehaviour {
 	public BeeState state;
 	public float chaseTimeLeft;
 	public GameObjectPoolManager poolManager;
+	private string currentAnimation;
 	
 	public enum BeeState {Idle, Following, Charging, Stunned};
 	// Use this for initialization
@@ -68,9 +69,10 @@ public class BeeController : MonoBehaviour {
 		stateExitTime = Time.timeSinceLevelLoad + stunTime;
 		stunStars.SetActive(true);
 		state = BeeState.Stunned;
-		myAnimator.ResetTrigger("Charge");
-		myAnimator.ResetTrigger("Fly");
-		myAnimator.SetTrigger("Stunned");
+		SetAnimation("Stunned");
+//		myAnimator.ResetTrigger("Charge");
+//		myAnimator.ResetTrigger("Fly");
+//		myAnimator.SetTrigger("Stunned");
 		currentAction = StayStunned;
 	}
 	
@@ -98,9 +100,10 @@ public class BeeController : MonoBehaviour {
 	{
 		state = BeeState.Following;
 		currentAction = FollowPlayer;
-		myAnimator.ResetTrigger("Charge");
-		myAnimator.ResetTrigger("Stunned");
-		myAnimator.SetTrigger("Fly");
+//		myAnimator.ResetTrigger("Charge");
+//		myAnimator.ResetTrigger("Stunned");
+//		myAnimator.SetTrigger("Fly");
+		SetAnimation("Fly");
 	}
 	
 	private void FollowPlayer()
@@ -122,7 +125,8 @@ public class BeeController : MonoBehaviour {
 		RotateToFacePlayer();
 		state = BeeState.Charging;
 		currentAction = Charge;
-		myAnimator.SetTrigger("Charge");
+		//myAnimator.SetTrigger("Charge");
+		SetAnimation("Charge");
 		stateExitTime = Time.timeSinceLevelLoad + chargeTime;
 		myRigidbody.velocity = Vector3.zero;
 	}
@@ -165,6 +169,19 @@ public class BeeController : MonoBehaviour {
 	private void StayIdle()
 	{
 		//Dummy state behaviour to put in currentAction
+	}
+	
+	private void SetAnimation(string stringInput){
+		//Animator anim =transform.GetComponent<Animator>();
+		//Debug.Log("Setting Anim to : " + stringInput);
+		if(currentAnimation==stringInput){
+		}else{
+			if(currentAnimation!=null){
+				myAnimator.ResetTrigger(currentAnimation);
+			}
+			myAnimator.SetTrigger(stringInput);
+			currentAnimation=stringInput;
+		}
 	}
 	
 }
