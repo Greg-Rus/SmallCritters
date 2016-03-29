@@ -46,7 +46,7 @@ public class FloorHandler : MonoBehaviour {
 	{
 		int tileOffsetX = Random.Range(0,3) * 128;
 		int tileOffsetY = Random.Range(0,3) * 128;
-		Debug.Log (tileOffsetX+"  "+tileOffsetY);
+//		Debug.Log (tileOffsetX+"  "+tileOffsetY);
 		Color[] tile = floorTiles.GetPixels(tileOffsetX,tileOffsetY,128,128);
 		Color32[] tile32 = new Color32[tile.Length];
 		int i =0;
