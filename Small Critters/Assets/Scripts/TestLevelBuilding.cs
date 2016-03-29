@@ -13,6 +13,7 @@ public class TestLevelBuilding : MonoBehaviour {
 	SectionBuilderBlades bladesBuilder;
 	ServiceLocator services;
 	DifficultyManager difficultyManager;
+	//ArenaBuilder arenaBuilder;
 	IRowCleanup rowCleaner;
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,7 @@ public class TestLevelBuilding : MonoBehaviour {
 		poolManager = new GameObjectPoolManager();
 		services = new ServiceLocator();
 		difficultyManager = new DifficultyManager();
+		//arenaBuilder = new ArenaBuilder();
 		testSectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;
 		testSectionBuilderSeclector = new SectionBuilderSelector(testSectionBuilderConfigurator, levelData) as ISectionBuilderSelection;
 		ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);

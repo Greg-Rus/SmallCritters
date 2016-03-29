@@ -1,19 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\WallBuilder.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBees.cs">
     <Files>
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\WallBuilder.cs" Line="42" Column="3" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\WallBuilder.cs" Line="40" Column="36" />
       <File FileName="Assets\Scripts\old\FloorHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\Obstacles\BeeController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelBuilding\Refactored\Obstacles\HeatVentController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Actors\JumpMarkerSensor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Actors\JumpPathSensor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Actors\JumpLineRenderer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Actors\FrogInputHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Actors\FrogMovementPhysics.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Interfaces.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="26" Column="27" />
-      <File FileName="Assets\Scripts\General\BuilderWeight.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\General\DifficultyManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" Line="20" Column="47" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderBees.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelBuilding\Refactored\ArenaBuilder.cs" Line="42" Column="27" />
+      <File FileName="Assets\Scripts\General\MainGameController.cs" Line="19" Column="53" />
+      <File FileName="Assets\Scripts\General\GameFramework.cs" Line="22" Column="16" />
+      <File FileName="Assets\Scripts\TestLevelBuilding.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\TestMixedLevelBuilding.cs" Line="13" Column="4" />
+      <File FileName="Assets\Editor\UnityTestTools\Examples\UnitTestExamples\Editor\LevelConstructionTests.cs" Line="68" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

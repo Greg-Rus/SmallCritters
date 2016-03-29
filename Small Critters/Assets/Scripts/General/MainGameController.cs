@@ -9,12 +9,13 @@ public class MainGameController : MonoBehaviour {
 	LevelHandler levelHandler;
 	public LevelData levelData;
 	public DifficultyManager difficultyManager;
+	public ArenaBuilder arenaBuilder;
 	// Use this for initialization
 	void Start () {
 		//levelData = new LevelData();
 		difficultyManager = GetComponent<DifficultyManager>();
 		difficultyManager.levelData = levelData;
-		gameFramework = new GameFramework(levelData, difficultyManager);
+		gameFramework = new GameFramework(levelData, difficultyManager, arenaBuilder);
 		levelHandler = gameFramework.BuildGameFramework();
 		StartNewGame();
 	}

@@ -5,6 +5,7 @@ public class GameFramework {
 
 	public LevelData levelData;
 	public DifficultyManager difficultyManager;
+	public ArenaBuilder arenaBuilder;
 	GameObjectPoolManager poolManager;
 	ISectionBuilderConfiguration sectionBuilderConfigurator;
 	ISectionBuilderSelection sectionBuilderSeclector;
@@ -18,10 +19,11 @@ public class GameFramework {
 	SectionBuilderBees sectionBuilderBees;
 	IRowCleanup rowCleaner;
 	
-	public GameFramework( LevelData levelData, DifficultyManager difficultyManager)
+	public GameFramework( LevelData levelData, DifficultyManager difficultyManager, ArenaBuilder arenaBuilder)
 	{
 		this.levelData = levelData;
 		this.difficultyManager = difficultyManager;
+		this.arenaBuilder = arenaBuilder;
 	}
 
 	public LevelHandler BuildGameFramework()
@@ -30,12 +32,16 @@ public class GameFramework {
 		
 		//levelData = new LevelData();
 		poolManager = new GameObjectPoolManager();
+		arenaBuilder.Setup(levelData, poolManager);
+		
 		sectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;
 		sectionBuilderSeclector = new SectionBuilderSelector(sectionBuilderConfigurator, levelData) as ISectionBuilderSelection;
 		
 		SetupSectionBuilders();
 		
-		sectionDesigner = new SectionDesigner(sectionBuilderSeclector, levelData) as ISectionDesigning;
+		
+		//sectionDesigner = new SectionDesigner(sectionBuilderSeclector, levelData) as ISectionDesigning;
+		sectionDesigner = new ArenaSectionDesigner(sectionBuilderSeclector, levelData, arenaBuilder) as ISectionDesigning;
 		rowCleaner = new RowCleaner(poolManager);
 		levelHandler = new LevelHandler(levelData, sectionDesigner, rowCleaner);
 		

@@ -7,6 +7,7 @@ public class SectionDesigner: ISectionDesigning
 	
 	ISectionBuilderSelection sectionBuilderSelector;
 	LevelData levelData;
+	IArenaBuilding arenaBuilder;
 	public ISectionBuilder activeSectionBuilder;
 	
 	public SectionDesigner(ISectionBuilderSelection sectionBuilderSelector, LevelData levelData)

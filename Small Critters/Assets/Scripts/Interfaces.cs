@@ -99,5 +99,10 @@ public interface IDifficultyBasedBuilderPicking
 	sectionBuilderType GetSectionBuilder();
 }
 
+public interface IArenaBuilding
+{
+	void SetUpArenaRow(List<GameObject> row);
+}
+
 
 

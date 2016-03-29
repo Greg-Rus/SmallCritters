@@ -79,6 +79,8 @@
      <Compile Include="Assets\Scripts\LevelBuilding\ObstacleSetter.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorHeater.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\ProcessorSectionBuilder.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ArenaBuilder.cs" />
+     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ArenaSectionDesigner.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\BladeRowMovement.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\HeatVentFSM.cs" />
      <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" />

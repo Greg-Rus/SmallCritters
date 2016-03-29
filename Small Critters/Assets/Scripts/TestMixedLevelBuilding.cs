@@ -10,11 +10,13 @@ public class TestMixedLevelBuilding : MonoBehaviour {
 	ISectionDesigning testSectionDesigner;
 	LevelHandler testLevelHandler;
 	DifficultyManager difficultyManager;
+	//ArenaBuilder arenaBuilder;
 	private ServiceLocator services;
 	IRowCleanup rowCleaner;
 	// Use this for initialization
 	void Start () {
 		difficultyManager = new DifficultyManager();
+		//arenaBuilder = new ArenaBuilder();
 		services = new ServiceLocator ();
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
@@ -34,7 +36,7 @@ public class TestMixedLevelBuilding : MonoBehaviour {
 		
 		levelData.activeSectionBuilder = clearBuilder;
 		
-		testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, levelData) as ISectionDesigning;
+		testSectionDesigner = new SectionDesigner(testSectionBuilderSeclector, levelData) as ISectionDesigning; //The arenaBuilder created here will not have the tables populated and will fail. Refactor or delete.
 		rowCleaner = new RowCleaner(poolManager);
 		testLevelHandler = new LevelHandler(levelData, testSectionDesigner, rowCleaner);
 		
