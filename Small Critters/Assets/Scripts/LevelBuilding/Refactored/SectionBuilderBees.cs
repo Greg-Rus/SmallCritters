@@ -8,6 +8,7 @@ public class SectionBuilderBees : ISectionBuilder {
 	GameObjectPoolManager poolManager;
 	IBeeSectionDifficulty difficultyManager;
 	GameObject bee;
+	List<GameObject> currentRow;
 	
 	
 	public SectionBuilderBees(LevelData levelData, GameObjectPoolManager poolManager)
@@ -17,17 +18,18 @@ public class SectionBuilderBees : ISectionBuilder {
 		difficultyManager = ServiceLocator.getService<IBeeSectionDifficulty>();
 		type = sectionBuilderType.bees;
 		bee = Resources.Load("Bee") as GameObject;
-		
-		poolManager.addPool(bee, 10);
+		bee.GetComponent<BeeController>().poolManager = poolManager;
+		poolManager.addPool(bee, 20, 10);
 		
 	}
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-			buildNewBeeRow(row);
+		currentRow = row;
+		buildNewBeeRow();
 	}
 	
-	private void buildNewBeeRow(List<GameObject> row)
+	private void buildNewBeeRow()
 	{
 		DeployBeeAtPosition(1.5f); //Next to left wall
 		DeployBeeAtPosition(levelData.navigableAreaWidth); //Next to rifht wall
@@ -45,12 +47,15 @@ public class SectionBuilderBees : ISectionBuilder {
 			{
 				newBee.transform.Rotate(new Vector3(0f, 0f, 180f)); // Bee faces right by default
 			}
+			currentRow.Add (newBee);
 		}
 	}
 	
 	private void ConfigureBeeController(GameObject bee)
 	{
 		BeeController newBeeController = bee.GetComponent<BeeController>();
+		newBeeController.Reset();
+		newBeeController.poolManager = poolManager;
 		newBeeController.chargeDistance = difficultyManager.GetChargeDistance();
 		newBeeController.chargeSpeed = difficultyManager.GetChargeSpeed();
 		newBeeController.chargeTime = difficultyManager.GetChargeTime();

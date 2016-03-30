@@ -13,6 +13,10 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	private List<GameObject> currentRow;
 	private LevelData levelData;
 	private GameObjectPoolManager poolManager;
+	private int lastEmptyRow = -1;
+	private int consecutiveEmptyRows = 0;
+	private List<List<GameObject>> bufferedRows;
+	public WallBuilder wallSectionBuilder;
 	// Use this for initialization
 	void Start () {
 //		tilePosition = new Vector2();
@@ -26,6 +30,29 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	public void SetUpArenaRow(List<GameObject> row)
 	{
 		currentRow = row;
+		if(row.Count == 0)
+		{
+			if(lastEmptyRow == (levelData.levelTop - 1))
+			{
+				++consecutiveEmptyRows;
+				if(consecutiveEmptyRows == 4)
+				{
+					//Debug.Log("Empty row at: " + levelData.levelTop+ "Builder: " + levelData.activeSectionBuilder.type);
+					//Debug.Log ("4 empty rows from " + (levelData.levelTop - 4) + " to " + levelData.levelTop);
+					wallSectionBuilder.BuildWallSegament(row, new Vector2(1.5f, levelData.levelTop-3), 3, 4, 5, true);
+					lastEmptyRow = -1; 
+					consecutiveEmptyRows = 0;
+				}
+			}
+			lastEmptyRow = levelData.levelTop;
+
+			
+		}
+		else
+		{
+			lastEmptyRow = -1; 
+			consecutiveEmptyRows = 0;
+		}
 		SetupSideWalls();
 		SetupFloor();
 	}
@@ -37,6 +64,7 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 		this.poolManager = poolManager;
 		poolManager.addPool(sideWallTilePrefab, 100);
 		poolManager.addPool(floorTilePrefab, 300);
+		wallSectionBuilder.poolManager = poolManager;
 	}
 	
 	private void SetupFloor()

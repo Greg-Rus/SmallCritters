@@ -10,9 +10,14 @@ public class ArenaSectionDesigner : SectionDesigner, ISectionDesigning {
 		this.arenaBuilder = arenaBuilder;
 	}
 	
-	public void buildNewRow(List<GameObject> row)
+	public new void buildNewRow(List<GameObject> row)
 	{
+		if(levelData.newSectionEnd == levelData.levelTop)
+		{
+			sectionBuilderSelector.selectNewSectionBuilder();
+		}
+		levelData.activeSectionBuilder.buildNewRow(row);
 		arenaBuilder.SetUpArenaRow(row);
-		base.buildNewRow(row);
+		levelData.levelTop+=1;
 	}
 }

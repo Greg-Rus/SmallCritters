@@ -54,14 +54,16 @@ public class BeeController : MonoBehaviour {
 	
 	private void Die()
 	{
-		if(poolManager != null)
-		{
-			poolManager.storeObject(this.gameObject);
-		}
-		else
-		{
-			Destroy (gameObject);
-		}
+		gameObject.SetActive(false);
+//		if(poolManager != null)
+//		{
+//			gameObject.SetActive(false);
+//		}
+//		else
+//		{
+//			Debug.LogError ("!!!Tried to clean up Bee, but pool Manager is null!!!");
+//			Destroy (gameObject);
+//		}
 	}
 	
 	private void StartBeingStunned()
@@ -182,6 +184,13 @@ public class BeeController : MonoBehaviour {
 			myAnimator.SetTrigger(stringInput);
 			currentAnimation=stringInput;
 		}
+	}
+	
+	public void Reset()
+	{
+		transform.eulerAngles = Vector3.zero;
+		currentAction = StayIdle;
+		state = BeeState.Idle;
 	}
 	
 }

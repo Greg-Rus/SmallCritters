@@ -58,6 +58,7 @@ public class GameFramework {
 		ServiceLocator.addService<IBeeSectionDifficulty>(difficultyManager.beeSectionDifficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
+		//ServiceLocator.addService<IArenaBuilding>(arenaBuilder);
 	}
 	
 	private void SetupSectionBuilders()

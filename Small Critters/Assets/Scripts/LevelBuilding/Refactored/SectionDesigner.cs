@@ -5,9 +5,8 @@ using System.Collections.Generic;
 public class SectionDesigner: ISectionDesigning
 {
 	
-	ISectionBuilderSelection sectionBuilderSelector;
-	LevelData levelData;
-	IArenaBuilding arenaBuilder;
+	protected ISectionBuilderSelection sectionBuilderSelector;
+	protected LevelData levelData;
 	public ISectionBuilder activeSectionBuilder;
 	
 	public SectionDesigner(ISectionBuilderSelection sectionBuilderSelector, LevelData levelData)
