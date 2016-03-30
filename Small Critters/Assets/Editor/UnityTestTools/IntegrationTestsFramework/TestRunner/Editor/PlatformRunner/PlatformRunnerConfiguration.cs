@@ -6,14 +6,16 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class PlatformRunnerConfiguration
 {
-    public string[] scenes = new string[0];
+    public List<string> buildScenes;
+    public List<string> testScenes;
     public BuildTarget buildTarget;
     public bool runInEditor;
-    public string projectName = EditorApplication.currentScene;
+    public string projectName = SceneManager.GetActiveScene().path;
 
     public string resultsDir = null;
     public bool sendResultsOverNetwork;
@@ -23,7 +25,7 @@ public class PlatformRunnerConfiguration
     public PlatformRunnerConfiguration(BuildTarget buildTarget)
     {
         this.buildTarget = buildTarget;
-        projectName = EditorApplication.currentScene;
+        projectName = SceneManager.GetActiveScene().path;
     }
 
     public PlatformRunnerConfiguration()
