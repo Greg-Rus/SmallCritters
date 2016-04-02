@@ -37,16 +37,12 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 				++consecutiveEmptyRows;
 				if(consecutiveEmptyRows == 4)
 				{
-					//Debug.Log("Empty row at: " + levelData.levelTop+ "Builder: " + levelData.activeSectionBuilder.type);
-					//Debug.Log ("4 empty rows from " + (levelData.levelTop - 4) + " to " + levelData.levelTop);
 					wallSectionBuilder.BuildWallSegament(row, new Vector2(1.5f, levelData.levelTop-3), 3, 4, 5, true);
 					lastEmptyRow = -1; 
 					consecutiveEmptyRows = 0;
 				}
 			}
 			lastEmptyRow = levelData.levelTop;
-
-			
 		}
 		else
 		{
@@ -92,10 +88,11 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	
 	private void SpawnTile(GameObject prefab, Sprite tileSprite)
 	{
-		//GameObject newTile = Instantiate(prefab, tilePosition, Quaternion.identity) as GameObject; 
 		GameObject newTile = poolManager.retrieveObject(prefab.name);
 		newTile.transform.position = tilePosition;
-		newTile.GetComponent<SpriteRenderer>().sprite = tileSprite;
-		currentRow.Add(newTile);
+        SpriteRenderer renderer = newTile.GetComponent<SpriteRenderer>();
+        renderer.sprite = tileSprite;
+       // renderer.color = new Color32(255,255,200,255);
+        currentRow.Add(newTile);
 	}
 }

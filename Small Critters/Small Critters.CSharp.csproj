@@ -121,12 +121,14 @@
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\WallBuilder.cs" />
+    <Compile Include="Assets\Scripts\MenuItemState.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\ServiceLocator.cs" />
     <Compile Include="Assets\Scripts\TestLevelBuilding.cs" />
     <Compile Include="Assets\Scripts\TestMixedLevelBuilding.cs" />
     <Compile Include="Assets\Scripts\TestSectionBuilderBlades.cs" />
     <Compile Include="Assets\Scripts\TestSectionBuilderProcessors.cs" />
+    <Compile Include="Assets\Scripts\UIHandler.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
     <Compile Include="Assets\Scripts\old\FloorHandler.cs" />
     <Compile Include="Assets\Scripts\old\FloorPlanLayer.cs" />
@@ -134,24 +136,9 @@
     <Compile Include="Assets\SimpleParticlePack\Scripts\ParticleTester.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\AngryInclude.cginc" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\CharacterSelfIlluminationReflective.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\EnemySelfIlluminationReflective.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\Fallback.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\PlanarRealtimeReflection.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\ReflectiveBackgroundPlanar.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\SuperSimpleSelfIllumination.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Additive.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Cursor.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\LaserScope.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\Multiply.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleAdditive.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleAdditiveBlend.shader" />
-    <None Include="Assets\Editor\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\Fx\ParticleBlend.shader" />
-    <None Include="Assets\Editor\UnityTestTools\LICENSE.txt" />
-    <None Include="Assets\Editor\UnityTestTools\changelog.txt" />
     <None Include="Assets\KY_effects\MagicEffectsPackFree\ReadMe.txt" />
     <None Include="Assets\Movinarc\PackageUninstaller\README.txt" />
+    <None Include="Assets\UI Art\greySheet.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

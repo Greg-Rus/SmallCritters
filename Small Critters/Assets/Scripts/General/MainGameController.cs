@@ -53,7 +53,8 @@ public class MainGameController : MonoBehaviour {
 	
 	private void PlaceFrog()
 	{
-		UnityEngine.Object frogAsset = Resources.Load("Frog"); // as GameObject;
+        //UnityEngine.Object frogAsset = Resources.Load("Frog"); // as GameObject;
+        UnityEngine.Object frogAsset = Resources.Load("FrogCharacter");
 		frog = Instantiate(frogAsset, new Vector3 (gameFramework.levelData.levelWidth * 0.5f, -1f, 0f), Quaternion.identity) as GameObject;
 		FrogMovementPhysics frogMovementScript = frog.GetComponent<FrogMovementPhysics>();
 		frogMovementScript.NewHighestRowReached += NewRowReached;
@@ -76,8 +77,15 @@ public class MainGameController : MonoBehaviour {
 	IEnumerator restartLevelAterSeconds(float seconds) 
 	{
 		yield return new WaitForSeconds(seconds);
-		Application.LoadLevel(0);
-	}
+        //Application.LoadLevel(0);
+        RestartGame();
+
+    }
+
+    public void RestartGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 	
 	private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)
 	{

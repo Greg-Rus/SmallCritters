@@ -1,0 +1,310 @@
+fileFormatVersion: 2
+guid: d4e8fca838da1de4fbb3e6452fadbbe7
+timeCreated: 1459524994
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: FrogParts_0
+    21300002: FrogParts_1
+    21300004: FrogParts_2
+    21300006: FrogParts_3
+    21300008: FrogParts_4
+    21300010: FrogParts_5
+    21300012: FrogParts_6
+    21300014: FrogParts_7
+    21300016: FrogParts_8
+    21300018: FrogParts_9
+    21300020: FrogParts_10
+    21300022: FrogParts_12
+    21300024: FrogParts_13
+    21300026: Pupil
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 256
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: FrogParts_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 344
+        width: 30
+        height: 36
+      alignment: 9
+      pivot: {x: 0.5, y: 0.20701091}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: FrogParts_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 300
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24.5, y: 36.5}
+        - {x: -36.5, y: 34.5}
+        - {x: -36.5, y: -33.5}
+        - {x: -23.5, y: -36.5}
+        - {x: 23.5, y: -36.5}
+        - {x: 36.5, y: -24.5}
+        - {x: 36.5, y: 19.5}
+        - {x: 21.5, y: 36.5}
+    - name: FrogParts_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 320
+        width: 38
+        height: 56
+      alignment: 9
+      pivot: {x: 0.5000008, y: 0.8944473}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.0000305, y: 5.9109497}
+        - {x: -19.00003, y: 2.9109497}
+        - {x: -19.00003, y: -38.08905}
+        - {x: -16.00003, y: -43.08905}
+        - {x: -11.0000305, y: -50.08905}
+        - {x: 11.9999695, y: -50.08905}
+        - {x: 18.99997, y: -48.08905}
+        - {x: 18.99997, y: -4.0890503}
+        - {x: 12.9999695, y: 5.9109497}
+    - name: FrogParts_3
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 304
+        width: 32
+        height: 76
+      alignment: 9
+      pivot: {x: 0.5, y: 0.11834275}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16, y: 57.00595}
+        - {x: 10, y: 67.00595}
+        - {x: -13, y: 67.00595}
+        - {x: -16, y: 65.00595}
+        - {x: -16, y: 8.005951}
+        - {x: -12, y: -8.994049}
+        - {x: 9, y: -8.994049}
+        - {x: 13, y: 7.005951}
+        - {x: 16, y: 21.00595}
+    - name: FrogParts_4
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 292
+        width: 23
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: FrogParts_5
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 239
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 16, y: 15.5}
+        - {x: 13, y: 14.5}
+        - {x: -9, y: 18.5}
+        - {x: -20, y: 18.5}
+        - {x: -20, y: -18.5}
+        - {x: 9, y: -18.5}
+        - {x: 16, y: -17.5}
+        - {x: 20, y: -15.5}
+        - {x: 20, y: 15.5}
+    - name: FrogParts_6
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 248
+        width: 51
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: FrogParts_7
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 239
+        width: 53
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -25.5, y: 18.5}
+        - {x: -26.5, y: 17.5}
+        - {x: -26.5, y: -5.5}
+        - {x: -17.5, y: -18.5}
+        - {x: 26.5, y: -18.5}
+        - {x: 26.5, y: 7.5}
+        - {x: 10.5, y: 18.5}
+    - name: FrogParts_8
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 171
+        width: 65
+        height: 113
+      alignment: 9
+      pivot: {x: 0.5, y: 0.09940817}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.5, y: 101.76688}
+        - {x: -32.5, y: 93.76688}
+        - {x: -32.5, y: -11.233124}
+        - {x: 19.5, y: -11.233124}
+        - {x: 32.5, y: -6.233124}
+        - {x: 32.5, y: 78.76688}
+        - {x: 17.5, y: 101.76688}
+    - name: FrogParts_9
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 212
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12, y: 31}
+        - {x: -18, y: 29}
+        - {x: -18, y: -19}
+        - {x: -10, y: -32}
+        - {x: 14, y: -32}
+        - {x: 18, y: -27}
+        - {x: 18, y: 21}
+        - {x: 15, y: 31}
+    - name: FrogParts_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 0
+        width: 176
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 51, y: 98}
+        - {x: 37, y: 100}
+        - {x: -39, y: 100}
+        - {x: -51, y: 89}
+        - {x: -88, y: 31}
+        - {x: -88, y: -45}
+        - {x: -74, y: -74}
+        - {x: -38, y: -100}
+        - {x: 42, y: -100}
+        - {x: 86, y: -72}
+        - {x: 88, y: -59}
+        - {x: 88, y: 33}
+    - name: FrogParts_12
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 136
+        width: 103
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: FrogParts_13
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 20
+        width: 71
+        height: 86
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35.5, y: -14}
+        - {x: -35.5, y: -31}
+        - {x: -17.5, y: -43}
+        - {x: 15.5, y: -43}
+        - {x: 35.5, y: -17}
+        - {x: 35.5, y: 43}
+        - {x: 6.5, y: 43}
+        - {x: -31.5, y: 21}
+    - name: Pupil
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 56
+        width: 56
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27, y: 21.5}
+        - {x: -28, y: 16.5}
+        - {x: -28, y: -12.5}
+        - {x: -17, y: -21.5}
+        - {x: 27, y: -21.5}
+        - {x: 28, y: -17.5}
+        - {x: 28, y: 14.5}
+        - {x: 20, y: 21.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
