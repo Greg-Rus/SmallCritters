@@ -11,9 +11,7 @@ public class JumpMarkerSensor : MonoBehaviour {
 		myTrigger = transform.GetComponent<CircleCollider2D>();
 	}
 
-//	public void reset()
-//	{}
-	public bool checkForHazardsInLandingZone()
+    public bool checkForHazardsInLandingZone()
 	{
 		return myTrigger.IsTouchingLayers(hazardousLayer);//isTouchingHazard();
 	}

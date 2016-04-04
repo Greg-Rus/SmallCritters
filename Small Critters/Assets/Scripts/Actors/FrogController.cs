@@ -23,8 +23,17 @@ public class FrogController : MonoBehaviour {
 			Die (coll.collider.name);
 		}
 	}
-	// Update is called once per frame
-	private void getRequiredComponents()
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Hazard")) 
+        {
+            Debug.Log("Triggered Hazard");
+            Die(other.name);
+        }
+    }
+
+    // Update is called once per frame
+    private void getRequiredComponents()
 	{
 		movementScript = GetComponent<Imovement>();
 		inputScript = GetComponent<FrogInputHandler>();

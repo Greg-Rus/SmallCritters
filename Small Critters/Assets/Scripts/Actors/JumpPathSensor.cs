@@ -10,9 +10,8 @@ public class JumpPathSensor : MonoBehaviour {
 	{
 		jumpPathCollider = GetComponent<BoxCollider2D>();
 	}
-//	public void reset()
-//	{}
-	public bool checkForHazardsInJumpPath(Vector3 direction)
+
+    public bool checkForHazardsInJumpPath(Vector3 direction)
 	{
 		resizeJumpPathCollider(direction);
 		return jumpPathCollider.IsTouchingLayers();//isTouchingHazard();

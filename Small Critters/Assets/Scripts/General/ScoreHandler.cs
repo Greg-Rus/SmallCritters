@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using System.IO;
 //using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Binary;
+//using System.Runtime.Serialization.Formatters.Binary;
+//using Polenter.Serialization;
+using System.Xml.Serialization;
 
 public class ScoreHandler : MonoBehaviour {
     public MainGameController gameController;
@@ -17,38 +20,34 @@ public class ScoreHandler : MonoBehaviour {
     public int deatchViaBee = 1;
     public int deathViaProcessor = 3;
     public int deathViaVent = 2;
-
     public ScoreData scoreData;
+
+    XmlSerializer serializer;
 
     void Awake()
     {
-        //Debug.Log("Last Run: " + scoreData.lastRun.hash + " score: " + scoreData.lastRun.score);
-        //if (scoreData == null)
-        //{
-        //    Debug.Log("Making new scoreData");
-        //    scoreData = new ScoreData();
-        //}
-
+        serializer = new XmlSerializer(typeof(ScoreData));
         LoadScores();
     }
 
     private void SaveScores()
     {
-        BinaryFormatter foromatter = new BinaryFormatter();
-
         FileStream scoresFile = File.Create(Application.persistentDataPath + "/scores.dat");
-        foromatter.Serialize(scoresFile, scoreData);
+        serializer.Serialize(scoresFile, scoreData);
         scoresFile.Close();
     }
 
     private void LoadScores()
     {
-        //Debug.Log(Application.persistentDataPath);
         if (File.Exists(Application.persistentDataPath + "/scores.dat"))
         {
-            BinaryFormatter foromatter = new BinaryFormatter();
             FileStream scoresFile = File.Open(Application.persistentDataPath + "/scores.dat", FileMode.Open);
-            scoreData = foromatter.Deserialize(scoresFile) as ScoreData;
+            scoreData = serializer.Deserialize(scoresFile) as ScoreData;
+            scoresFile.Close();
+        }
+        else
+        {
+            scoreData = new ScoreData();
         }
     }
 
@@ -79,11 +78,14 @@ public class ScoreHandler : MonoBehaviour {
 
     public void RunEnd(string cuseOfDeath)
     {
+        Debug.Log("RUN END");
         Score newScore = new Score(gameController.seed, score);
         scoreData.lastRun = newScore;
 
         if (scoreData.scores.Count == 0)
         {
+            //scoreData.scores.Add(newScore);
+            Debug.Log("Adding: " + newScore.hash + ", " + newScore.score + " at BEGINING");
             scoreData.scores.Add(newScore);
         }
         else
@@ -91,21 +93,33 @@ public class ScoreHandler : MonoBehaviour {
             //int scoreListIndex = 0;
             //Debug.Log("scoreData.scores.Count: " + scoreData.scores.Count);
             bool inserted = false;
-            for(int i = 0; i < scoreData.scores.Count; ++i)
+            //for (LinkedListNode<Score> node = scoreData.scores.First; node != null; node = node.Next)
+            //{
+            //    if (newScore.score >= node.Value.score)
+            //    {
+            //        scoreData.scores.AddBefore(node, newScore);
+            //        inserted = true;
+            //        break;
+            //    }
+            //}
+            for (int i = 0; i < scoreData.scores.Count; ++i)
             //foreach (Score scoreEntry in scoreData.scores)
             {
                 if (newScore.score >= scoreData.scores[i].score)
                 {
+                    Debug.Log("Inserting: " + newScore.hash + ", " + newScore.score + " at: " + i);
                     scoreData.scores.Insert(i, newScore);
-                   // Debug.Log("Inserting at: " + i);
+                    // Debug.Log("Inserting at: " + i);
                     inserted = true;
                     break;
                 }
-               // ++scoreListIndex;
+                // ++scoreListIndex;
             }
             if (!inserted)
             {
+                Debug.Log("Appending: " + newScore.hash + ", " + newScore.score + " at END");
                 scoreData.scores.Add(newScore);
+                //scoreData.scores.AddLast(newScore);
             }
            
             if (scoreData.scores.Count > 10)

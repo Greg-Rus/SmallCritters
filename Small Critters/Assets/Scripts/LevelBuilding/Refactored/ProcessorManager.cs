@@ -14,7 +14,6 @@ public class ProcessorManager : MonoBehaviour {
 		gameObject.layer = 8;
 		steamRing = GetComponent<ParticleSystem>();
 	}
-
 	
 	public void TintProcessorSprite(Color startColor, Color targetColor, float percent)
 	{
@@ -35,18 +34,7 @@ public class ProcessorManager : MonoBehaviour {
         steamRing.Pause();
         steamRing.Clear();
         steamRing.Stop();
-        if (!steamRing.isStopped)
-        {
-            Debug.LogError("Failed to stop PS!!");
-        }
         gameObject.layer = 8;
         
     }
-	
-	void OnTriggerStay2D(Collider2D other) {
-		if(state == ProcessorState.Hot && other.tag == "Player")
-		{
-			other.GetComponent<FrogController>().Die("Processor");
-		}
-	}
 }

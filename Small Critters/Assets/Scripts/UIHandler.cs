@@ -151,6 +151,11 @@ public class UIHandler : MonoBehaviour {
         {
             UpdateScoreButton(scoreButtons[i], scoreData.scores[i]);
         }
+        //int listIndex = 0;
+        //for (LinkedListNode<Score> node = scoreData.scores.First; node != null; node = node.Next)
+        //{
+        //    UpdateScoreButton(scoreButtons[listIndex], node.Value);
+        //}
     }
     private void UpdateScoreButton(HighScoreButtonState button, Score scoreEntry)
     {
