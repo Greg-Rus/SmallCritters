@@ -21,7 +21,7 @@ public class WallBuilder : MonoBehaviour {
 	private List<GameObject> currentRow;
 	Vector2 wallOffset;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		//poolManager = ServiceLocator.getService<GameObjectPoolManager>();
 		//poolManager.addPool(wallPrefab, 150);
 		wallOffset = new Vector2(1.5f,0f);

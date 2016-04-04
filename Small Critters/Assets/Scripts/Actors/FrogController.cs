@@ -8,10 +8,11 @@ public class FrogController : MonoBehaviour {
 	public GameObject deadFrogSprite;
 	public GameObject frogExplosionPlayer;
 	//public GameController myGameController;
-	public event EventHandler FrogDeath; 
-	
-	// Use this for initialization
-	void Start () {
+	//public event EventHandler FrogDeath;
+    public delegate void FrogDeath(string causeOfDeath);
+    public FrogDeath OnFrogDeath;
+    // Use this for initialization
+    void Start () {
 		getRequiredComponents();
 		setupInputScript();
 	}
@@ -19,7 +20,7 @@ public class FrogController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.collider.tag == "Hazard")
 		{
-			die ();
+			Die (coll.collider.name);
 		}
 	}
 	// Update is called once per frame
@@ -35,22 +36,24 @@ public class FrogController : MonoBehaviour {
 		inputScript.frogMovement = movementScript;
 	}
 	
-	public void die()
+	public void Die(string causeOfDeath)
 	{
 		Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
 		Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);
 		//Destroy(gameObject);
 		gameObject.SetActive(false);
-		//myGameController.onFrogDeath();
-		OnFrogDeath();
-	}
+        OnFrogDeath(causeOfDeath);
+        //myGameController.onFrogDeath();
+        //OnFrogDeath();
+
+    }
 	
-	private void OnFrogDeath()
-	{
-		if (FrogDeath != null)
-		{
-			FrogDeath(this, EventArgs.Empty);
-		}
-	}
+	//private void OnFrogDeath()
+	//{
+	//	if (FrogDeath != null)
+	//	{
+	//		FrogDeath(this, EventArgs.Empty);
+	//	}
+	//}
 
 }

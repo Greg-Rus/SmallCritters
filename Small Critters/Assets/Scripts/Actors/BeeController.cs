@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-
+public enum BeeState { Idle, Following, Charging, Stunned };
 public class BeeController : MonoBehaviour {
 	Action currentAction;
 	Animator myAnimator;
 	Rigidbody2D myRigidbody;
+    public CircleCollider2D myCollider;
 	GameObject frog;
 	Vector3 vectorToPlayer;
 	Vector3 heading;
@@ -21,19 +22,23 @@ public class BeeController : MonoBehaviour {
 	public float chaseTimeLeft;
 	public GameObjectPoolManager poolManager;
 	private string currentAnimation;
+    public ScoreHandler scoreHandler;
 	
-	public enum BeeState {Idle, Following, Charging, Stunned};
+	
 	// Use this for initialization
 	void Start () {
 		currentAction = StayIdle;
 		myAnimator = GetComponent<Animator>();
 		myRigidbody = GetComponent<Rigidbody2D>();
-	}
+       // myCollider = GetComponent<CircleCollider2D>();
+
+    }
 	void OnEnable() 
 	{
 		currentAction = StayIdle;
 		state = BeeState.Idle;
-	}
+        gameObject.layer = 10; // layer 10 is Hero
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -42,28 +47,24 @@ public class BeeController : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if(coll.gameObject.layer == 12) //12 is Obstacle
+		if(coll.gameObject.layer == 12 && state == BeeState.Charging) //layer 12 is Obstacle
 		{
 			StartBeingStunned();
 		}
 		if (coll.collider.tag == "Hazard")
 		{
-			Die ();
+			Die (coll.collider.name);
 		}
+        //Debug.Log(coll.collider.name);
 	}
 	
-	private void Die()
+	private void Die(string causeOfDeath)
 	{
+        if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
+        {
+            scoreHandler.EnemyDead("Bee", causeOfDeath);
+        }
 		gameObject.SetActive(false);
-//		if(poolManager != null)
-//		{
-//			gameObject.SetActive(false);
-//		}
-//		else
-//		{
-//			Debug.LogError ("!!!Tried to clean up Bee, but pool Manager is null!!!");
-//			Destroy (gameObject);
-//		}
 	}
 	
 	private void StartBeingStunned()
@@ -71,12 +72,19 @@ public class BeeController : MonoBehaviour {
 		stateExitTime = Time.timeSinceLevelLoad + stunTime;
 		stunStars.SetActive(true);
 		state = BeeState.Stunned;
+        gameObject.layer = 10; // layer 10 is Hero
+
 		SetAnimation("Stunned");
-//		myAnimator.ResetTrigger("Charge");
-//		myAnimator.ResetTrigger("Fly");
-//		myAnimator.SetTrigger("Stunned");
+
 		currentAction = StayStunned;
 	}
+
+    private void SetLayer(String layerName)
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerName);
+        myCollider.enabled = false;
+        myCollider.enabled = true;
+    }
 	
 	private void StayStunned()
 	{
@@ -85,27 +93,28 @@ public class BeeController : MonoBehaviour {
 			stunStars.SetActive(false);
 		}
 	}
-	
-	
-	
-	void OnTriggerEnter2D(Collider2D other) {
-		//Debug.Log (other.name);
-		if(other.tag == "Player" && state == BeeState.Idle)
-		{
-			frog = other.gameObject;
-			StartFollowingPalyer();
-		}
-		
-	}
-	
-	private void StartFollowingPalyer()
+
+    public void PlayerDetected(GameObject player)
+    {
+        frog = player;
+        StartFollowingPalyer();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //debug.log (other.name);
+        if (other.CompareTag("Hazard"))
+        {
+            Die(other.name);
+        }
+    }
+
+    private void StartFollowingPalyer()
 	{
 		state = BeeState.Following;
 		currentAction = FollowPlayer;
-//		myAnimator.ResetTrigger("Charge");
-//		myAnimator.ResetTrigger("Stunned");
-//		myAnimator.SetTrigger("Fly");
-		SetAnimation("Fly");
+        gameObject.layer = 18; // layer 18 is Flying
+        SetAnimation("Fly");
 	}
 	
 	private void FollowPlayer()

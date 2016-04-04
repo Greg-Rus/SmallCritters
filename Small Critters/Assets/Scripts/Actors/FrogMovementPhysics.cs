@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class FrogMovementPhysics : MonoBehaviour, Imovement {
-	public GameController gameController;
+	//public GameController gameController;
 	public Rigidbody2D myRigidBody;
 
 	public Vector3 destination;
@@ -50,7 +50,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 			myRigidBody.AddForce(direction.normalized * jumpForce, ForceMode2D.Impulse);
 			midJump = true;
 			gameObject.layer = 14;
-			myAnimator.SetFloat("JumpSpeed",calculateJumpAnimationSpeed(direction));
+			myAnimator.SetFloat("JumpSpeed",CalculateJumpAnimationSpeed(direction));
 			myAnimator.SetBool("Jumping",true);
 			jumpTimer = jumpForSeconds(calculateJumpTime(direction));
 			StartCoroutine(jumpTimer);
@@ -63,7 +63,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 		land();
 	}
 	
-	float calculateJumpAnimationSpeed(Vector3 direction)
+	float CalculateJumpAnimationSpeed(Vector3 direction)
 	{
 		return myRigidBody.velocity.magnitude / direction.magnitude;
 	}
@@ -103,9 +103,9 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 		}
 	}
 	
-	public void configure(GameController controller)
+	public void configure(/*GameController controller*/)
 	{
-		gameController = controller;
+		//gameController = controller;
 		myRigidBody = GetComponent<Rigidbody2D>();
 		midJump = false;
 		myAnimator = GetComponent<Animator>();

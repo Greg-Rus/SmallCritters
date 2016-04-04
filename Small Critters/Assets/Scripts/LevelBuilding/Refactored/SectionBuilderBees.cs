@@ -6,6 +6,7 @@ public class SectionBuilderBees : ISectionBuilder {
 	public sectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
+    ScoreHandler scoreHandler;
 	IBeeSectionDifficulty difficultyManager;
 	GameObject bee;
 	List<GameObject> currentRow;
@@ -16,10 +17,14 @@ public class SectionBuilderBees : ISectionBuilder {
 		this.levelData = levelData;
 		this.poolManager = poolManager;
 		difficultyManager = ServiceLocator.getService<IBeeSectionDifficulty>();
-		type = sectionBuilderType.bees;
+        scoreHandler = ServiceLocator.getService<ScoreHandler>();
+        type = sectionBuilderType.bees;
 		bee = Resources.Load("Bee") as GameObject;
-		bee.GetComponent<BeeController>().poolManager = poolManager;
-		poolManager.addPool(bee, 20, 10);
+        BeeController beeController = bee.GetComponent<BeeController>();
+        beeController.poolManager = poolManager;
+        beeController.scoreHandler = scoreHandler;
+
+        poolManager.addPool(bee, 20, 10);
 		
 	}
 	

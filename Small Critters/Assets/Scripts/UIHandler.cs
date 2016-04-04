@@ -2,11 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 public enum MenuLevel {MenuOff, MenuBackground, MainMenu, SubMenu, QuitPrompt };
 public class UIHandler : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject quitPrompt;
     public GameObject mainMenu;
+    public GameObject highScoresMenu;
+    public Text scoreField;
+    public HighScoreButtonState lastRunScoreButton;
+    public HighScoreButtonState[] scoreButtons;
+    public ScoreHandler scoreHandler;
 
     public bool isMenuContext = false;
 
@@ -16,10 +22,12 @@ public class UIHandler : MonoBehaviour {
     private Action currentMenuToggle;
     private GameObject currentMenu;
     private MenuLevel currentMenuLevel;
+    private ScoreData scoreData;
 
     // Use this for initialization
     void Start () {
         Time.timeScale = 1;
+        //scoreData = scoreHandler.scoreData;
     }
 	
 	// Update is called once per frame
@@ -74,6 +82,14 @@ public class UIHandler : MonoBehaviour {
         ShowCurrentMenu();
     }
 
+    public void OnMenuHighScores()
+    {
+        SaveLastMenu(currentMenu, currentMenuLevel);
+        SetCurrentMenu(highScoresMenu, MenuLevel.SubMenu);
+        ShowCurrentMenu();
+        UpdateHighScoresMenu();
+    }
+
     private void ShowCurrentMenu()
     {
         currentMenu.SetActive(true);
@@ -110,7 +126,36 @@ public class UIHandler : MonoBehaviour {
         {
             case MenuLevel.MainMenu: { HideCurrentMenu(); DisableMenuContext(); break; }
             case MenuLevel.QuitPrompt: { ShowLastMenu(); break; }
+            case MenuLevel.SubMenu: { HideCurrentMenu(); ShowLastMenu(); break; }
         }
+    }
+
+    public void UpdateUIScore(int newSocore)
+    {
+        scoreField.text = newSocore.ToString();
+    }
+
+    public void UpdateHighScoresMenu()
+    {
+        scoreData = scoreHandler.GetScoreData();
+        //Debug.Log("Last Run: " + scoreData.lastRun.score);
+        //foreach (Score entry in scoreData.scores)
+        //{
+        //    Debug.Log("Item: " + entry.score);
+        //}
+        //Debug.Log(lastRunScoreButton.score.text);
+        
+        UpdateScoreButton(lastRunScoreButton, scoreData.lastRun);
+        //Debug.Log(lastRunScoreButton.score.text);
+        for (int i = 0; i < scoreData.scores.Count; ++i)
+        {
+            UpdateScoreButton(scoreButtons[i], scoreData.scores[i]);
+        }
+    }
+    private void UpdateScoreButton(HighScoreButtonState button, Score scoreEntry)
+    {
+        button.hash.text = scoreEntry.hash;
+        button.score.text = scoreEntry.score.ToString();
     }
 
 

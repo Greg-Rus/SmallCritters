@@ -9,7 +9,7 @@ public enum HeatVentState {Start, Closed, Opening, WarmingUp, Venting, Closing};
 public interface Imovement {
 	
 	void makeMove(Vector3 direction);
-	void configure(GameController controller);
+	void configure(/*GameController controller*/);
 	void rotateToDirection(Vector3 direction);
 	bool midJump{get;set;}
 }
@@ -37,7 +37,7 @@ public interface ISectionBuilder
 }
 public interface IProcessorFSM
 {
-	void updateHeatupPhase(ProcessorManager processor);
+	void UpdateHeatupPhase(ProcessorManager processor);
 	void SetStateTimes(float[] timers);
 	void SetCycleCompletion(ProcessorManager processor, float cyclePercent);
 }

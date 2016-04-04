@@ -4,7 +4,6 @@ using System.Collections;
 public class ProcessorManager : MonoBehaviour {
 	SpriteRenderer mySpriteRenderer;
 	public ProcessorState state;
-	//public float cycleTime;
 	public float stateExitTime; //Time.timeSinceLevelLoad + some state timer
 	public float stateStayTimeCompletion; // 0.0-1.0 %
 	private ParticleSystem steamRing;
@@ -17,30 +16,37 @@ public class ProcessorManager : MonoBehaviour {
 	}
 
 	
-	public void tintProcessorSprite(Color startColor, Color targetColor, float percent)
+	public void TintProcessorSprite(Color startColor, Color targetColor, float percent)
 	{
 		mySpriteRenderer.color = Color.Lerp(startColor, targetColor, percent);
 	}
-	public void setProcessorSpriteColor(Color color)
+	public void SetProcessorSpriteColor(Color color)
 	{
 		mySpriteRenderer.color = color;
 	}
-	public void setHazadrousLayer()
+	public void SetHazadrousLayer()
 	{
 		gameObject.layer = 15;
+        steamRing.Simulate(0f, false, true);
 		steamRing.Play();
-		//StartSteamParticles();
-	}
-	public void setSafeLayer()
+    }
+	public void SetSafeLayer()
 	{
-		gameObject.layer = 8;
-		steamRing.Stop();
-	}
+        steamRing.Pause();
+        steamRing.Clear();
+        steamRing.Stop();
+        if (!steamRing.isStopped)
+        {
+            Debug.LogError("Failed to stop PS!!");
+        }
+        gameObject.layer = 8;
+        
+    }
 	
 	void OnTriggerStay2D(Collider2D other) {
 		if(state == ProcessorState.Hot && other.tag == "Player")
 		{
-			other.GetComponent<FrogController>().die();
+			other.GetComponent<FrogController>().Die("Processor");
 		}
 	}
 }

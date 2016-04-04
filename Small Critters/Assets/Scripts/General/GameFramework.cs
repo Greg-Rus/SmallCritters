@@ -6,6 +6,8 @@ public class GameFramework {
 	public LevelData levelData;
 	public DifficultyManager difficultyManager;
 	public ArenaBuilder arenaBuilder;
+    public ScoreHandler scoreHandler;
+    public Transform poolParent;
 	GameObjectPoolManager poolManager;
 	ISectionBuilderConfiguration sectionBuilderConfigurator;
 	ISectionBuilderSelection sectionBuilderSeclector;
@@ -19,19 +21,19 @@ public class GameFramework {
 	SectionBuilderBees sectionBuilderBees;
 	IRowCleanup rowCleaner;
 	
-	public GameFramework( LevelData levelData, DifficultyManager difficultyManager, ArenaBuilder arenaBuilder)
-	{
-		this.levelData = levelData;
-		this.difficultyManager = difficultyManager;
-		this.arenaBuilder = arenaBuilder;
-	}
+	//public GameFramework( LevelData levelData, DifficultyManager difficultyManager, ArenaBuilder arenaBuilder)
+	//{
+	//	this.levelData = levelData;
+	//	this.difficultyManager = difficultyManager;
+	//	this.arenaBuilder = arenaBuilder;
+	//}
 
 	public LevelHandler BuildGameFramework()
 	{
 		SetupServiceLocator();
 		
 		//levelData = new LevelData();
-		poolManager = new GameObjectPoolManager();
+		poolManager = new GameObjectPoolManager(poolParent);
 		arenaBuilder.Setup(levelData, poolManager);
 		
 		sectionBuilderConfigurator = new SectionBuilderConfigurator(levelData) as ISectionBuilderConfiguration;
@@ -58,6 +60,7 @@ public class GameFramework {
 		ServiceLocator.addService<IBeeSectionDifficulty>(difficultyManager.beeSectionDifficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
+        ServiceLocator.addService<ScoreHandler>(scoreHandler);
 		//ServiceLocator.addService<IArenaBuilding>(arenaBuilder);
 	}
 	

@@ -67,6 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Dungeon Art Pack\AnimateSprite.cs" />
+    <Compile Include="Assets\Scripts\Actors\BeeController.cs" />
+    <Compile Include="Assets\Scripts\Actors\BeeSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\BeeStunnEffect.cs" />
     <Compile Include="Assets\Scripts\Actors\FrogController.cs" />
     <Compile Include="Assets\Scripts\Actors\FrogInputHandler.cs" />
@@ -84,9 +86,13 @@
     <Compile Include="Assets\Scripts\General\DifficultyManager.cs" />
     <Compile Include="Assets\Scripts\General\GameFramework.cs" />
     <Compile Include="Assets\Scripts\General\HeatVentDifficultyManager.cs" />
+    <Compile Include="Assets\Scripts\General\HighScoreButtonState.cs" />
     <Compile Include="Assets\Scripts\General\MainGameController.cs" />
     <Compile Include="Assets\Scripts\General\NewRowReached.cs" />
     <Compile Include="Assets\Scripts\General\ProcessorSectionDifficultyManager.cs" />
+    <Compile Include="Assets\Scripts\General\Score.cs" />
+    <Compile Include="Assets\Scripts\General\ScoreData.cs" />
+    <Compile Include="Assets\Scripts\General\ScoreHandler.cs" />
     <Compile Include="Assets\Scripts\Inspector\DifficultyParameter.cs" />
     <Compile Include="Assets\Scripts\Interfaces.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\BladeSectionBuilder.cs" />
@@ -105,7 +111,6 @@
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\HeatVentFSM.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelData.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\LevelHandler.cs" />
-    <Compile Include="Assets\Scripts\LevelBuilding\Refactored\Obstacles\BeeController.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\Obstacles\HeatVentController.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorFSM.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\ProcessorGroupController.cs" />
@@ -121,7 +126,6 @@
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionBuilderSelector.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\SectionDesigner.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\WallBuilder.cs" />
-    <Compile Include="Assets\Scripts\MenuItemState.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\ServiceLocator.cs" />
     <Compile Include="Assets\Scripts\TestLevelBuilding.cs" />

@@ -5,17 +5,12 @@ using System;
 public class ProcessorGroupController : MonoBehaviour {
 	public ProcessorManager[,] processorGroup;
 	int patternVariant;
-//	public IProcessorFSM processorStateMachine;
 	private IProcessorPatternConfiguration patternConfigurator;
 	private IProcessorFSM processorGroupFSM;
 
 	// Use this for initialization
 	void Awake () 
 	{
-//		if (processorStateMachine == null) 
-//		{
-//			processorStateMachine = ServiceLocator.getService<IProcessorFSM>();
-//		}
 		if(patternConfigurator == null)
 		{
 			patternConfigurator = ServiceLocator.getService<IProcessorPatternConfiguration>();
@@ -29,8 +24,8 @@ public class ProcessorGroupController : MonoBehaviour {
 	public void initialize(ProcessorManager[,] processorGroup)
 	{
 		this.processorGroup = processorGroup;
-		repartentProcessors();
-		processorGroupInitialSetup();
+		RrepartentProcessors();
+		ProcessorGroupInitialSetup();
 	}
 	
 	// Update is called once per frame
@@ -38,17 +33,17 @@ public class ProcessorGroupController : MonoBehaviour {
 	{
 		foreach(ProcessorManager processor in processorGroup)
 		{
-			processorGroupFSM.updateHeatupPhase(processor);
+			processorGroupFSM.UpdateHeatupPhase(processor);
 		}
 	}
 	
 
-	private void processorGroupInitialSetup()
+	private void ProcessorGroupInitialSetup()
 	{
 		patternConfigurator.DeployPatternToProcessorGroup(processorGroup, processorGroupFSM);
 	}
 	
-	private void repartentProcessors()
+	private void RrepartentProcessors()
 	{
 		foreach(ProcessorManager processor in processorGroup)
 		{
