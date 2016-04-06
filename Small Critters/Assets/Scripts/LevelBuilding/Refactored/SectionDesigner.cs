@@ -24,5 +24,5 @@ public class SectionDesigner: ISectionDesigning
 		}
 		levelData.activeSectionBuilder.buildNewRow(row);
 		levelData.levelTop+=1;
-	}
+    }
 }

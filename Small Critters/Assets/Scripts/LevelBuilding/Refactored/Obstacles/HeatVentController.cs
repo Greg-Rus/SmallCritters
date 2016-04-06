@@ -8,6 +8,9 @@ public class HeatVentController : MonoBehaviour {
 	public GameObject lightTip;
 	public GameObject ventDoor;
 	public BoxCollider2D killArea;
+    public SpriteRenderer externalWalls;
+    public Sprite leftExternalWallSprite;
+    public Sprite rightExternalWallSprite;
 	public float length = 4.5f;
 	//public Vector3 direction = Vector3.right;
 	public float minFlickerSpeed = 5f;
@@ -60,9 +63,9 @@ public class HeatVentController : MonoBehaviour {
 		
 		fsm = new HeatVentFSM();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+    void Update ()
+    {
 		fsm.UpdateVentingPhase(this);
 	}
 	
@@ -72,8 +75,16 @@ public class HeatVentController : MonoBehaviour {
 		fsm.SetStateTimes(timers);
 		fsm.SetCycleCompletion(this, cycleCompletion);
 		flame.startLifetime = length* 0.1f;
-		//tipStartPosition = lightTip.transform.localPosition;
-	}
+        if (transform.rotation.eulerAngles.z == 0)
+        {
+            externalWalls.sprite = leftExternalWallSprite;
+        }
+        else
+        {
+            externalWalls.sprite = rightExternalWallSprite;
+        }
+        //tipStartPosition = lightTip.transform.localPosition;
+    }
 	
 	public void UpdateVentigState()
 	{
@@ -137,7 +148,7 @@ public class HeatVentController : MonoBehaviour {
 	public void UpdateVentDoorOpening()
 	{
 		float completionPercent = GetStateCompletionPercent();
-		float ventDoorX = Mathf.Lerp(-4f, -4.5f, completionPercent);
+		float ventDoorX = Mathf.Lerp(-3.75f, -4f, completionPercent);
 		Vector3 newVentDoorPosition = new Vector3(ventDoorX,0f,0f);
 		//Debug.Log (completionPercent);
 		ventDoor.transform.localPosition = newVentDoorPosition;
@@ -150,7 +161,7 @@ public class HeatVentController : MonoBehaviour {
 	{
 		UpdateVentHeatAura(length);
 		float completionPercent = GetStateCompletionPercent();	
-		float ventDoorX = Mathf.Lerp(-4.5f, -4f, completionPercent);
+		float ventDoorX = Mathf.Lerp(-4f, -3.75f, completionPercent);
 		Vector3 newVentDoorPosition = new Vector3(ventDoorX,0f,0f);
 		ventDoor.transform.localPosition = newVentDoorPosition;
 		

@@ -38,10 +38,14 @@ public class SectionBuilderBlades: ISectionBuilder {
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-		if(!difficultyManager.IsBladeRowEmpty())
-		{
-			buildNewBladeRow(row);
-		}
+        if (!difficultyManager.IsBladeRowEmpty())
+        {
+            buildNewBladeRow(row);
+        }
+        else
+        {
+            levelData.emptyRow = true;
+        }
 	}
 	
 	private void buildNewBladeRow(List<GameObject> row)

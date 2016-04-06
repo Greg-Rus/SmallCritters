@@ -9,6 +9,8 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 //	private string wallPrefabName;
 	public Sprite[] floorSprites;
 	public Sprite[] wallSprites;
+    public GameObject bladeRowWallLeft;
+    public GameObject bladeRowWallRight;
 	private Vector3 tilePosition;
 	private List<GameObject> currentRow;
 	private LevelData levelData;
@@ -30,7 +32,8 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	public void SetUpArenaRow(List<GameObject> row)
 	{
 		currentRow = row;
-		if(row.Count == 0)
+        
+        if (row.Count == 0)
 		{
 			if(lastEmptyRow == (levelData.levelTop - 1))
 			{
@@ -49,8 +52,8 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 			lastEmptyRow = -1; 
 			consecutiveEmptyRows = 0;
 		}
-		SetupSideWalls();
-		SetupFloor();
+        SetupSideWalls();
+        SetupFloor();
 	}
 	
 	public void Setup(LevelData levelData, GameObjectPoolManager poolManager)
@@ -60,7 +63,9 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 		this.poolManager = poolManager;
 		poolManager.addPool(sideWallTilePrefab, 100);
 		poolManager.addPool(floorTilePrefab, 300);
-		wallSectionBuilder.poolManager = poolManager;
+        poolManager.addPool(bladeRowWallLeft, 20);
+        poolManager.addPool(bladeRowWallRight, 20);
+        wallSectionBuilder.poolManager = poolManager;
 	}
 	
 	private void SetupFloor()
@@ -79,12 +84,43 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	}
 	private void SetupSideWalls()
 	{
-		SetNewTilePosition(0.5f, levelData.levelTop);
-		SpawnTile(sideWallTilePrefab, wallSprites[0]);
+        if (levelData.activeSectionBuilder.type == sectionBuilderType.blade)
+        {
+            if (levelData.emptyRow)
+            {
+                BuildStandardSideWalls();
+            }
+            else
+            {
+                BuildBladeRowWalls();
+            }
+            levelData.emptyRow = false;
+        }
+
+        else
+        {
+            BuildStandardSideWalls();
+        }
 		
-		SetNewTilePosition(8.5f, levelData.levelTop);
-		SpawnTile(sideWallTilePrefab, wallSprites[1]);
 	}
+
+    private void BuildStandardSideWalls()
+    {
+        SetNewTilePosition(0.5f, levelData.levelTop+1);
+        SpawnTile(sideWallTilePrefab, wallSprites[0]);
+
+        SetNewTilePosition(8.5f, levelData.levelTop+1);
+        SpawnTile(sideWallTilePrefab, wallSprites[1]);
+    }
+
+    private void BuildBladeRowWalls()
+    {
+        SetNewTilePosition(0.5f, levelData.levelTop + 1);
+        SpawnTile(bladeRowWallLeft);
+
+        SetNewTilePosition(8.5f, levelData.levelTop + 1);
+        SpawnTile(bladeRowWallRight);
+    }
 	
 	private void SpawnTile(GameObject prefab, Sprite tileSprite)
 	{
@@ -95,4 +131,11 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
        // renderer.color = new Color32(255,255,200,255);
         currentRow.Add(newTile);
 	}
+    private void SpawnTile(GameObject prefab)
+    {
+        GameObject newTile = poolManager.retrieveObject(prefab.name);
+        newTile.transform.position = tilePosition;
+        currentRow.Add(newTile);
+    }
+
 }

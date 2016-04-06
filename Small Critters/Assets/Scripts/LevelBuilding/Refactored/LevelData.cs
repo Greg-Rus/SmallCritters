@@ -11,4 +11,5 @@ public class LevelData {
 	public ISectionBuilder activeSectionBuilder = null;
 	public int newSectionStart = 0;
 	public int newSectionEnd = 0;
+    public bool emptyRow = false;
 }

@@ -78,7 +78,7 @@ public class ScoreHandler : MonoBehaviour {
 
     public void RunEnd(string cuseOfDeath)
     {
-        Debug.Log("RUN END");
+        //Debug.Log("RUN END");
         Score newScore = new Score(gameController.seed, score);
         scoreData.lastRun = newScore;
 
@@ -107,7 +107,7 @@ public class ScoreHandler : MonoBehaviour {
             {
                 if (newScore.score >= scoreData.scores[i].score)
                 {
-                    Debug.Log("Inserting: " + newScore.hash + ", " + newScore.score + " at: " + i);
+                    //Debug.Log("Inserting: " + newScore.hash + ", " + newScore.score + " at: " + i);
                     scoreData.scores.Insert(i, newScore);
                     // Debug.Log("Inserting at: " + i);
                     inserted = true;

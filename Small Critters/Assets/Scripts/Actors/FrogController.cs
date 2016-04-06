@@ -27,7 +27,7 @@ public class FrogController : MonoBehaviour {
     {
         if (other.CompareTag("Hazard")) 
         {
-            Debug.Log("Triggered Hazard");
+            //Debug.Log("Triggered Hazard");
             Die(other.name);
         }
     }

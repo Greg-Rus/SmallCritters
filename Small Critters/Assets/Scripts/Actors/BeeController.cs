@@ -11,7 +11,7 @@ public class BeeController : MonoBehaviour {
 	Vector3 vectorToPlayer;
 	Vector3 heading;
 	float stateExitTime;
-	public GameObject stunStars;
+	//public GameObject stunStars;
 	public float chargeTime;
 	public float flySpeed;
 	public float chargeSpeed;
@@ -60,6 +60,7 @@ public class BeeController : MonoBehaviour {
 	
 	private void Die(string causeOfDeath)
 	{
+        Debug.Log(causeOfDeath);
         if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
         {
             scoreHandler.EnemyDead("Bee", causeOfDeath);
@@ -70,7 +71,7 @@ public class BeeController : MonoBehaviour {
 	private void StartBeingStunned()
 	{
 		stateExitTime = Time.timeSinceLevelLoad + stunTime;
-		stunStars.SetActive(true);
+		//stunStars.SetActive(true);
 		state = BeeState.Stunned;
         gameObject.layer = 10; // layer 10 is Hero
 
@@ -90,7 +91,7 @@ public class BeeController : MonoBehaviour {
 	{
 		if(CheckStateExitConditions())
 		{
-			stunStars.SetActive(false);
+			//stunStars.SetActive(false);
 		}
 	}
 

@@ -23,10 +23,11 @@ public class SectionBuilderHeatVent : ISectionBuilder {
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-		if(!difficultyManager.IsHeatVentRowEmpty())
-		{
-			buildNewHeatVentRow(row);
-		}
+        if (!difficultyManager.IsHeatVentRowEmpty())
+        {
+            buildNewHeatVentRow(row);
+        }
+
 	}
 	
 	public void buildNewHeatVentRow(List<GameObject> row)
