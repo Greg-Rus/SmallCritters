@@ -9,12 +9,16 @@ public class UIHandler : MonoBehaviour {
     public GameObject quitPrompt;
     public GameObject mainMenu;
     public GameObject highScoresMenu;
+    public GameObject optionsMenu;
     public Text scoreField;
     public HighScoreButtonState lastRunScoreButton;
     public HighScoreButtonState[] scoreButtons;
     public ScoreHandler scoreHandler;
+    public Toggle randomToggle;
+    public Toggle seededToggle;
 
     public bool isMenuContext = false;
+    public InputField seedInput;
 
     public MenuLevel activeMenu;
     private GameObject lastMenu;
@@ -27,6 +31,7 @@ public class UIHandler : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Time.timeScale = 1;
+        RestoreMenuState();
         //scoreData = scoreHandler.scoreData;
     }
 	
@@ -37,6 +42,21 @@ public class UIHandler : MonoBehaviour {
             OnMenuQuitPrompt();
         }
 	}
+
+    private void RestoreMenuState()
+    {
+        if (PlayerPrefs.GetString("GameMode") == "Seeded")
+        {
+            randomToggle.isOn = false;
+            seededToggle.isOn = true;
+            seedInput.text = PlayerPrefs.GetString("Seed");
+        }
+        else
+        {
+            randomToggle.isOn = true;
+            seededToggle.isOn = false;
+        }
+    }
 
 
     public void OnMenuQuitPrompt()
@@ -88,6 +108,12 @@ public class UIHandler : MonoBehaviour {
         SetCurrentMenu(highScoresMenu, MenuLevel.SubMenu);
         ShowCurrentMenu();
         UpdateHighScoresMenu();
+    }
+    public void OnMenuOptions()
+    {
+        SaveLastMenu(currentMenu, currentMenuLevel);
+        SetCurrentMenu(optionsMenu, MenuLevel.SubMenu);
+        ShowCurrentMenu();
     }
 
     private void ShowCurrentMenu()
@@ -161,6 +187,38 @@ public class UIHandler : MonoBehaviour {
     {
         button.hash.text = scoreEntry.hash;
         button.score.text = scoreEntry.score.ToString();
+    }
+
+    public void OnRestartRun(int button)
+    {
+        scoreHandler.RestartRun(button);
+    }
+
+    public void ToggleRandomGame()
+    {
+        if (randomToggle.isOn)
+        {
+            Debug.Log("Toggling Random Game Mode!!");
+            seedInput.interactable = false;
+            PlayerPrefs.SetString("Seed", "");
+            PlayerPrefs.SetString("GameMode", "Radom");
+        }
+        
+    }
+
+    public void ToggleSeededGame()
+    {
+        if (seededToggle.isOn)
+        {
+            seedInput.interactable = true;
+            PlayerPrefs.SetString("GameMode", "Seeded");
+        }
+       
+    }
+    public void OnSeedEntered()
+    {
+        Debug.Log(seedInput.text);
+        PlayerPrefs.SetString("Seed", seedInput.text);
     }
 
 

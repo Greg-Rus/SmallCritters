@@ -19,6 +19,7 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	private int consecutiveEmptyRows = 0;
 	private List<List<GameObject>> bufferedRows;
 	public WallBuilder wallSectionBuilder;
+    public Color oddTileColor;
 	// Use this for initialization
 	void Start () {
 //		tilePosition = new Vector2();
@@ -33,25 +34,25 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	{
 		currentRow = row;
         
-        if (row.Count == 0)
-		{
-			if(lastEmptyRow == (levelData.levelTop - 1))
-			{
-				++consecutiveEmptyRows;
-				if(consecutiveEmptyRows == 4)
-				{
-					wallSectionBuilder.BuildWallSegament(row, new Vector2(1.5f, levelData.levelTop-3), 3, 4, 5, true);
-					lastEmptyRow = -1; 
-					consecutiveEmptyRows = 0;
-				}
-			}
-			lastEmptyRow = levelData.levelTop;
-		}
-		else
-		{
-			lastEmptyRow = -1; 
-			consecutiveEmptyRows = 0;
-		}
+  //      if (row.Count == 0)
+		//{
+		//	if(lastEmptyRow == (levelData.levelTop - 1))
+		//	{
+		//		++consecutiveEmptyRows;
+		//		if(consecutiveEmptyRows == 4)
+		//		{
+		//			wallSectionBuilder.BuildWallSegament(row, new Vector2(1.5f, levelData.levelTop-3), 3, 4, 5, true);
+		//			lastEmptyRow = -1; 
+		//			consecutiveEmptyRows = 0;
+		//		}
+		//	}
+		//	lastEmptyRow = levelData.levelTop;
+		//}
+		//else
+		//{
+		//	lastEmptyRow = -1; 
+		//	consecutiveEmptyRows = 0;
+		//}
         SetupSideWalls();
         SetupFloor();
 	}
@@ -74,6 +75,14 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 		{
 			Sprite newFloorSprite = floorSprites[Random.Range(0,floorSprites.Length)];
 			SetNewTilePosition(i,levelData.levelTop);
+            if (((i - 0.5f) % 2) == 0)
+            {
+                SpawnTile(floorTilePrefab, newFloorSprite, Color.white);
+            }
+            else
+            {
+                SpawnTile(floorTilePrefab, newFloorSprite, oddTileColor);
+            }
 			SpawnTile(floorTilePrefab, newFloorSprite);
 		}
 	}
@@ -131,6 +140,16 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
        // renderer.color = new Color32(255,255,200,255);
         currentRow.Add(newTile);
 	}
+    private void SpawnTile(GameObject prefab, Sprite tileSprite, Color color)
+    {
+        GameObject newTile = poolManager.retrieveObject(prefab.name);
+        newTile.transform.position = tilePosition;
+        SpriteRenderer renderer = newTile.GetComponent<SpriteRenderer>();
+        renderer.sprite = tileSprite;
+        renderer.color = color;
+        currentRow.Add(newTile);
+    }
+
     private void SpawnTile(GameObject prefab)
     {
         GameObject newTile = poolManager.retrieveObject(prefab.name);

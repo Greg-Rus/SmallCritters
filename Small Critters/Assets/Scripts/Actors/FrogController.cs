@@ -5,15 +5,14 @@ using System;
 public class FrogController : MonoBehaviour {
 	private Imovement movementScript;
 	private FrogInputHandler inputScript;
-	public GameObject deadFrogSprite;
-	public GameObject frogExplosionPlayer;
+    public DeathParticleSystemHandler particleSystemHandler;
 	//public GameController myGameController;
 	//public event EventHandler FrogDeath;
     public delegate void FrogDeath(string causeOfDeath);
     public FrogDeath OnFrogDeath;
     // Use this for initialization
     void Start () {
-		getRequiredComponents();
+		GetRequiredComponents();
 		setupInputScript();
 	}
 	
@@ -33,12 +32,14 @@ public class FrogController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    private void getRequiredComponents()
+    private void GetRequiredComponents()
 	{
 		movementScript = GetComponent<Imovement>();
 		inputScript = GetComponent<FrogInputHandler>();
-		//myGameController = GetComponent<GameController>();
-	}
+        OnFrogDeath += particleSystemHandler.OnDeath;
+
+        //myGameController = GetComponent<GameController>();
+    }
 
 	private void setupInputScript()
 	{
@@ -47,8 +48,9 @@ public class FrogController : MonoBehaviour {
 	
 	public void Die(string causeOfDeath)
 	{
-		Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
-		Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);
+		//Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
+		//Instantiate(deadFrogSprite, this.transform.position,Quaternion.identity);
+
 		//Destroy(gameObject);
 		gameObject.SetActive(false);
         OnFrogDeath(causeOfDeath);

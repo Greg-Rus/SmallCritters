@@ -23,13 +23,18 @@ public class BeeController : MonoBehaviour {
 	public GameObjectPoolManager poolManager;
 	private string currentAnimation;
     public ScoreHandler scoreHandler;
-	
-	
-	// Use this for initialization
-	void Start () {
+    public DeathParticleSystemHandler particlesHandler;
+    //public GameObject deathByForceParticles;
+    //public GameObject deathByFireParticles;
+
+
+
+    // Use this for initialization
+    void Awake () {
 		currentAction = StayIdle;
 		myAnimator = GetComponent<Animator>();
 		myRigidbody = GetComponent<Rigidbody2D>();
+        //OnFrogDeath += particlesHandler.OnDeath;
        // myCollider = GetComponent<CircleCollider2D>();
 
     }
@@ -38,6 +43,7 @@ public class BeeController : MonoBehaviour {
 		currentAction = StayIdle;
 		state = BeeState.Idle;
         gameObject.layer = 10; // layer 10 is Hero
+        SetAnimation("Idle");
     }
 	
 	// Update is called once per frame
@@ -60,13 +66,28 @@ public class BeeController : MonoBehaviour {
 	
 	private void Die(string causeOfDeath)
 	{
-        Debug.Log(causeOfDeath);
+        // Debug.Log(causeOfDeath);
+        //if (causeOfDeath == "Flame" || causeOfDeath == "Processor")
+        //{
+        //    SpawnParticleSystem(deathByFireParticles);
+        //}
+        //else
+        //{
+        //    SpawnParticleSystem(deathByForceParticles);
+        //}
+        particlesHandler.OnDeath(causeOfDeath);
         if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
         {
             scoreHandler.EnemyDead("Bee", causeOfDeath);
         }
 		gameObject.SetActive(false);
 	}
+
+    //private void SpawnParticleSystem(GameObject system)
+    //{
+    //    GameObject newParticleSystem = Instantiate(system, this.transform.position, Quaternion.identity) as GameObject;
+    //    Destroy(newParticleSystem, 3f);
+    //}
 	
 	private void StartBeingStunned()
 	{

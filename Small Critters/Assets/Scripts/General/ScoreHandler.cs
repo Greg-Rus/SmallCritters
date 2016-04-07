@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -117,7 +118,7 @@ public class ScoreHandler : MonoBehaviour {
             }
             if (!inserted)
             {
-                Debug.Log("Appending: " + newScore.hash + ", " + newScore.score + " at END");
+                //Debug.Log("Appending: " + newScore.hash + ", " + newScore.score + " at END");
                 scoreData.scores.Add(newScore);
                 //scoreData.scores.AddLast(newScore);
             }
@@ -140,5 +141,22 @@ public class ScoreHandler : MonoBehaviour {
     private void UpdateUIScore()
     {
         uiHandler.UpdateUIScore(score);
+    }
+
+    public void RestartRun(int button)
+    {
+        if (button == -1)
+        {
+            PlayerPrefs.SetString("Seed", scoreData.lastRun.hash);
+            gameController.RestartGame();
+        }
+        else
+        {
+            //int buttonNumber = int.Parse(button.name);
+            Debug.Log("Button number: " + button);
+            Debug.Log("Target hash: " + scoreData.scores[button].hash);
+            PlayerPrefs.SetString("Seed", scoreData.scores[button].hash);
+            gameController.RestartGame();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.IO;
 
 public class MainGameController : MonoBehaviour {
 	GameFramework gameFramework;
@@ -13,6 +14,8 @@ public class MainGameController : MonoBehaviour {
     public ScoreHandler scoreHandler;
     public string seed = "42";
     public Transform poolParent;
+    public TextAsset nouns;
+    public TextAsset adjectives;
    // public static MainGameController instance;
     // Use this for initialization
     void Awake()
@@ -63,11 +66,33 @@ public class MainGameController : MonoBehaviour {
 
     private void SeedRNG()
     {
-        if (seed == "0")
+        seed = PlayerPrefs.GetString("Seed");
+        Debug.Log("PlayerPrefs seed: " + seed);
+        if (seed == "")
         {
-            seed = UnityEngine.Random.Range(0, 9999999).ToString();
-        }            
+            //seed = UnityEngine.Random.Range(0, 9999999).ToString();
+            seed = GetRandomWord(adjectives.text, 929) + " " + GetRandomWord(nouns.text, 5449);
+            Debug.Log("New random seed: " + seed);
+        }
+        
         UnityEngine.Random.seed = seed.GetHashCode();
+       
+    }
+
+    private string GetRandomWord(String words, int numberOfLines)
+    {
+        StringReader reader = new StringReader(words);
+        int currentLine = 0;
+        int targetLine = UnityEngine.Random.Range(1, numberOfLines);
+        string word;
+        do
+        {
+            currentLine += 1;
+            word = reader.ReadLine();
+        }
+        while (word != null && currentLine < targetLine);
+
+        return word;//char.ToUpper(word[0]) + word.Substring(1); ;
     }
 	
 	private void BuildInitialLevel() 
@@ -111,9 +136,13 @@ public class MainGameController : MonoBehaviour {
     private void PlaceColdFogWall()
 	{
 		UnityEngine.Object coldFogAsset = Resources.Load("ColdFog");
-		coldFog = Instantiate(coldFogAsset, new Vector3(gameFramework.levelData.levelWidth * 0.5f, -10f, 0f), Quaternion.identity) as GameObject;
-		//coldFog.GetComponent<ColdFogController>().frog = frog; 
-	}
+		coldFog = Instantiate(coldFogAsset, new Vector3(gameFramework.levelData.levelWidth * 0.5f, -25f, 0f), Quaternion.identity) as GameObject;
+        coldFog.name = "ColdFog";
+        ColdFogController controller = coldFog.GetComponent<ColdFogController>() as ColdFogController;
+        controller.frog = frog;
+        controller.levelData = levelData;
+
+    }
 	
 	IEnumerator restartLevelAterSeconds(float seconds) 
 	{
@@ -127,8 +156,8 @@ public class MainGameController : MonoBehaviour {
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
-	
-	private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)
+
+    private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)
 	{
 		//TODO hook this up to UI score
 		int rowsToBuild = newRowReachedEventArgs.newRowReached - difficultyManager.HighestRowReached;
