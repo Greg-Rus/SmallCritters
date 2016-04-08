@@ -20,8 +20,12 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	private List<List<GameObject>> bufferedRows;
 	public WallBuilder wallSectionBuilder;
     public Color oddTileColor;
-	// Use this for initialization
-	void Start () {
+    public Color processorSectionColor;
+    public Color bladeSectionColor;
+    public Color beeSectionColor;
+    public Color ventSectionColor;
+    // Use this for initialization
+    void Start () {
 //		tilePosition = new Vector2();
 //		for(int i = 0; i<10;++i)
 //		{
@@ -71,7 +75,9 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	
 	private void SetupFloor()
 	{
-		for(float i = 1.5f; i < levelData.navigableAreaWidth+1 ; ++i)
+       // Color sectionColor = GetTileColor();
+
+        for (float i = 1.5f; i < levelData.navigableAreaWidth+1 ; ++i)
 		{
 			Sprite newFloorSprite = floorSprites[Random.Range(0,floorSprites.Length)];
 			SetNewTilePosition(i,levelData.levelTop);
@@ -82,10 +88,25 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
             else
             {
                 SpawnTile(floorTilePrefab, newFloorSprite, oddTileColor);
+                //SpawnTile(floorTilePrefab, newFloorSprite, sectionColor);
             }
-			SpawnTile(floorTilePrefab, newFloorSprite);
+			//SpawnTile(floorTilePrefab, newFloorSprite);
 		}
 	}
+
+    //private Color GetTileColor()
+    //{
+    //    Color selectedColor;
+    //    switch (levelData.activeSectionBuilder.type)
+    //    {
+    //        case sectionBuilderType.bees: selectedColor = beeSectionColor; break;
+    //        case sectionBuilderType.blade: selectedColor = bladeSectionColor; break;
+    //        case sectionBuilderType.heatVent: selectedColor = ventSectionColor; break;
+    //        case sectionBuilderType.processor: selectedColor = processorSectionColor; break;
+    //        default: selectedColor = Color.white; break;
+    //    }
+    //    return selectedColor;
+    //}
 	private void SetNewTilePosition(float x, float y)
 	{
 		tilePosition.x = x;

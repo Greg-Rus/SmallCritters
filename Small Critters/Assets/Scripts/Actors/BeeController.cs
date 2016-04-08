@@ -80,7 +80,8 @@ public class BeeController : MonoBehaviour {
         {
             scoreHandler.EnemyDead("Bee", causeOfDeath);
         }
-		gameObject.SetActive(false);
+        SetAnimation("Idle");
+        gameObject.SetActive(false);
 	}
 
     //private void SpawnParticleSystem(GameObject system)

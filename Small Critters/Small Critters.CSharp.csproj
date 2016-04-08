@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Actors\JumpPathSensor.cs" />
     <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
     <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
+    <Compile Include="Assets\Scripts\FPSCounter.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GameObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\General\BeeSectionDifficultyManager.cs" />
