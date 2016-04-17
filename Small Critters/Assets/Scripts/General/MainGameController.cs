@@ -67,12 +67,12 @@ public class MainGameController : MonoBehaviour {
     private void SeedRNG()
     {
         seed = PlayerPrefs.GetString("Seed");
-        Debug.Log("PlayerPrefs seed: " + seed);
+        //Debug.Log("PlayerPrefs seed: " + seed);
         if (seed == "")
         {
             //seed = UnityEngine.Random.Range(0, 9999999).ToString();
             seed = GetRandomWord(adjectives.text, 929) + " " + GetRandomWord(nouns.text, 5449);
-            Debug.Log("New random seed: " + seed);
+           //Debug.Log("New random seed: " + seed);
         }
         
         UnityEngine.Random.seed = seed.GetHashCode();
@@ -92,7 +92,7 @@ public class MainGameController : MonoBehaviour {
         }
         while (word != null && currentLine < targetLine);
 
-        return word;//char.ToUpper(word[0]) + word.Substring(1); ;
+        return char.ToUpper(word[0]) + word.Substring(1); ;
     }
 	
 	private void BuildInitialLevel() 

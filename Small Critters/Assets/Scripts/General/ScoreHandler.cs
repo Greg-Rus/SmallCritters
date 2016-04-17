@@ -86,7 +86,7 @@ public class ScoreHandler : MonoBehaviour {
         if (scoreData.scores.Count == 0)
         {
             //scoreData.scores.Add(newScore);
-            Debug.Log("Adding: " + newScore.hash + ", " + newScore.score + " at BEGINING");
+            //Debug.Log("Adding: " + newScore.hash + ", " + newScore.score + " at BEGINING");
             scoreData.scores.Add(newScore);
         }
         else
@@ -153,8 +153,8 @@ public class ScoreHandler : MonoBehaviour {
         else
         {
             //int buttonNumber = int.Parse(button.name);
-            Debug.Log("Button number: " + button);
-            Debug.Log("Target hash: " + scoreData.scores[button].hash);
+            //Debug.Log("Button number: " + button);
+           // Debug.Log("Target hash: " + scoreData.scores[button].hash);
             PlayerPrefs.SetString("Seed", scoreData.scores[button].hash);
             gameController.RestartGame();
         }

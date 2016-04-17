@@ -33,6 +33,7 @@ public class UIHandler : MonoBehaviour {
         Time.timeScale = 1;
         RestoreMenuState();
         //scoreData = scoreHandler.scoreData;
+        //Debug.Log(Application.persistentDataPath);
     }
 	
 	// Update is called once per frame
@@ -187,6 +188,14 @@ public class UIHandler : MonoBehaviour {
     {
         button.hash.text = scoreEntry.hash;
         button.score.text = scoreEntry.score.ToString();
+        if (scoreEntry.hash == "")
+        {
+            button.button.interactable = false;
+        }
+        else
+        {
+            button.button.interactable = true;
+        }
     }
 
     public void OnRestartRun(int button)
@@ -198,7 +207,7 @@ public class UIHandler : MonoBehaviour {
     {
         if (randomToggle.isOn)
         {
-            Debug.Log("Toggling Random Game Mode!!");
+            //Debug.Log("Toggling Random Game Mode!!");
             seedInput.interactable = false;
             PlayerPrefs.SetString("Seed", "");
             PlayerPrefs.SetString("GameMode", "Radom");
@@ -217,7 +226,7 @@ public class UIHandler : MonoBehaviour {
     }
     public void OnSeedEntered()
     {
-        Debug.Log(seedInput.text);
+        //Debug.Log(seedInput.text);
         PlayerPrefs.SetString("Seed", seedInput.text);
     }
 
