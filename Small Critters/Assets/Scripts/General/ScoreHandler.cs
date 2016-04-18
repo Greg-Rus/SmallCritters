@@ -145,6 +145,7 @@ public class ScoreHandler : MonoBehaviour {
 
     public void RestartRun(int button)
     {
+        PlayerPrefs.SetString("GameMode", "Seeded");
         if (button == -1)
         {
             PlayerPrefs.SetString("Seed", scoreData.lastRun.hash);

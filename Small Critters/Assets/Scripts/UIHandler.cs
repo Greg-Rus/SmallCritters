@@ -115,6 +115,7 @@ public class UIHandler : MonoBehaviour {
         SaveLastMenu(currentMenu, currentMenuLevel);
         SetCurrentMenu(optionsMenu, MenuLevel.SubMenu);
         ShowCurrentMenu();
+        UpdateOptionsMenu();
     }
 
     private void ShowCurrentMenu()
@@ -160,6 +161,11 @@ public class UIHandler : MonoBehaviour {
     public void UpdateUIScore(int newSocore)
     {
         scoreField.text = newSocore.ToString();
+    }
+
+    public void UpdateOptionsMenu()
+    {
+
     }
 
     public void UpdateHighScoresMenu()

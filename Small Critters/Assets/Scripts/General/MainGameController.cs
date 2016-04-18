@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.IO;
+using UnityEngine.UI;
 
 public class MainGameController : MonoBehaviour {
 	GameFramework gameFramework;
@@ -16,6 +17,7 @@ public class MainGameController : MonoBehaviour {
     public Transform poolParent;
     public TextAsset nouns;
     public TextAsset adjectives;
+    public Text LevelNameLabel;
    // public static MainGameController instance;
     // Use this for initialization
     void Awake()
@@ -32,7 +34,8 @@ public class MainGameController : MonoBehaviour {
     }
 
 	void Start () {
-        //Debug.Log("Starting!");
+        //Debug.Log(Application.persistentDataPath);
+        //PlayerPrefs.DeleteAll();
 		//levelData = new LevelData();
 		//difficultyManager = GetComponentInChildren<DifficultyManager>();
 		difficultyManager.levelData = levelData;
@@ -67,7 +70,7 @@ public class MainGameController : MonoBehaviour {
     private void SeedRNG()
     {
         seed = PlayerPrefs.GetString("Seed");
-        //Debug.Log("PlayerPrefs seed: " + seed);
+        //Debug.Log("On Start PlayerPrefs seed: " + seed);
         if (seed == "")
         {
             //seed = UnityEngine.Random.Range(0, 9999999).ToString();
@@ -76,7 +79,8 @@ public class MainGameController : MonoBehaviour {
         }
         
         UnityEngine.Random.seed = seed.GetHashCode();
-       
+        LevelNameLabel.text = seed;
+        //Debug.Log("New random seed: " + seed);
     }
 
     private string GetRandomWord(String words, int numberOfLines)

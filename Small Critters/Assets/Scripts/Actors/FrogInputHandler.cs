@@ -9,7 +9,7 @@ public class FrogInputHandler : MonoBehaviour {
 	public float minimalDragDistance;
 	public Imovement frogMovement;
 	public JumpLineRenderer jumpLineRenderer;
-	public float maxJumpSwipe; //TODO Need to indicate to the player the max jump distance based on swipe using jumpLineRenderer
+	public float maxJumpSwipe;
 	public float maxJumpLength;
 	private float swipeToJumpConversionRatio;
 	private Rigidbody2D myRigidbody;
@@ -27,41 +27,53 @@ public class FrogInputHandler : MonoBehaviour {
 		{
 			//inputStarted= true;
 			startPointerPositoin = Input.mousePosition;
-			jumpLineRenderer.setupJumpLine(worldStartPoint);
+            frogMovement.rotateToDirection(calcualteDragVector(Camera.main.WorldToScreenPoint(this.transform.position), startPointerPositoin));
+            jumpLineRenderer.setupJumpLine(worldStartPoint);
 		}
 		
 		if (Input.GetMouseButton(0) && !frogMovement.midJump)
-		{
-			if(startPointerPositoin == Vector3.zero)
-			{
-				startPointerPositoin = Input.mousePosition;
-				jumpLineRenderer.setupJumpLine(worldStartPoint);
-			}
-			draggedPointerPosition = Input.mousePosition;
-			frogMovement.rotateToDirection(calcualteDragVector()); //Frog faces the drag direction during dragging
-			jumpLineRenderer.updateJumpLine(calcualteDragVector());
-		}
+        {
+            if (startPointerPositoin == Vector3.zero)
+            {
+                startPointerPositoin = Input.mousePosition;
+                jumpLineRenderer.setupJumpLine(worldStartPoint);
+            }
+            draggedPointerPosition = Input.mousePosition;
+            if ((draggedPointerPosition - startPointerPositoin).sqrMagnitude > 0)
+            {
+                frogMovement.rotateToDirection(calcualteDragVector(startPointerPositoin, draggedPointerPosition)); //Frog faces the drag direction during dragging
+               
+            }
+            jumpLineRenderer.updateJumpLine(calcualteDragVector(startPointerPositoin, draggedPointerPosition));
+
+        }
 		
 		if (Input.GetMouseButtonUp(0) && !frogMovement.midJump)
 		{
 			//inputStarted= false;
-			dragVector = calcualteDragVector();
-			if(dragVector.magnitude > minimalDragDistance)
-			{
-				frogMovement.makeMove(calcualteDragVector());
-				jumpLineRenderer.stopDrawingJumpLine();
-			}
-			else
-			{
-				jumpLineRenderer.stopDrawingJumpLine();
-				//TODO frogMovement.tap(draggedPointerPosition);
-			}
-			startPointerPositoin = Vector3.zero;
+			dragVector = calcualteDragVector(startPointerPositoin, draggedPointerPosition);
+
+            if (dragVector.magnitude > minimalDragDistance)
+            {
+                frogMovement.makeMove(dragVector);
+                jumpLineRenderer.stopDrawingJumpLine();
+            }
+            else
+            {
+                startPointerPositoin = Camera.main.WorldToScreenPoint( this.transform.position);
+                draggedPointerPosition = Input.mousePosition;
+                dragVector = calcualteDragVector(startPointerPositoin, draggedPointerPosition);
+                frogMovement.rotateToDirection(dragVector);
+                frogMovement.makeMove(dragVector);
+                jumpLineRenderer.stopDrawingJumpLine();
+                //TODO frogMovement.tap(draggedPointerPosition);
+            }
+            startPointerPositoin = Vector3.zero;
 		}
 	}
-	Vector3 calcualteDragVector()
+	Vector3 calcualteDragVector(Vector3 start, Vector3 end)
 	{
-		calculateSwipesWorldCoordinates();
+		calculateSwipesWorldCoordinates(start, end);
 		
 		dragVector = worldDraggedPoint - worldStartPoint;
 		if(dragVector.magnitude <= maxJumpSwipe)
@@ -73,11 +85,11 @@ public class FrogInputHandler : MonoBehaviour {
 			return dragVector.normalized * maxJumpSwipe * swipeToJumpConversionRatio;
 		}
 	}
-	void calculateSwipesWorldCoordinates()
+	void calculateSwipesWorldCoordinates(Vector3 start, Vector3 end)
 	{
-		worldStartPoint = Camera.main.ScreenToWorldPoint(startPointerPositoin);
+		worldStartPoint = Camera.main.ScreenToWorldPoint(start);
 		worldStartPoint.z = 0f;
-		worldDraggedPoint = Camera.main.ScreenToWorldPoint(draggedPointerPosition);
+		worldDraggedPoint = Camera.main.ScreenToWorldPoint(end);
 		worldDraggedPoint.z = 0f;
 	}
 }
