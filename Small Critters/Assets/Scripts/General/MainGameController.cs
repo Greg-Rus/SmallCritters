@@ -40,9 +40,12 @@ public class MainGameController : MonoBehaviour {
 		//difficultyManager = GetComponentInChildren<DifficultyManager>();
 		difficultyManager.levelData = levelData;
         //gameFramework = new GameFramework(levelData, difficultyManager, arenaBuilder);
+
         SetupGameFramework();
         levelHandler = gameFramework.BuildGameFramework();
 		StartNewGame();
+		BuildInitialLevel();
+
 	}
     private void SetupGameFramework()
     {
@@ -58,7 +61,7 @@ public class MainGameController : MonoBehaviour {
 	{
 		ResetGame();
         SeedRNG();
-		BuildInitialLevel();
+		//
 		PlaceFrog();
 		if(difficultyManager.fogEnabled)
 		{

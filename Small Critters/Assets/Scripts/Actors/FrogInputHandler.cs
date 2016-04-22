@@ -6,6 +6,7 @@ public class FrogInputHandler : MonoBehaviour {
 	public Vector3 startPointerPositoin;
 	public Vector3 draggedPointerPosition;
 	public Vector3 dragVector;
+	private Vector3 pointVector;
 	public float minimalDragDistance;
 	public Imovement frogMovement;
 	public JumpLineRenderer jumpLineRenderer;
@@ -15,6 +16,7 @@ public class FrogInputHandler : MonoBehaviour {
 	private Rigidbody2D myRigidbody;
 	private Vector3 worldStartPoint;
 	private Vector3 worldDraggedPoint;
+	private float sqrMouseDistanceFromFrog;
 	// Use this for initialization
 	void Awake () {
 		//frogMovement = GetComponent<Imovement>() as Imovement ;
@@ -22,55 +24,63 @@ public class FrogInputHandler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (Input.GetMouseButtonDown(0) && !frogMovement.midJump)
-		{
-			//inputStarted= true;
-			startPointerPositoin = Input.mousePosition;
-            frogMovement.rotateToDirection(calcualteDragVector(Camera.main.WorldToScreenPoint(this.transform.position), startPointerPositoin));
-            jumpLineRenderer.setupJumpLine(worldStartPoint);
+	void Update()
+	{
+		sqrMouseDistanceFromFrog = (Input.mousePosition - Camera.main.WorldToScreenPoint (this.transform.position)).sqrMagnitude;
+		if ((sqrMouseDistanceFromFrog >= 0.25f) && (!frogMovement.midJump)) {
+			if (!jumpLineRenderer.isStarted) 
+			{
+				jumpLineRenderer.setupJumpLine (this.transform.position);
+			}
+			pointVector = calcualteDragVector (Camera.main.WorldToScreenPoint (this.transform.position), Input.mousePosition);
+			frogMovement.rotateToDirection (pointVector);
+			jumpLineRenderer.updateJumpLine (pointVector);
+		} else {
+			if (jumpLineRenderer.isStarted) {
+				jumpLineRenderer.stopDrawingJumpLine ();
+			}
 		}
-		
-		if (Input.GetMouseButton(0) && !frogMovement.midJump)
-        {
-            if (startPointerPositoin == Vector3.zero)
-            {
-                startPointerPositoin = Input.mousePosition;
-                jumpLineRenderer.setupJumpLine(worldStartPoint);
-            }
-            draggedPointerPosition = Input.mousePosition;
-            if ((draggedPointerPosition - startPointerPositoin).sqrMagnitude > 0)
-            {
-                frogMovement.rotateToDirection(calcualteDragVector(startPointerPositoin, draggedPointerPosition)); //Frog faces the drag direction during dragging
-               
-            }
-            jumpLineRenderer.updateJumpLine(calcualteDragVector(startPointerPositoin, draggedPointerPosition));
 
-        }
-		
-		if (Input.GetMouseButtonUp(0) && !frogMovement.midJump)
+		if (Input.GetMouseButtonDown (0) && !frogMovement.midJump) {
+			startPointerPositoin = Input.mousePosition;
+		}
+		if (Input.GetMouseButton (0) && !frogMovement.midJump) {
+			draggedPointerPosition = Input.mousePosition;
+			if ((draggedPointerPosition - startPointerPositoin).sqrMagnitude > 0.25f) 
+			{
+				if (!jumpLineRenderer.isStarted) 
+				{
+					jumpLineRenderer.setupJumpLine (this.transform.position);
+				}
+				dragVector = calcualteDragVector (startPointerPositoin, draggedPointerPosition);
+				frogMovement.rotateToDirection (dragVector);
+				jumpLineRenderer.updateJumpLine (dragVector);
+			}
+			else 
+			{
+				if (jumpLineRenderer.isStarted) 
+				{
+					jumpLineRenderer.stopDrawingJumpLine ();
+				}
+			}
+		}
+		if (Input.GetMouseButtonUp (0) && !frogMovement.midJump) 
 		{
-			//inputStarted= false;
-			dragVector = calcualteDragVector(startPointerPositoin, draggedPointerPosition);
-
-            if (dragVector.magnitude > minimalDragDistance)
-            {
-                frogMovement.makeMove(dragVector);
-                jumpLineRenderer.stopDrawingJumpLine();
-            }
-            else
-            {
-                startPointerPositoin = Camera.main.WorldToScreenPoint( this.transform.position);
-                draggedPointerPosition = Input.mousePosition;
-                dragVector = calcualteDragVector(startPointerPositoin, draggedPointerPosition);
-                frogMovement.rotateToDirection(dragVector);
-                frogMovement.makeMove(dragVector);
-                jumpLineRenderer.stopDrawingJumpLine();
-                //TODO frogMovement.tap(draggedPointerPosition);
-            }
-            startPointerPositoin = Vector3.zero;
+			dragVector = calcualteDragVector (startPointerPositoin, draggedPointerPosition);
+			if (dragVector.sqrMagnitude > 0) 
+			{
+				frogMovement.rotateToDirection (dragVector);
+				frogMovement.makeMove (dragVector);
+			} 
+			else if (pointVector.sqrMagnitude > 0) 
+			{
+				frogMovement.rotateToDirection (pointVector);
+				frogMovement.makeMove (pointVector);
+			}
+			jumpLineRenderer.stopDrawingJumpLine();
 		}
 	}
+
 	Vector3 calcualteDragVector(Vector3 start, Vector3 end)
 	{
 		calculateSwipesWorldCoordinates(start, end);

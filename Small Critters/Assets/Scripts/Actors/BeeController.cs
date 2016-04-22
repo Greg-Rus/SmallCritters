@@ -24,6 +24,7 @@ public class BeeController : MonoBehaviour {
 	private string currentAnimation;
     public ScoreHandler scoreHandler;
     public DeathParticleSystemHandler particlesHandler;
+	private int elapsedUpdates = 0;
     //public GameObject deathByForceParticles;
     //public GameObject deathByFireParticles;
 
@@ -43,7 +44,7 @@ public class BeeController : MonoBehaviour {
 		currentAction = StayIdle;
 		state = BeeState.Idle;
         gameObject.layer = 10; // layer 10 is Hero
-        SetAnimation("Idle");
+        //SetAnimation("Idle");
     }
 	
 	// Update is called once per frame
@@ -66,22 +67,14 @@ public class BeeController : MonoBehaviour {
 	
 	private void Die(string causeOfDeath)
 	{
-        // Debug.Log(causeOfDeath);
-        //if (causeOfDeath == "Flame" || causeOfDeath == "Processor")
-        //{
-        //    SpawnParticleSystem(deathByFireParticles);
-        //}
-        //else
-        //{
-        //    SpawnParticleSystem(deathByForceParticles);
-        //}
         particlesHandler.OnDeath(causeOfDeath);
         if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
         {
             scoreHandler.EnemyDead("Bee", causeOfDeath);
         }
         SetAnimation("Idle");
-        gameObject.SetActive(false);
+		WaitUntillAnimatorResets();
+        //gameObject.SetActive(false);
 	}
 
     //private void SpawnParticleSystem(GameObject system)
@@ -215,6 +208,20 @@ public class BeeController : MonoBehaviour {
 			}
 			myAnimator.SetTrigger(stringInput);
 			currentAnimation=stringInput;
+		}
+	}
+
+	private void WaitUntillAnimatorResets()
+	{
+		elapsedUpdates = 0;
+		currentAction = DisableAfternextUpdate;
+	}
+
+	private void DisableAfternextUpdate()
+	{
+		++elapsedUpdates;
+		if (elapsedUpdates == 2) {
+			gameObject.SetActive (false);
 		}
 	}
 	

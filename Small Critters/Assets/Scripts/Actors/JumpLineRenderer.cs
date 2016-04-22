@@ -8,6 +8,7 @@ public class JumpLineRenderer : MonoBehaviour {
 	private RaycastHit2D hit;
 	private JumpMarkerSensor jumpMarkerSensor;
 	private JumpPathSensor jumpPathSensor;
+	public bool isStarted = false;
 	// Use this for initialization
 	void Awake()
 	{
@@ -30,6 +31,7 @@ public class JumpLineRenderer : MonoBehaviour {
 		jumpMarker.transform.rotation = this.transform.rotation;
 		lineRenderer.SetVertexCount(2);
 		lineRenderer.SetPosition(0, this.transform.position);
+		isStarted = true;
 
 	}
 	public void updateJumpLine(Vector3 dragVector)
@@ -51,6 +53,7 @@ public class JumpLineRenderer : MonoBehaviour {
 	{
 		jumpMarker.SetActive(false);
 		lineRenderer.SetVertexCount(0);
+		isStarted = false;
 	}
 	
 	public bool willDieIfJumps(Vector3 dragVector)

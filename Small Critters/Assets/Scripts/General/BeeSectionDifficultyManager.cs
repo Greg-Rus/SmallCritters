@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty, IDifficultyScaling {
+	public MainGameController gameController;
 	public float difficultyPercent = 0f;
 	public float difficultyPercentStep = 0.01f;
 	public DifficultyParameter chargeTime;
@@ -50,7 +51,14 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 	}
 	public bool IsBeePresent()
 	{
-		return Utilities.RollBelowPercent(Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
+		//Debug.Log ("End: " + gameController.levelData.newSectionEnd + "  Top: " + gameController.levelData.levelTop);
+		if (gameController.levelData.newSectionEnd == gameController.levelData.levelTop+1)
+		{
+			return true;
+		} else 
+		{
+			return Utilities.RollBelowPercent(Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
+		}
 	}
 }
 
