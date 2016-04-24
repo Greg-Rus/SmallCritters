@@ -14,23 +14,23 @@ public class BladeSectionDifficultyManager : MonoBehaviour , IBladeSectionDiffic
 	
 	public bool IsBladeRowEmpty()
 	{
-		return Utilities.RollBelowPercent(emptyRowChance.current);
+		return RandomLogger.RollBelowPercent(this,emptyRowChance.current);
 	}
 	public float GetBladeSpeed()
 	{
-		return UnityEngine.Random.Range(bladeSpeed.min, bladeSpeed.current);
+		return RandomLogger.GetRandomRange(this,bladeSpeed.min, bladeSpeed.current);
 	}
 	public int GetNewBladeSectionLenght()
 	{
-		return (int)UnityEngine.Random.Range(bladeSectionLength.min, bladeSectionLength.current);
+		return (int)RandomLogger.GetRandomRange(this,bladeSectionLength.min, bladeSectionLength.current);
 	}
 	public float GetBladeGap()
 	{
-		return UnityEngine.Random.Range(bladeGap.min, bladeGap.current);
+		return RandomLogger.GetRandomRange(this,bladeGap.min, bladeGap.current);
 	}
 	public float GetBladeRowCycleOffset()
 	{
-		return UnityEngine.Random.Range(0f,1f);
+		return RandomLogger.GetRandomRange(this,0f,1f);
 	}
 	
 	public void ScaleDifficulty()

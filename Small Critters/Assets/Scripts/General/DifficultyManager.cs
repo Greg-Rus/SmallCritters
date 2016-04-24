@@ -55,7 +55,7 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 		{
 			weightSum+=builderWeights[i].weight;
 		}
-		float goal = UnityEngine.Random.Range (0,weightSum);
+		float goal = RandomLogger.GetRandomRange (this,0,weightSum);
 		float progress = 0;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{

@@ -32,12 +32,12 @@ public class ProcessorSectionDifficultyManager : MonoBehaviour, IProcessorGroupD
 
 	public int GetNewProcessorSectionLenght()
 	{
-		return (int)UnityEngine.Random.Range(processorSectionLength.min, processorSectionLength.current);
+		return (int)RandomLogger.GetRandomRange(this,processorSectionLength.min, processorSectionLength.current);
 	}
 	
 	public int GetNewProcessorGroupPattern()
 	{
-		float randomPercent = UnityEngine.Random.Range (0f,1f);
+		float randomPercent = RandomLogger.GetRandomRange (this,0f,1f);
 		int bucketNumber = 0;
 		for( ; bucketNumber <  processorPatternWeitghtsHistogram.Length ; ++bucketNumber)
 		{

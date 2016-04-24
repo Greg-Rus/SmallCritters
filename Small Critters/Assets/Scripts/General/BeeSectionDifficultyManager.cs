@@ -57,7 +57,7 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 			return true;
 		} else 
 		{
-			return Utilities.RollBelowPercent(Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
+			return RandomLogger.RollBelowPercent(this,Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
 		}
 	}
 }

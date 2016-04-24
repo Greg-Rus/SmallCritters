@@ -31,6 +31,7 @@ public class MainGameController : MonoBehaviour {
         //{
         //    Destroy(gameObject);
         //}
+        
     }
 
 	void Start () {
@@ -60,8 +61,8 @@ public class MainGameController : MonoBehaviour {
 	private void StartNewGame()
 	{
 		ResetGame();
-        SeedRNG();
-		//
+        //SeedRNG();
+        SeedRandomLogger();
 		PlaceFrog();
 		if(difficultyManager.fogEnabled)
 		{
@@ -76,7 +77,7 @@ public class MainGameController : MonoBehaviour {
         //Debug.Log("On Start PlayerPrefs seed: " + seed);
         if (seed == "")
         {
-            //seed = UnityEngine.Random.Range(0, 9999999).ToString();
+            //seed = RandomLogger.GetRandomRange(this,0, 9999999).ToString();
             seed = GetRandomWord(adjectives.text, 929) + " " + GetRandomWord(nouns.text, 5449);
            //Debug.Log("New random seed: " + seed);
         }
@@ -84,6 +85,17 @@ public class MainGameController : MonoBehaviour {
         UnityEngine.Random.seed = seed.GetHashCode();
         LevelNameLabel.text = seed;
         //Debug.Log("New random seed: " + seed);
+    }
+    private void SeedRandomLogger()
+    {
+        seed = PlayerPrefs.GetString("Seed");
+        if (seed == "")
+        {
+            seed = GetRandomWord(adjectives.text, 929) + " " + GetRandomWord(nouns.text, 5449);
+        }
+        RandomLogger.SeedRNG(seed);
+        //UnityEngine.Random.seed = seed.GetHashCode();
+        LevelNameLabel.text = seed;
     }
 
     private string GetRandomWord(String words, int numberOfLines)
@@ -155,6 +167,7 @@ public class MainGameController : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(seconds);
         //Application.LoadLevel(0);
+        RandomLogger.SaveAndClose();
         RestartGame();
 
     }

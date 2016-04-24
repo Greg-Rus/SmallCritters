@@ -16,7 +16,11 @@ public class HeatVentController : MonoBehaviour {
 	public float minFlickerSpeed = 5f;
 	public float maxFlickerSpeed = 10f;
 	public ParticleSystem flame;
-	
+    public Sprite leftArrow;
+    public Sprite rightArrow;
+    public SpriteRenderer cautionArrowDecal;
+
+    private Transform cautionDecalTransform;
 	float shaftHeight;
 	float shaftWidth;
 	float tipHeight;
@@ -54,8 +58,8 @@ public class HeatVentController : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		lightTipHalfWidth = lightTip.GetComponent<SpriteRenderer>().bounds.size.x * 0.5f;
-
-		thicknessFrom = maxShaftScale;
+        cautionDecalTransform = cautionArrowDecal.transform;
+        thicknessFrom = maxShaftScale;
 		thicknessTo = minShaftScale;
 		flame.startLifetime = length* 0.1f;
 		
@@ -75,13 +79,16 @@ public class HeatVentController : MonoBehaviour {
 		fsm.SetStateTimes(timers);
 		fsm.SetCycleCompletion(this, cycleCompletion);
 		flame.startLifetime = length* 0.1f;
+        cautionDecalTransform.rotation = Quaternion.identity;
         if (transform.rotation.eulerAngles.z == 0)
         {
             externalWalls.sprite = leftExternalWallSprite;
+            cautionArrowDecal.sprite = leftArrow;
         }
         else
         {
             externalWalls.sprite = rightExternalWallSprite;
+            cautionArrowDecal.sprite = rightArrow;
         }
         //tipStartPosition = lightTip.transform.localPosition;
     }

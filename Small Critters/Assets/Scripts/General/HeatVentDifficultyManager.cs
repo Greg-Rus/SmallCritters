@@ -16,39 +16,39 @@ public class HeatVentDifficultyManager : MonoBehaviour, IHeatVentSectionDifficul
 
 	public bool IsHeatVentRowEmpty()
 	{
-		return Utilities.RollBelowPercent(emptyRowChance.current);
+		return RandomLogger.RollBelowPercent(this,emptyRowChance.current);
 	}
 	
 	public int GetNewHeatVentSectionLenght()
 	{
-		return (int)UnityEngine.Random.Range(heatVentSectionLength.min, heatVentSectionLength.current);
+		return (int)RandomLogger.GetRandomRange(this,heatVentSectionLength.min, heatVentSectionLength.current);
 	}
 	
 	public float[] GetHeatVentFSMTimers()
 	{
 		
 		float[] timers = new float[]{
-			heatVentClosedTime + UnityEngine.Random.Range(-0.5f, 2f), 
+			heatVentClosedTime + RandomLogger.GetRandomRange(this,-0.5f, 2f), 
 			heatVentOpeningTime, 
 			heatVentWarmingUpTime, 
-			heatVentVentingTime + UnityEngine.Random.Range(-1f, 1.5f), 
+			heatVentVentingTime + RandomLogger.GetRandomRange(this,-1f, 1.5f), 
 			heatVentClosingTime};
 		return timers;
 	}
 	
 	public float GetHeatVentLength()
 	{
-		return UnityEngine.Random.Range(heatVentLenght.min,heatVentLenght.current);
+		return RandomLogger.GetRandomRange(this,heatVentLenght.min,heatVentLenght.current);
 	}
 	
 	public float GetHeatVentCycleOffset()
 	{
-		return UnityEngine.Random.Range(0f,1f);
+		return RandomLogger.GetRandomRange(this,0f,1f);
 	}
 	
 	public Vector3 GetHeatVentRotation()
 	{
-		if(Utilities.RollBelowPercent(0.5f))
+		if(RandomLogger.RollBelowPercent(this,0.5f))
 		{return Vector3.zero;}
 		else
 		{return new Vector3(0f,0f,180f);}
