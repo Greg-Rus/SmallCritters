@@ -3,12 +3,13 @@ using System.Collections;
 
 public class FrogInputHandler : MonoBehaviour {
 	public bool inputStarted = false;
-	public Vector3 startPointerPositoin;
-	public Vector3 draggedPointerPosition;
+	public Vector3 startPointerScreenPositoin;
+	public Vector3 draggedPointerScreenPosition;
 	public Vector3 dragVector;
 	private Vector3 pointVector;
 	public float minimalDragDistance;
-	public Imovement frogMovement;
+    private float minimalDragScreenDistance;
+	private Imovement frogMovement;
 	public JumpLineRenderer jumpLineRenderer;
 	public float maxJumpSwipe;
 	public float maxJumpLength;
@@ -19,15 +20,18 @@ public class FrogInputHandler : MonoBehaviour {
 	private float sqrMouseDistanceFromFrog;
 	// Use this for initialization
 	void Awake () {
-		//frogMovement = GetComponent<Imovement>() as Imovement ;
+		frogMovement = GetComponent<Imovement>() as Imovement ;
 		swipeToJumpConversionRatio = maxJumpLength / maxJumpSwipe;
+        //Debug.Log(( Camera.main.ScreenToWorldPoint(new Vector3(10f, 0f, 0f)) - Camera.main.ScreenToWorldPoint(Vector3.zero)).sqrMagnitude);
+        minimalDragScreenDistance = (Camera.main.WorldToScreenPoint(new Vector3(minimalDragDistance, 0f, 0f)) - Camera.main.WorldToScreenPoint(Vector3.zero)).sqrMagnitude;
 	}
 	
 	// Update is called once per frame
 	void Update()
 	{
 		sqrMouseDistanceFromFrog = (Input.mousePosition - Camera.main.WorldToScreenPoint (this.transform.position)).sqrMagnitude;
-		if ((sqrMouseDistanceFromFrog >= 0.25f) && (!frogMovement.midJump)) {
+		if ((sqrMouseDistanceFromFrog >= minimalDragScreenDistance) && (!frogMovement.midJump))
+        {
 			if (!jumpLineRenderer.isStarted) 
 			{
 				jumpLineRenderer.setupJumpLine (this.transform.position);
@@ -35,24 +39,29 @@ public class FrogInputHandler : MonoBehaviour {
 			pointVector = calcualteDragVector (Camera.main.WorldToScreenPoint (this.transform.position), Input.mousePosition);
 			frogMovement.rotateToDirection (pointVector);
 			jumpLineRenderer.updateJumpLine (pointVector);
-		} else {
-			if (jumpLineRenderer.isStarted) {
+		}
+        else
+        {
+			if (jumpLineRenderer.isStarted)
+            {
 				jumpLineRenderer.stopDrawingJumpLine ();
 			}
 		}
 
-		if (Input.GetMouseButtonDown (0) && !frogMovement.midJump) {
-			startPointerPositoin = Input.mousePosition;
+		if (Input.GetMouseButtonDown (0) && !frogMovement.midJump)
+        {
+			startPointerScreenPositoin = Input.mousePosition;
 		}
+
 		if (Input.GetMouseButton (0) && !frogMovement.midJump) {
-			draggedPointerPosition = Input.mousePosition;
-			if ((draggedPointerPosition - startPointerPositoin).sqrMagnitude > 0.25f) 
+			draggedPointerScreenPosition = Input.mousePosition;
+			if ((draggedPointerScreenPosition - startPointerScreenPositoin).sqrMagnitude > minimalDragScreenDistance) 
 			{
 				if (!jumpLineRenderer.isStarted) 
 				{
 					jumpLineRenderer.setupJumpLine (this.transform.position);
 				}
-				dragVector = calcualteDragVector (startPointerPositoin, draggedPointerPosition);
+				dragVector = calcualteDragVector (startPointerScreenPositoin, draggedPointerScreenPosition);
 				frogMovement.rotateToDirection (dragVector);
 				jumpLineRenderer.updateJumpLine (dragVector);
 			}
@@ -66,13 +75,13 @@ public class FrogInputHandler : MonoBehaviour {
 		}
 		if (Input.GetMouseButtonUp (0) && !frogMovement.midJump) 
 		{
-			dragVector = calcualteDragVector (startPointerPositoin, draggedPointerPosition);
-			if (dragVector.sqrMagnitude > 0) 
+			dragVector = calcualteDragVector (startPointerScreenPositoin, draggedPointerScreenPosition);
+			if (dragVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f)) 
 			{
 				frogMovement.rotateToDirection (dragVector);
 				frogMovement.makeMove (dragVector);
 			} 
-			else if (pointVector.sqrMagnitude > 0) 
+			else if (pointVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f)) 
 			{
 				frogMovement.rotateToDirection (pointVector);
 				frogMovement.makeMove (pointVector);
@@ -83,7 +92,7 @@ public class FrogInputHandler : MonoBehaviour {
 
 	Vector3 calcualteDragVector(Vector3 start, Vector3 end)
 	{
-		calculateSwipesWorldCoordinates(start, end);
+		CalculateSwipesWorldCoordinates(start, end);
 		
 		dragVector = worldDraggedPoint - worldStartPoint;
 		if(dragVector.magnitude <= maxJumpSwipe)
@@ -95,7 +104,7 @@ public class FrogInputHandler : MonoBehaviour {
 			return dragVector.normalized * maxJumpSwipe * swipeToJumpConversionRatio;
 		}
 	}
-	void calculateSwipesWorldCoordinates(Vector3 start, Vector3 end)
+	void CalculateSwipesWorldCoordinates(Vector3 start, Vector3 end)
 	{
 		worldStartPoint = Camera.main.ScreenToWorldPoint(start);
 		worldStartPoint.z = 0f;

@@ -13,7 +13,7 @@ public class FrogController : MonoBehaviour {
     // Use this for initialization
     void Start () {
 		GetRequiredComponents();
-		setupInputScript();
+		//setupInputScript();
 	}
 	
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -41,10 +41,10 @@ public class FrogController : MonoBehaviour {
         //myGameController = GetComponent<GameController>();
     }
 
-	private void setupInputScript()
-	{
-		inputScript.frogMovement = movementScript;
-	}
+	//private void setupInputScript()
+	//{
+	//	inputScript.frogMovement = movementScript;
+	//}
 	
 	public void Die(string causeOfDeath)
 	{
