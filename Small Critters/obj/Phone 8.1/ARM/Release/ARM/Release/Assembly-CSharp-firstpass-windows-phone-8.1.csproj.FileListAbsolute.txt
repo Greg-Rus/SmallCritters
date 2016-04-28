@@ -1,0 +1,16 @@
+D:\GitHub\SmallCritters\Small Critters\bin\Phone 8.1\ARM\Release\Assembly-CSharp-firstpass.dll
+D:\GitHub\SmallCritters\Small Critters\bin\Phone 8.1\ARM\Release\Assembly-CSharp-firstpass.pdb
+D:\GitHub\SmallCritters\Small Critters\bin\Phone 8.1\ARM\Release\Assembly-CSharp-firstpass.pri
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\Assembly-CSharp-firstpass.dll
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\Assembly-CSharp-firstpass.pdb
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\priconfig.xml
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\priconfig.xml.intermediate
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\layout.resfiles
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\layout.resfiles.intermediate
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\resources.resfiles
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\resources.resfiles.intermediate
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\pri.resfiles
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\pri.resfiles.intermediate
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\qualifiers.txt
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\qualifiers.txt.intermediate
+D:\GitHub\SmallCritters\Small Critters\obj\Phone 8.1\ARM\Release\ARM\Release\MultipleQualifiersPerDimensionFound.txt
