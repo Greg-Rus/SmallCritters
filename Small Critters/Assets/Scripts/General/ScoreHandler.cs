@@ -21,7 +21,9 @@ public class ScoreHandler : MonoBehaviour {
     public int deatchViaBee = 1;
     public int deathViaProcessor = 3;
     public int deathViaVent = 2;
+    public int starValue = 5;
     public ScoreData scoreData;
+    public GameObject star;
 
     XmlSerializer serializer;
 
@@ -58,12 +60,12 @@ public class ScoreHandler : MonoBehaviour {
         UpdateUIScore();
     }
 
-    public void EnemyDead(string enemy, string causeOfDeath)
+    public void EnemyDead(GameObject enemy, string causeOfDeath)
     {
         int enemyTypeScore = 0;
-        switch (enemy)
+        switch (enemy.name)
         {
-            case "Bee": enemyTypeScore = beeScore; break;
+            case "Bee": enemyTypeScore = beeScore; SpawnStars(3, enemy.transform.position); break;
         }
         int causeOfDeathMultiplier = 0;
         switch (causeOfDeath)
@@ -75,6 +77,26 @@ public class ScoreHandler : MonoBehaviour {
         }
         score += enemyTypeScore * causeOfDeathMultiplier;
         UpdateUIScore();
+    }
+
+    private void SpawnStars(int count, Vector3 position)
+    {
+        Vector3 offset = Vector3.zero;
+        for (int i = 0; i < count; ++i)
+        {
+            offset.x = RandomLogger.GetRandomRange(this, 0f, 0.5f);
+            offset.y = RandomLogger.GetRandomRange(this, 0f, 0.5f);
+            GameObject newStar = Instantiate(star, 
+                                            position + offset,
+                                            Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360))
+                                            ) as GameObject;
+            newStar.GetComponent<StarHandler>().scoreHandler = this;
+        }
+    }
+
+    public void StarCollected()
+    {
+        score += starValue;
     }
 
     public void RunEnd(string cuseOfDeath)

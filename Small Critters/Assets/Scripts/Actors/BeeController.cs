@@ -16,6 +16,10 @@ public class BeeController : MonoBehaviour {
 	public float flySpeed;
 	public float chargeSpeed;
 	public float chargeDistance;
+    public int flyLayer;
+    public int groundedLayer;
+    public int stunCollisionLayer;
+
 	//public float chargeRecoverVelocity;
 	public float stunTime;
 	public BeeState state;
@@ -43,7 +47,7 @@ public class BeeController : MonoBehaviour {
 	{
 		currentAction = StayIdle;
 		state = BeeState.Idle;
-        gameObject.layer = 10; // layer 10 is Hero
+        gameObject.layer = groundedLayer; // layer 10 is Hero
         //SetAnimation("Idle");
     }
 	
@@ -54,7 +58,7 @@ public class BeeController : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if(coll.gameObject.layer == 12 && state == BeeState.Charging) //layer 12 is Obstacle
+		if(coll.gameObject.layer == stunCollisionLayer && state == BeeState.Charging) //layer 12 is Obstacle
 		{
 			StartBeingStunned();
 		}
@@ -70,7 +74,7 @@ public class BeeController : MonoBehaviour {
         particlesHandler.OnDeath(causeOfDeath);
         if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
         {
-            scoreHandler.EnemyDead("Bee", causeOfDeath);
+            scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
         }
         SetAnimation("Idle");
 		WaitUntillAnimatorResets();
@@ -88,19 +92,19 @@ public class BeeController : MonoBehaviour {
 		stateExitTime = Time.timeSinceLevelLoad + stunTime;
 		//stunStars.SetActive(true);
 		state = BeeState.Stunned;
-        gameObject.layer = 10; // layer 10 is Hero
+        gameObject.layer = groundedLayer; // layer 10 is Hero
 
 		SetAnimation("Stunned");
 
 		currentAction = StayStunned;
 	}
 
-    private void SetLayer(String layerName)
-    {
-        gameObject.layer = LayerMask.NameToLayer(layerName);
-        myCollider.enabled = false;
-        myCollider.enabled = true;
-    }
+    //private void SetLayer(String layerName)
+    //{
+    //    gameObject.layer = LayerMask.NameToLayer(layerName);
+    //    myCollider.enabled = false;
+    //    myCollider.enabled = true;
+    //}
 	
 	private void StayStunned()
 	{
@@ -129,7 +133,7 @@ public class BeeController : MonoBehaviour {
 	{
 		state = BeeState.Following;
 		currentAction = FollowPlayer;
-        gameObject.layer = 18; // layer 18 is Flying
+        gameObject.layer = flyLayer; // layer 18 is Flying
         SetAnimation("Fly");
 	}
 	

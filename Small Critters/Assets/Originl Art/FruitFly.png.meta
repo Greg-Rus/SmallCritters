@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: 00cc437f45ba6e341b50973e8ae8d445
+timeCreated: 1462010236
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: FruitFly_0
+    21300002: FruitFly_1
+    21300004: FruitFly_2
+    21300006: FruitFly_3
+    21300008: FruitFly_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 512
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: FruitFly_0
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 200
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -14}
+        - {x: -15, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 15}
+        - {x: 13, y: 16}
+    - name: FruitFly_1
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 173
+        width: 130
+        height: 74
+      alignment: 9
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -119, y: 37}
+        - {x: -130, y: 34}
+        - {x: -130, y: -21}
+        - {x: -106, y: -37}
+        - {x: -5, y: -37}
+        - {x: 0, y: -22}
+        - {x: 0, y: 33}
+        - {x: -3, y: 37}
+    - name: FruitFly_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 164
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 64, y: 82}
+        - {x: -51, y: 82}
+        - {x: -78, y: 61}
+        - {x: -82, y: 38}
+        - {x: -82, y: -44}
+        - {x: -46, y: -82}
+        - {x: 37, y: -82}
+        - {x: 79, y: -62}
+        - {x: 82, y: -43}
+        - {x: 82, y: 49}
+    - name: FruitFly_3
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 106
+        width: 25
+        height: 42
+      alignment: 9
+      pivot: {x: 0.5, y: 0.8506194}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: FruitFly_4
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 0
+        width: 82
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -41, y: 41}
+        - {x: -41, y: -33}
+        - {x: -28, y: -41}
+        - {x: 26, y: -41}
+        - {x: 41, y: -20}
+        - {x: 41, y: 40}
+        - {x: 37, y: 41}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
