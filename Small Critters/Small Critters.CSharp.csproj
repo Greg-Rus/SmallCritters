@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\General\ScoreData.cs" />
     <Compile Include="Assets\Scripts\General\ScoreHandler.cs" />
     <Compile Include="Assets\Scripts\General\StarHandler.cs" />
+    <Compile Include="Assets\Scripts\General\TextureScroll.cs" />
     <Compile Include="Assets\Scripts\Inspector\DifficultyParameter.cs" />
     <Compile Include="Assets\Scripts\Interfaces.cs" />
     <Compile Include="Assets\Scripts\LevelBuilding\BladeSectionBuilder.cs" />

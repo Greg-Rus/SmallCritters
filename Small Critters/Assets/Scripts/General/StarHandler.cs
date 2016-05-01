@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class StarHandler : MonoBehaviour {
     public Transform frog;
@@ -7,12 +8,24 @@ public class StarHandler : MonoBehaviour {
     public float turnSpeed;
     public float decaySpeed;
     public float decayScaleThreshold;
+    public int points;
+    public float scoringDistance;
     private float scale = 1;
     public ParticleSystem sparcleTrail;
     public ScoreHandler scoreHandler;
+    public CircleCollider2D playerDetectionCircle;
+    private Action<int> OnStarPickup;
 	// Use this for initialization
 	void Start () {
-        transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 360));
+        transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
+        //playerDetectionCircle = GetComponent<CircleCollider2D>();
+    }
+
+    public void Configure(int points, float scoringDistance, Action<int> OnStarPickup  )
+    {
+        this.points = points;
+        playerDetectionCircle.radius = scoringDistance;
+        this.OnStarPickup = OnStarPickup;
     }
 	
 	// Update is called once per frame
@@ -48,7 +61,8 @@ public class StarHandler : MonoBehaviour {
         transform.position = transform.position + transform.right * Time.deltaTime * moveSpeed;
         if (relativePos.sqrMagnitude <= 0.2f)
         {
-            scoreHandler.StarCollected();
+            //scoreHandler.StarCollected();
+            OnStarPickup(points);
             Destroy(this.gameObject);
         }
     }

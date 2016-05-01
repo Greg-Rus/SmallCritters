@@ -15,13 +15,13 @@ public class ScoreHandler : MonoBehaviour {
     public int score = 0;
     public int rowMultiplier = 1;
     public int scoringDistance = 7;
-    public int beeScore = 5;
+    public int beeScoreStarCount = 3;
 
     public int deathViaBlade = 2;
     public int deatchViaBee = 1;
     public int deathViaProcessor = 3;
     public int deathViaVent = 2;
-    public int starValue = 5;
+    public int starValue = 2;
     public ScoreData scoreData;
     public GameObject star;
 
@@ -62,10 +62,10 @@ public class ScoreHandler : MonoBehaviour {
 
     public void EnemyDead(GameObject enemy, string causeOfDeath)
     {
-        int enemyTypeScore = 0;
+        int starCount = 0;
         switch (enemy.name)
         {
-            case "Bee": enemyTypeScore = beeScore; SpawnStars(3, enemy.transform.position); break;
+            case "Bee": starCount = beeScoreStarCount; break;
         }
         int causeOfDeathMultiplier = 0;
         switch (causeOfDeath)
@@ -75,11 +75,12 @@ public class ScoreHandler : MonoBehaviour {
             case "Bee":         causeOfDeathMultiplier = deatchViaBee; break;
             case "Processor":   causeOfDeathMultiplier = deathViaProcessor; break;
         }
-        score += enemyTypeScore * causeOfDeathMultiplier;
-        UpdateUIScore();
+        int potentialScore = starValue * causeOfDeathMultiplier;
+        SpawnStars(starCount, enemy.transform.position, potentialScore);
+        
     }
 
-    private void SpawnStars(int count, Vector3 position)
+    private void SpawnStars(int count, Vector3 position, int points)
     {
         Vector3 offset = Vector3.zero;
         for (int i = 0; i < count; ++i)
@@ -90,13 +91,15 @@ public class ScoreHandler : MonoBehaviour {
                                             position + offset,
                                             Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360))
                                             ) as GameObject;
-            newStar.GetComponent<StarHandler>().scoreHandler = this;
+            StarHandler newStarHandler = newStar.GetComponent<StarHandler>();
+            newStarHandler.Configure(points, scoringDistance, StarCollected);
         }
     }
 
-    public void StarCollected()
+    public void StarCollected(int points)
     {
-        score += starValue;
+        score += points;
+        UpdateUIScore();
     }
 
     public void RunEnd(string cuseOfDeath)
