@@ -16,11 +16,14 @@ public class ScoreHandler : MonoBehaviour {
     public int rowMultiplier = 1;
     public int scoringDistance = 7;
     public int beeScoreStarCount = 3;
+    public int flyScoreStarCount = 1;
+    public int fireBeetleScoreStarCount = 2;
 
     public int deathViaBlade = 2;
     public int deatchViaBee = 1;
     public int deathViaProcessor = 3;
     public int deathViaVent = 2;
+    public int deathViaOther = 1;
     public int starValue = 2;
     public ScoreData scoreData;
     public GameObject star;
@@ -65,7 +68,9 @@ public class ScoreHandler : MonoBehaviour {
         int starCount = 0;
         switch (enemy.name)
         {
-            case "Bee": starCount = beeScoreStarCount; break;
+            case "Bee":           starCount = beeScoreStarCount; break;
+            case "Fly":           starCount = flyScoreStarCount; break;
+            case "FireBeetle":    starCount = fireBeetleScoreStarCount; break;
         }
         int causeOfDeathMultiplier = 0;
         switch (causeOfDeath)
@@ -74,6 +79,7 @@ public class ScoreHandler : MonoBehaviour {
             case "HeatVent":    causeOfDeathMultiplier = deathViaVent; break;
             case "Bee":         causeOfDeathMultiplier = deatchViaBee; break;
             case "Processor":   causeOfDeathMultiplier = deathViaProcessor; break;
+            default:            causeOfDeathMultiplier = deathViaOther; break;
         }
         int potentialScore = starValue * causeOfDeathMultiplier;
         SpawnStars(starCount, enemy.transform.position, potentialScore);

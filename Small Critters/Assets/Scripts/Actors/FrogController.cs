@@ -9,7 +9,11 @@ public class FrogController : MonoBehaviour {
 	//public GameController myGameController;
 	//public event EventHandler FrogDeath;
     public delegate void FrogDeath(string causeOfDeath);
+    public delegate void FoodPickup(float HP);
     public FrogDeath OnFrogDeath;
+    public FoodPickup OnFoodPickup;
+    public Animator myAnimator;
+    public float HP = 0;
     // Use this for initialization
     void Start () {
 		GetRequiredComponents();
@@ -21,7 +25,13 @@ public class FrogController : MonoBehaviour {
 		{
 			Die (coll.collider.name);
 		}
-	}
+        if (coll.collider.tag == "Food")
+        {
+            myAnimator.SetTrigger("Lick");
+            if (HP < 1f) HP += 0.1f;
+            OnFoodPickup(HP);
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Hazard")) 

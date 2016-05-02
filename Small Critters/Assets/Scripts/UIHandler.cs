@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+
 public enum MenuLevel {MenuOff, MenuBackground, MainMenu, SubMenu, QuitPrompt };
 public class UIHandler : MonoBehaviour {
     public GameObject pausePanel;
@@ -21,6 +22,10 @@ public class UIHandler : MonoBehaviour {
     public InputField seedInput;
 
     public MenuLevel activeMenu;
+    public Image Heart1;
+    public float fillSpeed;
+    private float targetFill;
+
     private GameObject lastMenu;
     private MenuLevel lastMenuLevel;
     private Action currentMenuToggle;
@@ -234,6 +239,21 @@ public class UIHandler : MonoBehaviour {
     {
         //Debug.Log(seedInput.text);
         PlayerPrefs.SetString("Seed", seedInput.text);
+    }
+
+    public void UpdateHearts(float amount)
+    {
+        targetFill = Heart1.fillAmount + amount;
+        StartCoroutine(FillHeart());
+    }
+
+    private IEnumerator FillHeart()
+    {
+        while (Heart1.fillAmount < targetFill)
+        {
+            Heart1.fillAmount += Time.deltaTime * fillSpeed;
+            yield return null;
+        }
     }
 
 

@@ -74,12 +74,16 @@
     <Compile Include="Assets\Scripts\Actors\BeeSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\BeeStunnEffect.cs" />
     <Compile Include="Assets\Scripts\Actors\DeathParticleSystemHandler.cs" />
+    <Compile Include="Assets\Scripts\Actors\FireBallController.cs" />
+    <Compile Include="Assets\Scripts\Actors\FireBeetleController.cs" />
+    <Compile Include="Assets\Scripts\Actors\FlyController.cs" />
     <Compile Include="Assets\Scripts\Actors\FrogController.cs" />
     <Compile Include="Assets\Scripts\Actors\FrogInputHandler.cs" />
     <Compile Include="Assets\Scripts\Actors\FrogMovementPhysics.cs" />
     <Compile Include="Assets\Scripts\Actors\JumpLineRenderer.cs" />
     <Compile Include="Assets\Scripts\Actors\JumpMarkerSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\JumpPathSensor.cs" />
+    <Compile Include="Assets\Scripts\Actors\PlayerDetector.cs" />
     <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
     <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
     <Compile Include="Assets\Scripts\Experimental\RandConsumer.cs" />

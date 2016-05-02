@@ -13,6 +13,7 @@ public class MainGameController : MonoBehaviour {
 	public DifficultyManager difficultyManager;
 	public ArenaBuilder arenaBuilder;
     public ScoreHandler scoreHandler;
+    public UIHandler uiHandler;
     public string seed = "42";
     public Transform poolParent;
     public TextAsset nouns;
@@ -140,13 +141,19 @@ public class MainGameController : MonoBehaviour {
         //controller.FrogDeath += scoreHandler.RunEnd;
         controller.OnFrogDeath += HandleFrogDeath;
         controller.OnFrogDeath += scoreHandler.RunEnd;
+        controller.OnFoodPickup += uiHandler.UpdateHearts;
         Camera.main.GetComponent<CameraVerticalFollow>().frog = frog;
 	}
 
-	//void HandleFrogDeath (object sender, EventArgs e)
-	//{
-	//	StartCoroutine(restartLevelAterSeconds(1));
-	//}
+    //void HandleFrogDeath (object sender, EventArgs e)
+    //{
+    //	StartCoroutine(restartLevelAterSeconds(1));
+    //}
+    private void HandleFoodPickup()
+    {
+
+    }
+
     void HandleFrogDeath(string causeOfDeath)
     {
         StartCoroutine(restartLevelAterSeconds(1));

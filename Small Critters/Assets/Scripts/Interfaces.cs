@@ -104,5 +104,10 @@ public interface IArenaBuilding
 	void SetUpArenaRow(List<GameObject> row);
 }
 
+public interface IPlayerDetection
+{
+    void PlayerDetected(GameObject player);
+}
+
 
 

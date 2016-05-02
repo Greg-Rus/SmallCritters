@@ -50,6 +50,13 @@ public class BeeController : MonoBehaviour {
         gameObject.layer = groundedLayer; // layer 10 is Hero
         //SetAnimation("Idle");
     }
+
+    //void OnDisable()
+    //{
+    //    SetAnimation("Idle");
+    //    WaitUntillAnimatorResets();
+    //    Debug.Log("Animator reset after script disabled");
+    //}
 	
 	// Update is called once per frame
 	void Update () {
@@ -62,20 +69,29 @@ public class BeeController : MonoBehaviour {
 		{
 			StartBeingStunned();
 		}
-		if (coll.collider.tag == "Hazard")
+		if (coll.collider.CompareTag("Hazard"))
 		{
 			Die (coll.collider.name);
 		}
         //Debug.Log(coll.collider.name);
 	}
-	
-	private void Die(string causeOfDeath)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        //debug.log (other.name);
+        if (other.CompareTag("Hazard"))
+        {
+            Die(other.name);
+        }
+    }
+
+    private void Die(string causeOfDeath)
 	{
         particlesHandler.OnDeath(causeOfDeath);
-        if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
-        {
-            scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
-        }
+        scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+        //if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
+        //{
+        //    scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+        //}
         SetAnimation("Idle");
 		WaitUntillAnimatorResets();
         //gameObject.SetActive(false);
@@ -120,14 +136,7 @@ public class BeeController : MonoBehaviour {
         StartFollowingPalyer();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        //debug.log (other.name);
-        if (other.CompareTag("Hazard"))
-        {
-            Die(other.name);
-        }
-    }
+
 
     private void StartFollowingPalyer()
 	{
@@ -218,10 +227,10 @@ public class BeeController : MonoBehaviour {
 	private void WaitUntillAnimatorResets()
 	{
 		elapsedUpdates = 0;
-		currentAction = DisableAfternextUpdate;
+		currentAction = DisableAfterNextUpdate;
 	}
 
-	private void DisableAfternextUpdate()
+	private void DisableAfterNextUpdate()
 	{
 		++elapsedUpdates;
 		if (elapsedUpdates == 2) {
@@ -231,7 +240,8 @@ public class BeeController : MonoBehaviour {
 	
 	public void Reset()
 	{
-		transform.eulerAngles = Vector3.zero;
+		//transform.eulerAngles = Vector3.zero;
+        transform.rotation = Quaternion.identity;
 		currentAction = StayIdle;
 		state = BeeState.Idle;
 	}
