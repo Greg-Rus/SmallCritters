@@ -12,11 +12,6 @@ public class FlyController : MonoBehaviour {
     private Vector3 vectorToDestination;
     private Vector3 heading;
 
-    // Use this for initialization
-    void Start ()
-    {
-        SelectDestination();
-    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -24,10 +19,12 @@ public class FlyController : MonoBehaviour {
         GoToDestination();
     }
 
-    private void SelectDestination()
+    public void SelectDestination()
     {
-        destination.x = RandomLogger.GetRandomRange(this, flyZoneBottomLeft.x, flyZoneTopRight.x);
-        destination.y = RandomLogger.GetRandomRange(this, flyZoneBottomLeft.y, flyZoneTopRight.y);
+        //destination.x = RandomLogger.GetRandomRange(this, flyZoneBottomLeft.x, flyZoneTopRight.x);
+        //destination.y = RandomLogger.GetRandomRange(this, flyZoneBottomLeft.y, flyZoneTopRight.y);
+        destination.x = UnityEngine.Random.Range(flyZoneBottomLeft.x, flyZoneTopRight.x);
+        destination.y = UnityEngine.Random.Range(flyZoneBottomLeft.y, flyZoneTopRight.y);
     }
     private void GoToDestination()
     {
@@ -53,6 +50,7 @@ public class FlyController : MonoBehaviour {
         {
             Die(coll.collider.name);
         }
+        SelectDestination();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -64,7 +62,8 @@ public class FlyController : MonoBehaviour {
 
     private void Die(string causeOfDeath)
     {
+        //Debug.Log("Fly killed by: " + causeOfDeath);
         scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 }

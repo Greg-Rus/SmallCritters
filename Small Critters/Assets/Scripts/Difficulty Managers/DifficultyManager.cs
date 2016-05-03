@@ -9,6 +9,7 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	public ProcessorSectionDifficultyManager processorSectionDifficultyManager;
 	public HeatVentDifficultyManager heatVentDifficultyManager;
 	public BeeSectionDifficultyManager beeSectionDifficultyManager;
+    public BugsDifficultyManager bugsDifficultyManager;
 	private int highestRowReached = 0;
 	public int HighestRowReached
 	{
@@ -47,10 +48,10 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 		highestRowReached = newHighestRowReached.newRowReached;
 	}	
 	
-	public sectionBuilderType GetSectionBuilder()
+	public SectionBuilderType GetSectionBuilder()
 	{
 		float weightSum = 0;
-		sectionBuilderType builder= sectionBuilderType.clear;
+		SectionBuilderType builder= SectionBuilderType.clear;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{
 			weightSum+=builderWeights[i].weight;
@@ -86,7 +87,9 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 		processorSectionDifficultyManager.ScaleDifficulty();
 		heatVentDifficultyManager.ScaleDifficulty();
 		beeSectionDifficultyManager.ScaleDifficulty();
-	}
+        bugsDifficultyManager.ScaleDifficulty();
+
+    }
 
 }
 

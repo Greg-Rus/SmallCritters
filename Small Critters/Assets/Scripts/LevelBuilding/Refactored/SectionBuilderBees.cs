@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SectionBuilderBees : ISectionBuilder {
-	public sectionBuilderType type {get;set;}
+	public SectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
     ScoreHandler scoreHandler;
@@ -18,7 +18,7 @@ public class SectionBuilderBees : ISectionBuilder {
 		this.poolManager = poolManager;
 		difficultyManager = ServiceLocator.getService<IBeeSectionDifficulty>();
         scoreHandler = ServiceLocator.getService<ScoreHandler>();
-        type = sectionBuilderType.bees;
+        type = SectionBuilderType.bees;
 		bee = Resources.Load("Bee") as GameObject;
         BeeController beeController = bee.GetComponent<BeeController>();
         beeController.poolManager = poolManager;

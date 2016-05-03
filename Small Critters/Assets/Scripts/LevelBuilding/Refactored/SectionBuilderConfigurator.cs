@@ -8,14 +8,18 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 	private IProcessorGroupDifficulty processorSectionDifficultyManager;
 	private IHeatVentSectionDifficulty heatVentSectionDifficultyManager;
 	private IBeeSectionDifficulty beeSectionDifficulty;
-	public SectionBuilderConfigurator(LevelData levelData)
+    private BugsDifficultyManager bugsSectionDifficulty;
+
+    public SectionBuilderConfigurator(LevelData levelData)
 	{
 		this.levelData = levelData;
 		bladeSectionLenghtManager = ServiceLocator.getService<IBladeSectionDifficulty>();
 		processorSectionDifficultyManager = ServiceLocator.getService<IProcessorGroupDifficulty>();
 		heatVentSectionDifficultyManager = ServiceLocator.getService<IHeatVentSectionDifficulty>();
 		beeSectionDifficulty = ServiceLocator.getService<IBeeSectionDifficulty>();
-	} 
+        bugsSectionDifficulty = ServiceLocator.getService<BugsDifficultyManager>();
+
+    } 
 	
 	public void configureSectionBuilder()
 	{
@@ -23,11 +27,12 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 		
 		switch (levelData.activeSectionBuilder.type)
 		{
-		case sectionBuilderType.clear: ClearConfig(); break;
-		case sectionBuilderType.blade: BladeConfig(); break;
-		case sectionBuilderType.processor: ProcessorConfig(); break;
-		case sectionBuilderType.heatVent: HeatVentConfig(); break;
-		case sectionBuilderType.bees: BeesConfig(); break;
+		case SectionBuilderType.clear: ClearConfig(); break;
+		case SectionBuilderType.blade: BladeConfig(); break;
+		case SectionBuilderType.processor: ProcessorConfig(); break;
+		case SectionBuilderType.heatVent: HeatVentConfig(); break;
+      //case SectionBuilderType.bees: BeesConfig(); break;
+        case SectionBuilderType.bugs: BugsConfig(); break;
 		default: Debug.LogError("Section Builder Configurator was asked to configure: " + levelData.activeSectionBuilder.type + " ,but functionality not yet implemented"); break;
 		}
 	}
@@ -51,9 +56,12 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 		levelData.newSectionEnd = levelData.newSectionStart + heatVentSectionDifficultyManager.GetNewHeatVentSectionLenght();
 	}
 	
-	private void BeesConfig()
-	{
-		levelData.newSectionEnd = levelData.newSectionStart + beeSectionDifficulty.GetNewBeeSectionLength();
-	}
-	
+	//private void BeesConfig()
+	//{
+	//	levelData.newSectionEnd = levelData.newSectionStart + beeSectionDifficulty.GetNewBeeSectionLength();
+	//}
+    private void BugsConfig()
+    {
+        levelData.newSectionEnd = levelData.newSectionStart + bugsSectionDifficulty.GetNewBugSectionLength();
+    }
 }

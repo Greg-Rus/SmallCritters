@@ -19,6 +19,7 @@ public class GameFramework {
 	SectionBuilderProcessors processorsBuilder;
 	SectionBuilderHeatVent heatVentBuilder;
 	SectionBuilderBees sectionBuilderBees;
+    SectionBuilderBugs bugsBuilder;
 	IRowCleanup rowCleaner;
 	
 	//public GameFramework( LevelData levelData, DifficultyManager difficultyManager, ArenaBuilder arenaBuilder)
@@ -58,6 +59,7 @@ public class GameFramework {
 		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager.processorSectionDifficultyManager);
 		ServiceLocator.addService<IHeatVentSectionDifficulty>(difficultyManager.heatVentDifficultyManager);
 		ServiceLocator.addService<IBeeSectionDifficulty>(difficultyManager.beeSectionDifficultyManager);
+        ServiceLocator.addService<BugsDifficultyManager>(difficultyManager.bugsDifficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
         ServiceLocator.addService<ScoreHandler>(scoreHandler);
@@ -70,13 +72,15 @@ public class GameFramework {
 		bladesBuilder = new SectionBuilderBlades(levelData, poolManager);
 		processorsBuilder = new SectionBuilderProcessors (levelData, poolManager);
 		heatVentBuilder = new SectionBuilderHeatVent(levelData, poolManager);
-		sectionBuilderBees = new SectionBuilderBees(levelData, poolManager);
+		//sectionBuilderBees = new SectionBuilderBees(levelData, poolManager);
+        bugsBuilder = new SectionBuilderBugs(levelData, poolManager);
 		sectionBuilderSeclector.addSectionBuilder(clearBuilder);
 		sectionBuilderSeclector.addSectionBuilder(bladesBuilder);
 		sectionBuilderSeclector.addSectionBuilder(processorsBuilder);
 		sectionBuilderSeclector.addSectionBuilder(heatVentBuilder);
-		sectionBuilderSeclector.addSectionBuilder(sectionBuilderBees);
-		
-		levelData.activeSectionBuilder = clearBuilder;
+        //sectionBuilderSeclector.addSectionBuilder(sectionBuilderBees);
+        sectionBuilderSeclector.addSectionBuilder(bugsBuilder);
+
+        levelData.activeSectionBuilder = clearBuilder;
 	}
 }

@@ -47,11 +47,11 @@ namespace UnityTest
 	
 	public class mockSectionBuilder: ISectionBuilder
 	{
-		public sectionBuilderType type {get;set;}
+		public SectionBuilderType type {get;set;}
 		
 		public mockSectionBuilder()
 		{
-			type = sectionBuilderType.blade;
+			type = SectionBuilderType.blade;
 		}
 		
 		public void buildNewRow(List<GameObject> row)
@@ -62,13 +62,13 @@ namespace UnityTest
 	
 	public class mockSectionBuilderBlades: ISectionBuilder
 	{
-		public sectionBuilderType type {get;set;}
+		public SectionBuilderType type {get;set;}
 		private GameObjectPoolManager poolManager;
 		private GameObject blade;
 		
 		public mockSectionBuilderBlades(GameObjectPoolManager poolManager)
 		{
-			type = sectionBuilderType.blade;
+			type = SectionBuilderType.blade;
 			this.poolManager = poolManager;
 			blade = Resources.Load("Blade") as GameObject;
 			poolManager.addPool(blade, 100);
@@ -82,13 +82,13 @@ namespace UnityTest
 	
 	public class mockSectionBuilderProcessors: ISectionBuilder
 	{
-		public sectionBuilderType type {get;set;}
+		public SectionBuilderType type {get;set;}
 		private GameObjectPoolManager poolManager;
 		private GameObject processor;
 		
 		public mockSectionBuilderProcessors(GameObjectPoolManager poolManager)
 		{
-			type = sectionBuilderType.processor;
+			type = SectionBuilderType.processor;
 			this.poolManager = poolManager;
 			processor = Resources.Load("Processor") as GameObject;
 			poolManager.addPool(processor, 100);

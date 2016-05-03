@@ -11,12 +11,15 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public FireBeetleState state;
     public float speed;
     public float attackDistance;
-    public GameObject projectile;
+    public GameObject fireBall;
+    public Transform firingPoint;
+    public float fireBallSpeed = 3f;
    
     GameObject frog;
     Action currentAction;
     Vector3 vectorToPlayer;
     Vector3 heading;
+    Vector3 target;
     int elapsedUpdates;
     string currentAnimation;
 
@@ -35,11 +38,21 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void AttackComplete()
     {
-        StartFollowingPlayer();
+        //StartFollowingPlayer();
     }
     public void DeployProjectile()
     {
+        GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
+        FireBallController newBallController = newFireBall.GetComponent<FireBallController>();
+        Vector3 heading = (target - firingPoint.transform.position).normalized;
+        newBallController.Target(firingPoint, heading, OnFireBallHit);
+        newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
 
+    }
+
+    private void OnFireBallHit()
+    {
+        StartFollowingPlayer();
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -81,7 +94,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public void StartFollowingPlayer()
     {
         state = FireBeetleState.Following;
-        SetAnimation("FollowPlayer");
+        //SetAnimation("FollowPlayer");
         currentAction = FollowPlayer;
 
     }
@@ -103,6 +116,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         state = FireBeetleState.Attacking;
         SetAnimation("Attack");
         currentAction = Attack;
+        myAnimator.SetFloat("Speed", 0f);
+        target = frog.transform.position;
     }
 
     private void Attack()
@@ -119,7 +134,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private void RotateToFacePlayer()
     {
         float angle = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
-        angle += 90f;
+        //angle += 90f;
         myRigidbody.MoveRotation(angle);
     }
 
@@ -127,17 +142,18 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         //Animator anim =transform.GetComponent<Animator>();
         //Debug.Log("Setting Anim to : " + stringInput);
-        if (currentAnimation == stringInput)
-        {
-        }
-        else {
-            if (currentAnimation != null)
-            {
-                myAnimator.ResetTrigger(currentAnimation);
-            }
-            myAnimator.SetTrigger(stringInput);
-            currentAnimation = stringInput;
-        }
+        myAnimator.SetTrigger(stringInput);
+        //if (currentAnimation == stringInput)
+        //{
+        //}
+        //else {
+        //    if (currentAnimation != null)
+        //    {
+        //        myAnimator.ResetTrigger(currentAnimation);
+        //    }
+        //    myAnimator.SetTrigger(stringInput);
+        //    currentAnimation = stringInput;
+        //}
     }
     private void WaitUntillAnimatorResets()
     {

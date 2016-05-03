@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class SectionBuilderHeatVent : ISectionBuilder {
 
 	
-	public sectionBuilderType type {get;set;}
+	public SectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
 	GameObject heatVent;
@@ -16,7 +16,7 @@ public class SectionBuilderHeatVent : ISectionBuilder {
 		this.levelData = levelData;
 		this.poolManager = poolManager;
 		difficultyManager = ServiceLocator.getService<IHeatVentSectionDifficulty>();
-		type = sectionBuilderType.heatVent;
+		type = SectionBuilderType.heatVent;
 		heatVent = Resources.Load("HeatVent") as GameObject;
 		poolManager.addPool(heatVent, 20);
 	}

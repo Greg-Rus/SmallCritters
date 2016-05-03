@@ -99,10 +99,10 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
     //    Color selectedColor;
     //    switch (levelData.activeSectionBuilder.type)
     //    {
-    //        case sectionBuilderType.bees: selectedColor = beeSectionColor; break;
-    //        case sectionBuilderType.blade: selectedColor = bladeSectionColor; break;
-    //        case sectionBuilderType.heatVent: selectedColor = ventSectionColor; break;
-    //        case sectionBuilderType.processor: selectedColor = processorSectionColor; break;
+    //        case SectionBuilderType.bees: selectedColor = beeSectionColor; break;
+    //        case SectionBuilderType.blade: selectedColor = bladeSectionColor; break;
+    //        case SectionBuilderType.heatVent: selectedColor = ventSectionColor; break;
+    //        case SectionBuilderType.processor: selectedColor = processorSectionColor; break;
     //        default: selectedColor = Color.white; break;
     //    }
     //    return selectedColor;
@@ -114,7 +114,7 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	}
 	private void SetupSideWalls()
 	{
-        if (levelData.activeSectionBuilder.type == sectionBuilderType.blade)
+        if (levelData.activeSectionBuilder.type == SectionBuilderType.blade)
         {
             if (levelData.emptyRow)
             {

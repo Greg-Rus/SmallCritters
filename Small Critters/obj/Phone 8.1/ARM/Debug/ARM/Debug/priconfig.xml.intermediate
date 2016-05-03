@@ -26,8 +26,8 @@
       <qualifier name="Theme" value="Dark" />
       <qualifier name="AlternateForm" value="" />
     </default>
-    <indexer-config type="RESW" convertDotsToSlashes="true" initialPath="Assembly-CSharp-firstpass" />
-    <indexer-config type="RESJSON" initialPath="Assembly-CSharp-firstpass" />
+    <indexer-config type="RESW" convertDotsToSlashes="true" initialPath="Assembly-CSharp" />
+    <indexer-config type="RESJSON" initialPath="Assembly-CSharp" />
     <indexer-config type="RESFILES" qualifierDelimiter="." />
   </index>
   <index root="\" startIndexAt="obj\Phone 8.1\ARM\Debug\ARM\Debug\pri.resfiles">

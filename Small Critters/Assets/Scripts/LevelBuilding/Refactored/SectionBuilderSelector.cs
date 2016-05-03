@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class SectionBuilderSelector: ISectionBuilderSelection {
 
-	public Dictionary<sectionBuilderType, ISectionBuilder> availableSectionBuilders;
+	public Dictionary<SectionBuilderType, ISectionBuilder> availableSectionBuilders;
 	private ISectionBuilderConfiguration sectionBuilderConfigurator;
 	private LevelData levelData;
 	private IDifficultyBasedBuilderPicking difficultyManager;
@@ -17,7 +17,7 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 		this.sectionBuilderConfigurator = sectionBuilderConfigurator;
 		this.levelData = levelData;
 		difficultyManager = ServiceLocator.getService<IDifficultyBasedBuilderPicking>();
-		availableSectionBuilders = new Dictionary<sectionBuilderType, ISectionBuilder>();
+		availableSectionBuilders = new Dictionary<SectionBuilderType, ISectionBuilder>();
 	}
 	
 	public void addSectionBuilder (ISectionBuilder sectionBuilder)
@@ -27,10 +27,10 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 	
 	public void selectNewSectionBuilder()
 	{
-		sectionBuilderType newBuilderType;
-		if(levelData.activeSectionBuilder.type != sectionBuilderType.clear)
+		SectionBuilderType newBuilderType;
+		if(levelData.activeSectionBuilder.type != SectionBuilderType.clear)
 		{
-			newBuilderType = sectionBuilderType.clear;
+			newBuilderType = SectionBuilderType.clear;
 		}
 		else
 		{

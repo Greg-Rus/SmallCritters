@@ -174,7 +174,7 @@ public class MainGameController : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(seconds);
         //Application.LoadLevel(0);
-        RandomLogger.SaveAndClose();
+        //RandomLogger.SaveAndClose();
         RestartGame();
 
     }

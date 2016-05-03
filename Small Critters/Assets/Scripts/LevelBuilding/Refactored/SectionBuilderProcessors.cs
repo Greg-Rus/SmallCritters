@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SectionBuilderProcessors : ISectionBuilder {
 
-	public sectionBuilderType type {get;set;}
+	public SectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
 	GameObject processor;
@@ -16,7 +16,7 @@ public class SectionBuilderProcessors : ISectionBuilder {
 	{
 		this.levelData = levelData;
 		this.poolManager = poolManager;
-		type = sectionBuilderType.processor;
+		type = SectionBuilderType.processor;
 		GameObject processor = Resources.Load("Processor") as GameObject;
 		GameObject processorGroup = Resources.Load("ProcessorGroup") as GameObject;
 		poolManager.addPool(processor, 200);

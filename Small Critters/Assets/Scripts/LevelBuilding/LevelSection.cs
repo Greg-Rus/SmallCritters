@@ -13,7 +13,7 @@ public class LevelSection{
 		sectionEnd = end;
 		sectionObjects = objects;
 		objectPool = pool;
-		//Debug.Log ("start: " + sectionStart + "  end: " + sectionEnd); 
+		//Debug.Log ("beetle: " + sectionStart + "  end: " + sectionEnd); 
 	}
 	
 	public void dismantleSection()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SectionBuilderBlades: ISectionBuilder {
 	
-	public sectionBuilderType type {get;set;}
+	public SectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
 	GameObject blade;
@@ -25,7 +25,7 @@ public class SectionBuilderBlades: ISectionBuilder {
 		this.levelData = levelData;
 		this.poolManager = poolManager;
 		difficultyManager = ServiceLocator.getService<IBladeSectionDifficulty>();
-		type = sectionBuilderType.blade;
+		type = SectionBuilderType.blade;
 		blade = Resources.Load("Blade") as GameObject;
 		bladeRow = Resources.Load("BladeRow") as GameObject;
 		

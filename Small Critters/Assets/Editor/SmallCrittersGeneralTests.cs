@@ -96,7 +96,7 @@ namespace UnityTest
 			testSectionBuilderSelector.addSectionBuilder(clearBuilder);
 			testSectionBuilderSelector.addSectionBuilder(new mockSectionBuilder());
 			testSectionBuilderSelector.selectNewSectionBuilder();
-			Assert.True(testLevelData.activeSectionBuilder.type == sectionBuilderType.blade);
+			Assert.True(testLevelData.activeSectionBuilder.type == SectionBuilderType.blade);
 		}
 		
 		[Test]

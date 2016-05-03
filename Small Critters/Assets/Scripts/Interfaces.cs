@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
-public enum sectionBuilderType {clear, blade, processor, heatVent, bees};
+public enum SectionBuilderType {clear, blade, processor, heatVent, bees, bugs};
 public enum HeatVentState {Start, Closed, Opening, WarmingUp, Venting, Closing};
+public enum BugType {None, Fly, FireBeetle, Bee };
 
 public interface Imovement {
 	
@@ -33,7 +34,7 @@ public interface ISectionBuilderConfiguration
 public interface ISectionBuilder
 {
 	void buildNewRow(List<GameObject> row);
-	sectionBuilderType type {get;set;}
+	SectionBuilderType type {get;set;}
 }
 public interface IProcessorFSM
 {
@@ -96,7 +97,7 @@ public interface IDifficultyScaling
 
 public interface IDifficultyBasedBuilderPicking
 {
-	sectionBuilderType GetSectionBuilder();
+	SectionBuilderType GetSectionBuilder();
 }
 
 public interface IArenaBuilding

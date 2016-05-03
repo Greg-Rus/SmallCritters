@@ -91,8 +91,8 @@ public class ScoreHandler : MonoBehaviour {
         Vector3 offset = Vector3.zero;
         for (int i = 0; i < count; ++i)
         {
-            offset.x = RandomLogger.GetRandomRange(this, 0f, 0.5f);
-            offset.y = RandomLogger.GetRandomRange(this, 0f, 0.5f);
+            offset.x = UnityEngine.Random.Range(0f, 0.5f);
+            offset.y = UnityEngine.Random.Range(0f, 0.5f);
             GameObject newStar = Instantiate(star, 
                                             position + offset,
                                             Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360))

@@ -10,6 +10,7 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 	public DifficultyParameter chargeSpeed;
 	public DifficultyParameter chargeDistance;
 	public DifficultyParameter sectionLength;
+    public DifficultyParameter beeChance;
 
 	public void Start()
 	{
@@ -26,6 +27,7 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 			chargeSpeed.scaleCurrent(difficultyPercent);
 			chargeDistance.scaleCurrent(difficultyPercent);
 			sectionLength.scaleCurrent(difficultyPercent);
+            beeChance.scaleCurrent(difficultyPercent);
 		}
 	}
 	
@@ -45,20 +47,22 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 	{
 		return chargeDistance.current;
 	}
-	public int GetNewBeeSectionLength()
+    public int GetNewBeeSectionLength()
+    {
+        return (int)sectionLength.current;
+    }
+    public bool IsBeePresent()
 	{
-		return (int)sectionLength.current;
-	}
-	public bool IsBeePresent()
-	{
-		//Debug.Log ("End: " + gameController.levelData.newSectionEnd + "  Top: " + gameController.levelData.levelTop);
-		if (gameController.levelData.newSectionEnd == gameController.levelData.levelTop+1)
-		{
-			return true;
-		} else 
-		{
-			return RandomLogger.RollBelowPercent(this,Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
-		}
+        //Debug.Log ("End: " + gameController.levelData.newSectionEnd + "  Top: " + gameController.levelData.levelTop);
+        //if (gameController.levelData.newSectionEnd == gameController.levelData.levelTop+1)
+        //{
+        //	return true;
+        //} else 
+        //{
+        //	return RandomLogger.RollBelowPercent(this,Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
+
+        //}
+        return RandomLogger.RollBelowPercent(this, beeChance.current);
 	}
 }
 

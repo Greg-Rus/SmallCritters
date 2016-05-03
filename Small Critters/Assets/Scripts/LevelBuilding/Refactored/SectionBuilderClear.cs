@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class SectionBuilderClear : ISectionBuilder {
 
-	public sectionBuilderType type {get;set;}
+	public SectionBuilderType type {get;set;}
 	
 	public SectionBuilderClear()
 	{
-		this.type = sectionBuilderType.clear;
+		this.type = SectionBuilderType.clear;
 	}
 	
 	public void buildNewRow(List<GameObject> row)

@@ -16,7 +16,7 @@ public class RandomLogger : MonoBehaviour {
 	public static void SeedRNG(string seedString)
 	{
 		seed = seedString.GetHashCode ();
-        //values += seedString + ",";
+       // values += seedString + ",";
         //values += seed + ",";
         RNG = new RandomMT((ulong)seed);
         //Random.seed = seed;
@@ -24,9 +24,9 @@ public class RandomLogger : MonoBehaviour {
 
 	public static int GetRandomRange(MonoBehaviour script, int min, int max)
 	{
-        Debug.Log(RNG);
+       // Debug.Log(RNG);
         //int result = Random.Range (min, max);
-        Debug.Log(script.name);
+        //Debug.Log(script.name);
         int result = RNG.RandomRange(min, max);
 		//values += script.name+"-"+result+ ",";
 		return result;
@@ -37,12 +37,12 @@ public class RandomLogger : MonoBehaviour {
         //values += script.name + "-" + result + ",";
         return result;
     }
-    public static void SaveAndClose()
-	{
-        //values += "\n";
+ //   public static void SaveAndClose()
+	//{
+ //       values += "\n";
 
-        //System.IO.File.AppendAllText (@"K:\RNGLog.csv", values);
-	}
+ //       System.IO.File.AppendAllText (@"K:\RNGLog.csv", values);
+	//}
 
     public static bool RollBelowPercent(MonoBehaviour script, float pecent)
     {

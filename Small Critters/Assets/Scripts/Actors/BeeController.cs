@@ -24,7 +24,7 @@ public class BeeController : MonoBehaviour {
 	public float stunTime;
 	public BeeState state;
 	public float chaseTimeLeft;
-	public GameObjectPoolManager poolManager;
+	public GameObjectPoolManager poolManager; //TODO Obsolete. Remove or use.
 	private string currentAnimation;
     public ScoreHandler scoreHandler;
     public DeathParticleSystemHandler particlesHandler;
