@@ -15,7 +15,7 @@ public class ColdFogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ModifySpeedBasedOnDistanceToFrog();
+        //ModifySpeedBasedOnDistanceToFrog();
         MoveUp();
     }
     void ModifySpeedBasedOnDistanceToFrog()

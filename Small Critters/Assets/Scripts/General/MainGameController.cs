@@ -162,7 +162,7 @@ public class MainGameController : MonoBehaviour {
     private void PlaceColdFogWall()
 	{
 		UnityEngine.Object coldFogAsset = Resources.Load("ColdFog");
-		coldFog = Instantiate(coldFogAsset, new Vector3(gameFramework.levelData.levelWidth * 0.5f, -25f, 0f), Quaternion.identity) as GameObject;
+		coldFog = Instantiate(coldFogAsset, new Vector3(gameFramework.levelData.levelWidth * 0.5f, levelData.coldFogStartRow, 0f), Quaternion.identity) as GameObject;
         coldFog.name = "ColdFog";
         ColdFogController controller = coldFog.GetComponent<ColdFogController>() as ColdFogController;
         controller.frog = frog;
@@ -191,12 +191,18 @@ public class MainGameController : MonoBehaviour {
 		for(int i = 0; i < rowsToBuild; ++i)
 		{
 			levelHandler.buildNewRow();
-		}
+            StartCoroutine("WaitForNextUpdate");
+
+        }
 		difficultyManager.HighestRowReached = newRowReachedEventArgs.newRowReached;
         scoreHandler.NewRowsReached(rowsToBuild);
 		 //TODO can't call this once per event as the player could have juped several rows!! Calculate the number of calls
 		//TODO The frog should be placed in the middle of the level. Wait untill row 25 is reached befor calling for new row or make first 25 rows empty and place the frog at 24.
 	}
+    private IEnumerator WaitForNextUpdate()
+    {
+        yield return null;
+    }
 
 }
 

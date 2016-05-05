@@ -8,7 +8,7 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	public BladeSectionDifficultyManager bladeSectionDifficultyManager;
 	public ProcessorSectionDifficultyManager processorSectionDifficultyManager;
 	public HeatVentDifficultyManager heatVentDifficultyManager;
-	public BeeSectionDifficultyManager beeSectionDifficultyManager;
+	//public BeeSectionDifficultyManager beeSectionDifficultyManager;
     public BugsDifficultyManager bugsDifficultyManager;
 	private int highestRowReached = 0;
 	public int HighestRowReached
@@ -86,7 +86,7 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 		bladeSectionDifficultyManager.ScaleDifficulty();
 		processorSectionDifficultyManager.ScaleDifficulty();
 		heatVentDifficultyManager.ScaleDifficulty();
-		beeSectionDifficultyManager.ScaleDifficulty();
+		//beeSectionDifficultyManager.ScaleDifficulty();
         bugsDifficultyManager.ScaleDifficulty();
 
     }

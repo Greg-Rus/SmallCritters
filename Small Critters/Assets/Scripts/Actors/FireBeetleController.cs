@@ -38,14 +38,16 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void AttackComplete()
     {
-        //StartFollowingPlayer();
+        StartFollowingPlayer();
     }
     public void DeployProjectile()
     {
         GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
         FireBallController newBallController = newFireBall.GetComponent<FireBallController>();
-        Vector3 heading = (target - firingPoint.transform.position).normalized;
-        newBallController.Target(firingPoint, heading, OnFireBallHit);
+        Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
+
+        //newBallController.Target(firingPoint, heading, OnFireBallHit);
+        newBallController.Aim(firingPoint, 5f); //TODO Decide max range in DifficultyManager;
         newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
 
     }
@@ -77,7 +79,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private void Die(string causeOfDeath)
     {
         scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 
     public void PlayerDetected(GameObject player)
@@ -103,12 +105,13 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         UpdatePlayerLocation();
         RotateToFacePlayer();
-        myRigidbody.AddForce(heading * speed);
-        myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
         if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistance, 2))
         {
             StartAttackingPlayer();
         }
+        myRigidbody.AddForce(heading * speed);
+        myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
+
     }
 
     private void StartAttackingPlayer()
@@ -122,7 +125,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     private void Attack()
     {
-
+        UpdatePlayerLocation();
+        RotateToFacePlayer();
     }
 
     public void UpdatePlayerLocation()

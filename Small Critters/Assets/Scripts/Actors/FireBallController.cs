@@ -14,25 +14,9 @@ public class FireBallController : MonoBehaviour {
     public float maxRange = 5f;
     private Vector3 startPosition;
 
-	// Use this for initialization
-	void Start () {
-
-    }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        //MoveToTarget();
-        //velocity = myRigidBody.velocity.magnitude;
-
-
-    }
     void Update()
     {
         ChackIfAtMaxRnage();
-        //if (myRigidBody.velocity.magnitude == 0f)
-        //{
-        //    myRigidBody.AddForce(heading * speed, ForceMode2D.Impulse);
-        //}
     }
 
     public void Target(Transform beetlePosition, Vector3 heading, Action OnHit)
@@ -45,6 +29,13 @@ public class FireBallController : MonoBehaviour {
         this.heading = heading;//(target - startPosition).normalized;
         //Debug.DrawLine(beetle.position, target, Color.red, 5f);
         //myRigidBody.AddForce(heading * speed, ForceMode2D.Impulse);
+    }
+
+    public void Aim(Transform beetlePosition, float maxRange)
+    {
+        this.beetle = beetlePosition;
+        startPosition = beetle.position;
+        this.maxRange = maxRange;
     }
 
     //private void MoveToTarget()
@@ -67,10 +58,10 @@ public class FireBallController : MonoBehaviour {
 
     private void Explode()
     {
-        if (beetle != null)
-        {
-            OnHit();
-        }
+        //if (beetle != null)
+        //{
+        //    OnHit();
+        //}
 
         Destroy(this.gameObject);
     }
