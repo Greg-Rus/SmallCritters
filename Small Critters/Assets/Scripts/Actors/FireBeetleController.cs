@@ -17,6 +17,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Transform firingPoint;
     public float fireBallSpeed = 3f;
     public Transform myTransform;
+    public float angleToPlayerDelta;
 
 
 
@@ -112,7 +113,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         UpdatePlayerLocation();
         RotateToFacePlayer();
-        if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistance, 2) && angleToPlayer <= minRotationError)
+        if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistance, 2) && angleToPlayerDelta <= minRotationError)
         {
             StartAttackingPlayer();
         }
@@ -149,7 +150,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         {
             angleToPlayer += 360f;
         }
-        if (Math.Abs(myTransform.eulerAngles.z - angleToPlayer) > minRotationError)
+        angleToPlayerDelta = Math.Abs(myTransform.eulerAngles.z - angleToPlayer);
+        if (angleToPlayerDelta >= minRotationError)
         {
             float smoothAngle = Mathf.MoveTowardsAngle(myTransform.rotation.eulerAngles.z, angleToPlayer, rotationSpeed);
             myRigidbody.MoveRotation(smoothAngle);
