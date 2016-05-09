@@ -19,11 +19,11 @@ public class BugsDifficultyManager : MonoBehaviour, IDifficultyScaling
 
     public BugType GetBugType()
     {
-        if (beeDifficultyManager.IsBeePresent()) return BugType.Bee;
-        else if (fireBeetleDificultyManager.IsFireBeetlePresent()) return BugType.FireBeetle;
+        if (fireBeetleDificultyManager.IsFireBeetlePresent()) return BugType.Bee;
+        else if (beeDifficultyManager.IsBeePresent()) return BugType.FireBeetle;
         else if (flyDifficultyManager.IsFlyPresent()) return BugType.Fly;
         else return BugType.None;
-
+        
     }
 
     public void ScaleDifficulty()

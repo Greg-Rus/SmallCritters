@@ -28,7 +28,7 @@ public class FireBallController : MonoBehaviour {
         this.OnHit = OnHit;
         this.heading = heading;//(target - startPosition).normalized;
         //Debug.DrawLine(beetle.position, target, Color.red, 5f);
-        //myRigidBody.AddForce(heading * speed, ForceMode2D.Impulse);
+        //myRigidBody.AddForce(heading * walkSpeed, ForceMode2D.Impulse);
     }
 
     public void Aim(Transform beetlePosition, float maxRange)
@@ -40,7 +40,7 @@ public class FireBallController : MonoBehaviour {
 
     //private void MoveToTarget()
     //{
-    //    //myRigidBody.AddForce(heading * speed);
+    //    //myRigidBody.AddForce(heading * walkSpeed);
     //}
     private void ChackIfAtMaxRnage()
     {

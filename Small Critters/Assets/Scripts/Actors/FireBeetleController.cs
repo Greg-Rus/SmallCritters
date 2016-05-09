@@ -9,15 +9,21 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Rigidbody2D myRigidbody;
     public ScoreHandler scoreHandler;
     public FireBeetleState state;
-    public float speed;
+    public float walkSpeed;
+    public float rotationSpeed;
     public float attackDistance;
+    public float minRotationError; //error in degrees where it is still acceptable to fire a projectile.
     public GameObject fireBall;
     public Transform firingPoint;
     public float fireBallSpeed = 3f;
-   
+    public Transform myTransform;
+
+
+
     GameObject frog;
     Action currentAction;
     Vector3 vectorToPlayer;
+    public float angleToPlayer;
     Vector3 heading;
     Vector3 target;
     int elapsedUpdates;
@@ -28,6 +34,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         state = FireBeetleState.Idle;
         currentAction = StayIdle;
+        //myTransform = GetComponentInParent<Transform>();
     }
 
     // Update is called once per frame
@@ -105,11 +112,11 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         UpdatePlayerLocation();
         RotateToFacePlayer();
-        if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistance, 2))
+        if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistance, 2) && angleToPlayer <= minRotationError)
         {
             StartAttackingPlayer();
         }
-        myRigidbody.AddForce(heading * speed);
+        myRigidbody.AddForce(heading * walkSpeed);
         myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
 
     }
@@ -131,15 +138,22 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void UpdatePlayerLocation()
     {
-        vectorToPlayer = frog.transform.position - this.transform.position;
+        vectorToPlayer = frog.transform.position - myTransform.position;
         heading = vectorToPlayer.normalized;
     }
 
     private void RotateToFacePlayer()
     {
-        float angle = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
-        //angle += 90f;
-        myRigidbody.MoveRotation(angle);
+        angleToPlayer = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
+        if (angleToPlayer < 0)
+        {
+            angleToPlayer += 360f;
+        }
+        if (Math.Abs(myTransform.eulerAngles.z - angleToPlayer) > minRotationError)
+        {
+            float smoothAngle = Mathf.MoveTowardsAngle(myTransform.rotation.eulerAngles.z, angleToPlayer, rotationSpeed);
+            myRigidbody.MoveRotation(smoothAngle);
+        }
     }
 
     private void SetAnimation(string stringInput)
