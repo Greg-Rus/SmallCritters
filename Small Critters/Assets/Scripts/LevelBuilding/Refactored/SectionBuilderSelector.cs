@@ -10,9 +10,10 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 	private ISectionBuilderConfiguration sectionBuilderConfigurator;
 	private LevelData levelData;
 	private IDifficultyBasedBuilderPicking difficultyManager;
-	
-	
-	public SectionBuilderSelector (ISectionBuilderConfiguration sectionBuilderConfigurator, LevelData levelData)
+    private SectionBuilderType newBuilderType;
+
+
+    public SectionBuilderSelector (ISectionBuilderConfiguration sectionBuilderConfigurator, LevelData levelData)
 	{
 		this.sectionBuilderConfigurator = sectionBuilderConfigurator;
 		this.levelData = levelData;
@@ -27,19 +28,26 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 	
 	public void selectNewSectionBuilder()
 	{
-		SectionBuilderType newBuilderType;
 		if(levelData.activeSectionBuilder.type != SectionBuilderType.clear)
 		{
 			newBuilderType = SectionBuilderType.clear;
 		}
 		else
 		{
-			newBuilderType = difficultyManager.GetSectionBuilder();//Random.Range(1, availableSectionBuilders.Count); //TODO candidate for DefficultyManager
-			//Debug.Log (newBuilderType);
+			newBuilderType = difficultyManager.GetSectionBuilder();
+            RetryIfSameBuilderSelected();
 		}
 		
-		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];//[newBuilderType];
+		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];
 		sectionBuilderConfigurator.configureSectionBuilder();
 	}
+
+    private void RetryIfSameBuilderSelected()
+    {
+        if (newBuilderType == levelData.activeSectionBuilder.type)
+        {
+            newBuilderType = difficultyManager.GetSectionBuilder();
+        }
+    }
 
 }

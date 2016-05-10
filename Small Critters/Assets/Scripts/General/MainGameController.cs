@@ -156,7 +156,8 @@ public class MainGameController : MonoBehaviour {
 
     void HandleFrogDeath(string causeOfDeath)
     {
-        StartCoroutine(restartLevelAterSeconds(1));
+        Time.timeScale = 0.5f;
+        StartCoroutine(restartLevelAterSeconds(1f));
     }
 
     private void PlaceColdFogWall()

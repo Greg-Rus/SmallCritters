@@ -18,6 +18,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public float fireBallSpeed = 3f;
     public Transform myTransform;
     public float angleToPlayerDelta;
+    public DeathParticleSystemHandler deathParticles;
 
 
 
@@ -36,6 +37,13 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         state = FireBeetleState.Idle;
         currentAction = StayIdle;
         //myTransform = GetComponentInParent<Transform>();
+    }
+    void OnEnable()
+    {
+        state = FireBeetleState.Idle;
+        currentAction = StayIdle;
+        frog = null;
+        myTransform.rotation = Quaternion.identity;
     }
 
     // Update is called once per frame
@@ -87,6 +95,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private void Die(string causeOfDeath)
     {
         scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+        deathParticles.OnDeath(causeOfDeath);
         this.gameObject.SetActive(false);
     }
 
