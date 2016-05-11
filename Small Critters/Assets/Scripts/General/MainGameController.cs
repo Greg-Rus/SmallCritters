@@ -23,6 +23,7 @@ public class MainGameController : MonoBehaviour {
     // Use this for initialization
     void Awake()
     {
+        Application.targetFrameRate = 60;
         //DontDestroyOnLoad(transform.gameObject);
         //if (instance == null)
         //{
@@ -32,7 +33,7 @@ public class MainGameController : MonoBehaviour {
         //{
         //    Destroy(gameObject);
         //}
-        
+
     }
 
 	void Start () {

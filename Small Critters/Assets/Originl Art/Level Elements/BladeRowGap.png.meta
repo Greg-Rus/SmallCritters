@@ -63,10 +63,10 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 32}
-        - {x: -64, y: -32}
+      - - {x: -64, y: -32}
         - {x: 64, y: -32}
-        - {x: 64, y: 32}
+        - {x: 64, y: 21}
+        - {x: -64, y: 21}
     - name: BladeRowGap_1
       rect:
         serializedVersion: 2
@@ -79,11 +79,11 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
       - - {x: -64, y: 32}
-        - {x: -64, y: -32}
-        - {x: 64, y: -32}
+        - {x: -64, y: -16}
+        - {x: 64, y: -16}
         - {x: 64, y: 32}
     outline: []
-  spritePackingTag: 
+  spritePackingTag: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
