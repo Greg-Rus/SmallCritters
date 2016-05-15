@@ -55,7 +55,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -65,7 +65,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -75,7 +75,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 1024
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -85,11 +85,12 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 126
   alphaIsTransparency: 1
@@ -107,6 +108,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_1
       rect:
         serializedVersion: 2
@@ -117,6 +123,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_2
       rect:
         serializedVersion: 2
@@ -127,6 +138,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_3
       rect:
         serializedVersion: 2
@@ -137,6 +153,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_4
       rect:
         serializedVersion: 2
@@ -147,6 +168,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_5
       rect:
         serializedVersion: 2
@@ -157,6 +183,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_6
       rect:
         serializedVersion: 2
@@ -167,6 +198,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_7
       rect:
         serializedVersion: 2
@@ -177,6 +213,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_8
       rect:
         serializedVersion: 2
@@ -187,6 +228,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_9
       rect:
         serializedVersion: 2
@@ -197,6 +243,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_10
       rect:
         serializedVersion: 2
@@ -207,6 +258,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_11
       rect:
         serializedVersion: 2
@@ -217,6 +273,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_12
       rect:
         serializedVersion: 2
@@ -227,6 +288,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_13
       rect:
         serializedVersion: 2
@@ -237,6 +303,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_14
       rect:
         serializedVersion: 2
@@ -247,6 +318,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_15
       rect:
         serializedVersion: 2
@@ -257,6 +333,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_16
       rect:
         serializedVersion: 2
@@ -267,6 +348,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_17
       rect:
         serializedVersion: 2
@@ -277,6 +363,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_18
       rect:
         serializedVersion: 2
@@ -287,6 +378,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_19
       rect:
         serializedVersion: 2
@@ -297,6 +393,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_20
       rect:
         serializedVersion: 2
@@ -307,6 +408,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_21
       rect:
         serializedVersion: 2
@@ -317,6 +423,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_22
       rect:
         serializedVersion: 2
@@ -327,6 +438,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_23
       rect:
         serializedVersion: 2
@@ -337,6 +453,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_24
       rect:
         serializedVersion: 2
@@ -347,6 +468,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_25
       rect:
         serializedVersion: 2
@@ -357,6 +483,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_26
       rect:
         serializedVersion: 2
@@ -367,6 +498,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_27
       rect:
         serializedVersion: 2
@@ -377,6 +513,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_28
       rect:
         serializedVersion: 2
@@ -387,6 +528,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_29
       rect:
         serializedVersion: 2
@@ -397,6 +543,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_30
       rect:
         serializedVersion: 2
@@ -407,6 +558,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_31
       rect:
         serializedVersion: 2
@@ -417,6 +573,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_32
       rect:
         serializedVersion: 2
@@ -427,6 +588,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_33
       rect:
         serializedVersion: 2
@@ -437,6 +603,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_34
       rect:
         serializedVersion: 2
@@ -447,6 +618,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_35
       rect:
         serializedVersion: 2
@@ -457,6 +633,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_36
       rect:
         serializedVersion: 2
@@ -467,6 +648,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_37
       rect:
         serializedVersion: 2
@@ -477,6 +663,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_38
       rect:
         serializedVersion: 2
@@ -487,6 +678,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_39
       rect:
         serializedVersion: 2
@@ -497,6 +693,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_40
       rect:
         serializedVersion: 2
@@ -507,6 +708,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_41
       rect:
         serializedVersion: 2
@@ -517,6 +723,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_42
       rect:
         serializedVersion: 2
@@ -527,6 +738,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_43
       rect:
         serializedVersion: 2
@@ -537,6 +753,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_44
       rect:
         serializedVersion: 2
@@ -547,6 +768,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_45
       rect:
         serializedVersion: 2
@@ -557,6 +783,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_46
       rect:
         serializedVersion: 2
@@ -567,6 +798,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
     - name: Walls_47
       rect:
         serializedVersion: 2
@@ -577,7 +813,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-  spritePackingTag: 
+      outline:
+      - - {x: -63, y: 63}
+        - {x: -63, y: -63}
+        - {x: 63, y: -63}
+        - {x: 63, y: 63}
+    outline: []
+  spritePackingTag: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 

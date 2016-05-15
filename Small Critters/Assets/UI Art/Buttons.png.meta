@@ -17,7 +17,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -37,7 +37,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 1024
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -244,7 +244,7 @@ TextureImporter:
         - {x: 64, y: 51}
         - {x: 51, y: 64}
     outline: []
-  spritePackingTag: 
+  spritePackingTag: UI
   userData: 
   assetBundleName: 
   assetBundleVariant: 

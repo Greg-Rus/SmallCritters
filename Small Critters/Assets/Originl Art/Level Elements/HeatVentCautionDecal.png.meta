@@ -63,13 +63,12 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -114, y: 32}
-        - {x: -128, y: 24}
+      - - {x: -128, y: 32}
         - {x: -128, y: -32}
         - {x: 116, y: -32}
-        - {x: 128, y: -25}
-        - {x: 128, y: 16}
-        - {x: 98, y: 32}
+        - {x: 128, y: -14}
+        - {x: 128, y: 12}
+        - {x: 118, y: 32}
     - name: HeatVentCautionDecal_1
       rect:
         serializedVersion: 2
@@ -81,15 +80,17 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -119, y: 32}
-        - {x: -128, y: 14}
-        - {x: -128, y: -20}
-        - {x: -111, y: -32}
-        - {x: 117, y: -32}
-        - {x: 128, y: -26}
-        - {x: 128, y: 32}
+      - - {x: 88, y: 32}
+        - {x: -99, y: 32}
+        - {x: -128, y: 11}
+        - {x: -128, y: -11}
+        - {x: -98, y: -32}
+        - {x: 114, y: -32}
+        - {x: 128, y: -24}
+        - {x: 128, y: 23}
+        - {x: 119, y: 31}
     outline: []
-  spritePackingTag: 
+  spritePackingTag: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
