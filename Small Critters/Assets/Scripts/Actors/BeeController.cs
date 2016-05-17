@@ -45,6 +45,7 @@ public class BeeController : MonoBehaviour {
     }
 	void OnEnable() 
 	{
+        //myAnimator.Rebind();
 		currentAction = StayIdle;
 		state = BeeState.Idle;
         gameObject.layer = groundedLayer; // layer 10 is Hero

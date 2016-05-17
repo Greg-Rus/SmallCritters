@@ -70,10 +70,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.5, y: 21.833336}
+        - {x: -21.5, y: -21.166664}
+        - {x: 21.5, y: -21.166664}
+        - {x: 21.5, y: 21.833336}
     - name: BasicTiles_1
       rect:
         serializedVersion: 2
@@ -85,10 +85,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.333332, y: 21.833336}
+        - {x: -21.333332, y: -21.166664}
+        - {x: 22.666668, y: -21.166664}
+        - {x: 22.666668, y: 21.833336}
     - name: BasicTiles_2
       rect:
         serializedVersion: 2
@@ -100,10 +100,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.166664, y: 21.833336}
+        - {x: -21.166664, y: -21.166664}
+        - {x: 21.833336, y: -21.166664}
+        - {x: 21.833336, y: 21.833336}
     - name: BasicTiles_3
       rect:
         serializedVersion: 2
@@ -115,10 +115,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.5, y: 22.666668}
+        - {x: -21.5, y: -21.333332}
+        - {x: 21.5, y: -21.333332}
+        - {x: 21.5, y: 22.666668}
     - name: BasicTiles_4
       rect:
         serializedVersion: 2
@@ -130,10 +130,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.333332, y: 22.666668}
+        - {x: -21.333332, y: -21.333332}
+        - {x: 22.666668, y: -21.333332}
+        - {x: 22.666668, y: 22.666668}
     - name: BasicTiles_5
       rect:
         serializedVersion: 2
@@ -145,10 +145,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.166664, y: 22.666668}
+        - {x: -21.166664, y: -21.333332}
+        - {x: 21.833336, y: -21.333332}
+        - {x: 21.833336, y: 22.666668}
     - name: BasicTiles_6
       rect:
         serializedVersion: 2
@@ -160,10 +160,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.5, y: 21.5}
+        - {x: -21.5, y: -21.5}
+        - {x: 21.5, y: -21.5}
+        - {x: 21.5, y: 21.5}
     - name: BasicTiles_7
       rect:
         serializedVersion: 2
@@ -175,10 +175,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.333332, y: 21.5}
+        - {x: -21.333332, y: -21.5}
+        - {x: 22.666668, y: -21.5}
+        - {x: 22.666668, y: 21.5}
     - name: BasicTiles_8
       rect:
         serializedVersion: 2
@@ -190,10 +190,10 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 64}
+      - - {x: -21.166664, y: 21.5}
+        - {x: -21.166664, y: -21.5}
+        - {x: 21.833336, y: -21.5}
+        - {x: 21.833336, y: 21.5}
     outline: []
   spritePackingTag: 1
   userData: 

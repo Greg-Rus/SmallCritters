@@ -19,11 +19,14 @@ public class MainGameController : MonoBehaviour {
     public TextAsset nouns;
     public TextAsset adjectives;
     public Text LevelNameLabel;
+    [Range(0,1)]
+    public float timescale;
    // public static MainGameController instance;
     // Use this for initialization
     void Awake()
     {
         Application.targetFrameRate = 60;
+        
         //DontDestroyOnLoad(transform.gameObject);
         //if (instance == null)
         //{
@@ -48,8 +51,13 @@ public class MainGameController : MonoBehaviour {
         levelHandler = gameFramework.BuildGameFramework();
 		StartNewGame();
 		BuildInitialLevel();
+        
+    }
 
-	}
+    void Update()
+    {
+        Time.timeScale = timescale;
+    }
     private void SetupGameFramework()
     {
         gameFramework = new GameFramework();

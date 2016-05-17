@@ -17,6 +17,11 @@ public class ProcessorManager : MonoBehaviour {
         myAnimator = GetComponent<Animator>();
 
     }
+    void OnEnable()
+    {
+        myAnimator.ResetTrigger("SteamStart");
+        myAnimator.ResetTrigger("SteamEnd");
+    }
 	
 	public void TintProcessorSprite(Color startColor, Color targetColor, float percent)
 	{
