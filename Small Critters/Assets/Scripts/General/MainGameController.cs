@@ -54,10 +54,10 @@ public class MainGameController : MonoBehaviour {
         
     }
 
-    void Update()
-    {
-        Time.timeScale = timescale;
-    }
+    //void Update()
+    //{
+    //    Time.timeScale = timescale;
+    //}
     private void SetupGameFramework()
     {
         gameFramework = new GameFramework();
@@ -158,10 +158,6 @@ public class MainGameController : MonoBehaviour {
     //{
     //	StartCoroutine(restartLevelAterSeconds(1));
     //}
-    private void HandleFoodPickup()
-    {
-
-    }
 
     void HandleFrogDeath(string causeOfDeath)
     {
@@ -196,7 +192,6 @@ public class MainGameController : MonoBehaviour {
 
     private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)
 	{
-		//TODO hook this up to UI score
 		int rowsToBuild = newRowReachedEventArgs.newRowReached - difficultyManager.HighestRowReached;
 		for(int i = 0; i < rowsToBuild; ++i)
 		{
@@ -206,8 +201,6 @@ public class MainGameController : MonoBehaviour {
         }
 		difficultyManager.HighestRowReached = newRowReachedEventArgs.newRowReached;
         scoreHandler.NewRowsReached(rowsToBuild);
-		 //TODO can't call this once per event as the player could have juped several rows!! Calculate the number of calls
-		//TODO The frog should be placed in the middle of the level. Wait untill row 25 is reached befor calling for new row or make first 25 rows empty and place the frog at 24.
 	}
     private IEnumerator WaitForNextUpdate()
     {

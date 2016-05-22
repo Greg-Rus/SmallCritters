@@ -22,7 +22,7 @@ public class RandomLogger : MonoBehaviour {
         //Random.seed = seed;
 	}
 
-	public static int GetRandomRange(MonoBehaviour script, int min, int max)
+	public static int GetRandomRange(MonoBehaviour script, int min, int max) //TODO Phase the uses of script loggin out
 	{
        // Debug.Log(RNG);
         //int result = Random.Range (min, max);
@@ -31,18 +31,31 @@ public class RandomLogger : MonoBehaviour {
 		//values += script.name+"-"+result+ ",";
 		return result;
 	}
+
+    public static int GetRandomRange(int min, int max)
+    {
+        int result = RNG.RandomRange(min, max);
+        return result;
+    }
+
+
     public static float GetRandomRange(MonoBehaviour script, float min, float max)
     {
         float result = RNG.RandomRange(min, max);
         //values += script.name + "-" + result + ",";
         return result;
     }
- //   public static void SaveAndClose()
-	//{
- //       values += "\n";
+    public static float GetRandomRange(float min, float max)
+    {
+        float result = RNG.RandomRange(min, max);
+        return result;
+    }
+    //   public static void SaveAndClose()
+    //{
+    //       values += "\n";
 
- //       System.IO.File.AppendAllText (@"K:\RNGLog.csv", values);
-	//}
+    //       System.IO.File.AppendAllText (@"K:\RNGLog.csv", values);
+    //}
 
     public static bool RollBelowPercent(MonoBehaviour script, float pecent)
     {

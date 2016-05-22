@@ -11,7 +11,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public FireBeetleState state;
     public float walkSpeed;
     public float rotationSpeed;
-    public float attackDistance;
+    public float attackDistanceMax;
+    public float attackDistanceMin;
     public float minRotationError; //error in degrees where it is still acceptable to fire a projectile.
     public GameObject fireBall;
     public Transform firingPoint;
@@ -19,6 +20,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Transform myTransform;
     public float angleToPlayerDelta;
     public DeathParticleSystemHandler deathParticles;
+    public float shotCooldownTime;
+    private float lastShotTime = 0;
 
 
 
@@ -54,8 +57,11 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void AttackComplete()
     {
+        lastShotTime = Time.timeSinceLevelLoad;
         StartFollowingPlayer();
     }
+
+
     public void DeployProjectile()
     {
         GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
@@ -68,10 +74,10 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     }
 
-    private void OnFireBallHit()
-    {
-        StartFollowingPlayer();
-    }
+    //private void OnFireBallHit()
+    //{
+    //    StartFollowingPlayer();
+    //}
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -122,13 +128,42 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         UpdatePlayerLocation();
         RotateToFacePlayer();
-        if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistance, 2) && angleToPlayerDelta <= minRotationError)
+        if (vectorToPlayer.sqrMagnitude < Mathf.Pow(attackDistanceMin, 2))
+        {
+            StartEvadingPlayer();
+        }
+        else if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistanceMax, 2) && 
+            angleToPlayerDelta <= minRotationError &&
+            lastShotTime + shotCooldownTime <= Time.timeSinceLevelLoad)
         {
             StartAttackingPlayer();
         }
         myRigidbody.AddForce(heading * walkSpeed);
         myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
 
+    }
+
+    private void StartEvadingPlayer()
+    {
+        currentAction = EvadePlayer;
+    }
+
+    private void EvadePlayer()
+    {
+        UpdatePlayerLocation();
+        RotateToFacePlayer();
+        if (vectorToPlayer.sqrMagnitude >= Mathf.Pow(attackDistanceMax, 2))
+        {
+            StartFollowingPlayer();
+        }
+        else if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistanceMax, 2) &&
+            angleToPlayerDelta <= minRotationError &&
+            lastShotTime + shotCooldownTime <= Time.timeSinceLevelLoad)
+        {
+            StartAttackingPlayer();
+        }
+        myRigidbody.AddForce(heading * -walkSpeed);
+        myAnimator.SetFloat("Speed", -myRigidbody.velocity.magnitude);
     }
 
     private void StartAttackingPlayer()

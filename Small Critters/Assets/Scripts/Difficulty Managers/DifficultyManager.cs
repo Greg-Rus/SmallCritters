@@ -30,6 +30,9 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	[NonSerialized]
 	public LevelData levelData;
 	public bool fogEnabled;
+    private SectionBuilderType bannedSection;
+    private SectionBuilderType nextBannedSection;
+    private float bannedSectionWeight;
 	
 	public void Awake()
 	{
@@ -42,7 +45,11 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 				ScaleDifficulty();
 			}
 		}
-	}
+        bannedSection = builderWeights[0].type;
+        bannedSectionWeight = builderWeights[0].weight;
+        nextBannedSection = SectionBuilderType.bugs;
+
+    }
 	public void HanldeNewHighestRowReached(object sender, NewRowReached newHighestRowReached)
 	{
 		highestRowReached = newHighestRowReached.newRowReached;
@@ -51,7 +58,9 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	public SectionBuilderType GetSectionBuilder()
 	{
 		float weightSum = 0;
-		SectionBuilderType builder= SectionBuilderType.clear;
+        CycleBannedSection();
+        //Debug.Log(bannedSection);
+        SectionBuilderType builder= SectionBuilderType.clear;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{
 			weightSum+=builderWeights[i].weight;
@@ -69,9 +78,59 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 		}
 		return builder;
 	}
-		
-	//Difficulty Scaling
-	public void CheckDifficultyThreshold()
+
+    public void BanSectionType(SectionBuilderType sectionTypeToBan)
+    {
+        //Debug.Log("Told to ban: " + sectionTypeToBan);
+        nextBannedSection = sectionTypeToBan;
+    }
+
+    private void CycleBannedSection()
+    {
+        //Debug.Log("Unbanning: " + bannedSection + ", " + "Banning: " + nextBannedSection);
+        UnbanSection();
+        BanNextSection(nextBannedSection);
+        //if (levelData.activeSectionBuilder.type != SectionBuilderType.clear)
+        //{
+        //    Debug.Log("Unbanning: " + bannedSection + ", " + "Banning: " + nextBannedSection);
+        //    UnbanSection();
+        //    BanNextSection(nextBannedSection);
+        //}
+    }
+
+    private void UnbanSection()
+    {
+        GetBuilderWeightByType(bannedSection).weight = bannedSectionWeight;
+    }
+    private void StoreBannedSectionInfo(BuilderWeight builderWeight)
+    {
+        bannedSection = builderWeight.type;
+        bannedSectionWeight = builderWeight.weight;
+    }
+    private void BanNextSection(SectionBuilderType sectionTypeToBan)
+    {
+        BuilderWeight newSectionToBan = GetBuilderWeightByType(sectionTypeToBan);
+        StoreBannedSectionInfo(newSectionToBan);
+        newSectionToBan.weight = 0f;
+    }
+
+    private BuilderWeight GetBuilderWeightByType(SectionBuilderType type)
+    {
+        //Debug.Log("Looking for: " + type);
+        BuilderWeight builderWeight = null;
+        for (int i = 0; i < builderWeights.Count; ++i)
+        {
+            if (builderWeights[i].type == type)
+            {
+                builderWeight = builderWeights[i];
+            }
+        }
+        //Debug.Log("Found: " + builderWeight.type);
+        return builderWeight;
+    }
+
+    //Difficulty Scaling
+    public void CheckDifficultyThreshold()
 	{
 		if(highestRowReached >= nextDifficultyScalingPoint)
 		{

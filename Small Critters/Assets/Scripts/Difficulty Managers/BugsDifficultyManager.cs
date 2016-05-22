@@ -28,7 +28,11 @@ public class BugsDifficultyManager : MonoBehaviour, IDifficultyScaling
 
     public void ScaleDifficulty()
     {
-        sectionLength.scaleCurrent(difficultyPercent);
+        if (difficultyPercent < 1f)
+        {
+            difficultyPercent += difficultyPercentStep;
+            sectionLength.scaleCurrent(difficultyPercent);
+        }
         beeDifficultyManager.ScaleDifficulty();
     }
 }

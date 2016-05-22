@@ -98,6 +98,7 @@ public interface IDifficultyScaling
 public interface IDifficultyBasedBuilderPicking
 {
 	SectionBuilderType GetSectionBuilder();
+    void BanSectionType(SectionBuilderType sectionTypeToBan);
 }
 
 public interface IArenaBuilding

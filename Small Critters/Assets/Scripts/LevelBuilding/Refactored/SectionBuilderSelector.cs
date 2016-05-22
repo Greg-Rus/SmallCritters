@@ -30,12 +30,13 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 	{
 		if(levelData.activeSectionBuilder.type != SectionBuilderType.clear)
 		{
-			newBuilderType = SectionBuilderType.clear;
+            difficultyManager.BanSectionType(levelData.activeSectionBuilder.type);
+            newBuilderType = SectionBuilderType.clear;
 		}
 		else
 		{
 			newBuilderType = difficultyManager.GetSectionBuilder();
-            RetryIfSameBuilderSelected();
+            //RetryIfSameBuilderSelected();
 		}
 		
 		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];
