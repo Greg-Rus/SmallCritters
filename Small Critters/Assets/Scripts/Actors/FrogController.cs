@@ -6,38 +6,39 @@ public class FrogController : MonoBehaviour {
 	private Imovement movementScript;
 	private FrogInputHandler inputScript;
     public DeathParticleSystemHandler particleSystemHandler;
-	//public GameController myGameController;
-	//public event EventHandler FrogDeath;
     public delegate void FrogDeath(string causeOfDeath);
     public delegate void FoodPickup(float HP);
     public FrogDeath OnFrogDeath;
     public FoodPickup OnFoodPickup;
     public Animator myAnimator;
+    public SpritesFader frogFader;
     public float HP = 0;
+    private bool invulnerable = false;
+
     // Use this for initialization
     void Start () {
 		GetRequiredComponents();
-		//setupInputScript();
-	}
+    }
 	
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.collider.tag == "Hazard")
+		if (coll.collider.tag == "Hazard" && !invulnerable)
 		{
-			Die (coll.collider.name);
+            TakeHit(coll.collider.name);
+           // Die (coll.collider.name);
 		}
         if (coll.collider.tag == "Food")
         {
             myAnimator.SetTrigger("Lick");
-            if (HP < 1f) HP += 0.1f;
+            if (HP < 1f) HP += 0.2f;
             OnFoodPickup(HP);
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Hazard")) 
+        if (other.CompareTag("Hazard") && !invulnerable) 
         {
-            //Debug.Log("Triggered Hazard");
-            Die(other.name);
+            TakeHit(other.name);
+            //Die(other.name);
         }
     }
 
@@ -47,15 +48,31 @@ public class FrogController : MonoBehaviour {
 		movementScript = GetComponent<Imovement>();
 		inputScript = GetComponent<FrogInputHandler>();
         OnFrogDeath += particleSystemHandler.OnDeath;
-
+        
         //myGameController = GetComponent<GameController>();
     }
 
-	//private void setupInputScript()
-	//{
-	//	inputScript.frogMovement = movementScript;
-	//}
-	
+    private void TakeHit(string hitSource)
+    {
+        --HP;
+        if (HP < 0)
+        {
+            Die(hitSource);
+        }
+        else
+        {
+            OnFoodPickup(HP);
+            invulnerable = true;
+            frogFader.StartFadeSequence(RecoverFromHit);
+        }
+        
+    }
+
+    private void RecoverFromHit()
+    {
+        invulnerable = false;
+    }
+
 	public void Die(string causeOfDeath)
 	{
 		//Instantiate(frogExplosionPlayer, this.transform.position, Quaternion.identity);
@@ -68,13 +85,4 @@ public class FrogController : MonoBehaviour {
         //OnFrogDeath();
 
     }
-	
-	//private void OnFrogDeath()
-	//{
-	//	if (FrogDeath != null)
-	//	{
-	//		FrogDeath(this, EventArgs.Empty);
-	//	}
-	//}
-
 }

@@ -84,6 +84,8 @@
     <Compile Include="Assets\Scripts\Actors\JumpMarkerSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\JumpPathSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\PlayerDetector.cs" />
+    <Compile Include="Assets\Scripts\Actors\RepeatedSideMovement.cs" />
+    <Compile Include="Assets\Scripts\Actors\SpritesFader.cs" />
     <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
     <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
     <Compile Include="Assets\Scripts\Difficulty Managers\BeeSectionDifficultyManager.cs" />

@@ -243,17 +243,32 @@ public class UIHandler : MonoBehaviour {
 
     public void UpdateHearts(float amount)
     {
-        targetFill = Heart1.fillAmount + amount;
+        if (amount <= 1f)
+        {
+            targetFill = amount;
+        }
         StartCoroutine(FillHeart());
     }
 
     private IEnumerator FillHeart()
     {
-        while (Heart1.fillAmount < targetFill)
+        if (Heart1.fillAmount < targetFill)
         {
-            Heart1.fillAmount += Time.deltaTime * fillSpeed;
-            yield return null;
+            while (Heart1.fillAmount < targetFill)
+            {
+                Heart1.fillAmount += Time.deltaTime * fillSpeed;
+                yield return null;
+            }
         }
+        else if (Heart1.fillAmount > targetFill)
+        {
+            while (Heart1.fillAmount > targetFill)
+            {
+                Heart1.fillAmount -= Time.deltaTime * fillSpeed;
+                yield return null;
+            }
+        }
+
     }
 
 
