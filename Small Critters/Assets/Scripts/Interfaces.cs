@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
 public enum SectionBuilderType {clear, blade, processor, heatVent, bees, bugs};
@@ -109,6 +110,11 @@ public interface IArenaBuilding
 public interface IPlayerDetection
 {
     void PlayerDetected(GameObject player);
+}
+
+public interface IResetable
+{
+    void Reset(Action<GameObject> storeInPool);
 }
 
 

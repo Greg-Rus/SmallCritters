@@ -30,19 +30,34 @@ public class GameObjectPoolManager{
 	}
 	public GameObject retrieveObject(string name)
 	{
-		return pools[name].retrieveObject();
-	}
+        return pools[name].retrieveObject();
+    }
 	
 	public void storeObject(GameObject objectToStore)
 	{
-		if(objectToStore == null)
-		{
-			Debug.Log("null object passed!");
-		}
-		if(pools[objectToStore.name] == null)
-		{
-			Debug.Log("No pool for name: " + objectToStore.name);
-		}
-		pools[objectToStore.name].storeObject(objectToStore);
-	}
+        IResetable resetableObject = objectToStore.GetComponent<IResetable>();
+        if (resetableObject != null)
+        {
+            objectToStore.transform.parent = null;
+            resetableObject.Reset(PlaceInProperPool);
+        }
+        else
+        {
+            PlaceInProperPool(objectToStore);
+        }
+    }
+
+    public void PlaceInProperPool(GameObject objectToStore)
+    {
+        if (objectToStore == null)
+        {
+            Debug.Log("null object passed!");
+        }
+        if (pools[objectToStore.name] == null)
+        {
+            Debug.Log("No pool for name: " + objectToStore.name);
+        }
+        pools[objectToStore.name].storeObject(objectToStore);
+    }
+
 }
