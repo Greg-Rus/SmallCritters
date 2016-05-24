@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class ProcessorManager : MonoBehaviour, IResetable {
+public class ProcessorManager : MonoBehaviour {
 	SpriteRenderer mySpriteRenderer;
     Animator myAnimator;
 	public ProcessorState state;
@@ -23,6 +23,19 @@ public class ProcessorManager : MonoBehaviour, IResetable {
     {
         myAnimator.ResetTrigger("SteamStart");
         myAnimator.ResetTrigger("SteamEnd");
+        myAnimator.SetTrigger("Reset");
+        if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            Debug.LogError("Enabled Processor not Idle");
+        }
+        if (!myAnimator.isActiveAndEnabled)
+        {
+            Debug.LogError("Enabled Processor has inactive Animator");
+        }
+        if (myAnimator.IsInTransition(0))
+        {
+            Debug.LogError("Enabled Processor is in transition");
+        }
     }
 
     public void TintProcessorSprite(Color startColor, Color targetColor, float percent)
@@ -38,54 +51,55 @@ public class ProcessorManager : MonoBehaviour, IResetable {
 		gameObject.layer = 15;
         //steamRing.Simulate(0f, false, true);
         //steamRing.Play();
-        //if (myAnimator.isActiveAndEnabled)
-        //{
-        //    myAnimator.SetTrigger("SteamStart");
-        //}
-        myAnimator.SetTrigger("SteamStart");
+        if (myAnimator.isActiveAndEnabled)
+        {
+            myAnimator.SetTrigger("SteamStart");
+        }
+        //myAnimator.SetTrigger("SteamStart");
     }
 	public void SetSafeLayer()
 	{
         //steamRing.Pause();
         //steamRing.Clear();
         //steamRing.Stop();
-        //if (myAnimator.isActiveAndEnabled)
-        //{
-        //    myAnimator.SetTrigger("SteamEnd");
-        //}
-        myAnimator.SetTrigger("SteamEnd");
+        if (myAnimator.isActiveAndEnabled)
+        {
+            myAnimator.SetTrigger("SteamEnd");
+        }
+        //myAnimator.SetTrigger("SteamEnd");
         gameObject.layer = 8;
     }
 
-    public void Reset(Action<GameObject> storeInPool)
-    {
-        this.storeInPool = storeInPool;
-        
-        myAnimator.SetTrigger("Reset");
-        StartCoroutine(WaitForNextUpdate(storeInPool));
-    }
+    //public void Reset(Action<GameObject> storeInPool)
+    //{
+    //    //this.storeInPool = storeInPool;
+    //    //myAnimator.ResetTrigger("SteamStart");
+    //    //myAnimator.ResetTrigger("SteamEnd");
+    //    //myAnimator.SetTrigger("Reset");
+    //    //StartCoroutine(WaitForNextUpdate(storeInPool));
+    //}
 
-    private IEnumerator WaitForNextUpdate(Action<GameObject> storeInPool)
-    {
-        //myAnimator.ResetTrigger("SteamStart");
-        //myAnimator.ResetTrigger("SteamEnd");
-        //float timeStart = Time.timeSinceLevelLoad;
-        //myAnimator.SetTrigger("Reset");
-        while (!myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            yield return true;
-        }
-        myAnimator.ResetTrigger("SteamStart");
-        myAnimator.ResetTrigger("SteamEnd");
-        storeInPool(transform.gameObject);
-        //Debug.Log("Stored with pause: " + (Time.timeSinceLevelLoad - timeStart));
-        //Debug.Log( myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
-        //Debug.Log("At: " + transform.position.x + ", " + transform.position.y);
+    //private IEnumerator WaitForNextUpdate(Action<GameObject> storeInPool)
+    //{
+    //    //myAnimator.ResetTrigger("SteamStart");
+    //    //myAnimator.ResetTrigger("SteamEnd");
+    //    //float timeStart = Time.timeSinceLevelLoad;
+    //    //myAnimator.SetTrigger("Reset");
+    //    while (!myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+    //    {
+    //        yield return true;
+    //    }
+    //    myAnimator.ResetTrigger("SteamStart");
+    //    myAnimator.ResetTrigger("SteamEnd");
+    //    storeInPool(transform.gameObject);
+    //    //Debug.Log("Stored with pause: " + (Time.timeSinceLevelLoad - timeStart));
+    //    //Debug.Log( myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+    //    //Debug.Log("At: " + transform.position.x + ", " + transform.position.y);
         
-    }
+    //}
 
-    public void PostResetDebug()
-    {
+    //public void PostResetDebug()
+    //{
         
-    }
+    //}
 }
