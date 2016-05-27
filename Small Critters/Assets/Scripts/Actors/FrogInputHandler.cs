@@ -50,23 +50,22 @@ public class FrogInputHandler : MonoBehaviour {
             }
         }
 #endif
-        if(!frogMovement.midJump)
+        if (!frogMovement.midJump)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 startPointerScreenPositoin = Input.mousePosition;
             }
-
             if (Input.GetMouseButton(0))
             {
                 draggedPointerScreenPosition = Input.mousePosition;
+                dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
                 if ((draggedPointerScreenPosition - startPointerScreenPositoin).sqrMagnitude > minimalDragScreenDistance)
                 {
                     if (!jumpLineRenderer.isStarted)
                     {
                         jumpLineRenderer.setupJumpLine(this.transform.position);
                     }
-                    dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
                     frogMovement.rotateToDirection(dragVector);
                     jumpLineRenderer.updateJumpLine(dragVector);
                 }
@@ -78,28 +77,69 @@ public class FrogInputHandler : MonoBehaviour {
                     }
                 }
             }
+
             if (Input.GetMouseButtonUp(0))
             {
-                dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
                 if (dragVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f))
                 {
                     frogMovement.rotateToDirection(dragVector);
                     frogMovement.makeMove(dragVector);
                 }
-                else if (pointVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f))
-                {
-                    frogMovement.rotateToDirection(pointVector);
-                    frogMovement.makeMove(pointVector);
-                }
-                else
-                {
-                    tapVector = calcualteDragVector(Camera.main.WorldToScreenPoint(this.transform.position), startPointerScreenPositoin);
-                    frogMovement.rotateToDirection(tapVector);
-                    frogMovement.makeMove(tapVector);
-                }
                 jumpLineRenderer.stopDrawingJumpLine();
             }
+
         }
+//Old
+        //if (!frogMovement.midJump)
+        //{
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        startPointerScreenPositoin = Input.mousePosition;
+        //    }
+
+        //    if (Input.GetMouseButton(0))
+        //    {
+        //        draggedPointerScreenPosition = Input.mousePosition;
+        //        if ((draggedPointerScreenPosition - startPointerScreenPositoin).sqrMagnitude > minimalDragScreenDistance)
+        //        {
+        //            if (!jumpLineRenderer.isStarted)
+        //            {
+        //                jumpLineRenderer.setupJumpLine(this.transform.position);
+        //            }
+        //            dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
+        //            frogMovement.rotateToDirection(dragVector);
+        //            jumpLineRenderer.updateJumpLine(dragVector);
+        //        }
+        //        else
+        //        {
+        //            if (jumpLineRenderer.isStarted)
+        //            {
+        //                jumpLineRenderer.stopDrawingJumpLine();
+        //            }
+        //        }
+        //    }
+        //    if (Input.GetMouseButtonUp(0))
+        //    {
+        //        dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
+        //        if (dragVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f))
+        //        {
+        //            frogMovement.rotateToDirection(dragVector);
+        //            frogMovement.makeMove(dragVector);
+        //        }
+        //        else if (pointVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f))
+        //        {
+        //            frogMovement.rotateToDirection(pointVector);
+        //            frogMovement.makeMove(pointVector);
+        //        }
+        //        else
+        //        {
+        //            tapVector = calcualteDragVector(Camera.main.WorldToScreenPoint(this.transform.position), startPointerScreenPositoin);
+        //            frogMovement.rotateToDirection(tapVector);
+        //            frogMovement.makeMove(tapVector);
+        //        }
+        //        jumpLineRenderer.stopDrawingJumpLine();
+        //    }
+        //}
         
 	}
 

@@ -26,7 +26,7 @@ public class MainGameController : MonoBehaviour {
     void Awake()
     {
         Application.targetFrameRate = 60;
-        
+        Screen.fullScreen = false;
         //DontDestroyOnLoad(transform.gameObject);
         //if (instance == null)
         //{
@@ -40,11 +40,12 @@ public class MainGameController : MonoBehaviour {
     }
 
 	void Start () {
+
         //Debug.Log(Application.persistentDataPath);
         //PlayerPrefs.DeleteAll();
-		//levelData = new LevelData();
-		//difficultyManager = GetComponentInChildren<DifficultyManager>();
-		difficultyManager.levelData = levelData;
+        //levelData = new LevelData();
+        //difficultyManager = GetComponentInChildren<DifficultyManager>();
+        difficultyManager.levelData = levelData;
         //gameFramework = new GameFramework(levelData, difficultyManager, arenaBuilder);
 
         SetupGameFramework();
