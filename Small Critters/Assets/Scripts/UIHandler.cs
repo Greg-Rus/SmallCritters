@@ -26,28 +26,54 @@ public class UIHandler : MonoBehaviour {
     public float fillSpeed;
     private float targetFill;
 
+    public TutorialHandler tutorialHandler;
+
     private GameObject lastMenu;
     private MenuLevel lastMenuLevel;
     private Action currentMenuToggle;
     private GameObject currentMenu;
     private MenuLevel currentMenuLevel;
     private ScoreData scoreData;
+    public delegate void ActionSequence();
+    private ActionSequence inputChecks;
+    private bool tutorialActive = false;
 
     // Use this for initialization
     void Start () {
         Time.timeScale = 1;
         RestoreMenuState();
+        inputChecks += CheckForQuitButtonPress;
         //scoreData = scoreHandler.scoreData;
         //Debug.Log(Application.persistentDataPath);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        inputChecks();
+        //if (Input.GetButtonDown("Cancel") && (currentMenuLevel != MenuLevel.QuitPrompt))
+        //{
+        //    OnMenuQuitPrompt();
+        //}
+	}
+
+    private void CheckForQuitButtonPress()
+    {
+        //Debug.Log("Checking for Quit");
         if (Input.GetButtonDown("Cancel") && (currentMenuLevel != MenuLevel.QuitPrompt))
         {
             OnMenuQuitPrompt();
         }
-	}
+    }
+    private void CheckForTutorialDismissal()
+    {
+        //Debug.Log("Checking for Dsimissal");
+        if (Input.anyKeyDown && (tutorialActive))
+        {
+            tutorialHandler.gameObject.SetActive(false);
+            inputChecks -= CheckForTutorialDismissal;
+            tutorialActive = false;
+        }
+    }
 
     private void RestoreMenuState()
     {
@@ -98,6 +124,7 @@ public class UIHandler : MonoBehaviour {
 
     public void OnMenuQuitGame()
     {
+        PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
         Application.Quit();
     }
 
@@ -269,6 +296,14 @@ public class UIHandler : MonoBehaviour {
             }
         }
 
+    }
+
+    public void ShowTutorial()
+    {
+        tutorialActive = true;
+        tutorialHandler.gameObject.SetActive(true);
+        inputChecks += CheckForTutorialDismissal;
+        tutorialHandler.LoadTutorial();
     }
 
 

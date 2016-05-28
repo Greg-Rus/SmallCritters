@@ -153,6 +153,7 @@
     <Compile Include="Assets\Scripts\TestSectionBuilderBlades.cs" />
     <Compile Include="Assets\Scripts\TestSectionBuilderProcessors.cs" />
     <Compile Include="Assets\Scripts\Third Party\RandomMT.cs" />
+    <Compile Include="Assets\Scripts\UI\TutorialHandler.cs" />
     <Compile Include="Assets\Scripts\UIHandler.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
     <Compile Include="Assets\Scripts\old\FloorHandler.cs" />

@@ -40,7 +40,9 @@ public class MainGameController : MonoBehaviour {
     }
 
 	void Start () {
-
+        //PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
+        //PlayerPrefs.DeleteKey("LastGameDay");
+        //PlayerPrefs.SetInt("LastGameYear", System.DateTime.Today.Year);
         //Debug.Log(Application.persistentDataPath);
         //PlayerPrefs.DeleteAll();
         //levelData = new LevelData();
@@ -52,7 +54,22 @@ public class MainGameController : MonoBehaviour {
         levelHandler = gameFramework.BuildGameFramework();
 		StartNewGame();
 		BuildInitialLevel();
+        DisplayTutorial();
         
+    }
+
+    private void DisplayTutorial()
+    {
+        int lastGameDay = PlayerPrefs.GetInt("LastGameDay");
+        if (lastGameDay == 0)
+        {
+            PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
+            uiHandler.ShowTutorial();
+        }
+        else if (PlayerPrefs.GetInt("LastGameDay") <= System.DateTime.Today.AddDays(-7).DayOfYear)
+        {
+            uiHandler.ShowTutorial();
+        }
     }
 
     //void Update()
