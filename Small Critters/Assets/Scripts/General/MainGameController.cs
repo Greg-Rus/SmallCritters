@@ -19,8 +19,7 @@ public class MainGameController : MonoBehaviour {
     public TextAsset nouns;
     public TextAsset adjectives;
     public Text LevelNameLabel;
-    [Range(0,1)]
-    public float timescale;
+    public int daysToRemindMovementTutorial;
    // public static MainGameController instance;
     // Use this for initialization
     void Awake()
@@ -66,7 +65,7 @@ public class MainGameController : MonoBehaviour {
             PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
             uiHandler.ShowTutorial();
         }
-        else if (PlayerPrefs.GetInt("LastGameDay") <= System.DateTime.Today.AddDays(-7).DayOfYear)
+        else if (PlayerPrefs.GetInt("LastGameDay") <= System.DateTime.Today.AddDays(-daysToRemindMovementTutorial).DayOfYear)
         {
             uiHandler.ShowTutorial();
         }

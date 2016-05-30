@@ -12,9 +12,10 @@ using System.Xml.Serialization;
 public class ScoreHandler : MonoBehaviour {
     public MainGameController gameController;
     public UIHandler uiHandler;
+    public PowerupHandler powerupHandler;
     public int score = 0;
     public int rowMultiplier = 1;
-    public int scoringDistance = 7;
+    public int scoringDistance = 3;
     public int beeScoreStarCount = 3;
     public int flyScoreStarCount = 1;
     public int fireBeetleScoreStarCount = 2;
@@ -106,6 +107,9 @@ public class ScoreHandler : MonoBehaviour {
     {
         score += points;
         UpdateUIScore();
+        powerupHandler.UpdatePoints(points);
+        //UpdateUIPowerupStatus(points);
+
     }
 
     public void RunEnd(string cuseOfDeath)
@@ -172,6 +176,10 @@ public class ScoreHandler : MonoBehaviour {
     private void UpdateUIScore()
     {
         uiHandler.UpdateUIScore(score);
+    }
+    private void UpdateUIPowerupStatus(int points)
+    {
+        uiHandler.UpdatePowerup(points * 0.1f);
     }
 
     public void RestartRun(int button)

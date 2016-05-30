@@ -13,7 +13,12 @@ public class FrogController : MonoBehaviour {
     public Animator myAnimator;
     public SpritesFader frogFader;
     public float HP = 0;
+    public float powerupProgress = 0f;
+    public float powerupProgressPerStar = 0.2f;
+    public float troubleshooterDuration = 1;
     private bool invulnerable = false;
+    public CostumeSwitcher TroubleshooterCostume;
+    
 
     // Use this for initialization
     void Start () {
@@ -21,17 +26,27 @@ public class FrogController : MonoBehaviour {
     }
 	
 	void OnCollisionEnter2D(Collision2D coll) {
-		if (coll.collider.tag == "Hazard" && !invulnerable)
+		if (coll.collider.CompareTag("Hazard") && !invulnerable)
 		{
             TakeHit(coll.collider.name);
            // Die (coll.collider.name);
 		}
-        if (coll.collider.tag == "Food")
+        if (coll.collider.CompareTag("Food"))
         {
             myAnimator.SetTrigger("Lick");
             if (HP < 1f) HP += 0.2f;
             OnFoodPickup(HP);
         }
+        //if (coll.collider.CompareTag("Star"))
+        //{
+        //    if (powerupProgress < 1f) powerupProgress += powerupProgressPerStar;
+        //    if (powerupProgress == 1f)
+        //    {
+        //        powerupProgress = 0;
+        //        StartCoroutine(TroubleshooterMode());
+        //    }
+        //    //OnFoodPickup(HP);
+        //}
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -39,6 +54,15 @@ public class FrogController : MonoBehaviour {
         {
             TakeHit(other.name);
             //Die(other.name);
+        }
+        if (other.CompareTag("Star"))
+        {
+            if (powerupProgress < 1f) powerupProgress += powerupProgressPerStar;
+            if (powerupProgress == 1f)
+            {
+                powerupProgress = 0;
+                StartCoroutine(TroubleshooterMode());
+            }
         }
     }
 
@@ -81,8 +105,16 @@ public class FrogController : MonoBehaviour {
 		//Destroy(gameObject);
 		gameObject.SetActive(false);
         OnFrogDeath(causeOfDeath);
+        //Debug.Log(causeOfDeath);
         //myGameController.onFrogDeath();
         //OnFrogDeath();
 
+    }
+
+    private IEnumerator TroubleshooterMode()
+    {
+        TroubleshooterCostume.PutOnCostume();
+        yield return new WaitForSeconds(troubleshooterDuration);
+        TroubleshooterCostume.TakeOffCostume();
     }
 }

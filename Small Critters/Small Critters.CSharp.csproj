@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Actors\BeeController.cs" />
     <Compile Include="Assets\Scripts\Actors\BeeSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\BeeStunnEffect.cs" />
+    <Compile Include="Assets\Scripts\Actors\CostumeSwitcher.cs" />
     <Compile Include="Assets\Scripts\Actors\DeathParticleSystemHandler.cs" />
     <Compile Include="Assets\Scripts\Actors\FireBallController.cs" />
     <Compile Include="Assets\Scripts\Actors\FireBeetleController.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\Scripts\Actors\JumpPathSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\PlayerDetector.cs" />
     <Compile Include="Assets\Scripts\Actors\RepeatedSideMovement.cs" />
+    <Compile Include="Assets\Scripts\Actors\ShotgunController.cs" />
     <Compile Include="Assets\Scripts\Actors\SpritesFader.cs" />
     <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
     <Compile Include="Assets\Scripts\ControllingCameraAspectScript.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Assets\Scripts\General\HighScoreButtonState.cs" />
     <Compile Include="Assets\Scripts\General\MainGameController.cs" />
     <Compile Include="Assets\Scripts\General\NewRowReached.cs" />
+    <Compile Include="Assets\Scripts\General\PowerupHandler.cs" />
     <Compile Include="Assets\Scripts\General\Score.cs" />
     <Compile Include="Assets\Scripts\General\ScoreData.cs" />
     <Compile Include="Assets\Scripts\General\ScoreHandler.cs" />

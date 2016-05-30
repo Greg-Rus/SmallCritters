@@ -22,9 +22,13 @@ public class UIHandler : MonoBehaviour {
     public InputField seedInput;
 
     public MenuLevel activeMenu;
-    public Image Heart1;
-    public float fillSpeed;
-    private float targetFill;
+    public Image heart;
+    public float heartFillSpeed;
+    private float heartTargetFill;
+
+    public Image powerup;
+    public float powerupFillSpeed;
+    private float powerupTargetFill;
 
     public TutorialHandler tutorialHandler;
 
@@ -37,12 +41,17 @@ public class UIHandler : MonoBehaviour {
     public delegate void ActionSequence();
     private ActionSequence inputChecks;
     private bool tutorialActive = false;
+    //private bool idling = true;
+    public float inactivityTimeToMovementTutorial = 5f;
+    public Text ammoCount;
 
     // Use this for initialization
     void Start () {
         Time.timeScale = 1;
         RestoreMenuState();
         inputChecks += CheckForQuitButtonPress;
+        inputChecks += CheckIdleTime;
+        inputChecks += CheckIfStoppedIdling;
         //scoreData = scoreHandler.scoreData;
         //Debug.Log(Application.persistentDataPath);
     }
@@ -56,6 +65,22 @@ public class UIHandler : MonoBehaviour {
         //}
 	}
 
+    private void CheckIdleTime()
+    {
+        if (Time.timeSinceLevelLoad > inactivityTimeToMovementTutorial)
+        {
+            inputChecks -= CheckIdleTime;
+            ShowTutorial();
+        }
+    }
+    private void CheckIfStoppedIdling()
+    {
+        if (Input.anyKeyDown)// && (tutorialActive))
+        {
+            inputChecks -= CheckIdleTime;
+        }
+    }
+
     private void CheckForQuitButtonPress()
     {
         //Debug.Log("Checking for Quit");
@@ -67,12 +92,17 @@ public class UIHandler : MonoBehaviour {
     private void CheckForTutorialDismissal()
     {
         //Debug.Log("Checking for Dsimissal");
-        if (Input.anyKeyDown && (tutorialActive))
+        if (Input.anyKeyDown)// && (tutorialActive))
         {
-            tutorialHandler.gameObject.SetActive(false);
+            DismissTutorial();
             inputChecks -= CheckForTutorialDismissal;
-            tutorialActive = false;
         }
+    }
+
+    private void DismissTutorial()
+    {
+        tutorialHandler.gameObject.SetActive(false);
+        tutorialActive = false;
     }
 
     private void RestoreMenuState()
@@ -272,26 +302,36 @@ public class UIHandler : MonoBehaviour {
     {
         if (amount <= 1f)
         {
-            targetFill = amount;
+            heartTargetFill = amount;
         }
-        StartCoroutine(FillHeart());
+        StartCoroutine(RadialFillImage(heart, heartTargetFill, heartFillSpeed));
     }
 
-    private IEnumerator FillHeart()
+    public void UpdatePowerup(float amount)
     {
-        if (Heart1.fillAmount < targetFill)
+        
+        if (amount <= 1f)
         {
-            while (Heart1.fillAmount < targetFill)
+            powerupTargetFill = amount;
+        }
+        StartCoroutine(RadialFillImage(powerup, powerupTargetFill, powerupFillSpeed));
+    }
+
+    private IEnumerator RadialFillImage(Image image, float targetFill, float fillSpeed)
+    {
+        if (image.fillAmount < targetFill)
+        {
+            while (image.fillAmount < targetFill)
             {
-                Heart1.fillAmount += Time.deltaTime * fillSpeed;
+                image.fillAmount += Time.deltaTime * fillSpeed;
                 yield return null;
             }
         }
-        else if (Heart1.fillAmount > targetFill)
+        else if (image.fillAmount > targetFill)
         {
-            while (Heart1.fillAmount > targetFill)
+            while (image.fillAmount > targetFill)
             {
-                Heart1.fillAmount -= Time.deltaTime * fillSpeed;
+                image.fillAmount -= Time.deltaTime * fillSpeed;
                 yield return null;
             }
         }
@@ -304,6 +344,16 @@ public class UIHandler : MonoBehaviour {
         tutorialHandler.gameObject.SetActive(true);
         inputChecks += CheckForTutorialDismissal;
         tutorialHandler.LoadTutorial();
+    }
+
+    public void PowerupMode(bool isActive)
+    {
+        if (isActive) ammoCount.enabled = true;
+        else ammoCount.enabled = false;
+    }
+    public void UpdateAmmoCount(int ammo)
+    {
+        ammoCount.text = ammo.ToString();
     }
 
 
