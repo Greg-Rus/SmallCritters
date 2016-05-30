@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class ShotgunController : MonoBehaviour {
+    public Transform muzzle;
     public float targetAcquisition;
     public float targetAcquisitionSpeed;
     public GameObject aimZoneObject;
@@ -17,6 +18,7 @@ public class ShotgunController : MonoBehaviour {
     private Rigidbody2D[] pelletRigidbodies;
     private Transform[] pelletTransforms;
     public float spread;
+    public PowerupHandler powerupHandler;
     // Use this for initialization
     void Start () {
         aimZone = aimZoneObject.transform;
@@ -30,7 +32,7 @@ public class ShotgunController : MonoBehaviour {
 
     private void CheckForEnemy()
     {
-        RaycastHit2D target = Physics2D.Raycast(transform.position, transform.up, range, shootableLayers);
+        RaycastHit2D target = Physics2D.Raycast(muzzle.transform.position, muzzle.transform.up, range, shootableLayers);
         //Debug.DrawRay(transform.position, Vector2.up * range, Color.red);
         if (target.collider != null)
         {
@@ -46,7 +48,7 @@ public class ShotgunController : MonoBehaviour {
         }
         else if (targetAcquisition > 0)
         {
-            UpdateTargetAcquisition(-targetAcquisitionSpeed);
+            UpdateTargetAcquisition(-targetAcquisitionSpeed * 2f);
             if (targetAcquisition < 0)
             {
                 targetAcquisition = 0f;
@@ -68,6 +70,7 @@ public class ShotgunController : MonoBehaviour {
         StartCoroutine(CleanUpPelletsAfterSeconds(2f));
         aimZoneObject.SetActive(false);
         targetAcquisition = 0f;
+        powerupHandler.OnShotFired();
     }
 
     private void UpdateAimZone()
@@ -80,9 +83,9 @@ public class ShotgunController : MonoBehaviour {
         for (int i = 0; i < pellets.Length; ++i)
         {
             pellets[i].SetActive(true);
-            pelletTransforms[i].position = transform.position;
+            pelletTransforms[i].position = muzzle.transform.position;
             pelletTrailRenderers[i].Clear();
-            Vector3 direction = (transform.up * range) + (transform.right * Random.Range(-spread, spread));
+            Vector3 direction = muzzle.(transform.up * range) + (muzzle.transform.right * Random.Range(-spread, spread));
             direction = direction.normalized;
             pelletRigidbodies[i].velocity = Vector3.zero;
             pelletRigidbodies[i].AddForce(direction * pelletSpeed, ForceMode2D.Impulse);

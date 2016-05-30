@@ -59,7 +59,7 @@ public class FrogInputHandler : MonoBehaviour {
             if (Input.GetMouseButton(0))
             {
                 draggedPointerScreenPosition = Input.mousePosition;
-                dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
+                dragVector = CalcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
                 if ((draggedPointerScreenPosition - startPointerScreenPositoin).sqrMagnitude > minimalDragScreenDistance)
                 {
                     if (!jumpLineRenderer.isStarted)
@@ -106,7 +106,7 @@ public class FrogInputHandler : MonoBehaviour {
         //            {
         //                jumpLineRenderer.setupJumpLine(this.transform.position);
         //            }
-        //            dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
+        //            dragVector = CalcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
         //            frogMovement.rotateToDirection(dragVector);
         //            jumpLineRenderer.updateJumpLine(dragVector);
         //        }
@@ -120,7 +120,7 @@ public class FrogInputHandler : MonoBehaviour {
         //    }
         //    if (Input.GetMouseButtonUp(0))
         //    {
-        //        dragVector = calcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
+        //        dragVector = CalcualteDragVector(startPointerScreenPositoin, draggedPointerScreenPosition);
         //        if (dragVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f))
         //        {
         //            frogMovement.rotateToDirection(dragVector);
@@ -133,7 +133,7 @@ public class FrogInputHandler : MonoBehaviour {
         //        }
         //        else
         //        {
-        //            tapVector = calcualteDragVector(Camera.main.WorldToScreenPoint(this.transform.position), startPointerScreenPositoin);
+        //            tapVector = CalcualteDragVector(Camera.main.WorldToScreenPoint(this.transform.position), startPointerScreenPositoin);
         //            frogMovement.rotateToDirection(tapVector);
         //            frogMovement.makeMove(tapVector);
         //        }
@@ -143,11 +143,11 @@ public class FrogInputHandler : MonoBehaviour {
         
 	}
 
-	Vector3 calcualteDragVector(Vector3 start, Vector3 end)
+	Vector3 CalcualteDragVector(Vector3 start, Vector3 end)
 	{
 		CalculateSwipesWorldCoordinates(start, end);
 		
-		dragVector = worldDraggedPoint - worldStartPoint;
+		dragVector = (worldDraggedPoint - worldStartPoint) * -1f;
 		if(dragVector.magnitude <= maxJumpSwipe)
 		{
 			return dragVector * swipeToJumpConversionRatio;

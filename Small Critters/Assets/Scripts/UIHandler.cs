@@ -353,7 +353,9 @@ public class UIHandler : MonoBehaviour {
     }
     public void UpdateAmmoCount(int ammo)
     {
+        
         ammoCount.text = ammo.ToString();
+        //Debug.Log(ammoCount.text);
     }
 
 

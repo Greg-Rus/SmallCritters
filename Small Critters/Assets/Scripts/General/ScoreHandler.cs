@@ -108,7 +108,7 @@ public class ScoreHandler : MonoBehaviour {
         score += points;
         UpdateUIScore();
         powerupHandler.UpdatePoints(points);
-        //UpdateUIPowerupStatus(points);
+        //UpdateUIPowerupStatus();
 
     }
 
@@ -179,7 +179,7 @@ public class ScoreHandler : MonoBehaviour {
     }
     private void UpdateUIPowerupStatus(int points)
     {
-        uiHandler.UpdatePowerup(points * 0.1f);
+        uiHandler.UpdatePowerup(points);
     }
 
     public void RestartRun(int button)

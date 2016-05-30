@@ -14,6 +14,7 @@ public class MainGameController : MonoBehaviour {
 	public ArenaBuilder arenaBuilder;
     public ScoreHandler scoreHandler;
     public UIHandler uiHandler;
+    public PowerupHandler powerupHandler;
     public string seed = "42";
     public Transform poolParent;
     public TextAsset nouns;
@@ -162,6 +163,8 @@ public class MainGameController : MonoBehaviour {
 		frog = Instantiate(frogAsset, new Vector3 (gameFramework.levelData.levelWidth * 0.5f, -1f, 0f), Quaternion.identity) as GameObject;
 		FrogMovementPhysics frogMovementScript = frog.GetComponent<FrogMovementPhysics>();
 		frogMovementScript.NewHighestRowReached += NewRowReached;
+        powerupHandler.costumeSwitcher = frog.GetComponent<CostumeSwitcher>();
+        frog.GetComponentInChildren<ShotgunController>().powerupHandler = powerupHandler;
         FrogController controller = frog.GetComponent<FrogController>();
         //controller.FrogDeath += HandleFrogDeath;
         //controller.FrogDeath += scoreHandler.RunEnd;

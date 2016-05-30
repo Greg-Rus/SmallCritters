@@ -9,10 +9,11 @@ public class PowerupHandler : MonoBehaviour {
     public int currentAmmo;
 
     public UIHandler uiHandler;
+    public CostumeSwitcher costumeSwitcher;
 	// Use this for initialization
 	void Start () {
-	
-	}
+
+    }
 
     public void UpdatePoints(float points)
     {
@@ -20,19 +21,31 @@ public class PowerupHandler : MonoBehaviour {
         uiHandler.UpdatePowerup(currentStarPoints / maxStarPoints);
         if (currentStarPoints == maxStarPoints)
         {
-            uiHandler.PowerupMode(true);
-            currentAmmo = maxAmmo;
-            uiHandler.UpdateAmmoCount(currentAmmo); ;
+            StartPowerupMode();
         }
     }
 
-    private void OnShotFired()
+    public void OnShotFired()
     {
         --currentAmmo;
         if (currentAmmo == 0)
         {
-            uiHandler.PowerupMode(false);
+            EndPowerupMode();
         }
-        else uiHandler.UpdateAmmoCount(currentAmmo); ;
+        else uiHandler.UpdateAmmoCount(currentAmmo);
+        Debug.Log(currentAmmo);
+    }
+
+    private void StartPowerupMode()
+    {
+        uiHandler.PowerupMode(true);
+        currentAmmo = maxAmmo;
+        uiHandler.UpdateAmmoCount(currentAmmo);
+        costumeSwitcher.PutOnCostume();
+    }
+    private void EndPowerupMode()
+    {
+        uiHandler.PowerupMode(false);
+        costumeSwitcher.TakeOffCostume();
     }
 }

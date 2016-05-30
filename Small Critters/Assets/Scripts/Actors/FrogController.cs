@@ -55,15 +55,15 @@ public class FrogController : MonoBehaviour {
             TakeHit(other.name);
             //Die(other.name);
         }
-        if (other.CompareTag("Star"))
-        {
-            if (powerupProgress < 1f) powerupProgress += powerupProgressPerStar;
-            if (powerupProgress == 1f)
-            {
-                powerupProgress = 0;
-                StartCoroutine(TroubleshooterMode());
-            }
-        }
+        //if (other.CompareTag("Star"))
+        //{
+        //    if (powerupProgress < 1f) powerupProgress += powerupProgressPerStar;
+        //    if (powerupProgress == 1f)
+        //    {
+        //        powerupProgress = 0;
+        //        StartCoroutine(TroubleshooterMode());
+        //    }
+        //}
     }
 
     // Update is called once per frame
@@ -111,10 +111,10 @@ public class FrogController : MonoBehaviour {
 
     }
 
-    private IEnumerator TroubleshooterMode()
-    {
-        TroubleshooterCostume.PutOnCostume();
-        yield return new WaitForSeconds(troubleshooterDuration);
-        TroubleshooterCostume.TakeOffCostume();
-    }
+    //private IEnumerator TroubleshooterMode()
+    //{
+    //    TroubleshooterCostume.PutOnCostume();
+    //    yield return new WaitForSeconds(troubleshooterDuration);
+    //    TroubleshooterCostume.TakeOffCostume();
+    //}
 }
