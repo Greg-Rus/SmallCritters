@@ -348,8 +348,15 @@ public class UIHandler : MonoBehaviour {
 
     public void PowerupMode(bool isActive)
     {
-        if (isActive) ammoCount.enabled = true;
-        else ammoCount.enabled = false;
+        if (isActive)
+        {
+            ammoCount.enabled = true;
+        }
+        else
+        {
+            ammoCount.enabled = false;
+            powerup.fillAmount = 0;
+        }
     }
     public void UpdateAmmoCount(int ammo)
     {

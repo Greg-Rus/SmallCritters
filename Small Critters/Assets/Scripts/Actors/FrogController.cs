@@ -18,7 +18,8 @@ public class FrogController : MonoBehaviour {
     public float troubleshooterDuration = 1;
     private bool invulnerable = false;
     public CostumeSwitcher TroubleshooterCostume;
-    
+    public CameraVerticalFollow mainCamera;
+        
 
     // Use this for initialization
     void Start () {
@@ -89,7 +90,7 @@ public class FrogController : MonoBehaviour {
             invulnerable = true;
             frogFader.StartFadeSequence(RecoverFromHit);
         }
-        
+        mainCamera.ShakeCamera();
     }
 
     private void RecoverFromHit()
@@ -111,10 +112,4 @@ public class FrogController : MonoBehaviour {
 
     }
 
-    //private IEnumerator TroubleshooterMode()
-    //{
-    //    TroubleshooterCostume.PutOnCostume();
-    //    yield return new WaitForSeconds(troubleshooterDuration);
-    //    TroubleshooterCostume.TakeOffCostume();
-    //}
 }

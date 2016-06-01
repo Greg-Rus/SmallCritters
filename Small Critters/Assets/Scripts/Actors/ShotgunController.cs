@@ -85,7 +85,7 @@ public class ShotgunController : MonoBehaviour {
             pellets[i].SetActive(true);
             pelletTransforms[i].position = muzzle.transform.position;
             pelletTrailRenderers[i].Clear();
-            Vector3 direction = muzzle.(transform.up * range) + (muzzle.transform.right * Random.Range(-spread, spread));
+            Vector3 direction = (muzzle.transform.up * range) + (muzzle.transform.right * Random.Range(-spread, spread));
             direction = direction.normalized;
             pelletRigidbodies[i].velocity = Vector3.zero;
             pelletRigidbodies[i].AddForce(direction * pelletSpeed, ForceMode2D.Impulse);
@@ -117,6 +117,15 @@ public class ShotgunController : MonoBehaviour {
         for (int i = 0; i < pellets.Length; ++i)
         {
             pellets[i].SetActive(false);
+        }
+        SwithOffIfNoMoreAmmo(); //No need to aim if can't shoot
+    }
+
+    private void SwithOffIfNoMoreAmmo()
+    {
+        if (powerupHandler.currentAmmo == 0)
+        {
+            this.enabled = false;
         }
     }
 
