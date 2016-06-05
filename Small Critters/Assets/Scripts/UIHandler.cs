@@ -17,6 +17,8 @@ public class UIHandler : MonoBehaviour {
     public ScoreHandler scoreHandler;
     public Toggle randomToggle;
     public Toggle seededToggle;
+    public Toggle swipeUpToggle;
+    public Toggle swipeDownToggle;
 
     public bool isMenuContext = false;
     public InputField seedInput;
@@ -44,6 +46,7 @@ public class UIHandler : MonoBehaviour {
     //private bool idling = true;
     public float inactivityTimeToMovementTutorial = 5f;
     public Text ammoCount;
+    public Action<float> OnSwipeDirectionChange;
 
     // Use this for initialization
     void Start () {
@@ -117,6 +120,16 @@ public class UIHandler : MonoBehaviour {
         {
             randomToggle.isOn = true;
             seededToggle.isOn = false;
+        }
+        if (PlayerPrefs.GetFloat("SwipeControlls") == 1)
+        {
+            swipeUpToggle.isOn = true;
+            swipeDownToggle.isOn = false;
+        }
+        else
+        {
+            swipeUpToggle.isOn = false;
+            swipeDownToggle.isOn = true;
         }
     }
 
@@ -282,7 +295,6 @@ public class UIHandler : MonoBehaviour {
         }
         
     }
-
     public void ToggleSeededGame()
     {
         if (seededToggle.isOn)
@@ -292,6 +304,20 @@ public class UIHandler : MonoBehaviour {
         }
        
     }
+
+    public void ToggleSwipeUpControlls()
+    {
+        PlayerPrefs.SetFloat("SwipeControlls", 1);
+        OnSwipeDirectionChange(1);
+        //ServiceLocator.getService<FrogInputHandler>().swipeDirection = 1;
+    }
+    public void ToggleSwipeDwonControlls()
+    {
+        PlayerPrefs.SetFloat("SwipeControlls", -1);
+        OnSwipeDirectionChange(-1);
+        //ServiceLocator.getService<FrogInputHandler>().swipeDirection = -1;
+    }
+
     public void OnSeedEntered()
     {
         //Debug.Log(seedInput.text);
@@ -331,7 +357,7 @@ public class UIHandler : MonoBehaviour {
         {
             while (image.fillAmount > targetFill)
             {
-                image.fillAmount -= Time.deltaTime * fillSpeed;
+                image.fillAmount -= Time.deltaTime * fillSpeed * 2;
                 yield return null;
             }
         }

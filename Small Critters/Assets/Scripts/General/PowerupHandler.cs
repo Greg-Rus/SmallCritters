@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PowerupHandler : MonoBehaviour {
-    public float currentStarPoints = 0;
+    public float currentStarPoints = 0f;
     public float maxStarPoints;
 
     public int maxAmmo = 5;
@@ -10,6 +10,7 @@ public class PowerupHandler : MonoBehaviour {
 
     public UIHandler uiHandler;
     public CostumeSwitcher costumeSwitcher;
+    public bool powerupModeOn = false;
 	// Use this for initialization
 	void Start () {
 
@@ -18,11 +19,12 @@ public class PowerupHandler : MonoBehaviour {
     public void UpdatePoints(float points)
     {
         currentStarPoints += points;
-        uiHandler.UpdatePowerup(currentStarPoints / maxStarPoints);
-        if (currentStarPoints == maxStarPoints)
+        
+        if (currentStarPoints >= maxStarPoints)
         {
             StartPowerupMode();
         }
+        uiHandler.UpdatePowerup(currentStarPoints / maxStarPoints);
     }
 
     public void OnShotFired()
@@ -33,19 +35,27 @@ public class PowerupHandler : MonoBehaviour {
             EndPowerupMode();
         }
         else uiHandler.UpdateAmmoCount(currentAmmo);
-        Debug.Log(currentAmmo);
     }
 
     private void StartPowerupMode()
     {
-        uiHandler.PowerupMode(true);
-        currentAmmo = maxAmmo;
+        if (!powerupModeOn)
+        {
+            powerupModeOn = true;
+            uiHandler.PowerupMode(powerupModeOn);
+            costumeSwitcher.PutOnCostume();
+        }
+        currentStarPoints = 0;
+        //uiHandler.UpdatePowerup(currentStarPoints);
+        currentAmmo += maxAmmo;
         uiHandler.UpdateAmmoCount(currentAmmo);
-        costumeSwitcher.PutOnCostume();
+        
     }
     private void EndPowerupMode()
     {
-        uiHandler.PowerupMode(false);
+        powerupModeOn = false;
+        uiHandler.PowerupMode(powerupModeOn);
         costumeSwitcher.TakeOffCostume();
+        currentStarPoints = 0f;
     }
 }

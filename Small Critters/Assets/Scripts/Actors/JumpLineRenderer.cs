@@ -9,6 +9,12 @@ public class JumpLineRenderer : MonoBehaviour {
 	private JumpMarkerSensor jumpMarkerSensor;
 	private JumpPathSensor jumpPathSensor;
 	public bool isStarted = false;
+    private PowerupHandler powerup;
+    public Sprite jumpSprite;
+    public Sprite targetSprite;
+    public SpriteRenderer markerRenderer;
+    private bool targetSpriteActive;
+    private ShotgunController shotgun;
 	// Use this for initialization
 	void Awake()
 	{
@@ -16,12 +22,15 @@ public class JumpLineRenderer : MonoBehaviour {
 		lineRenderer.sortingOrder = 50;
 		jumpMarkerSensor = GetComponentInChildren<JumpMarkerSensor>();
 		jumpPathSensor = GetComponentInChildren<JumpPathSensor>();
-	}
+        //markerRenderer = jumpMarker.GetComponent<SpriteRenderer>();
+        powerup = ServiceLocator.getService<PowerupHandler>();
+        shotgun = GetComponentInChildren<ShotgunController>(true);
+    }
 	void Start () {
 		//lineRenderer = GetComponent<LineRenderer>();
 		jumpMarker.SetActive(false);
 
-	}
+    }
 	
 	// Update is called once per frame
 	public void setupJumpLine(Vector2 jumpStartPosition)
@@ -40,6 +49,23 @@ public class JumpLineRenderer : MonoBehaviour {
 		jumpMarker.transform.rotation = gameObject.transform.rotation;
 		lineRenderer.SetPosition(0, this.transform.position);
 		lineRenderer.SetPosition(1, jumpMarker.transform.position);
+        if (powerup.powerupModeOn)
+        {
+            if (CanFireAtTarget(dragVector))
+            {
+                if (!targetSpriteActive)
+                {
+                    ShowTargetSprite(true);
+                }
+                shotgun.AimAtPosition(jumpMarker.transform.position);
+
+
+            }
+            else if (!CanFireAtTarget(dragVector) && targetSpriteActive)
+            {
+                ShowTargetSprite(false);
+            }
+        }
 		if(willDieIfJumps(dragVector))
 		{
 			lineRenderer.SetColors(Color.red,Color.red);
@@ -62,5 +88,23 @@ public class JumpLineRenderer : MonoBehaviour {
 		//Debug.Log ("Will die: " + result);
 		return result;
 	}
+    public bool CanFireAtTarget(Vector3 dragVector)
+    {
+        bool result = jumpMarkerSensor.CheckForTargetsInLandingZone();
+        return result;
+    }
+    public void ShowTargetSprite(bool showSprite)
+    {
+        if (showSprite)
+        {
+            markerRenderer.sprite = targetSprite;
+            targetSpriteActive = true;
+        }
+        else
+        {
+            markerRenderer.sprite = jumpSprite;
+            targetSpriteActive = false;
+        }
+    }
 	
 }

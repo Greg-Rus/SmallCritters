@@ -13,21 +13,27 @@ public class Utilities : MonoBehaviour {
 		float angle = Mathf.Atan2(vector.y,vector.x) * Mathf.Rad2Deg;
 		return Quaternion.AngleAxis(angle, Vector3.forward);
 	}
-	//public static bool RollBelowPercent(float pecent)
-	//{
-	//	float roll = RandomLogger.GetRandomRange (instance, 0f,1f);
-	//	if(roll <= pecent)
-	//	{
-	//		return true;
-	//	}
-	//	else
-	//	{
-	//		return false;
-	//	}
-		
-	//}
-	
-	public static float RoundToNearestOrderOfMagnitude(float number, float orderOfMagnitude, float roundingPoint = 0.5f)
+
+    public static Quaternion RotationFromUpToVector(Vector3 vector)
+    {
+        float angle = Mathf.Atan2(vector.y, vector.x) * Mathf.Rad2Deg;
+        return Quaternion.AngleAxis(angle, Vector3.up);
+    }
+    //public static bool RollBelowPercent(float pecent)
+    //{
+    //	float roll = RandomLogger.GetRandomRange (instance, 0f,1f);
+    //	if(roll <= pecent)
+    //	{
+    //		return true;
+    //	}
+    //	else
+    //	{
+    //		return false;
+    //	}
+
+    //}
+
+    public static float RoundToNearestOrderOfMagnitude(float number, float orderOfMagnitude, float roundingPoint = 0.5f)
 	{
 		float round = number / orderOfMagnitude;
 		float integerPart = (int)round;

@@ -52,10 +52,16 @@ public class MainGameController : MonoBehaviour {
 
         SetupGameFramework();
         levelHandler = gameFramework.BuildGameFramework();
-		StartNewGame();
+        AddMonoBehaviourServices();
+        StartNewGame();
 		BuildInitialLevel();
         DisplayTutorial();
         
+    }
+
+    private void AddMonoBehaviourServices()
+    {
+        ServiceLocator.addService<PowerupHandler>(powerupHandler);
     }
 
     private void DisplayTutorial()
@@ -159,18 +165,20 @@ public class MainGameController : MonoBehaviour {
 	private void PlaceFrog()
 	{
         //UnityEngine.Object frogAsset = Resources.Load("Frog"); // as GameObject;
+        
         UnityEngine.Object frogAsset = Resources.Load("FrogCharacter");
 		frog = Instantiate(frogAsset, new Vector3 (gameFramework.levelData.levelWidth * 0.5f, -1f, 0f), Quaternion.identity) as GameObject;
 		FrogMovementPhysics frogMovementScript = frog.GetComponent<FrogMovementPhysics>();
 		frogMovementScript.NewHighestRowReached += NewRowReached;
         powerupHandler.costumeSwitcher = frog.GetComponent<CostumeSwitcher>();
-        frog.GetComponentInChildren<ShotgunController>().powerupHandler = powerupHandler;
+        //frog.GetComponentInChildren<ShotgunController>().powerupHandler = powerupHandler;
         FrogController controller = frog.GetComponent<FrogController>();
         //controller.FrogDeath += HandleFrogDeath;
         //controller.FrogDeath += scoreHandler.RunEnd;
         controller.OnFrogDeath += HandleFrogDeath;
         controller.OnFrogDeath += scoreHandler.RunEnd;
         controller.OnFoodPickup += uiHandler.UpdateHearts;
+        uiHandler.OnSwipeDirectionChange = frog.GetComponent<FrogInputHandler>().SwipeDirectionChange;
         Camera.main.GetComponent<CameraVerticalFollow>().frog = frog;
 	}
 

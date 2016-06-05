@@ -5,6 +5,7 @@ public class JumpMarkerSensor : MonoBehaviour {
 
 	CircleCollider2D myTrigger;
 	public LayerMask hazardousLayer;
+    public LayerMask targetLayers;
 	
 	void Awake ()
 	{
@@ -15,4 +16,8 @@ public class JumpMarkerSensor : MonoBehaviour {
 	{
 		return myTrigger.IsTouchingLayers(hazardousLayer);//isTouchingHazard();
 	}
+    public bool CheckForTargetsInLandingZone()
+    {
+        return myTrigger.IsTouchingLayers(targetLayers);
+    }
 }

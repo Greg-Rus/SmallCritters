@@ -19,14 +19,30 @@ public class FrogInputHandler : MonoBehaviour {
 	private Vector3 worldStartPoint;
 	private Vector3 worldDraggedPoint;
 	private float sqrMouseDistanceFromFrog;
+    private float swipeDirection;
+    private ShotgunController shotgun;
+    private PowerupHandler powerupHandler;
+    private bool reloading = false;
 	// Use this for initialization
 	void Awake () {
-		frogMovement = GetComponent<Imovement>() as Imovement ;
-		swipeToJumpConversionRatio = maxJumpLength / maxJumpSwipe;
+        swipeDirection = PlayerPrefs.GetFloat("SwipeControlls");
+        if (swipeDirection == 0)
+        {
+            swipeDirection = 1;
+        }
+        frogMovement = GetComponent<Imovement>() as Imovement ;
+        shotgun = GetComponentInChildren<ShotgunController>(true);
+        
+        swipeToJumpConversionRatio = maxJumpLength / maxJumpSwipe;
         //Debug.Log(( Camera.main.ScreenToWorldPoint(new Vector3(10f, 0f, 0f)) - Camera.main.ScreenToWorldPoint(Vector3.zero)).sqrMagnitude);
         minimalDragScreenDistance = (Camera.main.WorldToScreenPoint(new Vector3(minimalDragDistance, 0f, 0f)) - Camera.main.WorldToScreenPoint(Vector3.zero)).sqrMagnitude;
 	}
-	
+
+    void Start()
+    {
+        powerupHandler = ServiceLocator.getService<PowerupHandler>();
+    }
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -83,7 +99,16 @@ public class FrogInputHandler : MonoBehaviour {
                 if (dragVector.sqrMagnitude > Mathf.Pow(minimalDragDistance, 2f))
                 {
                     frogMovement.rotateToDirection(dragVector);
-                    frogMovement.makeMove(dragVector);
+                    if (powerupHandler.powerupModeOn && jumpLineRenderer.CanFireAtTarget(dragVector) && !reloading)
+                    {
+                        shotgun.Shoot();
+                        reloading = true;
+                    }
+                    else
+                    {
+                        frogMovement.makeMove(dragVector);
+                    }
+                    
                 }
                 jumpLineRenderer.stopDrawingJumpLine();
             }
@@ -147,7 +172,7 @@ public class FrogInputHandler : MonoBehaviour {
 	{
 		CalculateSwipesWorldCoordinates(start, end);
 		
-		dragVector = (worldDraggedPoint - worldStartPoint) * -1f;
+		dragVector = (worldDraggedPoint - worldStartPoint) * swipeDirection;
 		if(dragVector.magnitude <= maxJumpSwipe)
 		{
 			return dragVector * swipeToJumpConversionRatio;
@@ -164,4 +189,14 @@ public class FrogInputHandler : MonoBehaviour {
 		worldDraggedPoint = Camera.main.ScreenToWorldPoint(end);
 		worldDraggedPoint.z = 0f;
 	}
+
+    public void SwipeDirectionChange(float direction)
+    {
+        swipeDirection = direction;
+    }
+
+    public void ReloadComplete()
+    {
+        reloading = false;
+    }
 }

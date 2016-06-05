@@ -19,51 +19,58 @@ public class ShotgunController : MonoBehaviour {
     private Transform[] pelletTransforms;
     public float spread;
     public PowerupHandler powerupHandler;
+    private Animator animator;
+    public Transform shotgunTransform;
     // Use this for initialization
     void Start () {
         aimZone = aimZoneObject.transform;
         GetPelletComponenets();
+        powerupHandler = ServiceLocator.getService<PowerupHandler>();
+        animator = GetComponentInParent<Animator>();
+        if (animator == null) Debug.LogError("No animator");
     }
 	
 	// Update is called once per frame
-	void Update () {
-        CheckForEnemy();
-	}
+	//void Update () {
+ //       //CheckForEnemy();
+	//}
 
-    private void CheckForEnemy()
-    {
-        RaycastHit2D target = Physics2D.Raycast(muzzle.transform.position, muzzle.transform.up, range, shootableLayers);
-        //Debug.DrawRay(transform.position, Vector2.up * range, Color.red);
-        if (target.collider != null)
-        {
-            if (targetAcquisition == 0)
-            {
-                aimZoneObject.SetActive(true);
-            }
-            UpdateTargetAcquisition(targetAcquisitionSpeed);
-            if (targetAcquisition >= 1f)
-            {
-                Shoot();
-            }
-        }
-        else if (targetAcquisition > 0)
-        {
-            UpdateTargetAcquisition(-targetAcquisitionSpeed * 2f);
-            if (targetAcquisition < 0)
-            {
-                targetAcquisition = 0f;
-                aimZoneObject.SetActive(false);
-            }
-        }
-    }
+ //   private void CheckForEnemy()
+ //   {
+ //       RaycastHit2D target = Physics2D.Raycast(muzzle.transform.position, muzzle.transform.up, range, shootableLayers);
+ //       float distanceToTarget = (target.transform.position - this.transform.position).sqrMagnitude;
 
-    private void UpdateTargetAcquisition(float speed)
-    {
-        targetAcquisition += Time.deltaTime * speed;
-        UpdateAimZone();
-    }
+ //       //Debug.DrawRay(transform.position, Vector2.up * range, Color.red);
+ //       if (target.collider != null)
+ //       {
+ //           if (targetAcquisition == 0)
+ //           {
+ //               aimZoneObject.SetActive(true);
+ //           }
+ //           UpdateTargetAcquisition(targetAcquisitionSpeed);
+ //           if (targetAcquisition >= 1f)
+ //           {
+ //               Shoot();
+ //           }
+ //       }
+ //       else if (targetAcquisition > 0)
+ //       {
+ //           UpdateTargetAcquisition(-targetAcquisitionSpeed * 2f);
+ //           if (targetAcquisition < 0)
+ //           {
+ //               targetAcquisition = 0f;
+ //               aimZoneObject.SetActive(false);
+ //           }
+ //       }
+ //   }
 
-    private void Shoot()
+ //   private void UpdateTargetAcquisition(float speed)
+ //   {
+ //       targetAcquisition += Time.deltaTime * speed;
+ //       UpdateAimZone();
+ //   }
+
+    public void Shoot()
     {
         FirePellets();
         StopCoroutine(CleanUpPelletsAfterSeconds(2f));
@@ -71,12 +78,14 @@ public class ShotgunController : MonoBehaviour {
         aimZoneObject.SetActive(false);
         targetAcquisition = 0f;
         powerupHandler.OnShotFired();
+        animator.SetTrigger("Shoot");
+        SoundController.instance.PlayShotgunFire();
     }
 
-    private void UpdateAimZone()
-    {
-        aimZone.localScale = Vector3.Lerp(aimZoneStartScale, aimZoneFinalScale, targetAcquisition);
-    }
+    //private void UpdateAimZone()
+    //{
+    //    aimZone.localScale = Vector3.Lerp(aimZoneStartScale, aimZoneFinalScale, targetAcquisition);
+    //}
 
     private void FirePellets()
     {
@@ -118,7 +127,7 @@ public class ShotgunController : MonoBehaviour {
         {
             pellets[i].SetActive(false);
         }
-        SwithOffIfNoMoreAmmo(); //No need to aim if can't shoot
+        //SwithOffIfNoMoreAmmo(); //No need to aim if can't shoot
     }
 
     private void SwithOffIfNoMoreAmmo()
@@ -127,6 +136,16 @@ public class ShotgunController : MonoBehaviour {
         {
             this.enabled = false;
         }
+    }
+
+    public void AimAtPosition(Vector3 position)
+    {
+        float angle = Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg;
+        Debug.Log(angle);
+        //Quaternion before = shotgunTransform.rotation;
+        shotgunTransform.Rotate(new Vector3(0, 0, angle)); //Utilities.RotationFromUpToVector(shotgunTransform.InverseTransformPoint(position));
+        //Debug.DrawLine(shotgunTransform.position, shotgunTransform.position + Vector3.up * 4, Color.red);
+        //Debug.Log(before + ", "  + shotgunTransform.rotation);
     }
 
 

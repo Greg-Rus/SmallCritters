@@ -6,11 +6,11 @@ public class CameraVerticalFollow : MonoBehaviour {
 	private Vector3 newCameraPosition;
     public float smoothTime = 0.3f;
     private Vector3 velocity = Vector3.zero;
-
+    private float cameraXpoistion;
     // Use this for initialization
     void Start () {
 
-
+        cameraXpoistion = this.transform.position.x;
     }
 	
 	// Update is called once per frame
@@ -37,15 +37,19 @@ public class CameraVerticalFollow : MonoBehaviour {
     }
     private IEnumerator UpdateCameraShakes()
     {
-        float OriginalCameraPostionX = this.transform.position.x;
+        //float OriginalCameraPostionX = this.transform.position.x;
         float offset = 0.1f;
         for (int i = 0; i < 10; ++i)
         {
-            newCameraPosition.x = OriginalCameraPostionX + offset;
+            newCameraPosition.x = cameraXpoistion + offset;
             newCameraPosition.y = frog.transform.position.y + offset;
             transform.position = newCameraPosition;
             offset = -offset;
             yield return null;
         }
+        newCameraPosition.x = cameraXpoistion;
+        newCameraPosition.y = frog.transform.position.y;
+        transform.position = newCameraPosition;
+
     }
 }

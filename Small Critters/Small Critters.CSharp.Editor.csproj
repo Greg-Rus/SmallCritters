@@ -114,6 +114,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\AnimationHierarchyEditor.cs" />
     <Compile Include="Assets\Editor\DifficultyParameterDrawer.cs" />
     <Compile Include="Assets\Editor\LevelConstructionTests.cs" />
     <Compile Include="Assets\Editor\MockClasses.cs" />

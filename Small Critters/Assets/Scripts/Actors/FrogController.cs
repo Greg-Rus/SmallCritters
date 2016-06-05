@@ -73,6 +73,7 @@ public class FrogController : MonoBehaviour {
 		movementScript = GetComponent<Imovement>();
 		inputScript = GetComponent<FrogInputHandler>();
         OnFrogDeath += particleSystemHandler.OnDeath;
+        mainCamera = Camera.main.GetComponent<CameraVerticalFollow>();
         
         //myGameController = GetComponent<GameController>();
     }
