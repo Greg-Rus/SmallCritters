@@ -19,6 +19,7 @@ public class FrogController : MonoBehaviour {
     private bool invulnerable = false;
     public CostumeSwitcher TroubleshooterCostume;
     public CameraVerticalFollow mainCamera;
+    public float HPprogressPerFly = 0.1f;
         
 
     // Use this for initialization
@@ -35,7 +36,8 @@ public class FrogController : MonoBehaviour {
         if (coll.collider.CompareTag("Food"))
         {
             myAnimator.SetTrigger("Lick");
-            if (HP < 1f) HP += 0.2f;
+            if (HP < 1f) HP += HPprogressPerFly; //TODO parametrize this 
+            if (HP > 1f) HP = 1f;
             OnFoodPickup(HP);
         }
         //if (coll.collider.CompareTag("Star"))

@@ -26,9 +26,17 @@ public class SpritesFader : MonoBehaviour {
         OnSequenceFinished = callback;
         fadeCyclesElapsed = 0;
         fadeDirection = -1f;
+        SaveCurrentSpriteColors();
         StartCoroutine(FadeSequence());
     }
-
+    private void SaveCurrentSpriteColors()
+    {
+        //Save colors;
+    }
+    private void ResoreSpriteColors()
+    {
+        //restore colors;
+    }
     IEnumerator FadeSequence()
     {
         while (fadeCyclesElapsed != maxFadeCycles)
@@ -41,7 +49,8 @@ public class SpritesFader : MonoBehaviour {
 
     private void FinishSequence()
     {
-        SetColorToAllSprites(new Color(1f,1f,1f,1f));
+        ResoreSpriteColors();
+        SetColorToAllSprites(new Color(1f,1f,1f,1f)); //TODO: remove this. Use RestoreSpriteColors();
         OnSequenceFinished();
     }
 

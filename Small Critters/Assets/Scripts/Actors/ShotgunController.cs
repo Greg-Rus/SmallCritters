@@ -117,6 +117,8 @@ public class ShotgunController : MonoBehaviour {
             pelletTrailRenderers[i] = pellets[i].GetComponent<TrailRenderer>();
             pelletRigidbodies[i] = pellets[i].GetComponent<Rigidbody2D>();
             pelletTransforms[i] = pellets[i].transform;
+            pelletTrailRenderers[i].sortingOrder = 50;
+            pelletTrailRenderers[i].sortingLayerName = "Frog";
         }
     }
 
@@ -140,10 +142,16 @@ public class ShotgunController : MonoBehaviour {
 
     public void AimAtPosition(Vector3 position)
     {
-        float angle = Mathf.Atan2(position.y, position.x) * Mathf.Rad2Deg;
-        Debug.Log(angle);
+        Vector3 vectorToPosition = (position - shotgunTransform.transform.position).normalized;//shotgunTransform.InverseTransformVector(position).normalized;
+        float rot_z = Mathf.Atan2(vectorToPosition.y, vectorToPosition.x) * Mathf.Rad2Deg;
+        shotgunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        //Vector3 localPosition = shotgunTransform.InverseTransformPoint(position);
+        //float angle = Mathf.Atan2(localPosition.y, localPosition.x) * Mathf.Rad2Deg;
+
+        //Debug.Log(angle);
+        //shotgunTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         //Quaternion before = shotgunTransform.rotation;
-        shotgunTransform.Rotate(new Vector3(0, 0, angle)); //Utilities.RotationFromUpToVector(shotgunTransform.InverseTransformPoint(position));
+        //shotgunTransform.Rotate(new Vector3(0, 0, angle)); //Utilities.RotationFromUpToVector(shotgunTransform.InverseTransformPoint(position));
         //Debug.DrawLine(shotgunTransform.position, shotgunTransform.position + Vector3.up * 4, Color.red);
         //Debug.Log(before + ", "  + shotgunTransform.rotation);
     }
