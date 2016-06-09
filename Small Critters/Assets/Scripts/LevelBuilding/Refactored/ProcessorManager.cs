@@ -4,38 +4,38 @@ using System;
 
 public class ProcessorManager : MonoBehaviour {
 	SpriteRenderer mySpriteRenderer;
-    Animator myAnimator;
+    //Animator myAnimator;
 	public ProcessorState state;
 	public float stateExitTime; //Time.timeSinceLevelLoad + some state timer
 	public float stateStayTimeCompletion; // 0.0-1.0 %
     private Action<GameObject> storeInPool;
-	//private ParticleSystem steamRing;
+	private ParticleSystem steamRing;
 	
 	// Use this for initialization
 	void Awake () {
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		gameObject.layer = 8;
-		//steamRing = GetComponent<ParticleSystem>();
-        myAnimator = GetComponent<Animator>();
+		steamRing = GetComponent<ParticleSystem>();
+        //myAnimator = GetComponent<Animator>();
 
     }
     void OnEnable()
     {
-        myAnimator.ResetTrigger("SteamStart");
-        myAnimator.ResetTrigger("SteamEnd");
-        myAnimator.SetTrigger("Reset");
-        if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-        {
-            Debug.LogError("Enabled Processor not Idle");
-        }
-        if (!myAnimator.isActiveAndEnabled)
-        {
-            Debug.LogError("Enabled Processor has inactive Animator");
-        }
-        if (myAnimator.IsInTransition(0))
-        {
-            Debug.LogError("Enabled Processor is in transition");
-        }
+        //myAnimator.ResetTrigger("SteamStart");
+       //myAnimator.ResetTrigger("SteamEnd");
+        //myAnimator.SetTrigger("Reset");
+        //if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        //{
+        //    Debug.LogError("Enabled Processor not Idle");
+        //}
+        //if (!myAnimator.isActiveAndEnabled)
+        //{
+        //    Debug.LogError("Enabled Processor has inactive Animator");
+        //}
+        //if (myAnimator.IsInTransition(0))
+        //{
+        //    Debug.LogError("Enabled Processor is in transition");
+        //}
     }
 
     public void TintProcessorSprite(Color startColor, Color targetColor, float percent)
@@ -49,23 +49,23 @@ public class ProcessorManager : MonoBehaviour {
 	public void SetHazadrousLayer()
 	{
 		gameObject.layer = 15;
-        //steamRing.Simulate(0f, false, true);
-        //steamRing.Play();
-        if (myAnimator.isActiveAndEnabled)
-        {
-            myAnimator.SetTrigger("SteamStart");
-        }
+        steamRing.Simulate(0f, false, true);
+        steamRing.Play();
+        //if (myAnimator.isActiveAndEnabled)
+        //{
+        //    myAnimator.SetTrigger("SteamStart");
+        //}
         //myAnimator.SetTrigger("SteamStart");
     }
 	public void SetSafeLayer()
 	{
-        //steamRing.Pause();
-        //steamRing.Clear();
-        //steamRing.Stop();
-        if (myAnimator.isActiveAndEnabled)
-        {
-            myAnimator.SetTrigger("SteamEnd");
-        }
+        steamRing.Pause();
+        steamRing.Clear();
+        steamRing.Stop();
+        //if (myAnimator.isActiveAndEnabled)
+        //{
+        //    myAnimator.SetTrigger("SteamEnd");
+        //}
         //myAnimator.SetTrigger("SteamEnd");
         gameObject.layer = 8;
     }

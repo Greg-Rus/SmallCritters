@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 
 public class SpritesFader : MonoBehaviour {
-    public Color newAlphaColor;
+    private Color newAlphaColor;
+
     public float fadeDirection;
     public float fadeSpeed;
     [Range(0,1)]
@@ -11,10 +12,12 @@ public class SpritesFader : MonoBehaviour {
     public int maxFadeCycles = 6;
     public int fadeCyclesElapsed =0;
     SpriteRenderer[] spriteRenderers;
+    Color[] originalColors;
     Action OnSequenceFinished;
     // Use this for initialization
     void Start () {
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        originalColors = new Color[spriteRenderers.Length];
         newAlphaColor = new Color(1f, 1f, 1f, 1f);
         //StartCoroutine(FadeSequence());
     }
@@ -31,11 +34,17 @@ public class SpritesFader : MonoBehaviour {
     }
     private void SaveCurrentSpriteColors()
     {
-        //Save colors;
+        for (int i = 0; i < spriteRenderers.Length; ++i)
+        {
+            originalColors[i] = spriteRenderers[i].color;
+        }
     }
     private void ResoreSpriteColors()
     {
-        //restore colors;
+        for (int i = 0; i < spriteRenderers.Length; ++i)
+        {
+            spriteRenderers[i].color = originalColors[i];
+        }
     }
     IEnumerator FadeSequence()
     {
@@ -50,7 +59,7 @@ public class SpritesFader : MonoBehaviour {
     private void FinishSequence()
     {
         ResoreSpriteColors();
-        SetColorToAllSprites(new Color(1f,1f,1f,1f)); //TODO: remove this. Use RestoreSpriteColors();
+        //SetColorToAllSprites(new Color(1f,1f,1f,1f)); //TODO: remove this. Use RestoreSpriteColors();
         OnSequenceFinished();
     }
 

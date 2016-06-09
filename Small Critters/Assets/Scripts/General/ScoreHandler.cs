@@ -73,16 +73,18 @@ public class ScoreHandler : MonoBehaviour {
             case "Fly":           starCount = flyScoreStarCount; break;
             case "FireBeetle":    starCount = fireBeetleScoreStarCount; break;
         }
-        int causeOfDeathMultiplier = 0;
+        float causeOfDeathMultiplier = 0;
         switch (causeOfDeath)
         {
             case "Blade":       causeOfDeathMultiplier = deathViaBlade; break;
             case "HeatVent":    causeOfDeathMultiplier = deathViaVent; break;
             case "Bee":         causeOfDeathMultiplier = deatchViaBee; break;
             case "Processor":   causeOfDeathMultiplier = deathViaProcessor; break;
+            case "ShotgunProjectile": causeOfDeathMultiplier = 0.5f; break;
             default:            causeOfDeathMultiplier = deathViaOther; break;
         }
-        int potentialScore = starValue * causeOfDeathMultiplier;
+        int potentialScore = (int)(starValue * causeOfDeathMultiplier);
+        if (potentialScore < 1) potentialScore = 1;
         SpawnStars(starCount, enemy.transform.position, potentialScore);
         
     }

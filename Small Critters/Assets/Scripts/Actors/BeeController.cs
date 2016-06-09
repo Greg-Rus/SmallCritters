@@ -29,6 +29,7 @@ public class BeeController : MonoBehaviour {
     public ScoreHandler scoreHandler;
     public DeathParticleSystemHandler particlesHandler;
 	private int elapsedUpdates = 0;
+    private bool alive = false;
     //public GameObject deathByForceParticles;
     //public GameObject deathByFireParticles;
 
@@ -46,7 +47,8 @@ public class BeeController : MonoBehaviour {
 	void OnEnable() 
 	{
         //myAnimator.Rebind();
-		currentAction = StayIdle;
+        alive = true;
+        currentAction = StayIdle;
 		state = BeeState.Idle;
         gameObject.layer = groundedLayer; // layer 10 is Hero
         //SetAnimation("Idle");
@@ -72,7 +74,7 @@ public class BeeController : MonoBehaviour {
 		}
 		if (coll.collider.CompareTag("Hazard"))
 		{
-			Die (coll.collider.name);
+            Die (coll.collider.name);
 		}
         //Debug.Log(coll.collider.name);
 	}
@@ -87,14 +89,20 @@ public class BeeController : MonoBehaviour {
 
     private void Die(string causeOfDeath)
 	{
-        particlesHandler.OnDeath(causeOfDeath);
-        scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+        if(alive)
+        {
+            alive = false;
+            particlesHandler.OnDeath(causeOfDeath);
+            scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+            SetAnimation("Idle");
+            WaitUntillAnimatorResets();
+        }
+       
         //if (vectorToPlayer.sqrMagnitude <= (scoreHandler.scoringDistance * scoreHandler.scoringDistance))
         //{
         //    scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
         //}
-        SetAnimation("Idle");
-		WaitUntillAnimatorResets();
+        
         //gameObject.SetActive(false);
 	}
 
@@ -235,14 +243,14 @@ public class BeeController : MonoBehaviour {
 	{
 		++elapsedUpdates;
 		if (elapsedUpdates == 2) {
-			gameObject.SetActive (false);
+            gameObject.SetActive (false);
 		}
 	}
 	
 	public void Reset()
 	{
 		//transform.eulerAngles = Vector3.zero;
-        transform.rotation = Quaternion.identity;
+        //transform.rotation = Quaternion.identity;
 		currentAction = StayIdle;
 		state = BeeState.Idle;
 	}

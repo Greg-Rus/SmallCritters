@@ -10,6 +10,7 @@ public class PowerupHandler : MonoBehaviour {
 
     public UIHandler uiHandler;
     public CostumeSwitcher costumeSwitcher;
+    public FrogController frogController;
     public bool powerupModeOn = false;
 	// Use this for initialization
 	void Start () {
@@ -57,5 +58,11 @@ public class PowerupHandler : MonoBehaviour {
         uiHandler.PowerupMode(powerupModeOn);
         costumeSwitcher.TakeOffCostume();
         currentStarPoints = 0f;
+    }
+
+    public void SetBonus()
+    {
+        StartPowerupMode();
+        frogController.FillHP();
     }
 }

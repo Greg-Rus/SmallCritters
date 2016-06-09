@@ -33,6 +33,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     Vector3 target;
     int elapsedUpdates;
     string currentAnimation;
+    bool alive = true;
 
     // Use this for initialization
     void Start()
@@ -46,6 +47,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         state = FireBeetleState.Idle;
         currentAction = StayIdle;
         frog = null;
+        alive = true;
         myTransform.rotation = Quaternion.identity;
     }
 
@@ -100,9 +102,14 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     private void Die(string causeOfDeath)
     {
-        scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
-        deathParticles.OnDeath(causeOfDeath);
-        this.gameObject.SetActive(false);
+        if (alive)
+        {
+            alive = false;
+            scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+            deathParticles.OnDeath(causeOfDeath);
+            WaitUntillAnimatorResets();
+            //this.gameObject.SetActive(false);
+        }
     }
 
     public void PlayerDetected(GameObject player)
@@ -221,6 +228,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     }
     private void WaitUntillAnimatorResets()
     {
+        SetAnimation("Reset");
         elapsedUpdates = 0;
         currentAction = DisableAfterNextUpdate;
     }

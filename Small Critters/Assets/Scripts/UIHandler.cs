@@ -47,6 +47,7 @@ public class UIHandler : MonoBehaviour {
     public float inactivityTimeToMovementTutorial = 5f;
     public Text ammoCount;
     public Action<float> OnSwipeDirectionChange;
+    public GameObject bonusButton;
 
     // Use this for initialization
     void Start () {
@@ -55,6 +56,7 @@ public class UIHandler : MonoBehaviour {
         inputChecks += CheckForQuitButtonPress;
         inputChecks += CheckIdleTime;
         inputChecks += CheckIfStoppedIdling;
+        inputChecks += CheckForFirstRowReached;
         //scoreData = scoreHandler.scoreData;
         //Debug.Log(Application.persistentDataPath);
     }
@@ -67,6 +69,15 @@ public class UIHandler : MonoBehaviour {
         //    OnMenuQuitPrompt();
         //}
 	}
+
+    private void CheckForFirstRowReached()
+    {
+        if (scoreField.text != "")
+        {
+            inputChecks -= CheckForFirstRowReached;
+            DisableBonusButton();
+        }
+    }
 
     private void CheckIdleTime()
     {
@@ -121,15 +132,22 @@ public class UIHandler : MonoBehaviour {
             randomToggle.isOn = true;
             seededToggle.isOn = false;
         }
+
         if (PlayerPrefs.GetFloat("SwipeControlls") == 1)
         {
             swipeUpToggle.isOn = true;
             swipeDownToggle.isOn = false;
         }
-        else
+        else if (PlayerPrefs.GetFloat("SwipeControlls") == -1)
         {
             swipeUpToggle.isOn = false;
             swipeDownToggle.isOn = true;
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("SwipeControlls", 1);
+            swipeUpToggle.isOn = true;
+            swipeDownToggle.isOn = false;
         }
     }
 
@@ -389,6 +407,17 @@ public class UIHandler : MonoBehaviour {
         
         ammoCount.text = ammo.ToString();
         //Debug.Log(ammoCount.text);
+    }
+
+    public void OnBonusPress()
+    {
+        bonusButton.SetActive(false);
+        ServiceLocator.getService<PowerupHandler>().SetBonus();
+    }
+
+    private void DisableBonusButton()
+    {
+        bonusButton.SetActive(false);
     }
 
 

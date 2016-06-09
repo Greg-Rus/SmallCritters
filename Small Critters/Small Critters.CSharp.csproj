@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\GameObjectPoolManager.cs" />
     <Compile Include="Assets\Scripts\General\BuilderWeight.cs" />
+    <Compile Include="Assets\Scripts\General\CleanSlateStartup.cs" />
     <Compile Include="Assets\Scripts\General\GameFramework.cs" />
     <Compile Include="Assets\Scripts\General\HighScoreButtonState.cs" />
     <Compile Include="Assets\Scripts\General\MainGameController.cs" />

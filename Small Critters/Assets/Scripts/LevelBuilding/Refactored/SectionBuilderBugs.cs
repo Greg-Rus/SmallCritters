@@ -19,7 +19,7 @@ public class SectionBuilderBugs : ISectionBuilder
     List<Vector2> flyPositions;
     List<Vector2> beePositions;
     List<Vector2> beetlePositions;
-                               //Fly,Bee,Beetle
+                                                  //Fly,Bee,Beetle
     private int[][] bugCountsPerDecyl = { new int[] { 5, 1, 0 },
                                           new int[] { 5, 2, 0 },
                                           new int[] { 4, 1, 1 },
@@ -170,10 +170,11 @@ public class SectionBuilderBugs : ISectionBuilder
         GameObject newBug = poolManager.retrieveObject(bugName);
         Vector3 newBugPosition = new Vector3(xCoordinate, levelData.levelTop, 0f);
         newBug.transform.position = newBugPosition;
-        if (xCoordinate > levelData.levelWidth * 0.5f)
-        {
-            newBug.transform.Rotate(new Vector3(0f, 0f, 180f)); // Bee faces right by default
-        }
+        newBug.transform.Rotate(new Vector3(0f, 0f, RandomLogger.GetRandomRange(0, 360)));
+        //if (xCoordinate > levelData.levelWidth * 0.5f)
+        //{
+        //    newBug.transform.Rotate(new Vector3(0f, 0f, 180f)); // Bee faces right by default
+        //}
         currentRow.Add(newBug);
         return newBug;
     }

@@ -13,8 +13,8 @@ public class FrogController : MonoBehaviour {
     public Animator myAnimator;
     public SpritesFader frogFader;
     public float HP = 0;
-    public float powerupProgress = 0f;
-    public float powerupProgressPerStar = 0.2f;
+    //public float powerupProgress = 0f;
+    //public float powerupProgressPerStar = 0.2f;
     public float troubleshooterDuration = 1;
     private bool invulnerable = false;
     public CostumeSwitcher TroubleshooterCostume;
@@ -36,7 +36,7 @@ public class FrogController : MonoBehaviour {
         if (coll.collider.CompareTag("Food"))
         {
             myAnimator.SetTrigger("Lick");
-            if (HP < 1f) HP += HPprogressPerFly; //TODO parametrize this 
+            if (HP < 1f) HP += HPprogressPerFly;
             if (HP > 1f) HP = 1f;
             OnFoodPickup(HP);
         }
@@ -87,6 +87,10 @@ public class FrogController : MonoBehaviour {
         {
             Die(hitSource);
         }
+        else if (hitSource == "ColdFog")
+        {
+            Die(hitSource);
+        }
         else
         {
             OnFoodPickup(HP);
@@ -113,6 +117,12 @@ public class FrogController : MonoBehaviour {
         //myGameController.onFrogDeath();
         //OnFrogDeath();
 
+    }
+
+    public void FillHP()
+    {
+        HP = 1f;
+        OnFoodPickup(HP);
     }
 
 }

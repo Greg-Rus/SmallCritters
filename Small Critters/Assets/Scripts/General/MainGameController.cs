@@ -170,7 +170,6 @@ public class MainGameController : MonoBehaviour {
 		frog = Instantiate(frogAsset, new Vector3 (gameFramework.levelData.levelWidth * 0.5f, -1f, 0f), Quaternion.identity) as GameObject;
 		FrogMovementPhysics frogMovementScript = frog.GetComponent<FrogMovementPhysics>();
 		frogMovementScript.NewHighestRowReached += NewRowReached;
-        powerupHandler.costumeSwitcher = frog.GetComponent<CostumeSwitcher>();
         //frog.GetComponentInChildren<ShotgunController>().powerupHandler = powerupHandler;
         FrogController controller = frog.GetComponent<FrogController>();
         //controller.FrogDeath += HandleFrogDeath;
@@ -178,6 +177,8 @@ public class MainGameController : MonoBehaviour {
         controller.OnFrogDeath += HandleFrogDeath;
         controller.OnFrogDeath += scoreHandler.RunEnd;
         controller.OnFoodPickup += uiHandler.UpdateHearts;
+        powerupHandler.costumeSwitcher = frog.GetComponent<CostumeSwitcher>();
+        powerupHandler.frogController = controller;
         uiHandler.OnSwipeDirectionChange = frog.GetComponent<FrogInputHandler>().SwipeDirectionChange;
         Camera.main.GetComponent<CameraVerticalFollow>().frog = frog;
 	}
