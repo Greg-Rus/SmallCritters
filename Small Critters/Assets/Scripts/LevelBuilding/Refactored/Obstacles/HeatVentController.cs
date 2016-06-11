@@ -3,7 +3,6 @@ using System.Collections;
 
 public class HeatVentController : MonoBehaviour {
 
-	
 	public GameObject lightShaft;
 	public GameObject lightTip;
 	public GameObject ventDoor;
@@ -12,7 +11,6 @@ public class HeatVentController : MonoBehaviour {
     public Sprite leftExternalWallSprite;
     public Sprite rightExternalWallSprite;
 	public float length = 4.5f;
-	//public Vector3 direction = Vector3.right;
 	public float minFlickerSpeed = 5f;
 	public float maxFlickerSpeed = 10f;
 	public ParticleSystem flame;
@@ -53,9 +51,6 @@ public class HeatVentController : MonoBehaviour {
 	public HeatVentState state = HeatVentState.Start;
 	private HeatVentFSM fsm;
 
-	
-	
-	// Use this for initialization
 	void Awake () {
 		lightTipHalfWidth = lightTip.GetComponent<SpriteRenderer>().bounds.size.x * 0.5f;
         cautionDecalTransform = cautionArrowDecal.transform;
@@ -67,7 +62,7 @@ public class HeatVentController : MonoBehaviour {
 		
 		fsm = new HeatVentFSM();
 	}
-        // Update is called once per frame
+
     void Update ()
     {
 		fsm.UpdateVentingPhase(this);
@@ -90,7 +85,6 @@ public class HeatVentController : MonoBehaviour {
             externalWalls.sprite = rightExternalWallSprite;
             cautionArrowDecal.sprite = rightArrow;
         }
-        //tipStartPosition = lightTip.transform.localPosition;
     }
 	
 	public void UpdateVentigState()
@@ -157,7 +151,6 @@ public class HeatVentController : MonoBehaviour {
 		float completionPercent = GetStateCompletionPercent();
 		float ventDoorX = Mathf.Lerp(-3.75f, -4f, completionPercent);
 		Vector3 newVentDoorPosition = new Vector3(ventDoorX,0f,0f);
-		//Debug.Log (completionPercent);
 		ventDoor.transform.localPosition = newVentDoorPosition;
 		
 		float newlightShaftLength = Mathf.Lerp(0f, length, completionPercent);
@@ -183,10 +176,8 @@ public class HeatVentController : MonoBehaviour {
 		UpdateVentHeatAura(length);
 	}
 
-	public void ExpandKillArea() //Not entirely happy with this, but the alternative is to equip all particle with colliders.
+	public void ExpandKillArea()
 	{
-		//Vector2 colliderSize = killArea.size;
-
 		if(killArea.size.x < length)
 		{
 			Vector2 newKillAreaSize = new Vector2(killArea.size.x +  Time.deltaTime * flame.startSpeed * 1f, 1f); //Sadly the exact velocity of the particle is not exposed in the API. 0.7 is the current best guesstimate
@@ -196,9 +187,8 @@ public class HeatVentController : MonoBehaviour {
 		}
 	}
 	
-	public void ShrinkKillArea() //Not entirely happy with this, but the alternative is to equip all particle with colliders.
+	public void ShrinkKillArea()
 	{
-		Vector2 colliderSize = killArea.size;
 		if(killArea.size.x > 1f)
 		{
 			float areaDelta = Time.deltaTime * flame.startSpeed * 1f;
@@ -223,7 +213,6 @@ public class HeatVentController : MonoBehaviour {
 	
 	public void SetHazadrousLayer()
 	{
-		//gameObject.layer = 15;
 		flame.Play();
 		killArea.size = new Vector2(1f,1f);
 		killArea.offset = new Vector2(0f,0f);
@@ -231,7 +220,6 @@ public class HeatVentController : MonoBehaviour {
 	}
 	public void SetSafeLayer()
 	{
-		//gameObject.layer = 8;
 		flame.Stop();
 	}
 }

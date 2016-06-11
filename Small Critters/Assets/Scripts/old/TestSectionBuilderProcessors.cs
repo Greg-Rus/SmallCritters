@@ -11,11 +11,9 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 	public DifficultyManager difficultyManager;
 	public bool firstSectionOK;
 	public bool SecondSectionOK;
-	private ServiceLocator services;
-	// Use this for initialization
+
 	void Start () {
-		services = new ServiceLocator ();
-		//ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
+		new ServiceLocator ();
 		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
 		difficultyManager.levelData = levelData;
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
@@ -42,11 +40,10 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 		}
 		
 		levelData.newSectionStart = 7;
-		//levelData.newSectionEnd = 10;
 		levelData.newSectionEnd = 17;
 		levelData.levelTop = 6;
 		
-		for(int i = 0; i < 11; ++i)//4; ++i)
+		for(int i = 0; i < 11; ++i)
 		{
 			testBuilder.buildNewRow(testRow);	
 			levelData.levelTop += 1;
@@ -60,11 +57,5 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 		{
 			SecondSectionOK = false;
 		}
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

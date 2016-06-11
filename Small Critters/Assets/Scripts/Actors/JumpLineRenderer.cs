@@ -3,7 +3,6 @@ using System.Collections;
 
 public class JumpLineRenderer : MonoBehaviour {
 	private LineRenderer lineRenderer;
-	//public GameObject jumpMarkerPrefab;
 	public GameObject jumpMarker;
 	private RaycastHit2D hit;
 	private JumpMarkerSensor jumpMarkerSensor;
@@ -15,24 +14,20 @@ public class JumpLineRenderer : MonoBehaviour {
     public SpriteRenderer markerRenderer;
     private bool targetSpriteActive;
     private ShotgunController shotgun;
-	// Use this for initialization
+
 	void Awake()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
 		lineRenderer.sortingOrder = 50;
 		jumpMarkerSensor = GetComponentInChildren<JumpMarkerSensor>();
 		jumpPathSensor = GetComponentInChildren<JumpPathSensor>();
-        //markerRenderer = jumpMarker.GetComponent<SpriteRenderer>();
         powerup = ServiceLocator.getService<PowerupHandler>();
         shotgun = GetComponentInChildren<ShotgunController>(true);
     }
 	void Start () {
-		//lineRenderer = GetComponent<LineRenderer>();
 		jumpMarker.SetActive(false);
-
     }
-	
-	// Update is called once per frame
+
 	public void setupJumpLine(Vector2 jumpStartPosition)
 	{
 		jumpMarker.SetActive(true);
@@ -58,14 +53,13 @@ public class JumpLineRenderer : MonoBehaviour {
                     ShowTargetSprite(true);
                 }
                 shotgun.AimAtPosition(jumpMarker.transform.position);
-
-
             }
             else if (!CanFireAtTarget(dragVector) && targetSpriteActive)
             {
                 ShowTargetSprite(false);
             }
         }
+
 		if(willDieIfJumps(dragVector))
 		{
 			lineRenderer.SetColors(Color.red,Color.red);
@@ -85,7 +79,6 @@ public class JumpLineRenderer : MonoBehaviour {
 	public bool willDieIfJumps(Vector3 dragVector)
 	{
 		bool result = jumpMarkerSensor.checkForHazardsInLandingZone() || jumpPathSensor.checkForHazardsInJumpPath(dragVector);
-		//Debug.Log ("Will die: " + result);
 		return result;
 	}
     public bool CanFireAtTarget(Vector3 dragVector)
@@ -106,5 +99,4 @@ public class JumpLineRenderer : MonoBehaviour {
             targetSpriteActive = false;
         }
     }
-	
 }

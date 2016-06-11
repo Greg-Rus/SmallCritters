@@ -53,15 +53,6 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
     }
     public bool IsBeePresent()
 	{
-        //Debug.Log ("End: " + gameController.levelData.newSectionEnd + "  Top: " + gameController.levelData.levelTop);
-        //if (gameController.levelData.newSectionEnd == gameController.levelData.levelTop+1)
-        //{
-        //	return true;
-        //} else 
-        //{
-        //	return RandomLogger.RollBelowPercent(this,Utilities.RoundToNearestOrderOfMagnitude(difficultyPercent, 0.1f, 0.1f));
-
-        //}
         return RandomLogger.RollBelowPercent(this, beeChance.current);
 	}
 }

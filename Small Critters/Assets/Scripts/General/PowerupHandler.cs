@@ -4,18 +4,12 @@ using System.Collections;
 public class PowerupHandler : MonoBehaviour {
     public float currentStarPoints = 0f;
     public float maxStarPoints;
-
     public int maxAmmo = 5;
     public int currentAmmo;
-
     public UIHandler uiHandler;
     public CostumeSwitcher costumeSwitcher;
     public FrogController frogController;
     public bool powerupModeOn = false;
-	// Use this for initialization
-	void Start () {
-
-    }
 
     public void UpdatePoints(float points)
     {
@@ -47,7 +41,6 @@ public class PowerupHandler : MonoBehaviour {
             costumeSwitcher.PutOnCostume();
         }
         currentStarPoints = 0;
-        //uiHandler.UpdatePowerup(currentStarPoints);
         currentAmmo += maxAmmo;
         uiHandler.UpdateAmmoCount(currentAmmo);
         

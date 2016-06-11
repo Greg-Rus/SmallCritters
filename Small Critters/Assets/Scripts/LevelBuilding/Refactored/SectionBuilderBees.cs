@@ -21,7 +21,7 @@ public class SectionBuilderBees : ISectionBuilder {
         type = SectionBuilderType.bees;
 		bee = Resources.Load("Bee") as GameObject;
         BeeController beeController = bee.GetComponent<BeeController>();
-        beeController.poolManager = poolManager;
+        //beeController.poolManager = poolManager;
         beeController.scoreHandler = scoreHandler;
 
         poolManager.addPool(bee, 20, 10);
@@ -60,7 +60,7 @@ public class SectionBuilderBees : ISectionBuilder {
 	{
 		BeeController newBeeController = bee.GetComponent<BeeController>();
 		newBeeController.Reset();
-		newBeeController.poolManager = poolManager;
+		//newBeeController.poolManager = poolManager;
 		newBeeController.chargeDistance = difficultyManager.GetChargeDistance();
 		newBeeController.chargeSpeed = difficultyManager.GetChargeSpeed();
 		newBeeController.chargeTime = difficultyManager.GetChargeTime();

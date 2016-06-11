@@ -9,7 +9,6 @@ public class DeathParticleSystemHandler : MonoBehaviour {
 
     public void OnDeath(string causeOfDeath)
     {
-        //Debug.Log(causeOfDeath);
         switch (causeOfDeath)
         {
             case "Flame" : SpawnParticleSystem(deathByFireParticles); break;
@@ -17,16 +16,6 @@ public class DeathParticleSystemHandler : MonoBehaviour {
             case "ColdFog": SpawnParticleSystem(deathByColdParticles); break;
             default: SpawnParticleSystem(deathByForceParticles); break;
         }
-
-        //if (causeOfDeath == "Flame" || causeOfDeath == "Processor")
-        //{
-        //    SpawnParticleSystem(deathByFireParticles);
-        //}
-        
-        //else
-        //{
-        //    SpawnParticleSystem(deathByForceParticles);
-        //}
     }
 
     private void SpawnParticleSystem(GameObject system)

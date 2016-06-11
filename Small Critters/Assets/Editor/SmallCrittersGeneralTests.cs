@@ -18,26 +18,24 @@ namespace UnityTest
 		GameObject dummyObject = new GameObject();
 		LevelData testLevelData;
 		SectionBuilderClear clearBuilder;
-		ServiceLocator serviceLocator;
 		mockDifficultyManager difficultyManager;
 		mockSectionDesigner mSectionBuilderHndl;
 		IRowCleanup rowCleaner;
 		
 		[SetUp] public void Init()
 		{
-			poolParent = new GameObject(); //.Instantiate(poolParent, Vector3.zero, Quaternion.identity) as GameObject;
+            new ServiceLocator();
+            poolParent = new GameObject();
 			poolManager = new GameObjectPoolManager(poolParent.transform);
 			blade = Resources.Load("Blade") as GameObject;
 			poolManager.addPool(blade, 100);
 			testLevelData= new LevelData();
 			clearBuilder = new SectionBuilderClear();
 			testLevelData.activeSectionBuilder = clearBuilder;
-			serviceLocator = new ServiceLocator();
 			difficultyManager = new mockDifficultyManager();
 			ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);
 			ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);
 			rowCleaner = new RowCleaner(poolManager);
-			//mSectionBuilderHndl = new mockSectionBuilderHndl(poolManager);
 		}
 	
 		[Test]
@@ -58,13 +56,8 @@ namespace UnityTest
 		{
 			List<GameObject> End = testLevelHandler.level.Peek();
 			Assert.True(ReferenceEquals(End,testLevelHandler.level.Peek()));
-			//End.Add(dummyObject);
 			testLevelHandler.buildNewRow();
 			Assert.True (ReferenceEquals( End , testLevelHandler.level.ToArray()[testLevelHandler.level.Count - 1]));
-			//Assert.False (testLevelHandler.level.Peek().Contains(dummyObject));
-			//Assert.True (testLevelHandler.level.ToArray()[testLevelHandler.level.Count - 1].Contains(dummyObject)); 
-			
-			
 		}
 		
 		[Test]
@@ -92,7 +85,6 @@ namespace UnityTest
 		public void SectionBuilderSelectorTest()
 		{
 			SectionBuilderSelector testSectionBuilderSelector = new SectionBuilderSelector(new mockSectionBuilderConfigurator(), testLevelData);
-			//Assert.True(testLevelData.activeSectionBuilder == null);
 			testSectionBuilderSelector.addSectionBuilder(clearBuilder);
 			testSectionBuilderSelector.addSectionBuilder(new mockSectionBuilder());
 			testSectionBuilderSelector.selectNewSectionBuilder();
@@ -105,7 +97,6 @@ namespace UnityTest
 			testLevelData.activeSectionBuilder = new mockSectionBuilder();
 			SectionBuilderConfigurator testSBConfigurator = new SectionBuilderConfigurator(testLevelData);
 			Assert.True(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
-
 			testSBConfigurator.configureSectionBuilder();
 			Assert.False(testLevelData.newSectionEnd == 0 && testLevelData.newSectionStart == 0);
 		}
@@ -119,15 +110,11 @@ namespace UnityTest
 			Assert.True(Utilities.RoundToNearestOrderOfMagnitude(0.98f,0.1f) == 1f);
 			Assert.True(Utilities.RoundToNearestOrderOfMagnitude(0.036f,0.01f) == 0.04f);
 		}
-		
-		
-		
+
 		[TearDown] public void Dispose()
 		{
 			GameObject.DestroyImmediate(poolParent);
 			GameObject.DestroyImmediate(dummyObject);
 		}
-		
 	}
-	
 }

@@ -7,6 +7,8 @@ public class HeatVentDifficultyManager : MonoBehaviour, IHeatVentSectionDifficul
 	public DifficultyParameter heatVentSectionLength;
 	public DifficultyParameter heatVentLenght;
 	public DifficultyParameter emptyRowChance;
+    public DifficultyParameter closedTimeVariation;
+    public DifficultyParameter ventingTimeVariation;
 	
 	public float heatVentClosedTime = 1f;
 	public float heatVentOpeningTime = 0.4f;
@@ -26,12 +28,11 @@ public class HeatVentDifficultyManager : MonoBehaviour, IHeatVentSectionDifficul
 	
 	public float[] GetHeatVentFSMTimers()
 	{
-		
 		float[] timers = new float[]{
-			heatVentClosedTime + RandomLogger.GetRandomRange(this,-0.5f, 2f), 
+			heatVentClosedTime + RandomLogger.GetRandomRange(this, closedTimeVariation.min, closedTimeVariation.max), 
 			heatVentOpeningTime, 
 			heatVentWarmingUpTime, 
-			heatVentVentingTime + RandomLogger.GetRandomRange(this,-1f, 1.5f), 
+			heatVentVentingTime + RandomLogger.GetRandomRange(this, ventingTimeVariation.min, ventingTimeVariation.max), 
 			heatVentClosingTime};
 		return timers;
 	}
@@ -66,5 +67,4 @@ public class HeatVentDifficultyManager : MonoBehaviour, IHeatVentSectionDifficul
 		heatVentLenght.scaleCurrent(difficultyPercent);
 		emptyRowChance.scaleCurrent(difficultyPercent);
 	}
-
 }

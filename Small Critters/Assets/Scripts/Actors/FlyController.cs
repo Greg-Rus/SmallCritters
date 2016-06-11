@@ -12,8 +12,6 @@ public class FlyController : MonoBehaviour {
     private Vector3 vectorToDestination;
     private Vector3 heading;
 
-	
-	// Update is called once per frame
 	void Update ()
     {
         GoToDestination();
@@ -21,8 +19,6 @@ public class FlyController : MonoBehaviour {
 
     public void SelectDestination()
     {
-        //destination.x = RandomLogger.GetRandomRange(this, flyZoneBottomLeft.x, flyZoneTopRight.x);
-        //destination.y = RandomLogger.GetRandomRange(this, flyZoneBottomLeft.y, flyZoneTopRight.y);
         destination.x = UnityEngine.Random.Range(flyZoneBottomLeft.x, flyZoneTopRight.x);
         destination.y = UnityEngine.Random.Range(flyZoneBottomLeft.y, flyZoneTopRight.y);
     }
@@ -62,7 +58,6 @@ public class FlyController : MonoBehaviour {
 
     private void Die(string causeOfDeath)
     {
-        //Debug.Log("Fly killed by: " + causeOfDeath);
         scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
         this.gameObject.SetActive(false);
     }

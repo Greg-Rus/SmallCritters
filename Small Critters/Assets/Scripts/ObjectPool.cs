@@ -60,6 +60,5 @@ public class ObjectPool {
             inactivePool[i] = newObject;
 		}
 		quantity = quantity + expandAmount;
-		//Debug.Log("Pool of " + type.name + " expanded to " + quantity);
 	}
 }

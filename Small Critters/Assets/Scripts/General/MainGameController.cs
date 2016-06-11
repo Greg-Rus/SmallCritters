@@ -21,42 +21,21 @@ public class MainGameController : MonoBehaviour {
     public TextAsset adjectives;
     public Text LevelNameLabel;
     public int daysToRemindMovementTutorial;
-   // public static MainGameController instance;
-    // Use this for initialization
+
     void Awake()
     {
         Application.targetFrameRate = 60;
         Screen.fullScreen = false;
-        //DontDestroyOnLoad(transform.gameObject);
-        //if (instance == null)
-        //{
-        //    instance = this;
-        //}
-        //else if(instance != this)
-        //{
-        //    Destroy(gameObject);
-        //}
-
     }
 
 	void Start () {
-        //PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
-        //PlayerPrefs.DeleteKey("LastGameDay");
-        //PlayerPrefs.SetInt("LastGameYear", System.DateTime.Today.Year);
-        //Debug.Log(Application.persistentDataPath);
-        //PlayerPrefs.DeleteAll();
-        //levelData = new LevelData();
-        //difficultyManager = GetComponentInChildren<DifficultyManager>();
         difficultyManager.levelData = levelData;
-        //gameFramework = new GameFramework(levelData, difficultyManager, arenaBuilder);
-
         SetupGameFramework();
         levelHandler = gameFramework.BuildGameFramework();
         AddMonoBehaviourServices();
         StartNewGame();
 		BuildInitialLevel();
         DisplayTutorial();
-        
     }
 
     private void AddMonoBehaviourServices()
@@ -78,10 +57,6 @@ public class MainGameController : MonoBehaviour {
         }
     }
 
-    //void Update()
-    //{
-    //    Time.timeScale = timescale;
-    //}
     private void SetupGameFramework()
     {
         gameFramework = new GameFramework();
@@ -94,32 +69,14 @@ public class MainGameController : MonoBehaviour {
 		
 	private void StartNewGame()
 	{
-		ResetGame();
-        //SeedRNG();
         SeedRandomLogger();
 		PlaceFrog();
 		if(difficultyManager.fogEnabled)
 		{
 			PlaceColdFogWall();
 		}
-		
 	}
 
-    private void SeedRNG()
-    {
-        seed = PlayerPrefs.GetString("Seed");
-        //Debug.Log("On Start PlayerPrefs seed: " + seed);
-        if (seed == "")
-        {
-            //seed = RandomLogger.GetRandomRange(this,0, 9999999).ToString();
-            seed = GetRandomWord(adjectives.text, 929) + " " + GetRandomWord(nouns.text, 5449);
-           //Debug.Log("New random seed: " + seed);
-        }
-        
-        UnityEngine.Random.seed = seed.GetHashCode();
-        LevelNameLabel.text = seed;
-        //Debug.Log("New random seed: " + seed);
-    }
     private void SeedRandomLogger()
     {
         seed = PlayerPrefs.GetString("Seed");
@@ -128,7 +85,6 @@ public class MainGameController : MonoBehaviour {
             seed = GetRandomWord(adjectives.text, 929) + " " + GetRandomWord(nouns.text, 5449);
         }
         RandomLogger.SeedRNG(seed);
-        //UnityEngine.Random.seed = seed.GetHashCode();
         LevelNameLabel.text = seed;
     }
 
@@ -144,36 +100,24 @@ public class MainGameController : MonoBehaviour {
             word = reader.ReadLine();
         }
         while (word != null && currentLine < targetLine);
-
         return char.ToUpper(word[0]) + word.Substring(1); ;
     }
 	
 	private void BuildInitialLevel() 
 	{
-		
 		for (int i = 0; i < levelData.levelLength; ++i)
 		{
 			levelHandler.buildNewRow();
 		}
 	}
 	
-	private void ResetGame()
-	{
-		
-	}
-	
 	private void PlaceFrog()
 	{
-        //UnityEngine.Object frogAsset = Resources.Load("Frog"); // as GameObject;
-        
         UnityEngine.Object frogAsset = Resources.Load("FrogCharacter");
 		frog = Instantiate(frogAsset, new Vector3 (gameFramework.levelData.levelWidth * 0.5f, -1f, 0f), Quaternion.identity) as GameObject;
 		FrogMovementPhysics frogMovementScript = frog.GetComponent<FrogMovementPhysics>();
 		frogMovementScript.NewHighestRowReached += NewRowReached;
-        //frog.GetComponentInChildren<ShotgunController>().powerupHandler = powerupHandler;
         FrogController controller = frog.GetComponent<FrogController>();
-        //controller.FrogDeath += HandleFrogDeath;
-        //controller.FrogDeath += scoreHandler.RunEnd;
         controller.OnFrogDeath += HandleFrogDeath;
         controller.OnFrogDeath += scoreHandler.RunEnd;
         controller.OnFoodPickup += uiHandler.UpdateHearts;
@@ -182,11 +126,6 @@ public class MainGameController : MonoBehaviour {
         uiHandler.OnSwipeDirectionChange = frog.GetComponent<FrogInputHandler>().SwipeDirectionChange;
         Camera.main.GetComponent<CameraVerticalFollow>().frog = frog;
 	}
-
-    //void HandleFrogDeath (object sender, EventArgs e)
-    //{
-    //	StartCoroutine(restartLevelAterSeconds(1));
-    //}
 
     void HandleFrogDeath(string causeOfDeath)
     {
@@ -202,16 +141,12 @@ public class MainGameController : MonoBehaviour {
         ColdFogController controller = coldFog.GetComponent<ColdFogController>() as ColdFogController;
         controller.frog = frog;
         controller.levelData = levelData;
-
     }
 	
 	IEnumerator restartLevelAterSeconds(float seconds) 
 	{
 		yield return new WaitForSeconds(seconds);
-        //Application.LoadLevel(0);
-        //RandomLogger.SaveAndClose();
         RestartGame();
-
     }
 
     public void RestartGame()
@@ -225,7 +160,7 @@ public class MainGameController : MonoBehaviour {
 		for(int i = 0; i < rowsToBuild; ++i)
 		{
 			levelHandler.buildNewRow();
-            StartCoroutine("WaitForNextUpdate");
+            StartCoroutine(WaitForNextUpdate());
 
         }
 		difficultyManager.HighestRowReached = newRowReachedEventArgs.newRowReached;

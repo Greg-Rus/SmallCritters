@@ -44,20 +44,4 @@ public class BladeSectionDifficultyManager : MonoBehaviour , IBladeSectionDiffic
 			emptyRowChance.scaleCurrent(difficultyPercent);
 		}
 	}
-	
-	public void OnUIUpdate()
-	{
-		UpdateDifficultyParam(bladeSpeed, "BladeSpeedPanel");
-		UpdateDifficultyParam(bladeSectionLength, "BladeSectionLenght");
-		UpdateDifficultyParam(bladeGap, "BladeGap");
-		UpdateDifficultyParam(emptyRowChance, "EmptyRow");
-	}
-	
-	private void UpdateDifficultyParam(DifficultyParameter param, string UIName)
-	{
-		Transform UIelement;
-		UIelement = BladePanel.Find(UIName);
-		float.TryParse(UIelement.Find("Init").GetComponent<InputField>().text, out param.min);
-		float.TryParse(UIelement.Find("Ult").GetComponent<InputField>().text, out param.max);
-	}
 }

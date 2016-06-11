@@ -5,7 +5,7 @@ using System;
 public class SpritesFader : MonoBehaviour {
     private Color newAlphaColor;
 
-    public float fadeDirection;
+    public Trend fadeDirection;
     public float fadeSpeed;
     [Range(0,1)]
     public float minAlpha;
@@ -14,21 +14,18 @@ public class SpritesFader : MonoBehaviour {
     SpriteRenderer[] spriteRenderers;
     Color[] originalColors;
     Action OnSequenceFinished;
-    // Use this for initialization
+
     void Start () {
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
         originalColors = new Color[spriteRenderers.Length];
-        newAlphaColor = new Color(1f, 1f, 1f, 1f);
-        //StartCoroutine(FadeSequence());
+        newAlphaColor = Color.white;
     }
-	
-
 
     public void StartFadeSequence(Action callback)
     {
         OnSequenceFinished = callback;
         fadeCyclesElapsed = 0;
-        fadeDirection = -1f;
+        fadeDirection = Trend.Falling;
         SaveCurrentSpriteColors();
         StartCoroutine(FadeSequence());
     }
@@ -59,7 +56,6 @@ public class SpritesFader : MonoBehaviour {
     private void FinishSequence()
     {
         ResoreSpriteColors();
-        //SetColorToAllSprites(new Color(1f,1f,1f,1f)); //TODO: remove this. Use RestoreSpriteColors();
         OnSequenceFinished();
     }
 
@@ -72,22 +68,20 @@ public class SpritesFader : MonoBehaviour {
 
     private void CheckIfMaxAlphaReached()
     {
-        if (fadeDirection > 0 && newAlphaColor.a >= 1f)
+        if (fadeDirection == Trend.Rising && newAlphaColor.a >= 1f)
         {
-            fadeDirection = -fadeDirection;
+            fadeDirection = Trend.Falling;
             ++fadeCyclesElapsed;
         }
-        else if (fadeDirection < 0 && newAlphaColor.a <= minAlpha)
+        else if (fadeDirection == Trend.Falling && newAlphaColor.a <= minAlpha)
         {
-            fadeDirection *= fadeDirection;
-            
+            fadeDirection = Trend.Rising;
         }
     }
 
-
     private void CalculateNewColor()
     {
-        newAlphaColor.a += Time.deltaTime * fadeSpeed * fadeDirection;
+        newAlphaColor.a += Time.deltaTime * fadeSpeed * (float)fadeDirection;
     }
 
     private void SetColorToAllSprites(Color color)

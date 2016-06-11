@@ -16,7 +16,6 @@ public class RepeatedSideMovement : MonoBehaviour {
         parentOffset = parentTransform.position - myTransform.position;
     }
 	
-	// Update is called once per frame
 	void Update () {
         SetOffsetByLerping();
         UpdateLerpTime();

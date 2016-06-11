@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class JumpPathSensor : MonoBehaviour {
-	//private int hazardInTrigger = 0;
 	private BoxCollider2D jumpPathCollider;
 	public LayerMask hazardousLayer;
 	
@@ -14,7 +13,7 @@ public class JumpPathSensor : MonoBehaviour {
     public bool checkForHazardsInJumpPath(Vector3 direction)
 	{
 		resizeJumpPathCollider(direction);
-		return jumpPathCollider.IsTouchingLayers();//isTouchingHazard();
+		return jumpPathCollider.IsTouchingLayers();
 	}
 	
 	private void resizeJumpPathCollider(Vector3 direction)
@@ -27,5 +26,4 @@ public class JumpPathSensor : MonoBehaviour {
 		newJumpPathColliderSize.y = direction.magnitude;
 		jumpPathCollider.size = newJumpPathColliderSize;
 	}
-	
 }

@@ -14,7 +14,7 @@ public class JumpMarkerSensor : MonoBehaviour {
 
     public bool checkForHazardsInLandingZone()
 	{
-		return myTrigger.IsTouchingLayers(hazardousLayer);//isTouchingHazard();
+		return myTrigger.IsTouchingLayers(hazardousLayer);
 	}
     public bool CheckForTargetsInLandingZone()
     {

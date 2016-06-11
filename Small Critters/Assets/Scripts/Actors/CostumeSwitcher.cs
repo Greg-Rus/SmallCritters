@@ -7,7 +7,12 @@ public class CostumeSwitcher : MonoBehaviour {
     public SpriteRenderer[] bodyParts;
     public GameObject helmet;
     public GameObject gun;
-    // Use this for initialization
+    private JumpLineRenderer jumpLineRenderer;
+
+    void Awake()
+    {
+        jumpLineRenderer = GetComponent<JumpLineRenderer>();
+    }
 
     public void PutOnCostume()
     {
@@ -21,6 +26,7 @@ public class CostumeSwitcher : MonoBehaviour {
         SwapSprites(originalSprites);
         helmet.SetActive(false);
         gun.SetActive(false);
+        jumpLineRenderer.ShowTargetSprite(false);
     }
 
     private void SwapSprites(Sprite[] sprites)

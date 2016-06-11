@@ -3,89 +3,36 @@ using System.Collections;
 
 public class ShotgunController : MonoBehaviour {
     public Transform muzzle;
-    public float targetAcquisition;
-    public float targetAcquisitionSpeed;
     public GameObject aimZoneObject;
-    private Transform aimZone;
-    public Vector3 aimZoneStartScale;
-    public Vector3 aimZoneFinalScale;
     public float range;
     public LayerMask shootableLayers;
     public GameObject pellet;
     public float pelletSpeed;
     public GameObject[] pellets;
+    public Transform shotgunTransform;
+    public float spread;
+    public PowerupHandler powerupHandler;
+
+    private Animator animator;
     private TrailRenderer[] pelletTrailRenderers;
     private Rigidbody2D[] pelletRigidbodies;
     private Transform[] pelletTransforms;
-    public float spread;
-    public PowerupHandler powerupHandler;
-    private Animator animator;
-    public Transform shotgunTransform;
-    // Use this for initialization
+
     void Start () {
-        aimZone = aimZoneObject.transform;
         GetPelletComponenets();
         powerupHandler = ServiceLocator.getService<PowerupHandler>();
         animator = GetComponentInParent<Animator>();
-        if (animator == null) Debug.LogError("No animator");
     }
 	
-	// Update is called once per frame
-	//void Update () {
- //       //CheckForEnemy();
-	//}
-
- //   private void CheckForEnemy()
- //   {
- //       RaycastHit2D target = Physics2D.Raycast(muzzle.transform.position, muzzle.transform.up, range, shootableLayers);
- //       float distanceToTarget = (target.transform.position - this.transform.position).sqrMagnitude;
-
- //       //Debug.DrawRay(transform.position, Vector2.up * range, Color.red);
- //       if (target.collider != null)
- //       {
- //           if (targetAcquisition == 0)
- //           {
- //               aimZoneObject.SetActive(true);
- //           }
- //           UpdateTargetAcquisition(targetAcquisitionSpeed);
- //           if (targetAcquisition >= 1f)
- //           {
- //               Shoot();
- //           }
- //       }
- //       else if (targetAcquisition > 0)
- //       {
- //           UpdateTargetAcquisition(-targetAcquisitionSpeed * 2f);
- //           if (targetAcquisition < 0)
- //           {
- //               targetAcquisition = 0f;
- //               aimZoneObject.SetActive(false);
- //           }
- //       }
- //   }
-
- //   private void UpdateTargetAcquisition(float speed)
- //   {
- //       targetAcquisition += Time.deltaTime * speed;
- //       UpdateAimZone();
- //   }
-
     public void Shoot()
     {
         FirePellets();
         StopCoroutine(CleanUpPelletsAfterSeconds(2f));
         StartCoroutine(CleanUpPelletsAfterSeconds(2f));
-        aimZoneObject.SetActive(false);
-        targetAcquisition = 0f;
         powerupHandler.OnShotFired();
         animator.SetTrigger("Shoot");
         SoundController.instance.PlayShotgunFire();
     }
-
-    //private void UpdateAimZone()
-    //{
-    //    aimZone.localScale = Vector3.Lerp(aimZoneStartScale, aimZoneFinalScale, targetAcquisition);
-    //}
 
     private void FirePellets()
     {
@@ -100,10 +47,6 @@ public class ShotgunController : MonoBehaviour {
             pelletRigidbodies[i].AddForce(direction * pelletSpeed, ForceMode2D.Impulse);
 
         }
-        //pellet.SetActive(true);
-        //pellet.transform.position = transform.position;
-        //pellet.GetComponent<TrailRenderer>().Clear();
-        //pellet.GetComponent<Rigidbody2D>().AddForce(transform.up * pelletSpeed, ForceMode2D.Impulse);
     }
 
     private void GetPelletComponenets()
@@ -129,31 +72,13 @@ public class ShotgunController : MonoBehaviour {
         {
             pellets[i].SetActive(false);
         }
-        //SwithOffIfNoMoreAmmo(); //No need to aim if can't shoot
-    }
-
-    private void SwithOffIfNoMoreAmmo()
-    {
-        if (powerupHandler.currentAmmo == 0)
-        {
-            this.enabled = false;
-        }
     }
 
     public void AimAtPosition(Vector3 position)
     {
-        Vector3 vectorToPosition = (position - shotgunTransform.transform.position).normalized;//shotgunTransform.InverseTransformVector(position).normalized;
+        Vector3 vectorToPosition = (position - shotgunTransform.transform.position).normalized;
         float rot_z = Mathf.Atan2(vectorToPosition.y, vectorToPosition.x) * Mathf.Rad2Deg;
         shotgunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-        //Vector3 localPosition = shotgunTransform.InverseTransformPoint(position);
-        //float angle = Mathf.Atan2(localPosition.y, localPosition.x) * Mathf.Rad2Deg;
-
-        //Debug.Log(angle);
-        //shotgunTransform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        //Quaternion before = shotgunTransform.rotation;
-        //shotgunTransform.Rotate(new Vector3(0, 0, angle)); //Utilities.RotationFromUpToVector(shotgunTransform.InverseTransformPoint(position));
-        //Debug.DrawLine(shotgunTransform.position, shotgunTransform.position + Vector3.up * 4, Color.red);
-        //Debug.Log(before + ", "  + shotgunTransform.rotation);
     }
 
 

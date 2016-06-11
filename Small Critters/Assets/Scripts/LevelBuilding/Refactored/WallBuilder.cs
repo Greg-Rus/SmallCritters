@@ -10,7 +10,6 @@ public class WallBuilder : MonoBehaviour {
 	private Vector2 currentTile;
 	private Vector2[] offsets = {new Vector2(0,1), new Vector2(0,-1), new Vector2(1,0), new Vector2(-1,0)};
 	private Vector2[] edges = {new Vector2(0,1), new Vector2(1,1), new Vector2(1,0), new Vector2(1,-1), new Vector2(0,-1), new Vector2(-1,-1), new Vector2(-1,0), new Vector2(-1,1)};
-	private Vector2[] diagonalOffsets = { new Vector2(1,1), new Vector2(1,-1), new Vector2(-1,-1), new Vector2(-1,1)};
 	private List<Vector2> legalOffsets;
 	private Vector2 offset;
 	public WallTile[] wallTiles;
@@ -19,39 +18,15 @@ public class WallBuilder : MonoBehaviour {
 	private Vector2 wallSegmentOrigin;
 	public GameObjectPoolManager poolManager;
 	private List<GameObject> currentRow;
-	Vector2 wallOffset;
-	// Use this for initialization
+
 	void Awake () {
-		//poolManager = ServiceLocator.getService<GameObjectPoolManager>();
-		//poolManager.addPool(wallPrefab, 150);
-		wallOffset = new Vector2(1.5f,0f);
 		wallMap = new List<Vector2>();
 		legalOffsets = new List<Vector2>();
 		wallTilesDict = new Dictionary<int, Sprite>();
 		foreach(WallTile tile in wallTiles)
 		{
 			wallTilesDict.Add (tile.hash, tile.sprite);
-		}
-//		MapWalls();
-//		foreach(Vector2 v in wallMap)
-//		{
-//			Debug.Log (v);	
-//		}
-//		Debug.Log ("===Printing Hashes===");
-//		foreach(Vector2 v in wallMap)
-//		{
-//			Debug.Log (GetTileHash(v));	
-//		}
-//		Debug.Log("===Setting up walls===");
-//		SetUpWalls();
-//		MirrorTileMap();
-//		Debug.Log("===Printing Mirrored Map===");
-//		foreach(Vector2 v in wallMap)
-//		{
-//			Debug.Log (v);	
-//		}
-		//BuildWallSegament(new Vector2(1.5f,0f), 3,5, 8,true);
-		
+		}	
 	}
 	
 	public void BuildWallSegament(List<GameObject> row, Vector2 position, int width, int height, int numberOfBlocks, bool isMirrored = false)
@@ -78,12 +53,10 @@ public class WallBuilder : MonoBehaviour {
 		{
 			Vector2 tilePosition = wallMap[i];
 			float newX = (distanceToMid - tilePosition.x) + pivot;
-			//Debug.Log(distanceToMid + " - " + tilePosition.x + " + " + pivot + " = " + newX);
 			tilePosition.x = newX + 3; //TODO If levelData is available make this Mathf.Ceil(navigableArenaWidth*0.5)
 			wallMap[i] = tilePosition;
 		}
 		SetUpWalls();
-		//Debug.Log("TEST: " + wallMap[0].x);
 	}
 	
 	private void SetUpWalls()
@@ -91,11 +64,8 @@ public class WallBuilder : MonoBehaviour {
 	
 		foreach(Vector2 v in wallMap)
 		{
-			//GameObject newTile = Instantiate(wallPrefab, v + wallOffset, Quaternion.identity) as GameObject;
-			//GameObject newTile = Instantiate(wallPrefab, v+ wallSegmentOrigin, Quaternion.identity) as GameObject;
 			GameObject newTile = poolManager.retrieveObject(wallPrefab.name);
 			newTile.transform.position = v + wallSegmentOrigin;
-			//Debug.Log (GetTileHash(v));
 			newTile.GetComponent<SpriteRenderer>().sprite = wallTilesDict[GetTileHash(v)];
 			currentRow.Add (newTile);
 		}
@@ -148,7 +118,6 @@ public class WallBuilder : MonoBehaviour {
 			GetTileOffset();
 		}
 		offset = legalOffsets[Random.Range(0,legalOffsets.Count)];
-		//Debug.Log ("Offset " + offset);
 		return offset;
 	}
 	private int GetTileHash(Vector2 location)

@@ -7,11 +7,13 @@ public enum ProcessorState {Cool, HeatingUp, Hot, CoolingDown};
 public enum SectionBuilderType {clear, blade, processor, heatVent, bees, bugs};
 public enum HeatVentState {Start, Closed, Opening, WarmingUp, Venting, Closing};
 public enum BugType {None, Fly, FireBeetle, Bee };
+public enum FireBeetleState { Idle, Following, Attacking };
+public enum Trend { Falling = -1, Rising = 1};
+public enum SwipeDirection {Backward = -1, Forward = 1};
 
 public interface Imovement {
 	
 	void makeMove(Vector3 direction);
-	void configure(/*GameController controller*/);
 	void rotateToDirection(Vector3 direction);
 	bool midJump{get;set;}
 }

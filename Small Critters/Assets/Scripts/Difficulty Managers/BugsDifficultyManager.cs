@@ -23,7 +23,6 @@ public class BugsDifficultyManager : MonoBehaviour, IDifficultyScaling
         else if (beeDifficultyManager.IsBeePresent()) return BugType.FireBeetle;
         else if (flyDifficultyManager.IsFlyPresent()) return BugType.Fly;
         else return BugType.None;
-        
     }
 
     public void ScaleDifficulty()

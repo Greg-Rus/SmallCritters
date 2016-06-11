@@ -3,7 +3,6 @@ using System.Collections;
 using System;
 
 public class FireBallController : MonoBehaviour {
-    //public FireBallController myBeetleController;
     public Rigidbody2D myRigidBody;
     public Transform beetle;
     public Vector3 target;
@@ -21,14 +20,10 @@ public class FireBallController : MonoBehaviour {
 
     public void Target(Transform beetlePosition, Vector3 heading, Action OnHit)
     {
-        //myRigidBody.MovePosition(beetlePosition.position);
         this.beetle = beetlePosition;
         startPosition = beetle.position;
-        //this.target = target;
         this.OnHit = OnHit;
-        this.heading = heading;//(target - startPosition).normalized;
-        //Debug.DrawLine(beetle.position, target, Color.red, 5f);
-        //myRigidBody.AddForce(heading * walkSpeed, ForceMode2D.Impulse);
+        this.heading = heading;
     }
 
     public void Aim(Transform beetlePosition, float maxRange)
@@ -38,10 +33,6 @@ public class FireBallController : MonoBehaviour {
         this.maxRange = maxRange;
     }
 
-    //private void MoveToTarget()
-    //{
-    //    //myRigidBody.AddForce(heading * walkSpeed);
-    //}
     private void ChackIfAtMaxRnage()
     {
         float distanceTraveledSqr = (this.transform.position - startPosition).sqrMagnitude;
@@ -58,12 +49,6 @@ public class FireBallController : MonoBehaviour {
 
     private void Explode()
     {
-        //if (beetle != null)
-        //{
-        //    OnHit();
-        //}
-
         Destroy(this.gameObject);
     }
-
 }

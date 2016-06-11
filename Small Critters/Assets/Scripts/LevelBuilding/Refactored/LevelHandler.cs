@@ -5,13 +5,11 @@ using System.Collections.Generic;
 public class LevelHandler {
 
 	public Queue<List<GameObject>> level;
-	LevelData levelData;
 	ISectionDesigning sectionDesigner;
 	IRowCleanup rowCleaner;
 	
 	public LevelHandler(LevelData levelData, ISectionDesigning sectionDesigner, IRowCleanup rowCleaner)
 	{
-		this.levelData = levelData;
 		this.sectionDesigner = sectionDesigner;
 		this.rowCleaner = rowCleaner;
 		
@@ -33,7 +31,6 @@ public class LevelHandler {
 	private void DismantleOldRow(List<GameObject> row)
 	{
 		rowCleaner.DismantleRow(row);
-		//Debug.Log ("Cleanup row is: " + row.Count);
 	}
 }
 

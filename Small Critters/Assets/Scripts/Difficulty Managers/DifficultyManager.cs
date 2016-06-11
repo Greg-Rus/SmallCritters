@@ -8,7 +8,6 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	public BladeSectionDifficultyManager bladeSectionDifficultyManager;
 	public ProcessorSectionDifficultyManager processorSectionDifficultyManager;
 	public HeatVentDifficultyManager heatVentDifficultyManager;
-	//public BeeSectionDifficultyManager beeSectionDifficultyManager;
     public BugsDifficultyManager bugsDifficultyManager;
 	private int highestRowReached = 0;
 	public int HighestRowReached
@@ -59,7 +58,6 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	{
 		float weightSum = 0;
         CycleBannedSection();
-        //Debug.Log(bannedSection);
         SectionBuilderType builder= SectionBuilderType.clear;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{
@@ -81,21 +79,13 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 
     public void BanSectionType(SectionBuilderType sectionTypeToBan)
     {
-        //Debug.Log("Told to ban: " + sectionTypeToBan);
         nextBannedSection = sectionTypeToBan;
     }
 
     private void CycleBannedSection()
     {
-        //Debug.Log("Unbanning: " + bannedSection + ", " + "Banning: " + nextBannedSection);
         UnbanSection();
         BanNextSection(nextBannedSection);
-        //if (levelData.activeSectionBuilder.type != SectionBuilderType.clear)
-        //{
-        //    Debug.Log("Unbanning: " + bannedSection + ", " + "Banning: " + nextBannedSection);
-        //    UnbanSection();
-        //    BanNextSection(nextBannedSection);
-        //}
     }
 
     private void UnbanSection()
@@ -116,7 +106,6 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 
     private BuilderWeight GetBuilderWeightByType(SectionBuilderType type)
     {
-        //Debug.Log("Looking for: " + type);
         BuilderWeight builderWeight = null;
         for (int i = 0; i < builderWeights.Count; ++i)
         {
@@ -125,11 +114,9 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
                 builderWeight = builderWeights[i];
             }
         }
-        //Debug.Log("Found: " + builderWeight.type);
         return builderWeight;
     }
 
-    //Difficulty Scaling
     public void CheckDifficultyThreshold()
 	{
 		if(highestRowReached >= nextDifficultyScalingPoint)
@@ -145,10 +132,7 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 		bladeSectionDifficultyManager.ScaleDifficulty();
 		processorSectionDifficultyManager.ScaleDifficulty();
 		heatVentDifficultyManager.ScaleDifficulty();
-		//beeSectionDifficultyManager.ScaleDifficulty();
         bugsDifficultyManager.ScaleDifficulty();
-
     }
-
 }
 

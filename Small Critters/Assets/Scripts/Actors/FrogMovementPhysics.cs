@@ -3,9 +3,7 @@ using System.Collections;
 using System;
 
 public class FrogMovementPhysics : MonoBehaviour, Imovement {
-	//public GameController gameController;
 	public Rigidbody2D myRigidBody;
-
 	public Vector3 destination;
 	public float closeEnoughDistance;
 	public float staticDrag;
@@ -15,20 +13,17 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 	public int higestRowReached;
 	public Animator myAnimator;
 	public float jumpSpeed;
-	private IEnumerator jumpTimer;
 	public event EventHandler<NewRowReached> NewHighestRowReached;
-	//public EventHandler<NewRowReached> newRowReachedHandler;
 	public NewRowReached newRowReachedEventArgs;
-	
-	// Use this for initialization
-	void Start () {
+    private IEnumerator jumpTimer;
+
+    void Start () {
 		higestRowReached = 0;
 		myRigidBody = GetComponent<Rigidbody2D>();
 		myAnimator = GetComponent<Animator>();
-		//newRowReachedHandler = NewHighestRowReached;
 		newRowReachedEventArgs = new NewRowReached();
-		
-	}
+        midJump = false;
+    }
 	
 	void OnCollisionEnter()
 	{
@@ -45,17 +40,15 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 		{
 			myRigidBody.velocity = Vector3.zero;
 			destination = calculateDestination(direction);
-			//rotateToDirection(direction);
 			myRigidBody.drag = jumpingDrag;
 			myRigidBody.AddForce(direction.normalized * jumpForce, ForceMode2D.Impulse);
 			midJump = true;
-			gameObject.layer = 14;
+			gameObject.layer = LayerMask.NameToLayer("MidJump");
 			myAnimator.SetFloat("JumpSpeed",CalculateJumpAnimationSpeed(direction));
 			myAnimator.SetBool("Jumping",true);
 			jumpTimer = jumpForSeconds(calculateJumpTime(direction));
 			StartCoroutine(jumpTimer);
 		}
-
 	}
 	IEnumerator jumpForSeconds(float jumpTime)
 	{
@@ -79,7 +72,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 		myRigidBody.drag = staticDrag;
 		myAnimator.SetBool("Jumping",false);
 		checkHighestRowReached();
-		gameObject.layer = 10;
+		gameObject.layer = LayerMask.NameToLayer("Hero");
 	}
 	
 	void checkHighestRowReached()
@@ -94,21 +87,10 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 	
 	public void OnNewHighestRowReached(NewRowReached newRowReachedEventArgs)
 	{
-		//EventHandler<NewRowReached> newRowReachedHandler = NewHighestRowReached;
-		//newRowReachedHandler(this, newRowReachedEventArgs);
-		//Debug.Log (NewHighestRowReached);
 		if(NewHighestRowReached != null)
 		{
 			NewHighestRowReached(this, newRowReachedEventArgs);	
 		}
-	}
-	
-	public void configure(/*GameController controller*/)
-	{
-		//gameController = controller;
-		myRigidBody = GetComponent<Rigidbody2D>();
-		midJump = false;
-		myAnimator = GetComponent<Animator>();
 	}
 	
 	bool reachedDestination()

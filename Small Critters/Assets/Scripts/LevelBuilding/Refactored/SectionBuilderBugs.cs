@@ -62,7 +62,6 @@ public class SectionBuilderBugs : ISectionBuilder
     private void ConfigurePrefabs()
     {
         BeeController beeController = bee.GetComponent<BeeController>();
-        beeController.poolManager = poolManager;
         beeController.scoreHandler = scoreHandler;
 
         FlyController flyController = fly.GetComponent<FlyController>();
@@ -81,8 +80,6 @@ public class SectionBuilderBugs : ISectionBuilder
         }
         currentRow = row;
         DeployBugsAtRow();
-        //DeployBugAtPosition(1.5f); //Next to left wall
-        //DeployBugAtPosition(levelData.navigableAreaWidth); //Next to right wall
     }
 
     private void DeployBugsAtRow()
@@ -110,7 +107,6 @@ public class SectionBuilderBugs : ISectionBuilder
         beetlePositions.Clear();
 
         int[] bugCounts = GetBugCountBasedOnDifficulty();
-        //Debug.Log(bugCounts[0] + ", " + bugCounts[1] + ", " + bugCounts[2]);
         PickLocationsForBugType(bugCounts[0], flyPositions);
         PickLocationsForBugType(bugCounts[1], beePositions);
         PickLocationsForBugType(bugCounts[2], beetlePositions);
@@ -128,7 +124,6 @@ public class SectionBuilderBugs : ISectionBuilder
                      beePositions.Contains(newLocation) ||
                      beetlePositions.Contains(newLocation));
             bugList.Add(newLocation);
-            //Debug.Log(newLocation);
         }
     }
 
@@ -171,32 +166,14 @@ public class SectionBuilderBugs : ISectionBuilder
         Vector3 newBugPosition = new Vector3(xCoordinate, levelData.levelTop, 0f);
         newBug.transform.position = newBugPosition;
         newBug.transform.Rotate(new Vector3(0f, 0f, RandomLogger.GetRandomRange(0, 360)));
-        //if (xCoordinate > levelData.levelWidth * 0.5f)
-        //{
-        //    newBug.transform.Rotate(new Vector3(0f, 0f, 180f)); // Bee faces right by default
-        //}
         currentRow.Add(newBug);
         return newBug;
     }
-
-    //private void DeployBeeAtPosition(float xCoordiante) //TODO refactor the Dploy functions to avoid code duplication
-    //{
-    //    GameObject newBee = poolManager.retrieveObject("Bee");
-    //    Vector3 newBeePosition = new Vector3(xCoordiante, levelData.levelTop, 0f);
-    //    newBee.transform.position = newBeePosition;
-    //    ConfigureBeeController(newBee);
-    //    if (xCoordiante > levelData.levelWidth * 0.5f)
-    //    {
-    //        newBee.transform.Rotate(new Vector3(0f, 0f, 180f)); // Bee faces right by default
-    //    }
-    //    currentRow.Add(newBee);
-    //}
 
     private void ConfigureBeeController(GameObject bee)
     {
         BeeController newBeeController = bee.GetComponent<BeeController>();
         newBeeController.Reset();
-        newBeeController.poolManager = poolManager;
         newBeeController.chargeDistance = beeDifficultyManager.GetChargeDistance();
         newBeeController.chargeSpeed = beeDifficultyManager.GetChargeSpeed();
         newBeeController.chargeTime = beeDifficultyManager.GetChargeTime();

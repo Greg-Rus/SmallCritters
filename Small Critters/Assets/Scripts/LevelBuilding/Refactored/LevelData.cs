@@ -13,4 +13,6 @@ public class LevelData {
 	public int newSectionEnd = 0;
     public bool emptyRow = false;
     public float coldFogStartRow = -20f;
+    public float leftWallX = 0.5f;
+    public float rightWallX = 8.5f;
 }

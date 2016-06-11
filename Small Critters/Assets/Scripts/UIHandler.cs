@@ -42,8 +42,6 @@ public class UIHandler : MonoBehaviour {
     private ScoreData scoreData;
     public delegate void ActionSequence();
     private ActionSequence inputChecks;
-    private bool tutorialActive = false;
-    //private bool idling = true;
     public float inactivityTimeToMovementTutorial = 5f;
     public Text ammoCount;
     public Action<float> OnSwipeDirectionChange;
@@ -57,17 +55,12 @@ public class UIHandler : MonoBehaviour {
         inputChecks += CheckIdleTime;
         inputChecks += CheckIfStoppedIdling;
         inputChecks += CheckForFirstRowReached;
-        //scoreData = scoreHandler.scoreData;
-        //Debug.Log(Application.persistentDataPath);
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         inputChecks();
-        //if (Input.GetButtonDown("Cancel") && (currentMenuLevel != MenuLevel.QuitPrompt))
-        //{
-        //    OnMenuQuitPrompt();
-        //}
 	}
 
     private void CheckForFirstRowReached()
@@ -89,7 +82,7 @@ public class UIHandler : MonoBehaviour {
     }
     private void CheckIfStoppedIdling()
     {
-        if (Input.anyKeyDown)// && (tutorialActive))
+        if (Input.anyKeyDown)
         {
             inputChecks -= CheckIdleTime;
         }
@@ -97,7 +90,6 @@ public class UIHandler : MonoBehaviour {
 
     private void CheckForQuitButtonPress()
     {
-        //Debug.Log("Checking for Quit");
         if (Input.GetButtonDown("Cancel") && (currentMenuLevel != MenuLevel.QuitPrompt))
         {
             OnMenuQuitPrompt();
@@ -105,8 +97,7 @@ public class UIHandler : MonoBehaviour {
     }
     private void CheckForTutorialDismissal()
     {
-        //Debug.Log("Checking for Dsimissal");
-        if (Input.anyKeyDown)// && (tutorialActive))
+        if (Input.anyKeyDown)
         {
             DismissTutorial();
             inputChecks -= CheckForTutorialDismissal;
@@ -116,7 +107,6 @@ public class UIHandler : MonoBehaviour {
     private void DismissTutorial()
     {
         tutorialHandler.gameObject.SetActive(false);
-        tutorialActive = false;
     }
 
     private void RestoreMenuState()
@@ -208,7 +198,6 @@ public class UIHandler : MonoBehaviour {
         SaveLastMenu(currentMenu, currentMenuLevel);
         SetCurrentMenu(optionsMenu, MenuLevel.SubMenu);
         ShowCurrentMenu();
-        UpdateOptionsMenu();
     }
 
     private void ShowCurrentMenu()
@@ -256,32 +245,14 @@ public class UIHandler : MonoBehaviour {
         scoreField.text = newSocore.ToString();
     }
 
-    public void UpdateOptionsMenu()
-    {
-
-    }
-
     public void UpdateHighScoresMenu()
     {
-        scoreData = scoreHandler.GetScoreData();
-        //Debug.Log("Last Run: " + scoreData.lastRun.score);
-        //foreach (Score entry in scoreData.scores)
-        //{
-        //    Debug.Log("Item: " + entry.score);
-        //}
-        //Debug.Log(lastRunScoreButton.score.text);
-        
+        scoreData = scoreHandler.GetScoreData();   
         UpdateScoreButton(lastRunScoreButton, scoreData.lastRun);
-        //Debug.Log(lastRunScoreButton.score.text);
         for (int i = 0; i < scoreData.scores.Count; ++i)
         {
             UpdateScoreButton(scoreButtons[i], scoreData.scores[i]);
         }
-        //int listIndex = 0;
-        //for (LinkedListNode<Score> node = scoreData.scores.First; node != null; node = node.Next)
-        //{
-        //    UpdateScoreButton(scoreButtons[listIndex], node.Value);
-        //}
     }
     private void UpdateScoreButton(HighScoreButtonState button, Score scoreEntry)
     {
@@ -306,7 +277,6 @@ public class UIHandler : MonoBehaviour {
     {
         if (randomToggle.isOn)
         {
-            //Debug.Log("Toggling Random Game Mode!!");
             seedInput.interactable = false;
             PlayerPrefs.SetString("Seed", "");
             PlayerPrefs.SetString("GameMode", "Radom");
@@ -326,19 +296,16 @@ public class UIHandler : MonoBehaviour {
     public void ToggleSwipeUpControlls()
     {
         PlayerPrefs.SetFloat("SwipeControlls", 1);
-        OnSwipeDirectionChange(1);
-        //ServiceLocator.getService<FrogInputHandler>().swipeDirection = 1;
+        if (OnSwipeDirectionChange != null)  OnSwipeDirectionChange(1);
     }
     public void ToggleSwipeDwonControlls()
     {
         PlayerPrefs.SetFloat("SwipeControlls", -1);
-        OnSwipeDirectionChange(-1);
-        //ServiceLocator.getService<FrogInputHandler>().swipeDirection = -1;
+        if (OnSwipeDirectionChange != null) OnSwipeDirectionChange(-1);
     }
 
     public void OnSeedEntered()
     {
-        //Debug.Log(seedInput.text);
         PlayerPrefs.SetString("Seed", seedInput.text);
     }
 
@@ -384,7 +351,7 @@ public class UIHandler : MonoBehaviour {
 
     public void ShowTutorial()
     {
-        tutorialActive = true;
+        //tutorialActive = true;
         tutorialHandler.gameObject.SetActive(true);
         inputChecks += CheckForTutorialDismissal;
         tutorialHandler.LoadTutorial();
@@ -404,9 +371,7 @@ public class UIHandler : MonoBehaviour {
     }
     public void UpdateAmmoCount(int ammo)
     {
-        
         ammoCount.text = ammo.ToString();
-        //Debug.Log(ammoCount.text);
     }
 
     public void OnBonusPress()

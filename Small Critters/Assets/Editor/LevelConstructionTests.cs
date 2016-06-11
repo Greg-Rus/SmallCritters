@@ -17,7 +17,6 @@ namespace UnityTest
 		//GameObject dummyObject = new GameObject();
 		LevelData testLevelData;
 		SectionBuilderClear clearBuilder;
-		ServiceLocator services;
 		mockDifficultyManager difficultyManager;
 		//mockSectionDesigner mSectionBuilderHndl;
 		
@@ -25,7 +24,7 @@ namespace UnityTest
 		{
 			poolParent = new GameObject(); //.Instantiate(poolParent, Vector3.zero, Quaternion.identity) as GameObject;
 			poolManager = new GameObjectPoolManager(poolParent.transform);
-			services = new ServiceLocator();
+			new ServiceLocator();
 			difficultyManager = new mockDifficultyManager();
 			ServiceLocator.addService<IBladeSectionDifficulty>(difficultyManager);
 			ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager);

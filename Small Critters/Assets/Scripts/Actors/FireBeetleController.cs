@@ -2,7 +2,6 @@
 using System.Collections;
 using System;
 
-public enum FireBeetleState { Idle, Following, Attacking};
 public class FireBeetleController : MonoBehaviour, IPlayerDetection
 {
     public Animator myAnimator;
@@ -21,26 +20,21 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public float angleToPlayerDelta;
     public DeathParticleSystemHandler deathParticles;
     public float shotCooldownTime;
-    private float lastShotTime = 0;
-
-
-
-    GameObject frog;
-    Action currentAction;
-    Vector3 vectorToPlayer;
     public float angleToPlayer;
-    Vector3 heading;
-    Vector3 target;
-    int elapsedUpdates;
-    string currentAnimation;
-    bool alive = true;
 
-    // Use this for initialization
+    private float lastShotTime = 0;
+    private GameObject frog;
+    private Action currentAction;
+    private Vector3 vectorToPlayer;
+    private Vector3 heading;
+    private int elapsedUpdates;
+    private string currentAnimation;
+    private bool alive = true;
+
     void Start()
     {
         state = FireBeetleState.Idle;
         currentAction = StayIdle;
-        //myTransform = GetComponentInParent<Transform>();
     }
     void OnEnable()
     {
@@ -51,7 +45,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         myTransform.rotation = Quaternion.identity;
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentAction();
@@ -63,30 +56,18 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         StartFollowingPlayer();
     }
 
-
     public void DeployProjectile()
     {
         GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
         FireBallController newBallController = newFireBall.GetComponent<FireBallController>();
         Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
-
-        //newBallController.Target(firingPoint, heading, OnFireBallHit);
         newBallController.Aim(firingPoint, 5f); //TODO Decide max range in DifficultyManager;
         newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
 
     }
 
-    //private void OnFireBallHit()
-    //{
-    //    StartFollowingPlayer();
-    //}
-
     void OnCollisionEnter2D(Collision2D coll)
     {
-        //if (coll.gameObject.layer == stunCollisionLayer && state == BeeState.Charging) //layer 12 is Obstacle
-        //{
-        //    StartBeingStunned();
-        //}
         if (coll.collider.CompareTag("Hazard"))
         {
             Die(coll.collider.name);
@@ -108,7 +89,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
             scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
             deathParticles.OnDeath(causeOfDeath);
             WaitUntillAnimatorResets();
-            //this.gameObject.SetActive(false);
         }
     }
 
@@ -126,7 +106,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public void StartFollowingPlayer()
     {
         state = FireBeetleState.Following;
-        //SetAnimation("FollowPlayer");
         currentAction = FollowPlayer;
 
     }
@@ -179,7 +158,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         SetAnimation("Attack");
         currentAction = Attack;
         myAnimator.SetFloat("Speed", 0f);
-        target = frog.transform.position;
     }
 
     private void Attack()
@@ -211,20 +189,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     private void SetAnimation(string stringInput)
     {
-        //Animator anim =transform.GetComponent<Animator>();
-        //Debug.Log("Setting Anim to : " + stringInput);
         myAnimator.SetTrigger(stringInput);
-        //if (currentAnimation == stringInput)
-        //{
-        //}
-        //else {
-        //    if (currentAnimation != null)
-        //    {
-        //        myAnimator.ResetTrigger(currentAnimation);
-        //    }
-        //    myAnimator.SetTrigger(stringInput);
-        //    currentAnimation = stringInput;
-        //}
     }
     private void WaitUntillAnimatorResets()
     {
