@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	public GameObject floorTilePrefab;
 	public GameObject sideWallTilePrefab;
-//	private string floorPrefabName;
-//	private string wallPrefabName;
 	public Sprite[] floorSprites;
 	public Sprite[] wallSprites;
     public GameObject bladeRowWallLeft;
@@ -24,7 +22,7 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
     public Color bladeSectionColor;
     public Color beeSectionColor;
     public Color ventSectionColor;
-    // Use this for initialization
+
     void Start () {
 //		tilePosition = new Vector2();
 //		for(int i = 0; i<10;++i)
