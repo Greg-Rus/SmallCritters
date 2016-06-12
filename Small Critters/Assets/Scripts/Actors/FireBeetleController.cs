@@ -6,7 +6,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 {
     public Animator myAnimator;
     public Rigidbody2D myRigidbody;
-    public ScoreHandler scoreHandler;
+    public IDeathReporting deathReport;
     public FireBeetleState state;
     public float walkSpeed;
     public float rotationSpeed;
@@ -32,8 +32,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     void Start()
     {
-        state = FireBeetleState.Idle;
-        currentAction = StayIdle;
+        deathReport = ServiceLocator.getService<IDeathReporting>();
     }
     void OnEnable()
     {
@@ -85,7 +84,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         if (alive)
         {
             alive = false;
-            scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+            deathReport.EnemyDead(this.gameObject, causeOfDeath);
             deathParticles.OnDeath(causeOfDeath);
             WaitUntillAnimatorResets();
         }

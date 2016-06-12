@@ -7,7 +7,6 @@ public class SectionBuilderProcessors : ISectionBuilder {
 	public SectionBuilderType type {get;set;}
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
-	GameObject processor;
 	ProcessorManager [,] processorGroup;
 	GameObject newProcessorGroupController;
 	

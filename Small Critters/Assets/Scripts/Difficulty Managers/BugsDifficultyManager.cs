@@ -2,13 +2,13 @@
 using System.Collections;
 using System;
 
-public class BugsDifficultyManager : MonoBehaviour, IDifficultyScaling
+public class BugsDifficultyManager : MonoBehaviour, IDifficultyScaling, IBugsSectionDifficulty
 {
     public BeeSectionDifficultyManager beeDifficultyManager;
     public FlyDifficultyManager flyDifficultyManager;
     public FireBeetleDifficultyManager fireBeetleDificultyManager;
     public DifficultyParameter sectionLength;
-    public float difficultyPercent = 0f;
+    public float difficultyPercent { get; private set; }
     public float difficultyPercentStep = 0.01f;
 
 

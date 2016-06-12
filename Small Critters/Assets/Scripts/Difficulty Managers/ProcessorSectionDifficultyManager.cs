@@ -19,7 +19,6 @@ public class ProcessorSectionDifficultyManager : MonoBehaviour, IProcessorGroupD
 	public DifficultyParameter processorStayHotTime;
 	public DifficultyParameter processorCoolDownTime;
 	
-	private float processorPatternCycleOffset;
 	private float nextPatternWeightStepThreshold;
 	private int patternWeightsMaxValueIndex = 0;
 	

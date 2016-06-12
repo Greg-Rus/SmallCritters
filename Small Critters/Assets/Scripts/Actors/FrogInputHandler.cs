@@ -6,8 +6,6 @@ public class FrogInputHandler : MonoBehaviour {
 	public Vector3 startPointerScreenPositoin;
 	public Vector3 draggedPointerScreenPosition;
 	public Vector3 dragVector;
-	private Vector3 pointVector;
-    private Vector3 tapVector;
 	public float minimalDragDistance;
     private float minimalDragScreenDistance;
 	private Imovement frogMovement;
@@ -15,10 +13,8 @@ public class FrogInputHandler : MonoBehaviour {
 	public float maxJumpSwipe;
 	public float maxJumpLength;
 	private float swipeToJumpConversionRatio;
-	private Rigidbody2D myRigidbody;
 	private Vector3 worldStartPoint;
 	private Vector3 worldDraggedPoint;
-	private float sqrMouseDistanceFromFrog;
     private float swipeDirection;
     private ShotgunController shotgun;
     private PowerupHandler powerupHandler;

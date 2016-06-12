@@ -13,7 +13,6 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	private List<GameObject> currentRow;
 	private LevelData levelData;
 	private GameObjectPoolManager poolManager;
-	private List<List<GameObject>> bufferedRows;
 	public WallBuilder wallSectionBuilder;
     public Color oddTileColor;
     public Color processorSectionColor;

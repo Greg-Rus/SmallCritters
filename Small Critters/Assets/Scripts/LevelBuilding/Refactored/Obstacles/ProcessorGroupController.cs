@@ -4,7 +4,6 @@ using System;
 
 public class ProcessorGroupController : MonoBehaviour {
 	public ProcessorManager[,] processorGroup;
-	int patternVariant;
 	private IProcessorPatternConfiguration patternConfigurator;
 	private IProcessorFSM processorGroupFSM;
 

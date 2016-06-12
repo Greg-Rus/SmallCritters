@@ -8,6 +8,7 @@ public class GameFramework {
 	public ArenaBuilder arenaBuilder;
     public ScoreHandler scoreHandler;
     public Transform poolParent;
+    public PowerupHandler powerupHandler;
 	GameObjectPoolManager poolManager;
 	ISectionBuilderConfiguration sectionBuilderConfigurator;
 	ISectionBuilderSelection sectionBuilderSeclector;
@@ -17,13 +18,14 @@ public class GameFramework {
 	SectionBuilderBlades bladesBuilder;
 	SectionBuilderProcessors processorsBuilder;
 	SectionBuilderHeatVent heatVentBuilder;
-	SectionBuilderBees sectionBuilderBees;
     SectionBuilderBugs bugsBuilder;
 	IRowCleanup rowCleaner;
 	
 	public LevelHandler BuildGameFramework()
 	{
-		SetupServiceLocator();
+        difficultyManager.levelData = levelData;
+
+        SetupServiceLocator();
 		
 		poolManager = new GameObjectPoolManager(poolParent);
 		arenaBuilder.Setup(levelData, poolManager);
@@ -48,11 +50,14 @@ public class GameFramework {
 		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager.processorSectionDifficultyManager);
 		ServiceLocator.addService<IHeatVentSectionDifficulty>(difficultyManager.heatVentDifficultyManager);
 		ServiceLocator.addService<IBeeSectionDifficulty>(difficultyManager.bugsDifficultyManager.beeDifficultyManager);
-        ServiceLocator.addService<BugsDifficultyManager>(difficultyManager.bugsDifficultyManager);
+        ServiceLocator.addService<IBugsSectionDifficulty>(difficultyManager.bugsDifficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());
-        ServiceLocator.addService<ScoreHandler>(scoreHandler);
-	}
+        ServiceLocator.addService<IDeathReporting>(scoreHandler);
+        ServiceLocator.addService<IGameProgressReporting>(scoreHandler);
+        ServiceLocator.addService<IScoreForUI>(scoreHandler);
+        ServiceLocator.addService<PowerupHandler>(powerupHandler);
+    }
 	
 	private void SetupSectionBuilders()
 	{

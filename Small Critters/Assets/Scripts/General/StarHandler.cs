@@ -12,7 +12,7 @@ public class StarHandler : MonoBehaviour {
     public float scoringDistance;
     private float scale = 1;
     public ParticleSystem sparcleTrail;
-    public ScoreHandler scoreHandler;
+    //public ScoreHandler deathReport;
     public CircleCollider2D playerDetectionCircle;
     private Action<int> OnStarPickup;
 

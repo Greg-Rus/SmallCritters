@@ -7,7 +7,7 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 	private IBladeSectionDifficulty bladeSectionLenghtManager;
 	private IProcessorGroupDifficulty processorSectionDifficultyManager;
 	private IHeatVentSectionDifficulty heatVentSectionDifficultyManager;
-    private BugsDifficultyManager bugsSectionDifficulty;
+    private IBugsSectionDifficulty bugsSectionDifficulty;
 
     public SectionBuilderConfigurator(LevelData levelData)
 	{
@@ -15,7 +15,7 @@ public class SectionBuilderConfigurator: ISectionBuilderConfiguration {
 		bladeSectionLenghtManager = ServiceLocator.getService<IBladeSectionDifficulty>();
 		processorSectionDifficultyManager = ServiceLocator.getService<IProcessorGroupDifficulty>();
 		heatVentSectionDifficultyManager = ServiceLocator.getService<IHeatVentSectionDifficulty>();
-        bugsSectionDifficulty = ServiceLocator.getService<BugsDifficultyManager>();
+        bugsSectionDifficulty = ServiceLocator.getService<IBugsSectionDifficulty>();
 
     } 
 	

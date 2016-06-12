@@ -14,7 +14,7 @@ public class UIHandler : MonoBehaviour {
     public Text scoreField;
     public HighScoreButtonState lastRunScoreButton;
     public HighScoreButtonState[] scoreButtons;
-    public ScoreHandler scoreHandler;
+    private IScoreForUI scoreHandler;
     public Toggle randomToggle;
     public Toggle seededToggle;
     public Toggle swipeUpToggle;
@@ -36,7 +36,6 @@ public class UIHandler : MonoBehaviour {
 
     private GameObject lastMenu;
     private MenuLevel lastMenuLevel;
-    private Action currentMenuToggle;
     private GameObject currentMenu;
     private MenuLevel currentMenuLevel;
     private ScoreData scoreData;
@@ -49,6 +48,7 @@ public class UIHandler : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        scoreHandler = ServiceLocator.getService<IScoreForUI>();
         Time.timeScale = 1;
         RestoreMenuState();
         inputChecks += CheckForQuitButtonPress;
@@ -351,7 +351,6 @@ public class UIHandler : MonoBehaviour {
 
     public void ShowTutorial()
     {
-        //tutorialActive = true;
         tutorialHandler.gameObject.SetActive(true);
         inputChecks += CheckForTutorialDismissal;
         tutorialHandler.LoadTutorial();

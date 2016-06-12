@@ -21,27 +21,21 @@ public class MainGameController : MonoBehaviour {
     public TextAsset adjectives;
     public Text LevelNameLabel;
     public int daysToRemindMovementTutorial;
+    private IGameProgressReporting newRowScore;
 
     void Awake()
     {
         Application.targetFrameRate = 60;
         Screen.fullScreen = false;
+        SetupGameFramework();
     }
 
 	void Start ()
     {
-        difficultyManager.levelData = levelData;
-        SetupGameFramework();
         levelHandler = gameFramework.BuildGameFramework();
-        AddMonoBehaviourServices();
         StartNewGame();
 		BuildInitialLevel();
         DisplayTutorial();
-    }
-
-    private void AddMonoBehaviourServices()
-    {
-        ServiceLocator.addService<PowerupHandler>(powerupHandler);
     }
 
     private void DisplayTutorial()
@@ -66,10 +60,12 @@ public class MainGameController : MonoBehaviour {
         gameFramework.levelData = levelData;
         gameFramework.scoreHandler = scoreHandler;
         gameFramework.poolParent = poolParent;
+        gameFramework.powerupHandler = powerupHandler;
     }
 		
 	private void StartNewGame()
 	{
+        newRowScore = ServiceLocator.getService<IGameProgressReporting>();
         SeedRandomLogger();
 		PlaceFrog();
 		if(difficultyManager.fogEnabled)
@@ -120,7 +116,6 @@ public class MainGameController : MonoBehaviour {
 		frogMovementScript.NewHighestRowReached += NewRowReached;
         FrogController controller = frog.GetComponent<FrogController>();
         controller.OnFrogDeath += HandleFrogDeath;
-        controller.OnFrogDeath += scoreHandler.RunEnd;
         controller.OnFoodPickup += uiHandler.UpdateHearts;
         powerupHandler.costumeSwitcher = frog.GetComponent<CostumeSwitcher>();
         powerupHandler.frogController = controller;
@@ -165,7 +160,7 @@ public class MainGameController : MonoBehaviour {
 
         }
 		difficultyManager.HighestRowReached = newRowReachedEventArgs.newRowReached;
-        scoreHandler.NewRowsReached(rowsToBuild);
+        newRowScore.NewRowsReached(rowsToBuild);
 	}
     private IEnumerator WaitForNextUpdate()
     {

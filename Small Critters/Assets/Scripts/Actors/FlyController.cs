@@ -8,9 +8,14 @@ public class FlyController : MonoBehaviour {
     public float speed;
     public float destinationReachedDistance;
     public Rigidbody2D myRigidbody;
-    public ScoreHandler scoreHandler;
+    public IDeathReporting deathReport;
     private Vector3 vectorToDestination;
     private Vector3 heading;
+
+    void Start()
+    {
+        deathReport = ServiceLocator.getService<IDeathReporting>();
+    }
 
 	void Update ()
     {
@@ -58,7 +63,7 @@ public class FlyController : MonoBehaviour {
 
     private void Die(string causeOfDeath)
     {
-        scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+        deathReport.EnemyDead(this.gameObject, causeOfDeath);
         this.gameObject.SetActive(false);
     }
 }

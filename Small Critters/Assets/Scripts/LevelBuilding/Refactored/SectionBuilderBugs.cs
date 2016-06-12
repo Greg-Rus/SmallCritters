@@ -8,13 +8,11 @@ public class SectionBuilderBugs : ISectionBuilder
     public SectionBuilderType type { get; set; }
     LevelData levelData;
     GameObjectPoolManager poolManager;
-    ScoreHandler scoreHandler;
     IBeeSectionDifficulty beeDifficultyManager;
-    BugsDifficultyManager bugDifficultyManager;
+    IBugsSectionDifficulty bugDifficultyManager;
     GameObject bee;
     GameObject fly;
     GameObject fireBeetle;
-    String nextBug;
     List<GameObject> currentRow;
     List<Vector2> flyPositions;
     List<Vector2> beePositions;
@@ -36,11 +34,9 @@ public class SectionBuilderBugs : ISectionBuilder
         this.levelData = levelData;
         this.poolManager = poolManager;
         beeDifficultyManager = ServiceLocator.getService<IBeeSectionDifficulty>();
-        bugDifficultyManager = ServiceLocator.getService<BugsDifficultyManager>();
-        scoreHandler = ServiceLocator.getService<ScoreHandler>();
+        bugDifficultyManager = ServiceLocator.getService<IBugsSectionDifficulty>();
         type = SectionBuilderType.bugs;
         LoadPrefabs();
-        ConfigurePrefabs();
         InitiatePools();
         flyPositions = new List<Vector2>(5); //TODO This can be calculated based on bugCountsPerDecyl contents
         beePositions = new List<Vector2>(4);
@@ -59,18 +55,6 @@ public class SectionBuilderBugs : ISectionBuilder
         poolManager.addPool(fly, 20, 10);
         poolManager.addPool(fireBeetle, 20, 10);
     }
-    private void ConfigurePrefabs()
-    {
-        BeeController beeController = bee.GetComponent<BeeController>();
-        beeController.scoreHandler = scoreHandler;
-
-        FlyController flyController = fly.GetComponent<FlyController>();
-        flyController.scoreHandler = scoreHandler;
-
-        FireBeetleController fireBeetleController = fireBeetle.GetComponent<FireBeetleController>();
-        fireBeetleController.scoreHandler = scoreHandler;
-    }
-
 
     public void buildNewRow(List<GameObject> row)
     {

@@ -7,7 +7,6 @@ public class TestSectionBuilderProcessors : MonoBehaviour {
 	SectionBuilderProcessors testBuilder;
 	public LevelData levelData;
 	GameObjectPoolManager poolManager;
-	GameObject testBladeRow;
 	public DifficultyManager difficultyManager;
 	public bool firstSectionOK;
 	public bool SecondSectionOK;

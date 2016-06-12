@@ -6,7 +6,8 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 
-public class ScoreHandler : MonoBehaviour {
+public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporting, IScoreForUI
+{
     public MainGameController gameController;
     public UIHandler uiHandler;
     public PowerupHandler powerupHandler;

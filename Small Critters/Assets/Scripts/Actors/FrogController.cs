@@ -45,6 +45,7 @@ public class FrogController : MonoBehaviour {
     private void GetRequiredComponents()
 	{
         OnFrogDeath += particleSystemHandler.OnDeath;
+        OnFrogDeath += ServiceLocator.getService<IGameProgressReporting>().RunEnd;
         mainCamera = Camera.main.GetComponent<CameraVerticalFollow>();
     }
 

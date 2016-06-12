@@ -7,7 +7,6 @@ using System;
 public class HeatVentFSM{
 
 	public float totalCycleTime;
-	private float[] stateStayTimes;
 	private Dictionary <HeatVentState, float> stateTimers;
 	private Dictionary <HeatVentState, Action<HeatVentController>> transitions;
 	

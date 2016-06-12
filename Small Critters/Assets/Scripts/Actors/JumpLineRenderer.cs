@@ -4,7 +4,6 @@ using System.Collections;
 public class JumpLineRenderer : MonoBehaviour {
 	private LineRenderer lineRenderer;
 	public GameObject jumpMarker;
-	private RaycastHit2D hit;
 	private JumpMarkerSensor jumpMarkerSensor;
 	private JumpPathSensor jumpPathSensor;
 	public bool isStarted = false;

@@ -8,7 +8,6 @@ public class ProcessorFSM: IProcessorFSM{
 
 	public Color maxHeatupColor = Color.red;
 	public float totalCycleTime;
-	private float[] stateStayTimes;
 	private Dictionary<ProcessorState, float> stateTimers;
 	private Dictionary <ProcessorState, Action<ProcessorManager>> transitions;
 

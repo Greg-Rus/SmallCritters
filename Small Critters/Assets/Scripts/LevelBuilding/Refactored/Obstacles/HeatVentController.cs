@@ -19,10 +19,6 @@ public class HeatVentController : MonoBehaviour {
     public SpriteRenderer cautionArrowDecal;
 
     private Transform cautionDecalTransform;
-	float shaftHeight;
-	float shaftWidth;
-	float tipHeight;
-	float tipWidth;
 	
 	float maxShaftScale = 1f;
 	float minShaftScale = 0.7f;

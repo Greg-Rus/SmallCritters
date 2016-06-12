@@ -7,7 +7,6 @@ public class ProcessorManager : MonoBehaviour {
 	public ProcessorState state;
 	public float stateExitTime; //Time.timeSinceLevelLoad + some state timer
 	public float stateStayTimeCompletion; // 0.0 - 1.0 %
-    private Action<GameObject> storeInPool;
 	private ParticleSystem steamRing;
 	
 	void Awake () {

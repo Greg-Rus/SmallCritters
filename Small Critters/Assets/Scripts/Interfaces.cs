@@ -89,6 +89,13 @@ public interface IBeeSectionDifficulty
 	bool IsBeePresent();
 }
 
+public interface IBugsSectionDifficulty
+{
+    int GetNewBugSectionLength();
+    BugType GetBugType();
+    float difficultyPercent { get; }
+}
+
 public interface IRowCleanup
 {
 	void DismantleRow(List<GameObject> row);
@@ -118,6 +125,23 @@ public interface IPlayerDetection
 public interface IResetable
 {
     void Reset(Action<GameObject> storeInPool);
+}
+
+public interface IDeathReporting
+{
+    void EnemyDead(GameObject enemy, string causeOfDeath);
+}
+
+public interface IGameProgressReporting
+{
+    void NewRowsReached(int rows);
+    void RunEnd(string cuseOfDeath);
+}
+
+public interface IScoreForUI
+{
+    ScoreData GetScoreData();
+    void RestartRun(int button);
 }
 
 

@@ -23,7 +23,7 @@ public class BeeController : MonoBehaviour {
 	public BeeState state;
 	public float chaseTimeLeft;
 	private string currentAnimation;
-    public ScoreHandler scoreHandler;
+    public IDeathReporting deathReport;
     public DeathParticleSystemHandler particlesHandler;
 	private int elapsedUpdates = 0;
     private bool alive = false;
@@ -32,6 +32,11 @@ public class BeeController : MonoBehaviour {
 		currentAction = StayIdle;
 		myAnimator = GetComponent<Animator>();
 		myRigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        deathReport = ServiceLocator.getService<IDeathReporting>();
     }
 	void OnEnable() 
 	{
@@ -70,7 +75,7 @@ public class BeeController : MonoBehaviour {
         {
             alive = false;
             particlesHandler.OnDeath(causeOfDeath);
-            scoreHandler.EnemyDead(this.gameObject, causeOfDeath);
+            deathReport.EnemyDead(this.gameObject, causeOfDeath);
             SetAnimation("Idle");
             WaitUntillAnimatorResets();
         }

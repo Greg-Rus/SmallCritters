@@ -9,7 +9,6 @@ public class TestSectionBuilderBlades : MonoBehaviour {
 	SectionBuilderBlades testBuilder;
 	LevelData levelData;
 	GameObjectPoolManager poolManager;
-	GameObject testBladeRow;
 	// Use this for initialization
 	void Start () {
 		testRow = new List<GameObject>();

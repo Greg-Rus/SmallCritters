@@ -12,7 +12,6 @@ public class SectionBuilderBlades: ISectionBuilder {
 	IBladeSectionDifficulty difficultyManager;
 	
 	float bladeLength;
-	int maxBladeNumber;
 	
 	public SectionBuilderBlades(LevelData levelData, GameObjectPoolManager poolManager)
 	{

@@ -21,13 +21,13 @@ public class CameraVerticalFollow : MonoBehaviour {
 	}
 	private void FollowFrog()
 	{
-		if(frog != null)
-		{
-			newCameraPosition = this.transform.position;
+        if (frog != null)
+        {
+            newCameraPosition = this.transform.position;
 			newCameraPosition.y = frog.transform.position.y;
             transform.position = Vector3.SmoothDamp(transform.position, newCameraPosition, ref velocity, smoothTime);
         }
-	}
+    }
 
     public void ShakeCamera()
     {
