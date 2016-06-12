@@ -20,7 +20,7 @@ public class LevelHandler {
 		}
 	}
 	
-	public void buildNewRow() //TODO subscribe this to an event triggered by the fog
+	public void buildNewRow()
 	{
 		List<GameObject> row = level.Dequeue();
 		DismantleOldRow(row);

@@ -13,10 +13,7 @@ public class SectionBuilderClear : ISectionBuilder {
 	
 	public void buildNewRow(List<GameObject> row)
 	{
-		//GameObject empty = new GameObject();
-		//empty.name = "Empty";
-		//row.Add(empty);
-		//Empty row. Nothing to build here
+		//Empty row. Nothing to build here.
 	}
 	
 	

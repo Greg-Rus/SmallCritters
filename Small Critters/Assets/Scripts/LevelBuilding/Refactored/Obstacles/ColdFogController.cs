@@ -10,12 +10,8 @@ public class ColdFogController : MonoBehaviour
     public float speedDivisor;
     public LevelData levelData;
 
-    // Use this for initialization
-
-    // Update is called once per frame
     void Update()
     {
-        //ModifySpeedBasedOnDistanceToFrog();
         MoveUp();
     }
     void ModifySpeedBasedOnDistanceToFrog()
@@ -30,7 +26,6 @@ public class ColdFogController : MonoBehaviour
         {
             newPosition = this.transform.position;
             newPosition.y = levelData.levelTop - levelData.levelLength;
-            //Debug.Log("Skipping rows to catch up to player");
         }
         else
         {

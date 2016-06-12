@@ -30,21 +30,13 @@ public class HeatVentFSM{
 		transitions.Add (HeatVentState.Closing, TransitionToClosed);
 		
 		calculateTotalCycleTime ();
-		//stateStayTimes = new float[]{_stayCoolTime, _heatUpTime, _stayHotTime, _coolDownTime};
 	}
 	
 	public void SetStateTimes(float[] timers)
 	{
-		//if(timers.Length != stateTimers.Count) Debug.LogError ("got timers: " +timers.Length + " Expected: " + stateTimers.Count);
-		//Debug.Log ("got timers: " +timers.Length + " Expected: " + stateTimers.Count);
-		//stateTimers.Clear();
-		//Debug.Log ("Count: " + stateTimers.Count);
 		for(int i = 0; i < timers.Length ;++i)
 		{
-			//Debug.Log ("Cast: " + (HeatVentState)i + " = " + timers[i]);
 			stateTimers [(HeatVentState)i+1] = timers[i];	
-			
-			//stateTimers.Add ((HeatVentState)i ,timers[i]);
 		}
 		calculateTotalCycleTime ();
 	}
@@ -55,7 +47,6 @@ public class HeatVentFSM{
 		foreach (float time in stateTimers.Values)
 		{
 			totalCycleTime += time;
-			//Debug.Log ("Time: " + time + " total: " + totalCycleTime);
 		}
 		
 	}
@@ -111,7 +102,6 @@ public class HeatVentFSM{
 	
 	private void TransitionToOpening(HeatVentController heatVent)
 	{
-		//Debug.Log ("Opening");
 		SetStateAndTimer(heatVent, HeatVentState.Opening);
 		UpdateOpeningState(heatVent);
 	}
@@ -193,7 +183,6 @@ public class HeatVentFSM{
 	{
 		transitions[HeatVentState.Start](heatVent);
 		HeatVentState targetState = HeatVentState.Closed;
-		//transitions[targetState](heatVent);
 		float targetStateStayTime = stateTimers[targetState];
 		
 		while (targetStateStayTime < totalCycleTime * cyclePercent) 

@@ -28,7 +28,8 @@ public class MainGameController : MonoBehaviour {
         Screen.fullScreen = false;
     }
 
-	void Start () {
+	void Start ()
+    {
         difficultyManager.levelData = levelData;
         SetupGameFramework();
         levelHandler = gameFramework.BuildGameFramework();

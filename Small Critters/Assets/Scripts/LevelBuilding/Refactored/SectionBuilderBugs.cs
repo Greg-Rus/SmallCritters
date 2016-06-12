@@ -191,7 +191,6 @@ public class SectionBuilderBugs : ISectionBuilder
     private void ConfigureFireBeetleController(GameObject fireBeetle)
     {
         //TODO
-
     }
 
 

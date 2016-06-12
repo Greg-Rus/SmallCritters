@@ -66,7 +66,6 @@ public class GameFramework {
 		sectionBuilderSeclector.addSectionBuilder(processorsBuilder);
 		sectionBuilderSeclector.addSectionBuilder(heatVentBuilder);
         sectionBuilderSeclector.addSectionBuilder(bugsBuilder);
-
         levelData.activeSectionBuilder = clearBuilder;
 	}
 }

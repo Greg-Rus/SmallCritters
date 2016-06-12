@@ -8,7 +8,6 @@ public class ProcessorGroupController : MonoBehaviour {
 	private IProcessorPatternConfiguration patternConfigurator;
 	private IProcessorFSM processorGroupFSM;
 
-	// Use this for initialization
 	void Awake () 
 	{
 		if(patternConfigurator == null)
@@ -28,7 +27,7 @@ public class ProcessorGroupController : MonoBehaviour {
 		ProcessorGroupInitialSetup();
 	}
 	
-	// Update is called once per frame
+
 	void Update () 
 	{
 		foreach(ProcessorManager processor in processorGroup)
@@ -36,7 +35,6 @@ public class ProcessorGroupController : MonoBehaviour {
 			processorGroupFSM.UpdateHeatupPhase(processor);
 		}
 	}
-	
 
 	private void ProcessorGroupInitialSetup()
 	{

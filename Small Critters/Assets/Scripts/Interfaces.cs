@@ -10,6 +10,7 @@ public enum BugType {None, Fly, FireBeetle, Bee };
 public enum FireBeetleState { Idle, Following, Attacking };
 public enum Trend { Falling = -1, Rising = 1};
 public enum SwipeDirection {Backward = -1, Forward = 1};
+public enum HorizontalDirection { Left = -1, Right = 1};
 
 public interface Imovement {
 	

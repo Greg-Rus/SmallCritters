@@ -42,7 +42,6 @@ public class SectionBuilderProcessors : ISectionBuilder {
 
 		if(levelData.levelTop+1 == levelData.newSectionEnd)
 		{
-			//activate the controller
 			newProcessorGroupController = poolManager.retrieveObject("ProcessorGroup");
 			newProcessorGroupController.GetComponent<ProcessorGroupController>().initialize(processorGroup);
 			row.Add(newProcessorGroupController);

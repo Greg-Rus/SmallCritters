@@ -114,7 +114,6 @@ public class WallBuilder : MonoBehaviour {
 		if(legalOffsets.Count == 0)
 		{
 			currentTile = wallMap[Random.Range(0,wallMap.Count)];
-			Debug.Log ("no legal offsets");
 			GetTileOffset();
 		}
 		offset = legalOffsets[Random.Range(0,legalOffsets.Count)];

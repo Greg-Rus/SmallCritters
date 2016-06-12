@@ -36,7 +36,6 @@ public class SectionBuilderSelector: ISectionBuilderSelection {
 		else
 		{
 			newBuilderType = difficultyManager.GetSectionBuilder();
-            //RetryIfSameBuilderSelected();
 		}
 		
 		levelData.activeSectionBuilder = availableSectionBuilders[newBuilderType];

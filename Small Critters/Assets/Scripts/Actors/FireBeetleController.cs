@@ -28,7 +28,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private Vector3 vectorToPlayer;
     private Vector3 heading;
     private int elapsedUpdates;
-    private string currentAnimation;
     private bool alive = true;
 
     void Start()

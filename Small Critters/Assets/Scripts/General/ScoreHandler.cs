@@ -4,9 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.IO;
-//using System.Runtime.Serialization.Formatters.Binary;
-//using System.Runtime.Serialization.Formatters.Binary;
-//using Polenter.Serialization;
 using System.Xml.Serialization;
 
 public class ScoreHandler : MonoBehaviour {
@@ -19,7 +16,6 @@ public class ScoreHandler : MonoBehaviour {
     public int beeScoreStarCount = 3;
     public int flyScoreStarCount = 1;
     public int fireBeetleScoreStarCount = 2;
-
     public int deathViaBlade = 2;
     public int deatchViaBee = 1;
     public int deathViaProcessor = 3;
@@ -110,54 +106,32 @@ public class ScoreHandler : MonoBehaviour {
         score += points;
         UpdateUIScore();
         powerupHandler.UpdatePoints(points);
-        //UpdateUIPowerupStatus();
-
     }
 
     public void RunEnd(string cuseOfDeath)
     {
-        //Debug.Log("RUN END");
         Score newScore = new Score(gameController.seed, score);
         scoreData.lastRun = newScore;
 
         if (scoreData.scores.Count == 0)
         {
-            //scoreData.scores.Add(newScore);
-            //Debug.Log("Adding: " + newScore.hash + ", " + newScore.score + " at BEGINING");
             scoreData.scores.Add(newScore);
         }
         else
         {
-            //int scoreListIndex = 0;
-            //Debug.Log("scoreData.scores.Count: " + scoreData.scores.Count);
             bool inserted = false;
-            //for (LinkedListNode<Score> node = scoreData.scores.First; node != null; node = node.Next)
-            //{
-            //    if (newScore.score >= node.Value.score)
-            //    {
-            //        scoreData.scores.AddBefore(node, newScore);
-            //        inserted = true;
-            //        break;
-            //    }
-            //}
             for (int i = 0; i < scoreData.scores.Count; ++i)
-            //foreach (Score scoreEntry in scoreData.scores)
             {
                 if (newScore.score >= scoreData.scores[i].score)
                 {
-                    //Debug.Log("Inserting: " + newScore.hash + ", " + newScore.score + " at: " + i);
                     scoreData.scores.Insert(i, newScore);
-                    // Debug.Log("Inserting at: " + i);
                     inserted = true;
                     break;
                 }
-                // ++scoreListIndex;
             }
             if (!inserted)
             {
-                //Debug.Log("Appending: " + newScore.hash + ", " + newScore.score + " at END");
                 scoreData.scores.Add(newScore);
-                //scoreData.scores.AddLast(newScore);
             }
            
             if (scoreData.scores.Count > 10)
@@ -194,9 +168,6 @@ public class ScoreHandler : MonoBehaviour {
         }
         else
         {
-            //int buttonNumber = int.Parse(button.name);
-            //Debug.Log("Button number: " + button);
-           // Debug.Log("Target hash: " + scoreData.scores[button].hash);
             PlayerPrefs.SetString("Seed", scoreData.scores[button].hash);
             gameController.RestartGame();
         }

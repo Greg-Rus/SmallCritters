@@ -180,7 +180,7 @@ public class HeatVentController : MonoBehaviour {
 	{
 		if(killArea.size.x < length)
 		{
-			Vector2 newKillAreaSize = new Vector2(killArea.size.x +  Time.deltaTime * flame.startSpeed * 1f, 1f); //Sadly the exact velocity of the particle is not exposed in the API. 0.7 is the current best guesstimate
+			Vector2 newKillAreaSize = new Vector2(killArea.size.x +  Time.deltaTime * flame.startSpeed * 1f, 1f); //The exact velocity of the particle is not exposed in the API. 0.7 is the current best guesstimate
 			killArea.size = newKillAreaSize;
 			Vector2 newKillAreaOffset = new Vector2(newKillAreaSize.x * 0.5f, 0f);
 			killArea.offset = newKillAreaOffset;
