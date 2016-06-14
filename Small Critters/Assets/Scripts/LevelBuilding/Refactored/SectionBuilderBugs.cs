@@ -157,7 +157,6 @@ public class SectionBuilderBugs : ISectionBuilder
     private void ConfigureBeeController(GameObject bee)
     {
         BeeController newBeeController = bee.GetComponent<BeeController>();
-        newBeeController.Reset();
         newBeeController.chargeDistance = beeDifficultyManager.GetChargeDistance();
         newBeeController.chargeSpeed = beeDifficultyManager.GetChargeSpeed();
         newBeeController.chargeTime = beeDifficultyManager.GetChargeTime();

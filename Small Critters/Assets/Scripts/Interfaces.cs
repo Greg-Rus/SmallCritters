@@ -144,5 +144,15 @@ public interface IScoreForUI
     void RestartRun(int button);
 }
 
+public interface IPowerup
+{
+    void UpdatePoints(float points);
+    void OnShotFired();
+    void SetBonus();
+    bool powerupModeOn { get; }
+}
+
+
+
 
 

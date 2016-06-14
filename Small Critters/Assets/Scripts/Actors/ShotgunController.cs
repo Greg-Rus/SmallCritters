@@ -11,7 +11,7 @@ public class ShotgunController : MonoBehaviour {
     public GameObject[] pellets;
     public Transform shotgunTransform;
     public float spread;
-    public PowerupHandler powerupHandler;
+    public IPowerup powerup;
 
     private Animator animator;
     private TrailRenderer[] pelletTrailRenderers;
@@ -20,7 +20,7 @@ public class ShotgunController : MonoBehaviour {
 
     void Start () {
         GetPelletComponenets();
-        powerupHandler = ServiceLocator.getService<PowerupHandler>();
+        powerup = ServiceLocator.getService<IPowerup>();
         animator = GetComponentInParent<Animator>();
     }
 	
@@ -29,7 +29,7 @@ public class ShotgunController : MonoBehaviour {
         FirePellets();
         StopCoroutine(CleanUpPelletsAfterSeconds(2f));
         StartCoroutine(CleanUpPelletsAfterSeconds(2f));
-        powerupHandler.OnShotFired();
+        powerup.OnShotFired();
         animator.SetTrigger("Shoot");
         SoundController.instance.PlayShotgunFire();
     }

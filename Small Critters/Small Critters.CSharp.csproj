@@ -73,6 +73,7 @@
     <Compile Include="Assets\AssetStore\SimpleParticlePack\Scripts\ParticleTester.cs" />
     <Compile Include="Assets\AssetStore\cartoon_comic_onomatopoeia\Scripts\ParticleTester_cartoon_comic_onomatopoeia.cs" />
     <Compile Include="Assets\Scripts\Actors\BeeController.cs" />
+    <Compile Include="Assets\Scripts\Actors\BeeFSM.cs" />
     <Compile Include="Assets\Scripts\Actors\BeeSensor.cs" />
     <Compile Include="Assets\Scripts\Actors\CostumeSwitcher.cs" />
     <Compile Include="Assets\Scripts\Actors\DeathParticleSystemHandler.cs" />

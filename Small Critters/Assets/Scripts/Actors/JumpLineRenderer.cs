@@ -7,7 +7,7 @@ public class JumpLineRenderer : MonoBehaviour {
 	private JumpMarkerSensor jumpMarkerSensor;
 	private JumpPathSensor jumpPathSensor;
 	public bool isStarted = false;
-    private PowerupHandler powerup;
+    private IPowerup powerup;
     public Sprite jumpSprite;
     public Sprite targetSprite;
     public SpriteRenderer markerRenderer;
@@ -20,7 +20,7 @@ public class JumpLineRenderer : MonoBehaviour {
 		lineRenderer.sortingOrder = 50;
 		jumpMarkerSensor = GetComponentInChildren<JumpMarkerSensor>();
 		jumpPathSensor = GetComponentInChildren<JumpPathSensor>();
-        powerup = ServiceLocator.getService<PowerupHandler>();
+        powerup = ServiceLocator.getService<IPowerup>();
         shotgun = GetComponentInChildren<ShotgunController>(true);
     }
 	void Start () {

@@ -17,7 +17,7 @@ public class FrogInputHandler : MonoBehaviour {
 	private Vector3 worldDraggedPoint;
     private float swipeDirection;
     private ShotgunController shotgun;
-    private PowerupHandler powerupHandler;
+    private IPowerup powerupHandler;
     private bool reloading = false;
 
 	void Awake () {
@@ -30,7 +30,7 @@ public class FrogInputHandler : MonoBehaviour {
 
     void Start()
     {
-        powerupHandler = ServiceLocator.getService<PowerupHandler>();
+        powerupHandler = ServiceLocator.getService<IPowerup>();
     }
 
 	void Update()

@@ -56,7 +56,7 @@ public class GameFramework {
         ServiceLocator.addService<IDeathReporting>(scoreHandler);
         ServiceLocator.addService<IGameProgressReporting>(scoreHandler);
         ServiceLocator.addService<IScoreForUI>(scoreHandler);
-        ServiceLocator.addService<PowerupHandler>(powerupHandler);
+        ServiceLocator.addService<IPowerup>(powerupHandler);
     }
 	
 	private void SetupSectionBuilders()

@@ -10,7 +10,7 @@ public class BeeController : MonoBehaviour {
 	GameObject frog;
 	Vector3 vectorToPlayer;
 	Vector3 heading;
-	float stateExitTime;
+	//float stateExitTime;
 	public float chargeTime;
 	public float flySpeed;
 	public float chargeSpeed;
@@ -20,18 +20,18 @@ public class BeeController : MonoBehaviour {
     public int stunCollisionLayer;
 
 	public float stunTime;
-	public BeeState state;
-	public float chaseTimeLeft;
+	//public BeeState state;
+	//public float chaseTimeLeft;
 	private string currentAnimation;
     public IDeathReporting deathReport;
     public DeathParticleSystemHandler particlesHandler;
-	private int elapsedUpdates = 0;
     private bool alive = false;
+    private BeeFSM myFSM;
 
     void Awake () {
-		currentAction = StayIdle;
 		myAnimator = GetComponent<Animator>();
 		myRigidbody = GetComponent<Rigidbody2D>();
+        myFSM = GetComponent<BeeFSM>();
     }
 
     void Start()
@@ -41,20 +41,14 @@ public class BeeController : MonoBehaviour {
 	void OnEnable() 
 	{
         alive = true;
-        currentAction = StayIdle;
-		state = BeeState.Idle;
-        gameObject.layer = groundedLayer;
+        MakeBeeGrounded();
     }
-
-	void Update () {
-		currentAction();
-	}
 	
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if(coll.gameObject.layer == stunCollisionLayer && state == BeeState.Charging)
+		if(coll.gameObject.layer == stunCollisionLayer && myFSM.state == BeeState.Charging)
 		{
-			StartBeingStunned();
+            myFSM.OnColision();
 		}
 		if (coll.collider.CompareTag("Hazard"))
 		{
@@ -80,101 +74,30 @@ public class BeeController : MonoBehaviour {
             WaitUntillAnimatorResets();
         }
 	}
-	
-	private void StartBeingStunned()
-	{
-		stateExitTime = Time.timeSinceLevelLoad + stunTime;
-		state = BeeState.Stunned;
-        gameObject.layer = groundedLayer;
-
-		SetAnimation("Stunned");
-
-		currentAction = StayStunned;
-	}
-	
-	private void StayStunned()
-	{
-        CheckStateExitConditions();
-	}
 
     public void PlayerDetected(GameObject player)
     {
         frog = player;
-        StartFollowingPalyer();
+        myFSM.OnPlayerDetected();
     }
 
-    private void StartFollowingPalyer()
-	{
-		state = BeeState.Following;
-		currentAction = FollowPlayer;
-        gameObject.layer = flyLayer;
-        SetAnimation("Fly");
-	}
-	
-	private void FollowPlayer()
-	{
-		UpdatePlayerLocation();
-		RotateToFacePlayer();
-		myRigidbody.AddForce(heading * flySpeed);
-		if(vectorToPlayer.magnitude <= chargeDistance)
-		{
-			StartChargingAtPlayer();
-		}
-	}
-
-	public void StartChargingAtPlayer()
-	{
-		RotateToFacePlayer();
-		state = BeeState.Charging;
-		currentAction = Charge;
-		SetAnimation("Charge");
-		stateExitTime = Time.timeSinceLevelLoad + chargeTime;
-		myRigidbody.velocity = Vector3.zero;
-	}
-	
-	public void Charge()
-	{
-		myRigidbody.AddForce(heading * chargeSpeed);
-		chaseTimeLeft = stateExitTime - Time.timeSinceLevelLoad;
-		CheckStateExitConditions();
-	}
-	
-	private bool CheckStateExitConditions()
-	{
-		if(Time.timeSinceLevelLoad >= stateExitTime)
-		{
-			UpdatePlayerLocation();
-			if(vectorToPlayer.magnitude <= chargeDistance)
-			{
-				StartChargingAtPlayer();
-			}
-			else StartFollowingPalyer();
-			return true;
-		}
-		return false;
-	}
-	
 	public void UpdatePlayerLocation()
 	{
 		vectorToPlayer = frog.transform.position - this.transform.position;
 		heading = vectorToPlayer.normalized;
 	}
 	
-	private void RotateToFacePlayer()
+	public void RotateToFacePlayer()
 	{
 		float angle = Mathf.Atan2(heading.y,heading.x) * Mathf.Rad2Deg;
 		myRigidbody.MoveRotation(angle);
 	}
 	
-	private void StayIdle()
-	{
-		//Dummy state.
-	}
-	
-	private void SetAnimation(string stringInput){
-		if(currentAnimation==stringInput){
-		}else{
-			if(currentAnimation!=null){
+	public void SetAnimation(string stringInput){
+		if(currentAnimation != stringInput)
+        {
+			if(currentAnimation!=null)
+            {
 				myAnimator.ResetTrigger(currentAnimation);
 			}
 			myAnimator.SetTrigger(stringInput);
@@ -184,22 +107,41 @@ public class BeeController : MonoBehaviour {
 
 	private void WaitUntillAnimatorResets()
 	{
-		elapsedUpdates = 0;
-		currentAction = DisableAfterNextUpdate;
+		StartCoroutine(DisableAfterNextUpdate());
 	}
 
-	private void DisableAfterNextUpdate()
+	private IEnumerator DisableAfterNextUpdate()
 	{
-		++elapsedUpdates;
-		if (elapsedUpdates == 2) {
-            gameObject.SetActive (false);
-		}
+        yield return null;
+        gameObject.SetActive (false);
 	}
 	
-	public void Reset()
-	{
-		currentAction = StayIdle;
-		state = BeeState.Idle;
-	}
+    public void ApplyFlyingForce()
+    {
+        myRigidbody.AddForce(heading * flySpeed);
+    }
+    public void ApplyChargingForce()
+    {
+        myRigidbody.AddForce(heading * flySpeed);
+    }
+    public void RapidStop()
+    {
+        myRigidbody.velocity = Vector3.zero;
+    }
+
+    public void MakeBeeGrounded()
+    {
+        gameObject.layer = groundedLayer;
+    }
+
+    public void MakeBeeAirborn()
+    {
+        gameObject.layer = flyLayer;
+    }
+
+    public bool CheckIfInRange(float range)
+    {
+        return (vectorToPlayer.sqrMagnitude <= Mathf.Pow(range, 2f)) ? true : false;
+    }
 	
 }

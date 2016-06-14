@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PowerupHandler : MonoBehaviour {
+public class PowerupHandler : MonoBehaviour, IPowerup
+{
     public float currentStarPoints = 0f;
     public float maxStarPoints;
     public int maxAmmo = 5;
@@ -9,7 +10,7 @@ public class PowerupHandler : MonoBehaviour {
     public UIHandler uiHandler;
     public CostumeSwitcher costumeSwitcher;
     public FrogController frogController;
-    public bool powerupModeOn = false;
+    public bool powerupModeOn { get; private set; }
 
     public void UpdatePoints(float points)
     {

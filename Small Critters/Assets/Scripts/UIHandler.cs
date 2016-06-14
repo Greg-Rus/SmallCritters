@@ -376,7 +376,7 @@ public class UIHandler : MonoBehaviour {
     public void OnBonusPress()
     {
         bonusButton.SetActive(false);
-        ServiceLocator.getService<PowerupHandler>().SetBonus();
+        ServiceLocator.getService<IPowerup>().SetBonus();
     }
 
     private void DisableBonusButton()
