@@ -12,7 +12,7 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 	public DifficultyParameter sectionLength;
     public DifficultyParameter beeChance;
 
-	public void Start()
+    public void Start()
 	{
 		ScaleDifficulty();
 	}

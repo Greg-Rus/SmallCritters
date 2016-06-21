@@ -10,30 +10,22 @@ public class BeeController : MonoBehaviour {
 	GameObject frog;
 	Vector3 vectorToPlayer;
 	Vector3 heading;
-	//float stateExitTime;
-	public float chargeTime;
-	public float flySpeed;
-	public float chargeSpeed;
-	public float chargeDistance;
     public int flyLayer;
     public int groundedLayer;
     public int stunCollisionLayer;
-
-	public float stunTime;
-	//public BeeState state;
-	//public float chaseTimeLeft;
+    public BeeData data = new BeeData();
 	private string currentAnimation;
     public IDeathReporting deathReport;
     public DeathParticleSystemHandler particlesHandler;
     private bool alive = false;
     private BeeFSM myFSM;
 
-    void Awake () {
-		myAnimator = GetComponent<Animator>();
+    void Awake ()
+    {
+        myAnimator = GetComponent<Animator>();
 		myRigidbody = GetComponent<Rigidbody2D>();
-        myFSM = GetComponent<BeeFSM>();
+        myFSM = new BeeFSM(this);
     }
-
     void Start()
     {
         deathReport = ServiceLocator.getService<IDeathReporting>();
@@ -42,11 +34,16 @@ public class BeeController : MonoBehaviour {
 	{
         alive = true;
         MakeBeeGrounded();
+        myFSM.Reset();
+    }
+    void Update()
+    {
+        myFSM.CurrentAction();
     }
 	
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if(coll.gameObject.layer == stunCollisionLayer && myFSM.state == BeeState.Charging)
+		if(coll.gameObject.layer == stunCollisionLayer && data.state == BeeState.Charging)
 		{
             myFSM.OnColision();
 		}
@@ -118,11 +115,11 @@ public class BeeController : MonoBehaviour {
 	
     public void ApplyFlyingForce()
     {
-        myRigidbody.AddForce(heading * flySpeed);
+        myRigidbody.AddForce(heading * data.flySpeed);
     }
     public void ApplyChargingForce()
     {
-        myRigidbody.AddForce(heading * flySpeed);
+        myRigidbody.AddForce(heading * data.chargeSpeed);
     }
     public void RapidStop()
     {

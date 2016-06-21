@@ -89,6 +89,15 @@ public interface IBeeSectionDifficulty
 	bool IsBeePresent();
 }
 
+public interface IFireBeetleDifficultyManager
+{
+    float GetWalkSpeed();
+    float GetRotationSpeed();
+    float GetAttackDistanceMax();
+    float GetAttackDistanceMin();
+    float GetShotCooldownTime();
+}
+
 public interface IBugsSectionDifficulty
 {
     int GetNewBugSectionLength();

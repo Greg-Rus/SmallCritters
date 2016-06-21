@@ -47,6 +47,11 @@ public class FireBallController : MonoBehaviour {
         Explode();
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Hazard")) Explode();
+    }
+
     private void Explode()
     {
         Destroy(this.gameObject);

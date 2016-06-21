@@ -2,32 +2,20 @@
 using System.Collections;
 using System;
 
-public class BeeFSM : MonoBehaviour {
+public class BeeFSM {
     BeeController controller;
-    Action currentAction;
-    float stateExitTime;
-    //public float chargeTime;
-    //public float flySpeed;
-    //public float chargeSpeed;
-    //public float chargeDistance;
-    //public float stunTime;
-    public float chaseTimeLeft;
-    public BeeState state;
-    // Use this for initialization
-    void OnEnable()
+    public Action CurrentAction;
+
+    public BeeFSM(BeeController controller)
     {
-        currentAction = StayIdle;
-        state = BeeState.Idle;
+        this.controller = controller;
+        Reset();
     }
 
-    void Start ()
+    public void Reset()
     {
-        controller = GetComponent<BeeController>();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        currentAction();
+        CurrentAction = StayIdle;
+        controller.data.state = BeeState.Idle;
     }
 
     private void StayIdle()
@@ -37,11 +25,11 @@ public class BeeFSM : MonoBehaviour {
 
     private void StartBeingStunned()
     {
-        stateExitTime = Time.timeSinceLevelLoad + controller.stunTime;
-        state = BeeState.Stunned;
+        controller.data.stateExitTime = Time.timeSinceLevelLoad + controller.data.stunTime;
+        controller.data.state = BeeState.Stunned;
         controller.MakeBeeGrounded();
         controller.SetAnimation("Stunned");
-        currentAction = StayStunned;
+        CurrentAction = StayStunned;
     }
 
     private void StayStunned()
@@ -56,8 +44,8 @@ public class BeeFSM : MonoBehaviour {
 
     private void StartFollowingPalyer()
     {
-        state = BeeState.Following;
-        currentAction = FollowPlayer;
+        controller.data.state = BeeState.Following;
+        CurrentAction = FollowPlayer;
         controller.MakeBeeAirborn();
         controller.SetAnimation("Fly");
     }
@@ -67,7 +55,7 @@ public class BeeFSM : MonoBehaviour {
         controller.UpdatePlayerLocation();
         controller.RotateToFacePlayer();
         controller.ApplyFlyingForce();
-        if (controller.CheckIfInRange(controller.chargeDistance))
+        if (controller.CheckIfInRange(controller.data.chargeDistance))
         {
             StartChargingAtPlayer();
         }
@@ -76,26 +64,26 @@ public class BeeFSM : MonoBehaviour {
     private void StartChargingAtPlayer()
     {
         controller.RotateToFacePlayer();
-        state = BeeState.Charging;
-        currentAction = Charge;
+        controller.data.state = BeeState.Charging;
+        CurrentAction = Charge;
         controller.SetAnimation("Charge");
-        stateExitTime = Time.timeSinceLevelLoad + controller.chargeTime;
+        controller.data.stateExitTime = Time.timeSinceLevelLoad + controller.data.chargeTime;
         controller.RapidStop();
     }
 
     private void Charge()
     {
         controller.ApplyChargingForce();
-        chaseTimeLeft = stateExitTime - Time.timeSinceLevelLoad;
+        controller.data.chaseTimeLeft = controller.data.stateExitTime - Time.timeSinceLevelLoad;
         CheckStateExitConditions();
     }
 
     private void CheckStateExitConditions()
     {
-        if (Time.timeSinceLevelLoad >= stateExitTime)
+        if (Time.timeSinceLevelLoad >= controller.data.stateExitTime)
         {
             controller.UpdatePlayerLocation();
-            if (controller.CheckIfInRange(controller.chargeDistance))
+            if (controller.CheckIfInRange(controller.data.chargeDistance))
             {
                 StartChargingAtPlayer();
             }

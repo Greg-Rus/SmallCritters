@@ -7,11 +7,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Animator myAnimator;
     public Rigidbody2D myRigidbody;
     public IDeathReporting deathReport;
-    public FireBeetleState state;
-    public float walkSpeed;
-    public float rotationSpeed;
-    public float attackDistanceMax;
-    public float attackDistanceMin;
+    public float maxProjectileRange = 5f;
     public float minRotationError; //error in degrees where it is still acceptable to fire a projectile.
     public GameObject fireBall;
     public Transform firingPoint;
@@ -19,16 +15,20 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Transform myTransform;
     public float angleToPlayerDelta;
     public DeathParticleSystemHandler deathParticles;
-    public float shotCooldownTime;
     public float angleToPlayer;
 
     private float lastShotTime = 0;
     private GameObject frog;
-    private Action currentAction;
     private Vector3 vectorToPlayer;
     private Vector3 heading;
-    private int elapsedUpdates;
     private bool alive = true;
+    public FireBeetleData data;
+    private FireBeetleFSM FSM;
+
+    void Awake()
+    {
+        FSM = new FireBeetleFSM(this);
+    }
 
     void Start()
     {
@@ -36,22 +36,13 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     }
     void OnEnable()
     {
-        state = FireBeetleState.Idle;
-        currentAction = StayIdle;
         frog = null;
         alive = true;
-        myTransform.rotation = Quaternion.identity;
+        FSM.Reset();
     }
-
     void Update()
     {
-        currentAction();
-    }
-
-    public void AttackComplete()
-    {
-        lastShotTime = Time.timeSinceLevelLoad;
-        StartFollowingPlayer();
+        FSM.CurrentAction();
     }
 
     public void DeployProjectile()
@@ -59,9 +50,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
         FireBallController newBallController = newFireBall.GetComponent<FireBallController>();
         Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
-        newBallController.Aim(firingPoint, 5f); //TODO Decide max range in DifficultyManager;
+        newBallController.Aim(firingPoint, maxProjectileRange); //TODO Decide max range in DifficultyManager;
         newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
-
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -93,75 +83,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public void PlayerDetected(GameObject player)
     {
         frog = player;
-        StartFollowingPlayer();
-    }
-
-    private void StayIdle()
-    {
-        //Dummy state;
-    }
-
-    public void StartFollowingPlayer()
-    {
-        state = FireBeetleState.Following;
-        currentAction = FollowPlayer;
-
-    }
-
-    private void FollowPlayer()
-    {
-        UpdatePlayerLocation();
-        RotateToFacePlayer();
-        if (vectorToPlayer.sqrMagnitude < Mathf.Pow(attackDistanceMin, 2))
-        {
-            StartEvadingPlayer();
-        }
-        else if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistanceMax, 2) && 
-            angleToPlayerDelta <= minRotationError &&
-            lastShotTime + shotCooldownTime <= Time.timeSinceLevelLoad)
-        {
-            StartAttackingPlayer();
-        }
-        myRigidbody.AddForce(heading * walkSpeed);
-        myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
-
-    }
-
-    private void StartEvadingPlayer()
-    {
-        currentAction = EvadePlayer;
-    }
-
-    private void EvadePlayer()
-    {
-        UpdatePlayerLocation();
-        RotateToFacePlayer();
-        if (vectorToPlayer.sqrMagnitude >= Mathf.Pow(attackDistanceMax, 2))
-        {
-            StartFollowingPlayer();
-        }
-        else if (vectorToPlayer.sqrMagnitude <= Mathf.Pow(attackDistanceMax, 2) &&
-            angleToPlayerDelta <= minRotationError &&
-            lastShotTime + shotCooldownTime <= Time.timeSinceLevelLoad)
-        {
-            StartAttackingPlayer();
-        }
-        myRigidbody.AddForce(heading * -walkSpeed);
-        myAnimator.SetFloat("Speed", -myRigidbody.velocity.magnitude);
-    }
-
-    private void StartAttackingPlayer()
-    {
-        state = FireBeetleState.Attacking;
-        SetAnimation("Attack");
-        currentAction = Attack;
-        myAnimator.SetFloat("Speed", 0f);
-    }
-
-    private void Attack()
-    {
-        UpdatePlayerLocation();
-        RotateToFacePlayer();
+        FSM.StartFollowingPlayer();
     }
 
     public void UpdatePlayerLocation()
@@ -170,7 +92,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         heading = vectorToPlayer.normalized;
     }
 
-    private void RotateToFacePlayer()
+    public void RotateToFacePlayer()
     {
         angleToPlayer = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
         if (angleToPlayer < 0)
@@ -180,7 +102,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         angleToPlayerDelta = Math.Abs(myTransform.eulerAngles.z - angleToPlayer);
         if (angleToPlayerDelta >= minRotationError)
         {
-            float smoothAngle = Mathf.MoveTowardsAngle(myTransform.rotation.eulerAngles.z, angleToPlayer, rotationSpeed);
+            float smoothAngle = Mathf.MoveTowardsAngle(myTransform.rotation.eulerAngles.z, angleToPlayer, data.rotationSpeed);
             myRigidbody.MoveRotation(smoothAngle);
         }
     }
@@ -191,18 +113,51 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     }
     private void WaitUntillAnimatorResets()
     {
-        SetAnimation("Reset");
-        elapsedUpdates = 0;
-        currentAction = DisableAfterNextUpdate;
+        StartCoroutine(DisableAfterNextUpdate());
     }
 
-    private void DisableAfterNextUpdate()
+    private IEnumerator DisableAfterNextUpdate()
     {
-        ++elapsedUpdates;
-        if (elapsedUpdates == 2)
+        yield return null;
+        gameObject.SetActive(false);
+    }
+
+    public void Move(float speed)
+    {
+        myRigidbody.AddForce(heading * speed);
+        if (Vector3.Dot(myRigidbody.velocity.normalized, myTransform.forward) > 1f)
         {
-            gameObject.SetActive(false);
+            myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
         }
+        else
+        {
+            myAnimator.SetFloat("Speed", -myRigidbody.velocity.magnitude);
+        }
+    }
+
+    public void Attack()
+    {
+        SetAnimation("Attack");
+        myAnimator.SetFloat("Speed", 0f);
+    }
+
+    public void AttackComplete()
+    {
+        lastShotTime = Time.timeSinceLevelLoad;
+        FSM.StartFollowingPlayer();
+    }
+
+    public bool IsInRange(float range)
+    {
+        return (vectorToPlayer.sqrMagnitude <= Mathf.Pow(range, 2f)) ? true : false;
+    }
+    public bool IsRotationWithinError()
+    {
+        return (angleToPlayerDelta <= minRotationError) ? true : false;
+    }
+    public bool IsReadyToFire()
+    {
+        return (lastShotTime + data.shotCooldownTime <= Time.timeSinceLevelLoad) ? true : false;
     }
 
 }

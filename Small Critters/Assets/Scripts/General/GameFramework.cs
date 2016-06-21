@@ -50,6 +50,7 @@ public class GameFramework {
 		ServiceLocator.addService<IProcessorGroupDifficulty>(difficultyManager.processorSectionDifficultyManager);
 		ServiceLocator.addService<IHeatVentSectionDifficulty>(difficultyManager.heatVentDifficultyManager);
 		ServiceLocator.addService<IBeeSectionDifficulty>(difficultyManager.bugsDifficultyManager.beeDifficultyManager);
+        ServiceLocator.addService<IFireBeetleDifficultyManager>(difficultyManager.bugsDifficultyManager.fireBeetleDificultyManager);
         ServiceLocator.addService<IBugsSectionDifficulty>(difficultyManager.bugsDifficultyManager);
 		ServiceLocator.addService<IProcessorFSM> (new ProcessorFSM ());
 		ServiceLocator.addService<IProcessorPatternConfiguration> (new ProcessorPatternConfigurator ());

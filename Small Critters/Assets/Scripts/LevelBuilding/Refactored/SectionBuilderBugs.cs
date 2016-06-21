@@ -9,6 +9,7 @@ public class SectionBuilderBugs : ISectionBuilder
     LevelData levelData;
     GameObjectPoolManager poolManager;
     IBeeSectionDifficulty beeDifficultyManager;
+    IFireBeetleDifficultyManager fireBeetleDifficultyManager;
     IBugsSectionDifficulty bugDifficultyManager;
     GameObject bee;
     GameObject fly;
@@ -34,6 +35,7 @@ public class SectionBuilderBugs : ISectionBuilder
         this.levelData = levelData;
         this.poolManager = poolManager;
         beeDifficultyManager = ServiceLocator.getService<IBeeSectionDifficulty>();
+        fireBeetleDifficultyManager = ServiceLocator.getService<IFireBeetleDifficultyManager>();
         bugDifficultyManager = ServiceLocator.getService<IBugsSectionDifficulty>();
         type = SectionBuilderType.bugs;
         LoadPrefabs();
@@ -157,10 +159,11 @@ public class SectionBuilderBugs : ISectionBuilder
     private void ConfigureBeeController(GameObject bee)
     {
         BeeController newBeeController = bee.GetComponent<BeeController>();
-        newBeeController.chargeDistance = beeDifficultyManager.GetChargeDistance();
-        newBeeController.chargeSpeed = beeDifficultyManager.GetChargeSpeed();
-        newBeeController.chargeTime = beeDifficultyManager.GetChargeTime();
-        newBeeController.flySpeed = beeDifficultyManager.GetFlySpeed();
+        newBeeController.data = new BeeData();
+        newBeeController.data.chargeDistance = beeDifficultyManager.GetChargeDistance();
+        newBeeController.data.chargeSpeed = beeDifficultyManager.GetChargeSpeed();
+        newBeeController.data.chargeTime = beeDifficultyManager.GetChargeTime();
+        newBeeController.data.flySpeed = beeDifficultyManager.GetFlySpeed();
     }
 
     private void ConfigureFlyController(GameObject fly)
@@ -173,8 +176,11 @@ public class SectionBuilderBugs : ISectionBuilder
 
     private void ConfigureFireBeetleController(GameObject fireBeetle)
     {
-        //TODO
+        FireBeetleController newFireBeetleController = fireBeetle.GetComponent<FireBeetleController>();
+        newFireBeetleController.data.attackDistanceMax = fireBeetleDifficultyManager.GetAttackDistanceMax();
+        newFireBeetleController.data.attackDistanceMin = fireBeetleDifficultyManager.GetAttackDistanceMin();
+        newFireBeetleController.data.rotationSpeed = fireBeetleDifficultyManager.GetRotationSpeed();
+        newFireBeetleController.data.shotCooldownTime = fireBeetleDifficultyManager.GetShotCooldownTime();
+        newFireBeetleController.data.walkSpeed = fireBeetleDifficultyManager.GetWalkSpeed();
     }
-
-
 }
