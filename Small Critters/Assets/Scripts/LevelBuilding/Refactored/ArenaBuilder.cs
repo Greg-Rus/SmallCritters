@@ -23,8 +23,9 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	public void SetUpArenaRow(List<GameObject> row)
 	{
 		currentRow = row;
-        SetupSideWalls();
         SetupFloor();
+        SetupSideWalls();
+        
 	}
 	
 	public void Setup(LevelData levelData, GameObjectPoolManager poolManager)
@@ -38,13 +39,13 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
         poolManager.addPool(bladeRowWallRight, 20);
         wallSectionBuilder.poolManager = poolManager;
 	}
-	
-	private void SetupFloor()
-	{
-        for (float i = levelData.leftWallX+1f; i < levelData.navigableAreaWidth+1f ; ++i)
-		{
-			Sprite newFloorSprite = floorSprites[Random.Range(0,floorSprites.Length)];
-			SetNewTilePosition(i,levelData.levelTop);
+
+    private void SetupFloor()
+    {
+        for (float i = levelData.leftWallX + 1f; i < levelData.navigableAreaWidth + 1f; ++i)
+        {
+            Sprite newFloorSprite = floorSprites[Random.Range(0, floorSprites.Length)];
+            SetNewTilePosition(i, levelData.levelTop);
             if (((i - 0.5f) % 2) == 0)
             {
                 SpawnTile(floorTilePrefab, newFloorSprite, Color.white);
@@ -53,8 +54,8 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
             {
                 SpawnTile(floorTilePrefab, newFloorSprite, oddTileColor);
             }
-		}
-	}
+        }
+    }
 
 	private void SetNewTilePosition(float x, float y)
 	{

@@ -123,19 +123,19 @@ public class UIHandler : MonoBehaviour {
             seededToggle.isOn = false;
         }
 
-        if (PlayerPrefs.GetFloat("SwipeControlls") == 1)
+        if (PlayerPrefs.GetFloat("SwipeControlls") == (float)SwipeDirection.Forward)
         {
             swipeUpToggle.isOn = true;
             swipeDownToggle.isOn = false;
         }
-        else if (PlayerPrefs.GetFloat("SwipeControlls") == -1)
+        else if (PlayerPrefs.GetFloat("SwipeControlls") == (float)SwipeDirection.Backward)
         {
             swipeUpToggle.isOn = false;
             swipeDownToggle.isOn = true;
         }
         else
         {
-            PlayerPrefs.SetFloat("SwipeControlls", 1);
+            PlayerPrefs.SetFloat("SwipeControlls", (float)SwipeDirection.Forward);
             swipeUpToggle.isOn = true;
             swipeDownToggle.isOn = false;
         }

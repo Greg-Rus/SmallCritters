@@ -20,8 +20,8 @@ public class FrogInputHandler : MonoBehaviour {
     private IPowerup powerupHandler;
     private bool reloading = false;
 
-	void Awake () {
-        swipeDirection = PlayerPrefs.GetFloat("SwipeControlls");
+	void Awake ()
+    {
         frogMovement = GetComponent<Imovement>() as Imovement ;
         shotgun = GetComponentInChildren<ShotgunController>(true);
         swipeToJumpConversionRatio = maxJumpLength / maxJumpSwipe;
@@ -31,6 +31,7 @@ public class FrogInputHandler : MonoBehaviour {
     void Start()
     {
         powerupHandler = ServiceLocator.getService<IPowerup>();
+        swipeDirection = PlayerPrefs.GetFloat("SwipeControlls");
     }
 
 	void Update()
