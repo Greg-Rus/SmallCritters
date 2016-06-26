@@ -43,7 +43,11 @@ public class FireBeetleFSM {
         {
             StartAttackingPlayer();
         }
-        controller.Move(controller.data.walkSpeed);
+        else
+        {
+            controller.Move(controller.data.walkSpeed);
+        }
+        
 
     }
 
@@ -66,7 +70,11 @@ public class FireBeetleFSM {
         {
             StartAttackingPlayer();
         }
-        controller.Move(-controller.data.walkSpeed);
+        else
+        {
+            controller.Move(-controller.data.walkSpeed);
+        }
+        
     }
 
     private void StartAttackingPlayer()

@@ -1,24 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-public enum BeeState { Idle, Following, Charging, Stunned };
+
 public class BeeController : MonoBehaviour {
-	Action currentAction;
 	Animator myAnimator;
 	Rigidbody2D myRigidbody;
-    public CircleCollider2D myCollider;
 	GameObject frog;
 	Vector3 vectorToPlayer;
 	Vector3 heading;
     public int flyLayer;
     public int groundedLayer;
     public int stunCollisionLayer;
-    public BeeData data = new BeeData();
+    
 	private string currentAnimation;
     public IDeathReporting deathReport;
     public DeathParticleSystemHandler particlesHandler;
     private bool alive = false;
     private BeeFSM myFSM;
+    public BeeData data = new BeeData();
 
     void Awake ()
     {

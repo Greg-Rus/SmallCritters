@@ -8,7 +8,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Rigidbody2D myRigidbody;
     public IDeathReporting deathReport;
     public float maxProjectileRange = 5f;
-    public float minRotationError; //error in degrees where it is still acceptable to fire a projectile.
     public GameObject fireBall;
     public Transform firingPoint;
     public float fireBallSpeed = 3f;
@@ -24,10 +23,12 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private bool alive = true;
     public FireBeetleData data;
     private FireBeetleFSM FSM;
+    private BasicMotor motor;
 
     void Awake()
     {
         FSM = new FireBeetleFSM(this);
+        motor = GetComponent<BasicMotor>();
     }
 
     void Start()
@@ -39,10 +40,15 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         frog = null;
         alive = true;
         FSM.Reset();
+        motor.enabled = false;
     }
     void Update()
     {
         FSM.CurrentAction();
+        if (data.state == FireBeetleState.Attacking && motor.speed != 0f)
+        {
+            Debug.Log("motor running while attacking");
+        }
     }
 
     public void DeployProjectile()
@@ -84,6 +90,10 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         frog = player;
         FSM.StartFollowingPlayer();
+        if (motor.enabled == false)
+        {
+            motor.enabled = true;
+        }
     }
 
     public void UpdatePlayerLocation()
@@ -94,17 +104,8 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void RotateToFacePlayer()
     {
-        angleToPlayer = Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg;
-        if (angleToPlayer < 0)
-        {
-            angleToPlayer += 360f;
-        }
-        angleToPlayerDelta = Math.Abs(myTransform.eulerAngles.z - angleToPlayer);
-        if (angleToPlayerDelta >= minRotationError)
-        {
-            float smoothAngle = Mathf.MoveTowardsAngle(myTransform.rotation.eulerAngles.z, angleToPlayer, data.rotationSpeed);
-            myRigidbody.MoveRotation(smoothAngle);
-        }
+        motor.heading = heading;
+        motor.SmoothRotateToFaceHeading();
     }
 
     private void SetAnimation(string stringInput)
@@ -124,14 +125,19 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void Move(float speed)
     {
-        myRigidbody.AddForce(heading * speed);
-        if (Vector3.Dot(myRigidbody.velocity.normalized, myTransform.forward) > 1f)
+        motor.heading = heading;
+        motor.speed = speed;
+        if (data.state == FireBeetleState.Attacking)
         {
-            myAnimator.SetFloat("Speed", myRigidbody.velocity.magnitude);
+            Debug.Log("Move used while attacking");
+        }
+        if (motor.IsMovingForward())
+        {
+            myAnimator.SetFloat("Speed", motor.GetVelocityMagnitude());
         }
         else
         {
-            myAnimator.SetFloat("Speed", -myRigidbody.velocity.magnitude);
+            myAnimator.SetFloat("Speed", -motor.GetVelocityMagnitude());
         }
     }
 
@@ -139,6 +145,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         SetAnimation("Attack");
         myAnimator.SetFloat("Speed", 0f);
+        motor.speed = 0f;
     }
 
     public void AttackComplete()
@@ -153,7 +160,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     }
     public bool IsRotationWithinError()
     {
-        return (angleToPlayerDelta <= minRotationError) ? true : false;
+        return (motor.angleToTargetDelta <= motor.minRotationError) ? true : false;
     }
     public bool IsReadyToFire()
     {

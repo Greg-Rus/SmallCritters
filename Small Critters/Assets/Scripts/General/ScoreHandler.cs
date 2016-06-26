@@ -70,19 +70,19 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             case "Fly":           starCount = flyScoreStarCount; break;
             case "FireBeetle":    starCount = fireBeetleScoreStarCount; break;
         }
-        float causeOfDeathMultiplier = 0;
+        //float causeOfDeathMultiplier = 0;
         switch (causeOfDeath)
         {
-            case "Blade":       causeOfDeathMultiplier = deathViaBlade; break;
-            case "HeatVent":    causeOfDeathMultiplier = deathViaVent; break;
-            case "Bee":         causeOfDeathMultiplier = deatchViaBee; break;
-            case "Processor":   causeOfDeathMultiplier = deathViaProcessor; break;
-            case "ShotgunProjectile": causeOfDeathMultiplier = 0.5f; break;
-            default:            causeOfDeathMultiplier = deathViaOther; break;
+            case "Blade":           starCount += deathViaBlade; break;
+            case "HeatVent":        starCount += deathViaVent; break;
+            case "Bee":             starCount += deatchViaBee; break;
+            case "Processor":       starCount += deathViaProcessor; break;
+            case "Pellet":          starCount = 0; break;
+            default:                starCount += deathViaOther; break;
         }
-        int potentialScore = (int)(starValue * causeOfDeathMultiplier);
-        if (potentialScore < 1) potentialScore = 1;
-        SpawnStars(starCount, enemy.transform.position, potentialScore);
+        //int potentialScore = (int)(starValue * causeOfDeathMultiplier);
+        //if (potentialScore < 1) potentialScore = 1;
+        if(starCount > 0) SpawnStars(starCount, enemy.transform.position, 1);
         
     }
 
@@ -91,8 +91,8 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
         Vector3 offset = Vector3.zero;
         for (int i = 0; i < count; ++i)
         {
-            offset.x = UnityEngine.Random.Range(0f, 0.5f);
-            offset.y = UnityEngine.Random.Range(0f, 0.5f);
+            offset.x = UnityEngine.Random.Range(0f, 1f);
+            offset.y = UnityEngine.Random.Range(0f, 1f);
             GameObject newStar = Instantiate(star, 
                                             position + offset,
                                             Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360))

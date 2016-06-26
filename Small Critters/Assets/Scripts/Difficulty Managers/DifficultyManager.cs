@@ -58,7 +58,7 @@ public class DifficultyManager: MonoBehaviour, IDifficultyBasedBuilderPicking{
 	{
 		float weightSum = 0;
         CycleBannedSection();
-        SectionBuilderType builder= SectionBuilderType.clear;
+        SectionBuilderType builder = SectionBuilderType.clear;
 		for(int i = 0; i < builderWeights.Count; ++i)
 		{
 			weightSum+=builderWeights[i].weight;
