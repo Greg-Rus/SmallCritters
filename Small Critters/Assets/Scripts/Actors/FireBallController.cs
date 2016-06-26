@@ -13,6 +13,11 @@ public class FireBallController : MonoBehaviour {
     public float maxRange = 5f;
     private Vector3 startPosition;
 
+    void Start()
+    {
+        gameObject.name = "FlameBall";
+    }
+
     void Update()
     {
         ChackIfAtMaxRnage();

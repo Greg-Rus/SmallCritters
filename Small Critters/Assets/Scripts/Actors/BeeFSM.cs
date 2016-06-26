@@ -29,6 +29,7 @@ public class BeeFSM {
         controller.data.state = BeeState.Stunned;
         controller.MakeBeeGrounded();
         controller.SetAnimation("Stunned");
+        controller.RapidStop();
         CurrentAction = StayStunned;
     }
 
@@ -44,17 +45,17 @@ public class BeeFSM {
 
     private void StartFollowingPalyer()
     {
-        controller.data.state = BeeState.Following;
         CurrentAction = FollowPlayer;
+        controller.data.state = BeeState.Following;
         controller.MakeBeeAirborn();
         controller.SetAnimation("Fly");
+        controller.ApplyFlyingForce();
     }
 
     private void FollowPlayer()
     {
         controller.UpdatePlayerLocation();
         controller.RotateToFacePlayer();
-        controller.ApplyFlyingForce();
         if (controller.CheckIfInRange(controller.data.chargeDistance))
         {
             StartChargingAtPlayer();
@@ -63,17 +64,19 @@ public class BeeFSM {
 
     private void StartChargingAtPlayer()
     {
+        CurrentAction = Charge;
+        controller.MakeBeeAirborn();
+        controller.UpdatePlayerLocation();
         controller.RotateToFacePlayer();
         controller.data.state = BeeState.Charging;
-        CurrentAction = Charge;
         controller.SetAnimation("Charge");
         controller.data.stateExitTime = Time.timeSinceLevelLoad + controller.data.chargeTime;
         controller.RapidStop();
+        controller.ApplyChargingForce();
     }
 
     private void Charge()
     {
-        controller.ApplyChargingForce();
         controller.data.chaseTimeLeft = controller.data.stateExitTime - Time.timeSinceLevelLoad;
         CheckStateExitConditions();
     }

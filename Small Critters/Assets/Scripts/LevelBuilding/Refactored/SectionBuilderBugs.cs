@@ -164,6 +164,7 @@ public class SectionBuilderBugs : ISectionBuilder
         newBeeController.data.chargeSpeed = beeDifficultyManager.GetChargeSpeed();
         newBeeController.data.chargeTime = beeDifficultyManager.GetChargeTime();
         newBeeController.data.flySpeed = beeDifficultyManager.GetFlySpeed();
+        newBeeController.data.stunTime = beeDifficultyManager.GetStunTime();
     }
 
     private void ConfigureFlyController(GameObject fly)

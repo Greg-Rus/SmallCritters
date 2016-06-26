@@ -26,6 +26,9 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public ScoreData scoreData;
     public GameObject star;
 
+    public ScoreEvaluator beeScoreEvaluator;
+    public ScoreEvaluator fireBeetleScoreEvaluator;
+
     XmlSerializer serializer;
 
     void Awake()
@@ -64,24 +67,14 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public void EnemyDead(GameObject enemy, string causeOfDeath)
     {
         int starCount = 0;
+
         switch (enemy.name)
         {
-            case "Bee":           starCount = beeScoreStarCount; break;
-            case "Fly":           starCount = flyScoreStarCount; break;
-            case "FireBeetle":    starCount = fireBeetleScoreStarCount; break;
+            case "Bee":           starCount = beeScoreEvaluator.EvaluateKill(causeOfDeath); break;
+            case "Fly":           starCount = 1; break;
+            case "FireBeetle":    starCount = fireBeetleScoreEvaluator.EvaluateKill(causeOfDeath); break;
         }
-        //float causeOfDeathMultiplier = 0;
-        switch (causeOfDeath)
-        {
-            case "Blade":           starCount += deathViaBlade; break;
-            case "HeatVent":        starCount += deathViaVent; break;
-            case "Bee":             starCount += deatchViaBee; break;
-            case "Processor":       starCount += deathViaProcessor; break;
-            case "Pellet":          starCount = 0; break;
-            default:                starCount += deathViaOther; break;
-        }
-        //int potentialScore = (int)(starValue * causeOfDeathMultiplier);
-        //if (potentialScore < 1) potentialScore = 1;
+
         if(starCount > 0) SpawnStars(starCount, enemy.transform.position, 1);
         
     }

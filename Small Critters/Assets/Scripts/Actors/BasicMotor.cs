@@ -59,4 +59,10 @@ public class BasicMotor : MonoBehaviour {
     {
         return myRigidbody.velocity.magnitude;
     }
+
+    public void RapidStop()
+    {
+        myRigidbody.velocity = Vector3.zero;
+        speed = 0f;
+    }
 }

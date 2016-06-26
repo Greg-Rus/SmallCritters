@@ -86,6 +86,7 @@ public interface IBeeSectionDifficulty
 	float GetFlySpeed();
 	float GetChargeSpeed();
 	float GetChargeDistance();
+    float GetStunTime();
 	int GetNewBeeSectionLength();
 	bool IsBeePresent();
 }

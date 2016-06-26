@@ -11,6 +11,7 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 	public DifficultyParameter chargeDistance;
 	public DifficultyParameter sectionLength;
     public DifficultyParameter beeChance;
+    public DifficultyParameter stunTime;
 
     public void Start()
 	{
@@ -28,6 +29,7 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 			chargeDistance.scaleCurrent(difficultyPercent);
 			sectionLength.scaleCurrent(difficultyPercent);
             beeChance.scaleCurrent(difficultyPercent);
+            stunTime.scaleCurrent(difficultyPercent);
 		}
 	}
 	
@@ -47,6 +49,10 @@ public class BeeSectionDifficultyManager : MonoBehaviour, IBeeSectionDifficulty,
 	{
 		return chargeDistance.current;
 	}
+    public float GetStunTime()
+    {
+        return stunTime.current;
+    }
     public int GetNewBeeSectionLength()
     {
         return (int)sectionLength.current;

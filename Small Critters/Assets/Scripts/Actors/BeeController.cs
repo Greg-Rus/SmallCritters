@@ -3,26 +3,26 @@ using System.Collections;
 using System;
 
 public class BeeController : MonoBehaviour {
-	Animator myAnimator;
-	Rigidbody2D myRigidbody;
-	GameObject frog;
-	Vector3 vectorToPlayer;
-	Vector3 heading;
+	private Animator myAnimator;
+    private GameObject frog;
+    private Vector3 vectorToPlayer;
+    private Vector3 heading;
+    private BasicMotor motor;
+    private BeeFSM myFSM;
+    private bool alive = false;
+    private string currentAnimation;
+
+    public BeeData data = new BeeData();
     public int flyLayer;
     public int groundedLayer;
     public int stunCollisionLayer;
-    
-	private string currentAnimation;
     public IDeathReporting deathReport;
     public DeathParticleSystemHandler particlesHandler;
-    private bool alive = false;
-    private BeeFSM myFSM;
-    public BeeData data = new BeeData();
 
     void Awake ()
     {
         myAnimator = GetComponent<Animator>();
-		myRigidbody = GetComponent<Rigidbody2D>();
+        motor = GetComponent<BasicMotor>();
         myFSM = new BeeFSM(this);
     }
     void Start()
@@ -32,12 +32,18 @@ public class BeeController : MonoBehaviour {
 	void OnEnable() 
 	{
         alive = true;
+        frog = null;
         MakeBeeGrounded();
         myFSM.Reset();
+        motor.speed = 0;
     }
     void Update()
     {
         myFSM.CurrentAction();
+        if (data.state == BeeState.Charging && gameObject.layer == groundedLayer)
+        {
+            Debug.LogError("Charging while grounded!!");
+        }
     }
 	
 	void OnCollisionEnter2D(Collision2D coll)
@@ -73,20 +79,23 @@ public class BeeController : MonoBehaviour {
 
     public void PlayerDetected(GameObject player)
     {
-        frog = player;
-        myFSM.OnPlayerDetected();
+        if (frog == null)
+        {
+            frog = player;
+            myFSM.OnPlayerDetected();
+        }
     }
 
 	public void UpdatePlayerLocation()
 	{
 		vectorToPlayer = frog.transform.position - this.transform.position;
 		heading = vectorToPlayer.normalized;
+        motor.heading = heading;
 	}
 	
 	public void RotateToFacePlayer()
 	{
-		float angle = Mathf.Atan2(heading.y,heading.x) * Mathf.Rad2Deg;
-		myRigidbody.MoveRotation(angle);
+        motor.RotateToFaceTarget();
 	}
 	
 	public void SetAnimation(string stringInput){
@@ -114,15 +123,15 @@ public class BeeController : MonoBehaviour {
 	
     public void ApplyFlyingForce()
     {
-        myRigidbody.AddForce(heading * data.flySpeed);
+        motor.speed = data.flySpeed;
     }
     public void ApplyChargingForce()
     {
-        myRigidbody.AddForce(heading * data.chargeSpeed);
+        motor.speed = data.chargeSpeed;
     }
     public void RapidStop()
     {
-        myRigidbody.velocity = Vector3.zero;
+        motor.RapidStop();
     }
 
     public void MakeBeeGrounded()

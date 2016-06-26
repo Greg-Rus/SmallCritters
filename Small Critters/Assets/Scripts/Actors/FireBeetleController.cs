@@ -127,10 +127,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     {
         motor.heading = heading;
         motor.speed = speed;
-        if (data.state == FireBeetleState.Attacking)
-        {
-            Debug.Log("Move used while attacking");
-        }
         if (motor.IsMovingForward())
         {
             myAnimator.SetFloat("Speed", motor.GetVelocityMagnitude());
