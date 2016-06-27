@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Actors\RepeatedSideMovement.cs" />
     <Compile Include="Assets\Scripts\Actors\ShotgunController.cs" />
     <Compile Include="Assets\Scripts\Actors\SpritesFader.cs" />
+    <Compile Include="Assets\Scripts\Animation\FireBeetleSpitExtension.cs" />
     <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
     <Compile Include="Assets\Scripts\Difficulty Managers\BeeSectionDifficultyManager.cs" />
     <Compile Include="Assets\Scripts\Difficulty Managers\BladeSectionDifficultyManager.cs" />

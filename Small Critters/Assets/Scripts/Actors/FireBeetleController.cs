@@ -16,7 +16,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public DeathParticleSystemHandler deathParticles;
     public float angleToPlayer;
 
-    private float lastShotTime = 0;
     private GameObject frog;
     private Vector3 vectorToPlayer;
     private Vector3 heading;
@@ -24,6 +23,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public FireBeetleData data;
     private FireBeetleFSM FSM;
     private BasicMotor motor;
+    private float shotCooldownTimeout = 0f;
 
     void Awake()
     {
@@ -45,10 +45,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     void Update()
     {
         FSM.CurrentAction();
-        if (data.state == FireBeetleState.Attacking && motor.speed != 0f)
-        {
-            Debug.Log("motor running while attacking");
-        }
     }
 
     public void DeployProjectile()
@@ -82,17 +78,21 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
             alive = false;
             deathReport.EnemyDead(this.gameObject, causeOfDeath);
             deathParticles.OnDeath(causeOfDeath);
+            SetAnimation("Idle");
             WaitUntillAnimatorResets();
         }
     }
 
     public void PlayerDetected(GameObject player)
     {
-        frog = player;
-        FSM.StartFollowingPlayer();
-        if (motor.enabled == false)
+        if (frog == null)
         {
-            motor.enabled = true;
+            frog = player;
+            FSM.StartFollowingPlayer();
+            if (motor.enabled == false)
+            {
+                motor.enabled = true;
+            }
         }
     }
 
@@ -123,18 +123,10 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         gameObject.SetActive(false);
     }
 
-    public void Move(float speed)
+    public void SetSpeed(float speed)
     {
         motor.heading = heading;
         motor.speed = speed;
-        if (motor.IsMovingForward())
-        {
-            myAnimator.SetFloat("Speed", motor.GetVelocityMagnitude());
-        }
-        else
-        {
-            myAnimator.SetFloat("Speed", -motor.GetVelocityMagnitude());
-        }
     }
 
     public void Attack()
@@ -146,8 +138,20 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void AttackComplete()
     {
-        lastShotTime = Time.timeSinceLevelLoad;
+        shotCooldownTimeout = Time.timeSinceLevelLoad + data.shotCooldownTime;
         FSM.StartFollowingPlayer();
+    }
+
+    public void UpdateAnimationSpeed()
+    {
+        if (motor.IsMovingForward())
+        {
+            myAnimator.SetFloat("Speed", motor.GetVelocityMagnitude());
+        }
+        else
+        {
+            myAnimator.SetFloat("Speed", -motor.GetVelocityMagnitude());
+        }
     }
 
     public bool IsInRange(float range)
@@ -160,7 +164,6 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     }
     public bool IsReadyToFire()
     {
-        return (lastShotTime + data.shotCooldownTime <= Time.timeSinceLevelLoad) ? true : false;
+        return (shotCooldownTimeout <= Time.timeSinceLevelLoad) ? true : false;
     }
-
 }

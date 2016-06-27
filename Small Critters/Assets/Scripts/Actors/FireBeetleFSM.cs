@@ -26,13 +26,19 @@ public class FireBeetleFSM {
     {
         controller.data.state = FireBeetleState.Following;
         CurrentAction = FollowPlayer;
-
+        controller.SetSpeed(controller.data.walkSpeed);
     }
 
     private void FollowPlayer()
     {
         controller.UpdatePlayerLocation();
         controller.RotateToFacePlayer();
+        controller.UpdateAnimationSpeed();
+        FollowPlayerExitCheck();
+    }
+
+    private void FollowPlayerExitCheck()
+    {
         if (controller.IsInRange(controller.data.attackDistanceMin))
         {
             StartEvadingPlayer();
@@ -43,23 +49,24 @@ public class FireBeetleFSM {
         {
             StartAttackingPlayer();
         }
-        else
-        {
-            controller.Move(controller.data.walkSpeed);
-        }
-        
-
     }
 
     private void StartEvadingPlayer()
     {
         CurrentAction = EvadePlayer;
+        controller.SetSpeed(-controller.data.walkSpeed);
     }
 
     private void EvadePlayer()
     {
         controller.UpdatePlayerLocation();
         controller.RotateToFacePlayer();
+        controller.UpdateAnimationSpeed();
+        EvadePlayerExitCheck();
+    }
+
+    private void EvadePlayerExitCheck()
+    {
         if (!controller.IsInRange(controller.data.attackDistanceMax))
         {
             StartFollowingPlayer();
@@ -70,11 +77,6 @@ public class FireBeetleFSM {
         {
             StartAttackingPlayer();
         }
-        else
-        {
-            controller.Move(-controller.data.walkSpeed);
-        }
-        
     }
 
     private void StartAttackingPlayer()
