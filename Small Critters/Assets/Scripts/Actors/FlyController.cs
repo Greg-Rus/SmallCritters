@@ -8,6 +8,7 @@ public class FlyController : MonoBehaviour {
     public float destinationReachedDistance;
     public Rigidbody2D myRigidbody;
     public IDeathReporting deathReport;
+    public float reboundForce;
     private Vector3 vectorToDestination;
     private Vector3 heading;
     private BasicMotor motor;
@@ -34,27 +35,25 @@ public class FlyController : MonoBehaviour {
         heading = vectorToDestination.normalized;
         motor.heading = heading;
         motor.RotateToFaceTarget();
-        //RotateToDestination();
-        //myRigidbody.AddForce(heading * speed);
         if (vectorToDestination.sqrMagnitude <= Mathf.Pow(destinationReachedDistance, 2))
         {
             SelectDestination();
         }
     }
 
-    //private void RotateToDestination()
-    //{
-    //    float angle = Mathf.Atan2(vectorToDestination.y, vectorToDestination.x) * Mathf.Rad2Deg;
-    //    myRigidbody.MoveRotation(angle);
-    //}
-
-    void OnCollisionEnter2D(Collision2D coll)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (coll.collider.CompareTag("Hazard") || coll.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Hazard") || collision.collider.CompareTag("Player"))
         {
-            Die(coll.collider.name);
+            Die(collision.collider.name);
         }
-        SelectDestination();
+        else
+        {
+            Rebound(collision);
+            SelectDestination();
+        }
+
+        
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -68,5 +67,12 @@ public class FlyController : MonoBehaviour {
     {
         deathReport.EnemyDead(this.gameObject, causeOfDeath);
         this.gameObject.SetActive(false);
+    }
+
+    private void Rebound(Collision2D collision)
+    {
+        Vector2 reboundDirection = collision.contacts[0].point - (Vector2)transform.position;
+        reboundDirection = reboundDirection.normalized * -1f;
+        motor.AddImpulse(reboundDirection * reboundForce);
     }
 }

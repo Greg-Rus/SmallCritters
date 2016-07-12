@@ -150,6 +150,12 @@ public class MainGameController : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
+    public void SetRandomGameMode()
+    {
+        PlayerPrefs.SetString("Seed", "");
+        RestartGame();
+    }
+
     private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)
 	{
 		int rowsToBuild = newRowReachedEventArgs.newRowReached - difficultyManager.HighestRowReached;

@@ -45,6 +45,8 @@ public class UIHandler : MonoBehaviour {
     public Text ammoCount;
     public Action<float> OnSwipeDirectionChange;
     public GameObject bonusButton;
+    public GameObject newGameMenu;
+    public Button customGameButton;
 
     // Use this for initialization
     void Start () {
@@ -113,14 +115,15 @@ public class UIHandler : MonoBehaviour {
     {
         if (PlayerPrefs.GetString("GameMode") == "Seeded")
         {
-            randomToggle.isOn = false;
-            seededToggle.isOn = true;
+            //randomToggle.isOn = false;
+            //seededToggle.isOn = true;
             seedInput.text = PlayerPrefs.GetString("Seed");
+            customGameButton.interactable = true;
         }
         else
         {
-            randomToggle.isOn = true;
-            seededToggle.isOn = false;
+            //randomToggle.isOn = true;
+            //seededToggle.isOn = false;
         }
 
         if (PlayerPrefs.GetFloat("SwipeControlls") == (float)SwipeDirection.Forward)
@@ -197,6 +200,13 @@ public class UIHandler : MonoBehaviour {
     {
         SaveLastMenu(currentMenu, currentMenuLevel);
         SetCurrentMenu(optionsMenu, MenuLevel.SubMenu);
+        ShowCurrentMenu();
+    }
+
+    public void OnNewGameMenu()
+    {
+        SaveLastMenu(currentMenu, currentMenuLevel);
+        SetCurrentMenu(newGameMenu, MenuLevel.SubMenu);
         ShowCurrentMenu();
     }
 
@@ -307,6 +317,7 @@ public class UIHandler : MonoBehaviour {
     public void OnSeedEntered()
     {
         PlayerPrefs.SetString("Seed", seedInput.text);
+        customGameButton.interactable = true;
     }
 
     public void UpdateHearts(float amount)
@@ -383,6 +394,18 @@ public class UIHandler : MonoBehaviour {
     {
         bonusButton.SetActive(false);
     }
+
+    public void OnNewRandomGame()
+    {
+
+    }
+
+    public void OnNewCustomGame()
+    {
+
+    }
+
+
 
 
 }

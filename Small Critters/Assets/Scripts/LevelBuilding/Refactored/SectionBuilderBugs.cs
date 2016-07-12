@@ -170,8 +170,9 @@ public class SectionBuilderBugs : ISectionBuilder
     private void ConfigureFlyController(GameObject fly)
     {
         FlyController newFlyController = fly.GetComponent<FlyController>();
-        newFlyController.flyZoneBottomLeft = new Vector2(1.5f, levelData.newSectionStart - 0.5f);
-        newFlyController.flyZoneTopRight = new Vector2(levelData.levelWidth, levelData.newSectionEnd + 0.5f);
+        float flyBodyRadius = fly.GetComponent<CircleCollider2D>().radius;
+        newFlyController.flyZoneBottomLeft = new Vector2(1.5f + flyBodyRadius, levelData.newSectionStart - 0.5f);
+        newFlyController.flyZoneTopRight = new Vector2(levelData.levelWidth - flyBodyRadius, levelData.newSectionEnd + 0.5f);
         newFlyController.SelectDestination();
     }
 

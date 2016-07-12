@@ -65,4 +65,9 @@ public class BasicMotor : MonoBehaviour {
         myRigidbody.velocity = Vector3.zero;
         speed = 0f;
     }
+
+    public void AddImpulse(Vector2 force)
+    {
+        myRigidbody.AddForce(force, ForceMode2D.Impulse);
+    }
 }

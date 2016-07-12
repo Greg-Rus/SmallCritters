@@ -17,7 +17,8 @@ public class JumpLineRenderer : MonoBehaviour {
 	void Awake()
 	{
 		lineRenderer = GetComponent<LineRenderer>();
-		lineRenderer.sortingOrder = 50;
+        lineRenderer.sortingLayerName = "Frog";
+        lineRenderer.sortingOrder = 50;
 		jumpMarkerSensor = GetComponentInChildren<JumpMarkerSensor>();
 		jumpPathSensor = GetComponentInChildren<JumpPathSensor>();
         powerup = ServiceLocator.getService<IPowerup>();
