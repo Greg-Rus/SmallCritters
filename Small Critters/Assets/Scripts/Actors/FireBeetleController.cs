@@ -14,6 +14,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     public Transform myTransform;
     public float angleToPlayerDelta;
     public DeathParticleSystemHandler deathParticles;
+	public ParticleSystem attackCharge;
     public float angleToPlayer;
 
     private GameObject frog;
@@ -41,7 +42,9 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         alive = true;
         FSM.Reset();
         motor.enabled = false;
-    }
+		attackCharge.Clear();
+		attackCharge.Stop();
+	}
     void Update()
     {
         FSM.CurrentAction();
@@ -49,7 +52,9 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 
     public void DeployProjectile()
     {
-        GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
+		attackCharge.Clear();
+		attackCharge.Stop();
+		GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
         FireBallController newBallController = newFireBall.GetComponent<FireBallController>();
         Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
         newBallController.Aim(firingPoint, maxProjectileRange); //TODO Decide max range in DifficultyManager;
@@ -134,11 +139,12 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         SetAnimation("Attack");
         myAnimator.SetFloat("Speed", 0f);
         motor.speed = 0f;
+		attackCharge.Play();
     }
 
     public void AttackComplete()
     {
-        shotCooldownTimeout = Time.timeSinceLevelLoad + data.shotCooldownTime;
+		shotCooldownTimeout = Time.timeSinceLevelLoad + data.shotCooldownTime;
         FSM.StartFollowingPlayer();
     }
 

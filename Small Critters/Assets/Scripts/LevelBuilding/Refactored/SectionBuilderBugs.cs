@@ -149,7 +149,7 @@ public class SectionBuilderBugs : ISectionBuilder
     private GameObject DeployBugAtPosition(string bugName, float xCoordinate)
     {
         GameObject newBug = poolManager.retrieveObject(bugName);
-        Vector3 newBugPosition = new Vector3(xCoordinate, levelData.levelTop+1, 0f);
+        Vector3 newBugPosition = new Vector3(xCoordinate + levelData.bugSpawnAreaOffest, levelData.levelTop+1, 0f);
         newBug.transform.position = newBugPosition;
         newBug.transform.Rotate(new Vector3(0f, 0f, RandomLogger.GetRandomRange(0, 360)));
         currentRow.Add(newBug);

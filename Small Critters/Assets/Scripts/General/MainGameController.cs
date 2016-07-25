@@ -43,14 +43,15 @@ public class MainGameController : MonoBehaviour {
         int lastGameDay = PlayerPrefs.GetInt("LastGameDay");
         if (lastGameDay == 0)
         {
-            PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
             uiHandler.ShowTutorial();
         }
         else if (PlayerPrefs.GetInt("LastGameDay") <= System.DateTime.Today.AddDays(-daysToRemindMovementTutorial).DayOfYear)
         {
             uiHandler.ShowTutorial();
         }
-    }
+		PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
+
+	}
 
     private void SetupGameFramework()
     {

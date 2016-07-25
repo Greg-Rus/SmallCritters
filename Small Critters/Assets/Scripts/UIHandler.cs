@@ -115,16 +115,16 @@ public class UIHandler : MonoBehaviour {
     {
         if (PlayerPrefs.GetString("GameMode") == "Seeded")
         {
-            //randomToggle.isOn = false;
-            //seededToggle.isOn = true;
             seedInput.text = PlayerPrefs.GetString("Seed");
             customGameButton.interactable = true;
-        }
+			PropagateButtonStateToChildren(customGameButton);
+		}
         else
         {
-            //randomToggle.isOn = true;
-            //seededToggle.isOn = false;
-        }
+			customGameButton.interactable = false;
+			PropagateButtonStateToChildren(customGameButton);
+		}
+
 
         if (PlayerPrefs.GetFloat("SwipeControlls") == (float)SwipeDirection.Forward)
         {
@@ -144,6 +144,15 @@ public class UIHandler : MonoBehaviour {
         }
     }
 
+	public void PropagateButtonStateToChildren(Button button)
+	{
+		Image[] images = button.GetComponentsInChildren<Image>();
+		Color targetColor = (button.interactable) ? button.colors.normalColor : button.colors.disabledColor;
+		foreach (Image image in images)
+		{
+			image.color = targetColor;
+		}
+	}
 
     public void OnMenuQuitPrompt()
     {
@@ -317,8 +326,16 @@ public class UIHandler : MonoBehaviour {
     public void OnSeedEntered()
     {
         PlayerPrefs.SetString("Seed", seedInput.text);
-        customGameButton.interactable = true;
-    }
+		if (seedInput.text != "")
+		{
+			customGameButton.interactable = true;
+		}
+		else
+		{
+			customGameButton.interactable = false;
+		}
+		PropagateButtonStateToChildren(customGameButton);
+	}
 
     public void UpdateHearts(float amount)
     {
