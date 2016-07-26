@@ -11,6 +11,7 @@ public class PowerupHandler : MonoBehaviour, IPowerup
     public CostumeSwitcher costumeSwitcher;
     public FrogController frogController;
     public bool powerupModeOn { get; private set; }
+    public Animator powerupUIAnimator;
 
     public void UpdatePoints(float points)
     {
@@ -40,6 +41,7 @@ public class PowerupHandler : MonoBehaviour, IPowerup
             powerupModeOn = true;
             uiHandler.PowerupMode(powerupModeOn);
             costumeSwitcher.PutOnCostume();
+            powerupUIAnimator.SetTrigger("TroubleShooter");
         }
         currentStarPoints = 0;
         currentAmmo += maxAmmo;

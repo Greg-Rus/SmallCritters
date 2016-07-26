@@ -59,6 +59,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
         newBallController.Aim(firingPoint, maxProjectileRange); //TODO Decide max range in DifficultyManager;
         newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
+        SoundController.instance.PlaySound(Sound.BeatleSpit);
     }
 
     void OnCollisionEnter2D(Collision2D coll)

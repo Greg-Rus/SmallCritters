@@ -40,10 +40,6 @@ public class BeeController : MonoBehaviour {
     void Update()
     {
         myFSM.CurrentAction();
-        if (data.state == BeeState.Charging && gameObject.layer == groundedLayer)
-        {
-            Debug.LogError("Charging while grounded!!");
-        }
     }
 	
 	void OnCollisionEnter2D(Collision2D coll)

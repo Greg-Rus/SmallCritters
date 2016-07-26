@@ -29,9 +29,14 @@ public class FrogController : MonoBehaviour {
         if (coll.collider.CompareTag("Food"))
         {
             myAnimator.SetTrigger("Lick");
-            if (HP < 1f) HP += HPprogressPerFly;
-            if (HP > 1f) HP = 1f;
-            OnFoodPickup(HP);
+            if (HP != 1f)
+            {
+                if (HP < 1f) HP += HPprogressPerFly;
+                if (HP > 1f) HP = 1f;
+                if (HP == 1f) SoundController.instance.PlaySound(Sound.FullHeart);
+                OnFoodPickup(HP);
+            }
+
         }
     }
     void OnTriggerEnter2D(Collider2D other)

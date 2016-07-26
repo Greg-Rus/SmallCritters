@@ -12,6 +12,7 @@ public class FireBallController : MonoBehaviour {
     public Action OnHit;
     public float maxRange = 5f;
     private Vector3 startPosition;
+    public GameObject blastParticleSystem;
 
     void Start()
     {
@@ -59,6 +60,8 @@ public class FireBallController : MonoBehaviour {
 
     private void Explode()
     {
+        var blastObject = Instantiate(blastParticleSystem, transform.position, Quaternion.identity) as GameObject;
+        Destroy(blastObject, 0.5f);
         Destroy(this.gameObject);
     }
 }

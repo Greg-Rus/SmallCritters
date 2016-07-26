@@ -51,11 +51,11 @@ public class GameObjectPoolManager{
     {
         if (objectToStore == null)
         {
-            Debug.Log("null object passed!");
+            Debug.LogError("null object passed!");
         }
         if (pools[objectToStore.name] == null)
         {
-            Debug.Log("No pool for name: " + objectToStore.name);
+            Debug.LogError("No pool for name: " + objectToStore.name);
         }
         pools[objectToStore.name].storeObject(objectToStore);
     }

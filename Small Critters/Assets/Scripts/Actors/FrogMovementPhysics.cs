@@ -48,6 +48,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 			myAnimator.SetBool("Jumping",true);
 			jumpTimer = jumpForSeconds(calculateJumpTime(direction));
 			StartCoroutine(jumpTimer);
+            SoundController.instance.PlaySound(Sound.Jump);
 		}
 	}
 	IEnumerator jumpForSeconds(float jumpTime)

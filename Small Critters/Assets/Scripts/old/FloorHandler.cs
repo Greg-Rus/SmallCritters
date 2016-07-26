@@ -34,8 +34,6 @@ public class FloorHandler : MonoBehaviour {
 			for (int j = 0; j < 36; ++j)
 			{
 				newTexture.SetPixels32(i*128,j*128,128,128,GetTile());
-				
-				//Debug.Log (i+"  " +j);
 			}
 		}
 		newTexture.Apply(true);
@@ -46,7 +44,6 @@ public class FloorHandler : MonoBehaviour {
 	{
 		int tileOffsetX = Random.Range(0,3) * 128;
 		int tileOffsetY = Random.Range(0,3) * 128;
-//		Debug.Log (tileOffsetX+"  "+tileOffsetY);
 		Color[] tile = floorTiles.GetPixels(tileOffsetX,tileOffsetY,128,128);
 		Color32[] tile32 = new Color32[tile.Length];
 		int i =0;

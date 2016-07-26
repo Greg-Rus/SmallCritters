@@ -58,6 +58,7 @@ public class StarHandler : MonoBehaviour {
         if (relativePos.sqrMagnitude <= 0.2f)
         {
             OnStarPickup(points);
+            SoundController.instance.PlaySound(Sound.StarPickup);
             Destroy(this.gameObject);
         }
     }
