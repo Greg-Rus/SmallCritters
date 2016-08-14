@@ -17,11 +17,13 @@ public class ShotgunController : MonoBehaviour {
     private TrailRenderer[] pelletTrailRenderers;
     private Rigidbody2D[] pelletRigidbodies;
     private Transform[] pelletTransforms;
+    private IAudio audio;
 
     void Start () {
         GetPelletComponenets();
         powerup = ServiceLocator.getService<IPowerup>();
         animator = GetComponentInParent<Animator>();
+        audio = ServiceLocator.getService<IAudio>();
     }
 	
     public void Shoot()
@@ -31,7 +33,7 @@ public class ShotgunController : MonoBehaviour {
         StartCoroutine(CleanUpPelletsAfterSeconds(2f));
         powerup.OnShotFired();
         animator.SetTrigger("Shoot");
-        SoundController.instance.PlayShotgunFire();
+        audio.PlaySound(Sound.ShotgunBlastAndCock);
     }
 
     private void FirePellets()

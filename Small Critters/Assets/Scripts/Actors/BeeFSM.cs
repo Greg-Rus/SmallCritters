@@ -4,11 +4,13 @@ using System;
 
 public class BeeFSM {
     BeeController controller;
+    IAudio audio;
     public Action CurrentAction;
 
     public BeeFSM(BeeController controller)
     {
         this.controller = controller;
+        audio = ServiceLocator.getService<IAudio>();
         Reset();
     }
 
@@ -30,7 +32,7 @@ public class BeeFSM {
         controller.MakeBeeGrounded();
         controller.SetAnimation("Stunned");
         controller.RapidStop();
-        SoundController.instance.PlaySound(Sound.BeeStunHit);
+        audio.PlaySound(Sound.BeeStunHit);
         CurrentAction = StayStunned;
     }
 
@@ -74,7 +76,7 @@ public class BeeFSM {
         controller.data.stateExitTime = Time.timeSinceLevelLoad + controller.data.chargeTime;
         controller.RapidStop();
         controller.ApplyChargingForce();
-        SoundController.instance.PlaySound(Sound.BeeCharge);
+        audio.PlaySound(Sound.BeeCharge);
     }
 
     private void Charge()

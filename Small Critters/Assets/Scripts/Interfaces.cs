@@ -12,6 +12,11 @@ public enum Trend { Falling = -1, Rising = 1};
 public enum SwipeDirection {Backward = -1, Forward = 1};
 public enum HorizontalDirection { Left = -1, Right = 1};
 public enum BeeState { Idle, Following, Charging, Stunned };
+public enum Sound
+{
+    Silence, Jump, ShotgunBlastAndCock, ShotgunFire, ShotgunCock, BeeCharge, BeeStunHit, FullHeart, StarPickup, BeatleCharge, BeatleSpit,
+    EatFly, StartPowerup, KilledByFire, KilledByImpact, PlayerHit, PlayerKilled
+};
 
 public interface Imovement {
 	
@@ -161,6 +166,12 @@ public interface IPowerup
     void OnShotFired();
     void SetBonus();
     bool powerupModeOn { get; }
+}
+
+public interface IAudio
+{
+    void PlaySound(Sound sound);
+    void PlayEnemyDeathSound(string causeOfDeath);
 }
 
 

@@ -7,8 +7,10 @@ public class CostumeSwitcher : MonoBehaviour {
     public SpriteRenderer[] bodyParts;
     public GameObject helmet;
     public GameObject gun;
-    private JumpLineRenderer jumpLineRenderer;
+    public ParticleSystem costumeChangeEffect;
 
+    private JumpLineRenderer jumpLineRenderer;
+    
     void Awake()
     {
         jumpLineRenderer = GetComponent<JumpLineRenderer>();
@@ -31,6 +33,7 @@ public class CostumeSwitcher : MonoBehaviour {
 
     private void SwapSprites(Sprite[] sprites)
     {
+        costumeChangeEffect.Play();
         for (int i = 0; i < bodyParts.Length; ++i)
         {
             bodyParts[i].sprite = sprites[i];

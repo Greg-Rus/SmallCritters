@@ -15,6 +15,7 @@ public class MainGameController : MonoBehaviour {
     public ScoreHandler scoreHandler;
     public UIHandler uiHandler;
     public PowerupHandler powerupHandler;
+    public SoundController soundController;
     public string seed = "42";
     public Transform poolParent;
     public TextAsset nouns;
@@ -62,6 +63,7 @@ public class MainGameController : MonoBehaviour {
         gameFramework.scoreHandler = scoreHandler;
         gameFramework.poolParent = poolParent;
         gameFramework.powerupHandler = powerupHandler;
+        gameFramework.soundController = soundController;
     }
 		
 	private void StartNewGame()

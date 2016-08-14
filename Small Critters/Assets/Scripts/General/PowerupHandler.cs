@@ -13,6 +13,13 @@ public class PowerupHandler : MonoBehaviour, IPowerup
     public bool powerupModeOn { get; private set; }
     public Animator powerupUIAnimator;
 
+    private IAudio audio;
+
+    void Start()
+    {
+        audio = ServiceLocator.getService<IAudio>();
+    }
+
     public void UpdatePoints(float points)
     {
         currentStarPoints += points;
@@ -42,10 +49,12 @@ public class PowerupHandler : MonoBehaviour, IPowerup
             uiHandler.PowerupMode(powerupModeOn);
             costumeSwitcher.PutOnCostume();
             powerupUIAnimator.SetTrigger("TroubleShooter");
+            audio.PlaySound(Sound.StartPowerup);
         }
         currentStarPoints = 0;
         currentAmmo += maxAmmo;
         uiHandler.UpdateAmmoCount(currentAmmo);
+        
         
     }
     private void EndPowerupMode()

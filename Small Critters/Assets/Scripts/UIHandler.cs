@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
 
-public enum MenuLevel {MenuOff, MenuBackground, MainMenu, SubMenu, QuitPrompt };
+public enum MenuLevel {MenuOff, MenuBackground, MainMenu, SubMenu, QuitPrompt, Bonus };
 public class UIHandler : MonoBehaviour {
     public GameObject pausePanel;
     public GameObject quitPrompt;
@@ -45,6 +45,7 @@ public class UIHandler : MonoBehaviour {
     public Text ammoCount;
     public Action<float> OnSwipeDirectionChange;
     public GameObject bonusButton;
+    public GameObject bonusMenu;
     public GameObject newGameMenu;
     public Button customGameButton;
 
@@ -256,6 +257,7 @@ public class UIHandler : MonoBehaviour {
             case MenuLevel.MainMenu: { HideCurrentMenu(); DisableMenuContext(); break; }
             case MenuLevel.QuitPrompt: { ShowLastMenu(); break; }
             case MenuLevel.SubMenu: { HideCurrentMenu(); ShowLastMenu(); break; }
+            case MenuLevel.Bonus: { HideCurrentMenu(); DisableMenuContext(); break; }
         }
     }
 
@@ -404,7 +406,21 @@ public class UIHandler : MonoBehaviour {
     public void OnBonusPress()
     {
         bonusButton.SetActive(false);
+        if (!isMenuContext) EnableMenuContext();
+        SetCurrentMenu(bonusMenu, MenuLevel.MainMenu);
+        ShowCurrentMenu();
+    }
+
+    public void WatchAd()
+    {
         ServiceLocator.getService<IPowerup>().SetBonus();
+        HideCurrentMenu();
+        DisableMenuContext();
+    }
+    public void WatchAdLater()
+    {
+        HideCurrentMenu();
+        DisableMenuContext();
     }
 
     private void DisableBonusButton()
@@ -412,15 +428,15 @@ public class UIHandler : MonoBehaviour {
         bonusButton.SetActive(false);
     }
 
-    public void OnNewRandomGame()
-    {
+    //public void OnNewRandomGame()
+    //{
 
-    }
+    //}
 
-    public void OnNewCustomGame()
-    {
+    //public void OnNewCustomGame()
+    //{
 
-    }
+    //}
 
 
 

@@ -19,8 +19,8 @@ public class ScoreEvaluator {
         switch (causeOfDeath)
         {
             case "Blade":       starCount = deathViaBlade; break;
-            case "HeatVent":    starCount = deathViaVent; break;
-            case "Bee":         starCount = deatchViaBee; break;
+            case "Flame":       starCount = deathViaVent; break;
+            case "Sting":       starCount = deatchViaBee; break;
             case "Processor":   starCount = deathViaProcessor; break;
             case "Pellet":      starCount = dathViaPellet; break;
             case "FlameBall":   starCount = deathViaFireBeetle; break;

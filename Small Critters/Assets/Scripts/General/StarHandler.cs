@@ -10,14 +10,16 @@ public class StarHandler : MonoBehaviour {
     public float decayScaleThreshold;
     public int points;
     public float scoringDistance;
-    private float scale = 1;
     public ParticleSystem sparcleTrail;
-    //public ScoreHandler deathReport;
     public CircleCollider2D playerDetectionCircle;
-    private Action<int> OnStarPickup;
 
-	void Start () {
+    private Action<int> OnStarPickup;
+    private float scale = 1;
+    private IAudio audio;
+
+    void Start () {
         transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
+        audio = ServiceLocator.getService<IAudio>();
     }
 
     public void Configure(int points, float scoringDistance, Action<int> OnStarPickup  )
@@ -58,7 +60,7 @@ public class StarHandler : MonoBehaviour {
         if (relativePos.sqrMagnitude <= 0.2f)
         {
             OnStarPickup(points);
-            SoundController.instance.PlaySound(Sound.StarPickup);
+            audio.PlaySound(Sound.StarPickup);
             Destroy(this.gameObject);
         }
     }
