@@ -33,5 +33,6 @@ public class BugsDifficultyManager : MonoBehaviour, IDifficultyScaling, IBugsSec
             sectionLength.scaleCurrent(difficultyPercent);
         }
         beeDifficultyManager.ScaleDifficulty();
+        fireBeetleDificultyManager.ScaleDifficulty();
     }
 }

@@ -6,6 +6,7 @@ using System.Collections;
 public class SoundController : MonoBehaviour, IAudio {
     
     public AudioSource myAudio;
+    public AudioSource myMusic;
 
     public AudioClip mainMusic;
     public AudioClip powerupMusic;
@@ -30,6 +31,8 @@ public class SoundController : MonoBehaviour, IAudio {
     public SoundController instance;
 
     private IPowerup powerupStatus;
+    public bool isMusicOn;
+    public bool isSoundFXOn;
 
     void Awake()
     {
@@ -42,6 +45,24 @@ public class SoundController : MonoBehaviour, IAudio {
     void Start()
     {
         powerupStatus = ServiceLocator.getService<IPowerup>();
+        if (PlayerPrefs.GetInt("Music") == (int)Toggled.On)
+        {
+            SetMusicOn(true);
+        }
+        else
+        {
+            SetMusicOn(false);
+        }
+
+        if (PlayerPrefs.GetInt("SoundFX") == (int)Toggled.On)
+        {
+            SetSoundFXOn(true);
+        }
+        else
+        {
+            SetSoundFXOn(false);
+        }
+
     }
 
     public void PlayShotgunFire()
@@ -51,24 +72,28 @@ public class SoundController : MonoBehaviour, IAudio {
 
     public void PlaySound(Sound sound)
     {
-        switch (sound)
+        if (isSoundFXOn)
         {
-            case Sound.Jump: PlayJumpSound(); break;
-            case Sound.ShotgunBlastAndCock: PlayShotgunFire(); break;
-            case Sound.BeatleSpit: myAudio.PlayOneShot(beatleSpit); break;
-            case Sound.BeeCharge: myAudio.PlayOneShot(beeCharge); break;
-            case Sound.BeeStunHit: myAudio.PlayOneShot(beeStunHit); break;
-            case Sound.FullHeart: myAudio.PlayOneShot(fullHeart); break;
-            case Sound.StarPickup: myAudio.PlayOneShot(starPickup); break;
-            case Sound.StartPowerup: myAudio.PlayOneShot(startPowerup); break;
-            case Sound.KilledByFire: myAudio.PlayOneShot(killedByFire); break;
-            case Sound.KilledByImpact: myAudio.PlayOneShot(killedByImpact); break;
-            case Sound.PlayerHit: myAudio.PlayOneShot(playerHit); break;
-            case Sound.PlayerKilled: myAudio.PlayOneShot(playerKilled); break;
-            case Sound.EatFly: myAudio.PlayOneShot(eatFly); break;
-            case Sound.Silence: myAudio.Stop();break;
-            default: break;
+            switch (sound)
+            {
+                case Sound.Jump: PlayJumpSound(); break;
+                case Sound.ShotgunBlastAndCock: PlayShotgunFire(); break;
+                case Sound.BeatleSpit: myAudio.PlayOneShot(beatleSpit); break;
+                case Sound.BeeCharge: myAudio.PlayOneShot(beeCharge); break;
+                case Sound.BeeStunHit: myAudio.PlayOneShot(beeStunHit); break;
+                case Sound.FullHeart: myAudio.PlayOneShot(fullHeart); break;
+                case Sound.StarPickup: myAudio.PlayOneShot(starPickup); break;
+                case Sound.StartPowerup: myAudio.PlayOneShot(startPowerup); break;
+                case Sound.KilledByFire: myAudio.PlayOneShot(killedByFire); break;
+                case Sound.KilledByImpact: myAudio.PlayOneShot(killedByImpact); break;
+                case Sound.PlayerHit: myAudio.PlayOneShot(playerHit); break;
+                case Sound.PlayerKilled: myAudio.Stop(); myMusic.Stop(); myAudio.PlayOneShot(playerKilled); break;
+                case Sound.EatFly: myAudio.PlayOneShot(eatFly); break;
+                case Sound.Silence: myAudio.Stop(); break;
+                default: break;
+            }
         }
+       
     }
 
     private void PlayJumpSound()
@@ -86,15 +111,57 @@ public class SoundController : MonoBehaviour, IAudio {
 
     public void PlayEnemyDeathSound(string causeOfDeath)
     {
-        switch (causeOfDeath)
+        if (isSoundFXOn)
         {
-            case "Blade": myAudio.PlayOneShot(killedByImpact); break;
-            case "Flame": myAudio.PlayOneShot(killedByFire); break;
-            case "Sting": myAudio.PlayOneShot(killedByImpact); break;
-            case "Processor": myAudio.PlayOneShot(killedByFire); break;
-            case "Pellet": myAudio.PlayOneShot(killedByImpact); break;
-            case "FlameBall": myAudio.PlayOneShot(killedByFire); break;
+            switch (causeOfDeath)
+            {
+                case "Blade": myAudio.PlayOneShot(killedByImpact); break;
+                case "Flame": myAudio.PlayOneShot(killedByFire); break;
+                case "Sting": myAudio.PlayOneShot(killedByImpact); break;
+                case "Processor": myAudio.PlayOneShot(killedByFire); break;
+                case "Pellet": myAudio.PlayOneShot(killedByImpact); break;
+                case "FlameBall": myAudio.PlayOneShot(killedByFire); break;
+            }
         }
+    }
+
+    public void PauseAudio()
+    {
+        myAudio.Pause();
+        myMusic.Pause();
+    }
+    public void UnPauseAudio()
+    {
+        myAudio.UnPause();
+        myMusic.UnPause();
+    }
+    public void SetMusicOn(bool state)
+    {
+        if (state == true)
+        {
+            isMusicOn = true;
+            myMusic.clip = mainMusic;
+            myMusic.Play();
+        }
+        else
+        {
+            isMusicOn = false;
+            myMusic.Stop();
+        }
+        
+    }
+    public void SetSoundFXOn(bool state)
+    {
+        if (state == true)
+        {
+            //myAudio.Play();
+            isSoundFXOn = true;
+        }
+        else
+        {
+            isSoundFXOn = false;
+        }
+        
     }
 
     IEnumerator ShotgunFireAndCock()

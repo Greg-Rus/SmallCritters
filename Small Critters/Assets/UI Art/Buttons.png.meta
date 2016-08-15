@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f462ae46c0dce1041b263a1d3cf8680d
-timeCreated: 1459612478
+timeCreated: 1471293232
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -14,6 +14,8 @@ TextureImporter:
     21300014: Buttons_7
     21300016: Buttons_8
     21300018: Buttons_9
+    21300020: Buttons_10
+    21300022: Buttons_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -56,11 +58,14 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 128
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Buttons_0
+    - serializedVersion: 2
+      name: Buttons_0
       rect:
         serializedVersion: 2
         x: 0
@@ -70,15 +75,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -57, y: 64}
-        - {x: -64, y: 55}
-        - {x: -64, y: -56}
-        - {x: -58, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 51}
-        - {x: 51, y: 64}
-    - name: Buttons_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_1
       rect:
         serializedVersion: 2
         x: 128
@@ -88,15 +88,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -57, y: 64}
-        - {x: -64, y: 55}
-        - {x: -64, y: -56}
-        - {x: -58, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 51}
-        - {x: 51, y: 64}
-    - name: Buttons_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_2
       rect:
         serializedVersion: 2
         x: 256
@@ -106,15 +101,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -57, y: 64}
-        - {x: -64, y: 55}
-        - {x: -64, y: -56}
-        - {x: -58, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 51}
-        - {x: 51, y: 64}
-    - name: Buttons_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_3
       rect:
         serializedVersion: 2
         x: 384
@@ -124,14 +114,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -64, y: 64}
-        - {x: -64, y: -63}
-        - {x: -62, y: -64}
-        - {x: 57, y: -64}
-        - {x: 64, y: -53}
-        - {x: 64, y: 64}
-    - name: Buttons_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_4
       rect:
         serializedVersion: 2
         x: 0
@@ -141,15 +127,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -57, y: 64}
-        - {x: -64, y: 55}
-        - {x: -64, y: -56}
-        - {x: -58, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 51}
-        - {x: 51, y: 64}
-    - name: Buttons_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_5
       rect:
         serializedVersion: 2
         x: 128
@@ -159,16 +140,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -47, y: 64}
-        - {x: -64, y: 48}
-        - {x: -64, y: -47}
-        - {x: -51, y: -64}
-        - {x: 57, y: -64}
-        - {x: 64, y: -49}
-        - {x: 64, y: 59}
-        - {x: 39, y: 64}
-    - name: Buttons_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_6
       rect:
         serializedVersion: 2
         x: 256
@@ -178,16 +153,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -47, y: 64}
-        - {x: -64, y: 48}
-        - {x: -64, y: -47}
-        - {x: -51, y: -64}
-        - {x: 57, y: -64}
-        - {x: 64, y: -49}
-        - {x: 64, y: 59}
-        - {x: 39, y: 64}
-    - name: Buttons_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_7
       rect:
         serializedVersion: 2
         x: 384
@@ -197,16 +166,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -47, y: 64}
-        - {x: -64, y: 48}
-        - {x: -64, y: -47}
-        - {x: -51, y: -64}
-        - {x: 57, y: -64}
-        - {x: 64, y: -49}
-        - {x: 64, y: 59}
-        - {x: 39, y: 64}
-    - name: Buttons_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_8
       rect:
         serializedVersion: 2
         x: 0
@@ -216,16 +179,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -47, y: 64}
-        - {x: -64, y: 48}
-        - {x: -64, y: -47}
-        - {x: -51, y: -64}
-        - {x: 57, y: -64}
-        - {x: 64, y: -49}
-        - {x: 64, y: 59}
-        - {x: 39, y: 64}
-    - name: Buttons_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_9
       rect:
         serializedVersion: 2
         x: 128
@@ -235,14 +192,34 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 31, y: 36, z: 31, w: 22}
-      outline:
-      - - {x: -57, y: 64}
-        - {x: -64, y: 55}
-        - {x: -64, y: -56}
-        - {x: -58, y: -64}
-        - {x: 64, y: -64}
-        - {x: 64, y: 51}
-        - {x: 51, y: 64}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Buttons_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Buttons_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: UI
   userData: 

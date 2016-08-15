@@ -15,7 +15,7 @@ public class FrogInputHandler : MonoBehaviour {
 	private float swipeToJumpConversionRatio;
 	private Vector3 worldStartPoint;
 	private Vector3 worldDraggedPoint;
-    private float swipeDirection;
+    public float swipeDirectionModifier;
     private ShotgunController shotgun;
     private IPowerup powerupHandler;
     private bool reloading = false;
@@ -31,7 +31,7 @@ public class FrogInputHandler : MonoBehaviour {
     void Start()
     {
         powerupHandler = ServiceLocator.getService<IPowerup>();
-        swipeDirection = PlayerPrefs.GetFloat("SwipeControlls");
+        swipeDirectionModifier = PlayerPrefs.GetInt("SwipeControlls");
     }
 
 	void Update()
@@ -108,7 +108,7 @@ public class FrogInputHandler : MonoBehaviour {
 	{
 		CalculateSwipesWorldCoordinates(start, end);
 		
-		dragVector = (worldDraggedPoint - worldStartPoint) * swipeDirection;
+		dragVector = (worldDraggedPoint - worldStartPoint) * swipeDirectionModifier;
 		if(dragVector.magnitude <= maxJumpSwipe)
 		{
 			return dragVector * swipeToJumpConversionRatio;
@@ -126,9 +126,9 @@ public class FrogInputHandler : MonoBehaviour {
 		worldDraggedPoint.z = 0f;
 	}
 
-    public void SwipeDirectionChange(float direction)
+    public void SwipeDirectionChange(SwipeDirection direction)
     {
-        swipeDirection = direction;
+        swipeDirectionModifier = (direction == SwipeDirection.Forward) ? 1f : -1f;
     }
 
     public void ReloadComplete()

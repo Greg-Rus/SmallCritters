@@ -43,13 +43,19 @@ public class UIHandler : MonoBehaviour {
     private ActionSequence inputChecks;
     public float inactivityTimeToMovementTutorial = 5f;
     public Text ammoCount;
-    public Action<float> OnSwipeDirectionChange;
+    public Action<SwipeDirection> OnSwipeDirectionChange;
     public GameObject bonusButton;
     public GameObject bonusMenu;
     public GameObject newGameMenu;
     public Button customGameButton;
+    public Toggle music;
+    public Toggle soundFX;
 
     private AdHandler myAds;
+    private float powerupIconFillTarget;
+    private bool isPowerupIconUpdating = false;
+    private float heartIconFillTarget;
+    private bool isHeartIconUpdating = false;
 
     // Use this for initialization
     void Start () {
@@ -130,21 +136,49 @@ public class UIHandler : MonoBehaviour {
 		}
 
 
-        if (PlayerPrefs.GetFloat("SwipeControlls") == (float)SwipeDirection.Forward)
+        if (PlayerPrefs.GetInt("SwipeControlls") == (int)SwipeDirection.Forward)
         {
             swipeUpToggle.isOn = true;
             swipeDownToggle.isOn = false;
         }
-        else if (PlayerPrefs.GetFloat("SwipeControlls") == (float)SwipeDirection.Backward)
+        else if (PlayerPrefs.GetInt("SwipeControlls") == (int)SwipeDirection.Backward)
         {
             swipeUpToggle.isOn = false;
             swipeDownToggle.isOn = true;
         }
         else
         {
-            PlayerPrefs.SetFloat("SwipeControlls", (float)SwipeDirection.Forward);
+            PlayerPrefs.SetInt("SwipeControlls", (int)SwipeDirection.Forward);
             swipeUpToggle.isOn = true;
             swipeDownToggle.isOn = false;
+        }
+
+        if (PlayerPrefs.GetInt("Music") == (int)Toggled.On)
+        {
+            music.isOn = true;
+        }
+        else if (PlayerPrefs.GetInt("Music") == (int)Toggled.Off)
+        {
+            music.isOn = false;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Music", (int)Toggled.On);
+            music.isOn = true;
+        }
+
+        if (PlayerPrefs.GetInt("SoundFX") == (int)Toggled.On)
+        {
+            soundFX.isOn = true;
+        }
+        else if (PlayerPrefs.GetInt("SoundFX") == (int)Toggled.Off)
+        {
+            soundFX.isOn = false;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("SoundFX", (int)Toggled.On);
+            soundFX.isOn = true;
         }
     }
 
@@ -319,13 +353,13 @@ public class UIHandler : MonoBehaviour {
 
     public void ToggleSwipeUpControlls()
     {
-        PlayerPrefs.SetFloat("SwipeControlls", 1);
-        if (OnSwipeDirectionChange != null)  OnSwipeDirectionChange(1);
+        PlayerPrefs.SetInt("SwipeControlls", (int)SwipeDirection.Forward);
+        if (OnSwipeDirectionChange != null)  OnSwipeDirectionChange(SwipeDirection.Forward);
     }
     public void ToggleSwipeDwonControlls()
     {
-        PlayerPrefs.SetFloat("SwipeControlls", -1);
-        if (OnSwipeDirectionChange != null) OnSwipeDirectionChange(-1);
+        PlayerPrefs.SetInt("SwipeControlls", (int)SwipeDirection.Backward);
+        if (OnSwipeDirectionChange != null) OnSwipeDirectionChange(SwipeDirection.Backward);
     }
 
     public void OnSeedEntered()
@@ -348,7 +382,10 @@ public class UIHandler : MonoBehaviour {
         {
             heartTargetFill = amount;
         }
-        StartCoroutine(RadialFillImage(heart, heartTargetFill, heartFillSpeed));
+        if (!isHeartIconUpdating)
+        {
+            StartCoroutine(RadialFillImage(heart, heartTargetFill, heartFillSpeed, isHeartIconUpdating));
+        }
     }
 
     public void UpdatePowerup(float amount)
@@ -358,11 +395,17 @@ public class UIHandler : MonoBehaviour {
         {
             powerupTargetFill = amount;
         }
-        StartCoroutine(RadialFillImage(powerup, powerupTargetFill, powerupFillSpeed));
+        if (!isPowerupIconUpdating)
+        {
+            StartCoroutine(RadialFillImage(powerup, powerupTargetFill, powerupFillSpeed, isPowerupIconUpdating));
+        }
     }
 
-    private IEnumerator RadialFillImage(Image image, float targetFill, float fillSpeed)
+
+
+    private IEnumerator RadialFillImage(Image image, float targetFill, float fillSpeed, bool isWorkingFlag)
     {
+
         if (image.fillAmount < targetFill)
         {
             while (image.fillAmount < targetFill)
@@ -379,7 +422,7 @@ public class UIHandler : MonoBehaviour {
                 yield return null;
             }
         }
-
+        isWorkingFlag = false;
     }
 
     public void ShowTutorial()
@@ -435,5 +478,32 @@ public class UIHandler : MonoBehaviour {
     {
         DisableMenuContext();
         ServiceLocator.getService<IPowerup>().SetBonus();
+    }
+
+    public void ToggleMusic()
+    {
+        if (music.isOn)
+        {
+            ServiceLocator.getService<IAudio>().SetMusicOn(true);
+            PlayerPrefs.SetInt("Music", (int)Toggled.On);
+        }
+        else
+        {
+            ServiceLocator.getService<IAudio>().SetMusicOn(false);
+            PlayerPrefs.SetInt("Music", (int)Toggled.Off);
+        }
+    }
+    public void ToggleSoundFX ()
+    {
+        if (soundFX.isOn)
+        {
+            ServiceLocator.getService<IAudio>().SetSoundFXOn(true);
+            PlayerPrefs.SetInt("SoundFX", (int)Toggled.On);
+        }
+        else
+        {
+            ServiceLocator.getService<IAudio>().SetSoundFXOn(false);
+            PlayerPrefs.SetInt("SoundFX", (int)Toggled.Off);
+        }
     }
 }
