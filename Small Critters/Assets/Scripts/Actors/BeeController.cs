@@ -11,7 +11,7 @@ public class BeeController : MonoBehaviour {
     private BeeFSM myFSM;
     private bool alive = false;
     private string currentAnimation;
-    private IAudio audio;
+    private IAudio myAudio;
 
     public BeeData data = new BeeData();
     public int flyLayer;
@@ -29,7 +29,7 @@ public class BeeController : MonoBehaviour {
     void Start()
     {
         deathReport = ServiceLocator.getService<IDeathReporting>();
-        audio = ServiceLocator.getService<IAudio>();
+        myAudio = ServiceLocator.getService<IAudio>();
     }
 	void OnEnable() 
 	{
@@ -72,7 +72,7 @@ public class BeeController : MonoBehaviour {
             deathReport.EnemyDead(this.gameObject, causeOfDeath);
             SetAnimation("Idle");
             WaitUntillAnimatorResets();
-            audio.PlayEnemyDeathSound(causeOfDeath);
+            myAudio.PlayEnemyDeathSound(causeOfDeath);
         }
 	}
 

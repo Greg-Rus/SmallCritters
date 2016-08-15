@@ -17,7 +17,7 @@ public class FrogController : MonoBehaviour {
     public float HPprogressPerFly = 0.1f;
 
     private bool invulnerable = false;
-    private IAudio audio;
+    private IAudio myAudio;
 
     void Start () {
 		GetRequiredComponents();
@@ -31,12 +31,12 @@ public class FrogController : MonoBehaviour {
         if (coll.collider.CompareTag("Food"))
         {
             myAnimator.SetTrigger("Lick");
-            audio.PlaySound(Sound.EatFly);
+            myAudio.PlaySound(Sound.EatFly);
             if (HP != 1f)
             {
                 if (HP < 1f) HP += HPprogressPerFly;
                 if (HP > 1f) HP = 1f;
-                if (HP == 1f) audio.PlaySound(Sound.FullHeart);
+                if (HP == 1f) myAudio.PlaySound(Sound.FullHeart);
                 OnFoodPickup(HP);
             }
         }
@@ -54,7 +54,7 @@ public class FrogController : MonoBehaviour {
         OnFrogDeath += particleSystemHandler.OnDeath;
         OnFrogDeath += ServiceLocator.getService<IGameProgressReporting>().RunEnd;
         mainCamera = Camera.main.GetComponent<CameraVerticalFollow>();
-        audio = ServiceLocator.getService<IAudio>();
+        myAudio = ServiceLocator.getService<IAudio>();
     }
 
     private void TakeHit(string hitSource)
@@ -73,7 +73,7 @@ public class FrogController : MonoBehaviour {
                 frogFader.StartFadeSequence(RecoverFromHit);
             }
             mainCamera.ShakeCamera();
-            audio.PlaySound(Sound.PlayerHit);
+            myAudio.PlaySound(Sound.PlayerHit);
         }
         if (hitSource == "ColdFog")
         {
@@ -91,7 +91,7 @@ public class FrogController : MonoBehaviour {
 	{
 		gameObject.SetActive(false);
         OnFrogDeath(causeOfDeath);
-        audio.PlaySound(Sound.PlayerKilled);
+        myAudio.PlaySound(Sound.PlayerKilled);
     }
 
     public void FillHP()

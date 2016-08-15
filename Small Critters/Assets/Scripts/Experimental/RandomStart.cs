@@ -8,7 +8,7 @@ public class RandomStart : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		seedInt = seed.GetHashCode ();
-		Random.seed = seedInt;
+		Random.InitState(seedInt);
 	}
 
 

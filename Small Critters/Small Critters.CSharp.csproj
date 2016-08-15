@@ -377,6 +377,7 @@
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\ServiceLocator.cs" />
     <Compile Include="Assets\Scripts\Third Party\RandomMT.cs" />
+    <Compile Include="Assets\Scripts\UI\AdHandler.cs" />
     <Compile Include="Assets\Scripts\UI\CompositeButton.cs" />
     <Compile Include="Assets\Scripts\UI\TutorialHandler.cs" />
     <Compile Include="Assets\Scripts\UIHandler.cs" />

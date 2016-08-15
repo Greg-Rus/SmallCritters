@@ -16,14 +16,14 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 	public event EventHandler<NewRowReached> NewHighestRowReached;
 	public NewRowReached newRowReachedEventArgs;
 
-    private IAudio audio;
+    private IAudio myAudio;
     private IEnumerator jumpTimer;
 
     void Start () {
 		higestRowReached = 0;
 		myRigidBody = GetComponent<Rigidbody2D>();
 		myAnimator = GetComponent<Animator>();
-        audio = ServiceLocator.getService<IAudio>();
+        myAudio = ServiceLocator.getService<IAudio>();
         newRowReachedEventArgs = new NewRowReached();
         midJump = false;
     }
@@ -51,7 +51,7 @@ public class FrogMovementPhysics : MonoBehaviour, Imovement {
 			myAnimator.SetBool("Jumping",true);
 			jumpTimer = jumpForSeconds(calculateJumpTime(direction));
 			StartCoroutine(jumpTimer);
-            audio.PlaySound(Sound.Jump);
+            myAudio.PlaySound(Sound.Jump);
 		}
 	}
 	IEnumerator jumpForSeconds(float jumpTime)

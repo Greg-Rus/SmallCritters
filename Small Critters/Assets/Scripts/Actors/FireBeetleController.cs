@@ -21,7 +21,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private Vector3 vectorToPlayer;
     private Vector3 heading;
     private bool alive = true;
-    private IAudio audio;
+    private IAudio myAudio;
     public FireBeetleData data;
     private FireBeetleFSM FSM;
     private BasicMotor motor;
@@ -36,7 +36,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     void Start()
     {
         deathReport = ServiceLocator.getService<IDeathReporting>();
-        audio = ServiceLocator.getService<IAudio>();
+        myAudio = ServiceLocator.getService<IAudio>();
     }
     void OnEnable()
     {
@@ -61,7 +61,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
         newBallController.Aim(firingPoint, maxProjectileRange); //TODO Decide max range in DifficultyManager;
         newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
-        audio.PlaySound(Sound.BeatleSpit);
+        myAudio.PlaySound(Sound.BeatleSpit);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -88,7 +88,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
             deathParticles.OnDeath(causeOfDeath);
             SetAnimation("Idle");
             WaitUntillAnimatorResets();
-            audio.PlayEnemyDeathSound(causeOfDeath);
+            myAudio.PlayEnemyDeathSound(causeOfDeath);
         }
     }
 

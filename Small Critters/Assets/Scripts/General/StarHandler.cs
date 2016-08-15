@@ -15,11 +15,11 @@ public class StarHandler : MonoBehaviour {
 
     private Action<int> OnStarPickup;
     private float scale = 1;
-    private IAudio audio;
+    private IAudio myAudio;
 
     void Start () {
         transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
-        audio = ServiceLocator.getService<IAudio>();
+        myAudio = ServiceLocator.getService<IAudio>();
     }
 
     public void Configure(int points, float scoringDistance, Action<int> OnStarPickup  )
@@ -60,7 +60,7 @@ public class StarHandler : MonoBehaviour {
         if (relativePos.sqrMagnitude <= 0.2f)
         {
             OnStarPickup(points);
-            audio.PlaySound(Sound.StarPickup);
+            myAudio.PlaySound(Sound.StarPickup);
             Destroy(this.gameObject);
         }
     }

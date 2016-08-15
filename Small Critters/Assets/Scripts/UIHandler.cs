@@ -49,9 +49,12 @@ public class UIHandler : MonoBehaviour {
     public GameObject newGameMenu;
     public Button customGameButton;
 
+    private AdHandler myAds;
+
     // Use this for initialization
     void Start () {
         scoreHandler = ServiceLocator.getService<IScoreForUI>();
+        myAds = GetComponent<AdHandler>();
         Time.timeScale = 1;
         RestoreMenuState();
         inputChecks += CheckForQuitButtonPress;
@@ -413,9 +416,9 @@ public class UIHandler : MonoBehaviour {
 
     public void WatchAd()
     {
-        ServiceLocator.getService<IPowerup>().SetBonus();
+        myAds.ShowInterstitialAd();
         HideCurrentMenu();
-        DisableMenuContext();
+        
     }
     public void WatchAdLater()
     {
@@ -428,17 +431,9 @@ public class UIHandler : MonoBehaviour {
         bonusButton.SetActive(false);
     }
 
-    //public void OnNewRandomGame()
-    //{
-
-    //}
-
-    //public void OnNewCustomGame()
-    //{
-
-    //}
-
-
-
-
+    public void AdWatched()
+    {
+        DisableMenuContext();
+        ServiceLocator.getService<IPowerup>().SetBonus();
+    }
 }
