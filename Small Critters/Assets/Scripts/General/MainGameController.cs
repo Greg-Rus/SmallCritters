@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using System.IO;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class MainGameController : MonoBehaviour {
     public UIHandler uiHandler;
     public PowerupHandler powerupHandler;
     public SoundController soundController;
-    public string seed = "42";
+    public string seed;
     public Transform poolParent;
     public TextAsset nouns;
     public TextAsset adjectives;
@@ -68,6 +69,7 @@ public class MainGameController : MonoBehaviour {
 		
 	private void StartNewGame()
 	{
+        SessionStatistics.consecutiveRuns++;
         newRowScore = ServiceLocator.getService<IGameProgressReporting>();
         SeedRandomLogger();
 		PlaceFrog();
@@ -129,7 +131,23 @@ public class MainGameController : MonoBehaviour {
     void HandleFrogDeath(string causeOfDeath)
     {
         Time.timeScale = 0.5f;
+        ReportRunStatistics(causeOfDeath);
         StartCoroutine(restartLevelAterSeconds(1f));
+    }
+
+    private void ReportRunStatistics(string causeOfDeath)
+    {
+        SessionStatistics.totalTimePlayed += Time.timeSinceLevelLoad;
+        Dictionary<string, object> runSummary = new Dictionary<string, object>();
+        runSummary.Add("CauseOfDeath", causeOfDeath);
+        runSummary.Add("Points", scoreHandler.score);
+        runSummary.Add("DificultyLevel", difficultyManager.difficultyLevel);
+        runSummary.Add("UsedAdBonus", powerupHandler.usedBonusIncentive);
+        runSummary.Add("RunDuration", Time.timeSinceLevelLoad);
+        runSummary.Add("PowerupStarts", powerupHandler.totalNumberOfPowerups);
+        runSummary.Add("PowerupTime", powerupHandler.totalTimeOnPowerup);
+        runSummary.Add("MaxRunAmmo", powerupHandler.maxAmmoThisRun);
+        UnityEngine.Analytics.Analytics.CustomEvent("RunSummary", runSummary);
     }
 
     private void PlaceColdFogWall()
@@ -155,6 +173,7 @@ public class MainGameController : MonoBehaviour {
 
     public void SetRandomGameMode()
     {
+        PlayerPrefs.SetString("GameMode", "Radom");
         PlayerPrefs.SetString("Seed", "");
         RestartGame();
     }

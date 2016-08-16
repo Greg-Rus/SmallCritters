@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using GoogleMobileAds.Api;
 
@@ -49,6 +50,7 @@ public class AdHandler : MonoBehaviour {
     {
         isAdFinished = true;
         interstitial.Destroy();
+        ReportAdLoadFailure(args);
         StartCoroutine(ProcessAdWatched());
     }
 
@@ -62,6 +64,11 @@ public class AdHandler : MonoBehaviour {
     private bool PollAdDisplayState()
     {
         return isAdFinished;
+    }
+
+    private void ReportAdLoadFailure(AdFailedToLoadEventArgs args)
+    {
+        UnityEngine.Analytics.Analytics.CustomEvent("FailedToLoadAd", new Dictionary<string, object> { { "ErrorMessage", args.Message } });
     }
 
     IEnumerator ProcessAdWatched()

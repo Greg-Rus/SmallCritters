@@ -226,7 +226,16 @@ public class UIHandler : MonoBehaviour {
     public void OnMenuQuitGame()
     {
         PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
+        ReportSessionSummary();
         Application.Quit();
+    }
+
+    private void ReportSessionSummary()
+    {
+        Dictionary<string, object> sessionSummary = new Dictionary<string, object>();
+        sessionSummary.Add("ConsecutiveRuns", SessionStatistics.consecutiveRuns);
+        sessionSummary.Add("TotalTimePlayed", SessionStatistics.totalTimePlayed);
+        UnityEngine.Analytics.Analytics.CustomEvent("SessionSummary", sessionSummary);
     }
 
     public void OnMenuMain()
@@ -331,25 +340,25 @@ public class UIHandler : MonoBehaviour {
         scoreHandler.RestartRun(button);
     }
 
-    public void ToggleRandomGame()
-    {
-        if (randomToggle.isOn)
-        {
-            seedInput.interactable = false;
-            PlayerPrefs.SetString("Seed", "");
-            PlayerPrefs.SetString("GameMode", "Radom");
-        }
+    //public void ToggleRandomGame()
+    //{
+    //    if (randomToggle.isOn)
+    //    {
+    //        seedInput.interactable = false;
+    //        PlayerPrefs.SetString("Seed", "");
+    //        PlayerPrefs.SetString("GameMode", "Radom");
+    //    }
         
-    }
-    public void ToggleSeededGame()
-    {
-        if (seededToggle.isOn)
-        {
-            seedInput.interactable = true;
-            PlayerPrefs.SetString("GameMode", "Seeded");
-        }
+    //}
+    //public void ToggleSeededGame()
+    //{
+    //    if (seededToggle.isOn)
+    //    {
+    //        seedInput.interactable = true;
+    //        PlayerPrefs.SetString("GameMode", "Seeded");
+    //    }
        
-    }
+    //}
 
     public void ToggleSwipeUpControlls()
     {
@@ -364,6 +373,7 @@ public class UIHandler : MonoBehaviour {
 
     public void OnSeedEntered()
     {
+        PlayerPrefs.SetString("GameMode", "Seeded");
         PlayerPrefs.SetString("Seed", seedInput.text);
 		if (seedInput.text != "")
 		{

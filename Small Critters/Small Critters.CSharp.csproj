@@ -311,6 +311,7 @@
     <Compile Include="Assets\Scripts\Actors\RepeatedSideMovement.cs" />
     <Compile Include="Assets\Scripts\Actors\ShotgunController.cs" />
     <Compile Include="Assets\Scripts\Actors\SpritesFader.cs" />
+    <Compile Include="Assets\Scripts\AnalyticsHandler.cs" />
     <Compile Include="Assets\Scripts\Animation\FireBeetleSpitExtension.cs" />
     <Compile Include="Assets\Scripts\CameraVerticalFollow.cs" />
     <Compile Include="Assets\Scripts\Difficulty Managers\BeeSectionDifficultyManager.cs" />
@@ -376,6 +377,7 @@
     <Compile Include="Assets\Scripts\LevelBuilding\Refactored\WallBuilder.cs" />
     <Compile Include="Assets\Scripts\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\ServiceLocator.cs" />
+    <Compile Include="Assets\Scripts\SessionStatistics.cs" />
     <Compile Include="Assets\Scripts\Third Party\RandomMT.cs" />
     <Compile Include="Assets\Scripts\UI\AdHandler.cs" />
     <Compile Include="Assets\Scripts\UI\CompositeButton.cs" />

@@ -12,6 +12,13 @@ public class PowerupHandler : MonoBehaviour, IPowerup
     public FrogController frogController;
     public bool powerupModeOn { get; private set; }
     public Animator powerupUIAnimator;
+    public bool usedBonusIncentive = false;
+    public float totalTimeOnPowerup = 0;
+    public int totalNumberOfPowerups = 0;
+    public int maxAmmoThisRun = 0;
+
+    private float powerupStartTime;
+    
 
     private IAudio myAudio;
 
@@ -50,9 +57,15 @@ public class PowerupHandler : MonoBehaviour, IPowerup
             costumeSwitcher.PutOnCostume();
             powerupUIAnimator.SetTrigger("TroubleShooter");
             myAudio.PlaySound(Sound.StartPowerup);
+            ++totalNumberOfPowerups;
+            powerupStartTime = Time.timeSinceLevelLoad;
         }
         currentStarPoints = 0;
         currentAmmo += maxAmmo;
+        if (currentAmmo > maxAmmoThisRun)
+        {
+            maxAmmoThisRun = currentAmmo;
+        }
         uiHandler.UpdateAmmoCount(currentAmmo);
         
         
@@ -63,10 +76,12 @@ public class PowerupHandler : MonoBehaviour, IPowerup
         uiHandler.PowerupMode(powerupModeOn);
         costumeSwitcher.TakeOffCostume();
         currentStarPoints = 0f;
+        totalTimeOnPowerup += Time.timeSinceLevelLoad - powerupStartTime;
     }
 
     public void SetBonus()
     {
+        usedBonusIncentive = true;
         StartPowerupMode();
         frogController.FillHP();
     }
