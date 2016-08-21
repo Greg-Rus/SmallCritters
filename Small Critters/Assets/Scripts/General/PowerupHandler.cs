@@ -16,6 +16,7 @@ public class PowerupHandler : MonoBehaviour, IPowerup
     public float totalTimeOnPowerup = 0;
     public int totalNumberOfPowerups = 0;
     public int maxAmmoThisRun = 0;
+    public ParticleSystem powerupFullEffect;
 
     private float powerupStartTime;
     
@@ -56,10 +57,11 @@ public class PowerupHandler : MonoBehaviour, IPowerup
             uiHandler.PowerupMode(powerupModeOn);
             costumeSwitcher.PutOnCostume();
             powerupUIAnimator.SetTrigger("TroubleShooter");
-            myAudio.PlaySound(Sound.StartPowerup);
             ++totalNumberOfPowerups;
             powerupStartTime = Time.timeSinceLevelLoad;
         }
+        powerupFullEffect.Play();
+        myAudio.PlaySound(Sound.StartPowerup);
         currentStarPoints = 0;
         currentAmmo += maxAmmo;
         if (currentAmmo > maxAmmoThisRun)

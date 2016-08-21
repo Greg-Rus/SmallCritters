@@ -3,9 +3,10 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class TutorialHandler : MonoBehaviour {
-    public Image tutorialImage;
-
-    public Sprite[] tutorialSprites;
+    public Image movementTutImageRight;
+    public Image movementTutImageLeft;
+    public Sprite[] tutorialSpritesLeft;
+    public Sprite[] tutorialSpritesRight;
     public float imageDisplayTime = 1f;
     private float nextImgageTime = 0f;
     private int currentImage = 0;
@@ -17,7 +18,8 @@ public class TutorialHandler : MonoBehaviour {
     public void LoadTutorial()
     {
         currentImage = 0;
-        tutorialImage.sprite = tutorialSprites[currentImage];
+        movementTutImageRight.sprite = tutorialSpritesRight[currentImage];
+        movementTutImageLeft.sprite = tutorialSpritesLeft[currentImage];
         nextImgageTime = Time.timeSinceLevelLoad + nextImgageTime;
     }
 
@@ -33,8 +35,9 @@ public class TutorialHandler : MonoBehaviour {
     private void SwapTutorialImage()
     {
         ++currentImage;
-        if (currentImage > tutorialSprites.Length - 1) currentImage = 0;
-        tutorialImage.sprite = tutorialSprites[currentImage];
+        if (currentImage > tutorialSpritesLeft.Length - 1) currentImage = 0;
+        movementTutImageRight.sprite = tutorialSpritesRight[currentImage];
+        movementTutImageLeft.sprite = tutorialSpritesLeft[currentImage];
     }
 
     private void UpdateNextImageTime()

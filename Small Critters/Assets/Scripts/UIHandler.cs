@@ -50,16 +50,19 @@ public class UIHandler : MonoBehaviour {
     public Button customGameButton;
     public Toggle music;
     public Toggle soundFX;
+    public ParticleSystem heartFilledEffect;
 
     private AdHandler myAds;
     private float powerupIconFillTarget;
     private bool isPowerupIconUpdating = false;
     private float heartIconFillTarget;
     private bool isHeartIconUpdating = false;
+    private IAudio mySoundFX;
 
     // Use this for initialization
     void Start () {
         scoreHandler = ServiceLocator.getService<IScoreForUI>();
+        mySoundFX = ServiceLocator.getService<IAudio>();
         myAds = GetComponent<AdHandler>();
         Time.timeScale = 1;
         RestoreMenuState();
@@ -340,26 +343,6 @@ public class UIHandler : MonoBehaviour {
         scoreHandler.RestartRun(button);
     }
 
-    //public void ToggleRandomGame()
-    //{
-    //    if (randomToggle.isOn)
-    //    {
-    //        seedInput.interactable = false;
-    //        PlayerPrefs.SetString("Seed", "");
-    //        PlayerPrefs.SetString("GameMode", "Radom");
-    //    }
-        
-    //}
-    //public void ToggleSeededGame()
-    //{
-    //    if (seededToggle.isOn)
-    //    {
-    //        seedInput.interactable = true;
-    //        PlayerPrefs.SetString("GameMode", "Seeded");
-    //    }
-       
-    //}
-
     public void ToggleSwipeUpControlls()
     {
         PlayerPrefs.SetInt("SwipeControlls", (int)SwipeDirection.Forward);
@@ -433,6 +416,11 @@ public class UIHandler : MonoBehaviour {
             }
         }
         isWorkingFlag = false;
+        if (image.fillAmount == 1f && image == heart)
+        {
+                heartFilledEffect.Play();
+            mySoundFX.PlaySound(Sound.FullHeart);
+        }
     }
 
     public void ShowTutorial()
@@ -469,9 +457,16 @@ public class UIHandler : MonoBehaviour {
 
     public void WatchAd()
     {
+#if UNITY_EDITOR
+        HideCurrentMenu();
+        AdWatched();
+        
+#else
         myAds.ShowInterstitialAd();
         HideCurrentMenu();
-        
+#endif
+
+
     }
     public void WatchAdLater()
     {

@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	public GameObject floorTilePrefab;
 	public GameObject sideWallTilePrefab;
-	public Sprite[] floorSprites;
-	public Sprite[] wallSprites;
+	public Sprite[] floorSpritesGreen;
+    public Sprite[] wallSprites;
     public GameObject bladeRowWallLeft;
     public GameObject bladeRowWallRight;
 	private Vector3 tilePosition;
@@ -19,6 +19,8 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
     public Color bladeSectionColor;
     public Color beeSectionColor;
     public Color ventSectionColor;
+    private Sprite[][] sprites;
+    private Sprite[] currnetSprites;
 
 	public void SetUpArenaRow(List<GameObject> row)
 	{
@@ -30,7 +32,7 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
 	
 	public void Setup(LevelData levelData, GameObjectPoolManager poolManager)
 	{
-		tilePosition = Vector3.zero;
+        tilePosition = Vector3.zero;
 		this.levelData = levelData;
 		this.poolManager = poolManager;
 		poolManager.addPool(sideWallTilePrefab, 100);
@@ -44,7 +46,7 @@ public class ArenaBuilder : MonoBehaviour, IArenaBuilding {
     {
         for (float i = levelData.leftWallX + 1f; i < levelData.navigableAreaWidth + 1f; ++i)
         {
-            Sprite newFloorSprite = floorSprites[Random.Range(0, floorSprites.Length)];
+            Sprite newFloorSprite = floorSpritesGreen[Random.Range(0, floorSpritesGreen.Length)];
             SetNewTilePosition(i, levelData.levelTop);
             if (((i - 0.5f) % 2) == 0)
             {

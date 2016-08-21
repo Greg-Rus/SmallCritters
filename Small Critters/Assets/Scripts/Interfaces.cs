@@ -18,6 +18,7 @@ public enum Sound
     Silence, Jump, ShotgunBlastAndCock, ShotgunFire, ShotgunCock, BeeCharge, BeeStunHit, FullHeart, StarPickup, BeatleCharge, BeatleSpit,
     EatFly, StartPowerup, KilledByFire, KilledByImpact, PlayerHit, PlayerKilled
 };
+public enum ScoreStarState { Starting, Waiting, Following, BeingPickedUp};
 
 public interface Imovement {
 	

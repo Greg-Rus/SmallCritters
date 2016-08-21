@@ -36,7 +36,6 @@ public class FrogController : MonoBehaviour {
             {
                 if (HP < 1f) HP += HPprogressPerFly;
                 if (HP > 1f) HP = 1f;
-                if (HP == 1f) myAudio.PlaySound(Sound.FullHeart);
                 OnFoodPickup(HP);
             }
         }
