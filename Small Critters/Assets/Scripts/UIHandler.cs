@@ -34,10 +34,6 @@ public class UIHandler : MonoBehaviour {
 
     public TutorialHandler tutorialHandler;
 
-    private GameObject lastMenu;
-    private MenuLevel lastMenuLevel;
-    private GameObject currentMenu;
-    private MenuLevel currentMenuLevel;
     private ScoreData scoreData;
     public delegate void ActionSequence();
     private ActionSequence inputChecks;
@@ -58,9 +54,11 @@ public class UIHandler : MonoBehaviour {
     private float heartIconFillTarget;
     private bool isHeartIconUpdating = false;
     private IAudio mySoundFX;
+    private Stack<GameObject> menuStack;
 
     // Use this for initialization
     void Start () {
+        menuStack = new Stack<GameObject>();
         scoreHandler = ServiceLocator.getService<IScoreForUI>();
         mySoundFX = ServiceLocator.getService<IAudio>();
         myAds = GetComponent<AdHandler>();
@@ -105,7 +103,7 @@ public class UIHandler : MonoBehaviour {
 
     private void CheckForQuitButtonPress()
     {
-        if (Input.GetButtonDown("Cancel") && (currentMenuLevel != MenuLevel.QuitPrompt))
+        if (Input.GetButtonDown("Cancel") && (!quitPrompt.activeSelf))
         {
             OnMenuQuitPrompt();
         }
@@ -195,17 +193,15 @@ public class UIHandler : MonoBehaviour {
 		}
 	}
 
+
     public void OnMenuQuitPrompt()
     {
         if (isMenuContext)
         {
-            SaveLastMenu(currentMenu, currentMenuLevel);
-            HideCurrentMenu();
+            SetActiveToAllOpenMenus(false);
         }
         else EnableMenuContext();
-
-        SetCurrentMenu(quitPrompt, MenuLevel.QuitPrompt);
-        ShowCurrentMenu();
+        OpenMenu(quitPrompt);
     }
 
 
@@ -221,8 +217,8 @@ public class UIHandler : MonoBehaviour {
         isMenuContext = false;
         Time.timeScale = 1;
         pausePanel.SetActive(false);
-        currentMenu = lastMenu = null;
-        lastMenuLevel = currentMenuLevel = MenuLevel.MenuOff;
+        SetActiveToAllOpenMenus(false);
+        menuStack.Clear();
     }
 
 
@@ -244,70 +240,64 @@ public class UIHandler : MonoBehaviour {
     public void OnMenuMain()
     {
         if (!isMenuContext) EnableMenuContext();
-        SetCurrentMenu(mainMenu, MenuLevel.MainMenu);
-        ShowCurrentMenu();
+        OpenMenu(mainMenu);
     }
 
     public void OnMenuHighScores()
     {
-        SaveLastMenu(currentMenu, currentMenuLevel);
-        SetCurrentMenu(highScoresMenu, MenuLevel.SubMenu);
-        ShowCurrentMenu();
+        OpenMenu(highScoresMenu);
         UpdateHighScoresMenu();
     }
     public void OnMenuOptions()
     {
-        SaveLastMenu(currentMenu, currentMenuLevel);
-        SetCurrentMenu(optionsMenu, MenuLevel.SubMenu);
-        ShowCurrentMenu();
+        OpenMenu(optionsMenu);
     }
 
     public void OnNewGameMenu()
     {
-        SaveLastMenu(currentMenu, currentMenuLevel);
-        SetCurrentMenu(newGameMenu, MenuLevel.SubMenu);
-        ShowCurrentMenu();
+        OpenMenu(newGameMenu);
     }
 
-    private void ShowCurrentMenu()
+    private void SetActiveToAllOpenMenus(bool state)
     {
-        currentMenu.SetActive(true);
-    }
-    private void HideCurrentMenu()
-    {
-        currentMenu.SetActive(false);
-    }
-
-    private void SaveLastMenu(GameObject menu, MenuLevel level)
-    {
-        lastMenu = menu;
-        lastMenuLevel = level;
-    }
-    private void ShowLastMenu()
-    {
-        HideCurrentMenu();
-        SetCurrentMenu(lastMenu, lastMenuLevel);
-        if (currentMenuLevel == MenuLevel.MenuOff)
+        if (menuStack.Count > 0)
         {
-            DisableMenuContext();
+            foreach (var menu in menuStack)
+            {
+                menu.SetActive(state);
+            }
         }
-        else ShowCurrentMenu();
+        
     }
-    private void SetCurrentMenu(GameObject menu, MenuLevel level)
+    private void OpenMenu(GameObject menu)
     {
-        currentMenu = menu;
-        currentMenuLevel = level;
+        menu.SetActive(true);
+        menuStack.Push(menu);
+    }
+    private void CloseMenu(GameObject menu)
+    {
+        menu.SetActive(false);
+        menuStack.Pop();
+        menuStack.Peek().SetActive(true);
     }
 
     public void OnMenuBack()
     {
-        switch (currentMenuLevel)
+        if (menuStack.Count == 1)
         {
-            case MenuLevel.MainMenu: { HideCurrentMenu(); DisableMenuContext(); break; }
-            case MenuLevel.QuitPrompt: { ShowLastMenu(); break; }
-            case MenuLevel.SubMenu: { HideCurrentMenu(); ShowLastMenu(); break; }
-            case MenuLevel.Bonus: { HideCurrentMenu(); DisableMenuContext(); break; }
+            DisableMenuContext();
         }
+        else if (menuStack.Peek() == quitPrompt)
+        {
+            SetActiveToAllOpenMenus(true);
+            CloseMenu(menuStack.Peek());
+        }
+        else
+        {
+            CloseMenu(menuStack.Peek());
+        }
+        
+        
     }
 
     public void UpdateUIScore(int newSocore)
@@ -451,26 +441,25 @@ public class UIHandler : MonoBehaviour {
     {
         bonusButton.SetActive(false);
         if (!isMenuContext) EnableMenuContext();
-        SetCurrentMenu(bonusMenu, MenuLevel.MainMenu);
-        ShowCurrentMenu();
+        OpenMenu(bonusMenu);
     }
 
     public void WatchAd()
     {
 #if UNITY_EDITOR
-        HideCurrentMenu();
+        SetActiveToAllOpenMenus(false);
         AdWatched();
-        
+
 #else
+        SetActiveToAllOpenMenus(false);
         myAds.ShowInterstitialAd();
-        HideCurrentMenu();
 #endif
 
 
     }
     public void WatchAdLater()
     {
-        HideCurrentMenu();
+        SetActiveToAllOpenMenus(false);
         DisableMenuContext();
     }
 
