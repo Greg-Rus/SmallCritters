@@ -10,6 +10,7 @@ public class SoundController : MonoBehaviour, IAudio {
 
     public AudioClip mainMusic;
     public AudioClip powerupMusic;
+    private AudioClip currentMusic;
     public AudioClip shotgunFireAndCock;
     public AudioClip shotgunFire;
     public AudioClip shotgunCock;
@@ -40,11 +41,13 @@ public class SoundController : MonoBehaviour, IAudio {
         {
             instance = this;
         }
+        currentMusic = mainMusic;
     }
 
     void Start()
     {
         powerupStatus = ServiceLocator.getService<IPowerup>();
+        
         if (PlayerPrefs.GetInt("Music") == (int)Toggled.On)
         {
             SetMusicOn(true);
@@ -62,6 +65,7 @@ public class SoundController : MonoBehaviour, IAudio {
         {
             SetSoundFXOn(false);
         }
+        
 
     }
 
@@ -140,7 +144,7 @@ public class SoundController : MonoBehaviour, IAudio {
         if (state == true)
         {
             isMusicOn = true;
-            myMusic.clip = mainMusic;
+            myMusic.clip = currentMusic;
             myMusic.Play();
         }
         else
@@ -162,6 +166,22 @@ public class SoundController : MonoBehaviour, IAudio {
             isSoundFXOn = false;
         }
         
+    }
+
+    public void PlayPowerupMusic(bool powerUpOn)
+    {
+        if (powerUpOn)
+        {
+            currentMusic = powerupMusic;
+            myMusic.clip = currentMusic;
+            myMusic.Play();
+        }
+        else
+        {
+            currentMusic = mainMusic;
+            myMusic.clip = currentMusic;
+            myMusic.Play();
+        }
     }
 
     IEnumerator ShotgunFireAndCock()

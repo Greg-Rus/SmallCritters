@@ -57,6 +57,7 @@ public class PowerupHandler : MonoBehaviour, IPowerup
             uiHandler.PowerupMode(powerupModeOn);
             costumeSwitcher.PutOnCostume();
             powerupUIAnimator.SetTrigger("TroubleShooter");
+            myAudio.PlayPowerupMusic(true);
             ++totalNumberOfPowerups;
             powerupStartTime = Time.timeSinceLevelLoad;
         }
@@ -78,6 +79,7 @@ public class PowerupHandler : MonoBehaviour, IPowerup
         uiHandler.PowerupMode(powerupModeOn);
         costumeSwitcher.TakeOffCostume();
         currentStarPoints = 0f;
+        myAudio.PlayPowerupMusic(false);
         totalTimeOnPowerup += Time.timeSinceLevelLoad - powerupStartTime;
     }
 

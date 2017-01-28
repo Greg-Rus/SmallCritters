@@ -3,45 +3,48 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class TutorialHandler : MonoBehaviour {
-    public Image movementTutImageRight;
-    public Image movementTutImageLeft;
-    public Sprite[] tutorialSpritesLeft;
-    public Sprite[] tutorialSpritesRight;
-    public float imageDisplayTime = 1f;
-    private float nextImgageTime = 0f;
+    public Image tutorialPanel;
+    public Sprite[] tutorialScreens;
+    public GameObject bonusButton;
+    public Text score;
+    public Button menuButton;
     private int currentImage = 0;
-
-	void LateUpdate () {
-        DisplayTutorial();
-	}
 
     public void LoadTutorial()
     {
+        menuButton.interactable = false;
+        score.text = "77";
+        bonusButton.SetActive(false);
+        Time.timeScale = 0;
         currentImage = 0;
-        movementTutImageRight.sprite = tutorialSpritesRight[currentImage];
-        movementTutImageLeft.sprite = tutorialSpritesLeft[currentImage];
-        nextImgageTime = Time.timeSinceLevelLoad + nextImgageTime;
+        DisplayTutorialImage();
     }
 
-    private void DisplayTutorial()
+    private void DisplayTutorialImage()
     {
-        if (nextImgageTime <= Time.timeSinceLevelLoad)
-        {
-            SwapTutorialImage();
-            UpdateNextImageTime();
-        }
+        tutorialPanel.sprite = tutorialScreens[currentImage];
     }
 
-    private void SwapTutorialImage()
+    public void OnNext()
     {
         ++currentImage;
-        if (currentImage > tutorialSpritesLeft.Length - 1) currentImage = 0;
-        movementTutImageRight.sprite = tutorialSpritesRight[currentImage];
-        movementTutImageLeft.sprite = tutorialSpritesLeft[currentImage];
+        if (currentImage == tutorialScreens.Length - 1)
+        {
+            score.text = "";
+            bonusButton.SetActive(true);
+        }
+        if (currentImage == tutorialScreens.Length)
+        {
+            ExitTutorial();
+        }
+        DisplayTutorialImage();
     }
 
-    private void UpdateNextImageTime()
+    private void ExitTutorial()
     {
-        nextImgageTime += imageDisplayTime;
+        menuButton.interactable = true;
+        Time.timeScale = 1;
+        currentImage = 0;
+        this.gameObject.SetActive(false);
     }
 }

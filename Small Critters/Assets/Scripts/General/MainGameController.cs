@@ -22,7 +22,7 @@ public class MainGameController : MonoBehaviour {
     public TextAsset nouns;
     public TextAsset adjectives;
     public Text LevelNameLabel;
-    public int daysToRemindMovementTutorial;
+    //public int daysToRemindMovementTutorial;
     private IGameProgressReporting newRowScore;
 
     void Awake()
@@ -42,17 +42,12 @@ public class MainGameController : MonoBehaviour {
 
     private void DisplayTutorial()
     {
-        int lastGameDay = PlayerPrefs.GetInt("LastGameDay");
-        if (lastGameDay == 0)
+        int lastGameDay = PlayerPrefs.GetInt("showTutorial");
+        if (lastGameDay != 0)
         {
             uiHandler.ShowTutorial();
         }
-        else if (PlayerPrefs.GetInt("LastGameDay") <= System.DateTime.Today.AddDays(-daysToRemindMovementTutorial).DayOfYear)
-        {
-            uiHandler.ShowTutorial();
-        }
-		PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
-
+		PlayerPrefs.SetInt("showTutorial", 0);
 	}
 
     private void SetupGameFramework()

@@ -178,6 +178,7 @@ public interface IAudio
     void UnPauseAudio();
     void SetMusicOn(bool state);
     void SetSoundFXOn(bool state);
+    void PlayPowerupMusic(bool powerUpOn);
 
 }
 

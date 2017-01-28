@@ -19,6 +19,7 @@ public class UIHandler : MonoBehaviour {
     public Toggle seededToggle;
     public Toggle swipeUpToggle;
     public Toggle swipeDownToggle;
+    public Toggle showTutorialToggle;
 
     public bool isMenuContext = false;
     public InputField seedInput;
@@ -107,19 +108,6 @@ public class UIHandler : MonoBehaviour {
         {
             OnMenuQuitPrompt();
         }
-    }
-    private void CheckForTutorialDismissal()
-    {
-        if (Input.anyKeyDown)
-        {
-            DismissTutorial();
-            inputChecks -= CheckForTutorialDismissal;
-        }
-    }
-
-    private void DismissTutorial()
-    {
-        tutorialHandler.gameObject.SetActive(false);
     }
 
     private void RestoreMenuState()
@@ -413,11 +401,16 @@ public class UIHandler : MonoBehaviour {
         }
     }
 
+    public void OnToggledTutorial()
+    {
+        PlayerPrefs.SetInt("showTutorial", 1);
+    }
+
     public void ShowTutorial()
     {
         tutorialHandler.gameObject.SetActive(true);
-        inputChecks += CheckForTutorialDismissal;
         tutorialHandler.LoadTutorial();
+        showTutorialToggle.isOn = false;
     }
 
     public void PowerupMode(bool isActive)
