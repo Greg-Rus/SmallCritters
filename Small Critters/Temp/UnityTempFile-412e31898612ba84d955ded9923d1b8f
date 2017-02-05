@@ -1,0 +1,241 @@
+-debug
+-target:library
+-nowarn:0169
+-langversion:4
+-out:Temp/Assembly-CSharp.dll
+-r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
+-r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll"
+-r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll"
+-define:UNITY_5_3_OR_NEWER
+-define:UNITY_5_4_OR_NEWER
+-define:UNITY_5_5_OR_NEWER
+-define:UNITY_5_5_0
+-define:UNITY_5_5
+-define:UNITY_5
+-define:UNITY_ANALYTICS
+-define:ENABLE_AUDIO
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:ENABLE_GENERICS
+-define:ENABLE_MICROPHONE
+-define:ENABLE_MULTIPLE_DISPLAYS
+-define:ENABLE_PHYSICS
+-define:ENABLE_SPRITERENDERER_FLIPPING
+-define:ENABLE_SPRITES
+-define:ENABLE_TERRAIN
+-define:ENABLE_RAKNET
+-define:ENABLE_UNET
+-define:ENABLE_LZMA
+-define:ENABLE_UNITYEVENTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_WWW
+-define:ENABLE_CLOUD_SERVICES_COLLAB
+-define:ENABLE_CLOUD_SERVICES_ADS
+-define:ENABLE_CLOUD_HUB
+-define:ENABLE_CLOUD_PROJECT_ID
+-define:ENABLE_CLOUD_SERVICES_UNET
+-define:ENABLE_CLOUD_SERVICES_BUILD
+-define:ENABLE_CLOUD_LICENSE
+-define:ENABLE_EDITOR_METRICS
+-define:ENABLE_EDITOR_METRICS_CACHING
+-define:INCLUDE_DYNAMIC_GI
+-define:INCLUDE_GI
+-define:PLATFORM_SUPPORTS_MONO
+-define:INCLUDE_PUBNUB
+-define:ENABLE_PLAYMODE_TESTS_RUNNER
+-define:ENABLE_SCRIPTING_NEW_CSHARP_COMPILER
+-define:UNITY_ANDROID
+-define:ENABLE_SUBSTANCE
+-define:UNITY_ANDROID_API
+-define:ENABLE_EGL
+-define:ENABLE_NETWORK
+-define:ENABLE_RUNTIME_GI
+-define:ENABLE_CRUNCH_TEXTURE_COMPRESSION
+-define:ENABLE_UNITYWEBREQUEST
+-define:ENABLE_CLOUD_SERVICES
+-define:ENABLE_CLOUD_SERVICES_ANALYTICS
+-define:ENABLE_CLOUD_SERVICES_PURCHASING
+-define:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
+-define:PLATFORM_SUPPORTS_ADS_ID
+-define:UNITY_CAN_SHOW_SPLASH_SCREEN
+-define:ENABLE_VIDEO
+-define:ENABLE_VR
+-define:ENABLE_UNITYADS_RUNTIME
+-define:UNITY_UNITYADS_API
+-define:ENABLE_MONO
+-define:ENABLE_PROFILER
+-define:DEBUG
+-define:TRACE
+-define:UNITY_ASSERTIONS
+-define:UNITY_EDITOR
+-define:UNITY_EDITOR_64
+-define:UNITY_EDITOR_WIN
+-define:UNITY_TEAM_LICENSE
+-define:ENABLE_VSTU
+"Assets/AssetStore/Dungeon Art Pack/AnimateSprite.cs"
+Assets/AssetStore/SimpleParticlePack/Scripts/ParticleTester.cs
+Assets/AssetStore/cartoon_comic_onomatopoeia/Scripts/ParticleTester_cartoon_comic_onomatopoeia.cs
+Assets/GPGIds.cs
+Assets/GoogleMobileAds/Api/AdFailedToLoadEventArgs.cs
+Assets/GoogleMobileAds/Api/AdLoader.cs
+Assets/GoogleMobileAds/Api/AdPosition.cs
+Assets/GoogleMobileAds/Api/AdRequest.cs
+Assets/GoogleMobileAds/Api/AdSize.cs
+Assets/GoogleMobileAds/Api/BannerView.cs
+Assets/GoogleMobileAds/Api/CustomNativeEventArgs.cs
+Assets/GoogleMobileAds/Api/CustomNativeTemplateAd.cs
+Assets/GoogleMobileAds/Api/Gender.cs
+Assets/GoogleMobileAds/Api/ICustomInAppPurchase.cs
+Assets/GoogleMobileAds/Api/ICustomInAppPurchaseProcessor.cs
+Assets/GoogleMobileAds/Api/IDefaultInAppPurchaseProcessor.cs
+Assets/GoogleMobileAds/Api/IInAppPurchaseResult.cs
+Assets/GoogleMobileAds/Api/InterstitialAd.cs
+Assets/GoogleMobileAds/Api/NativeExpressAdView.cs
+Assets/GoogleMobileAds/Api/Reward.cs
+Assets/GoogleMobileAds/Api/RewardBasedVideoAd.cs
+Assets/GoogleMobileAds/Common/DummyClient.cs
+Assets/GoogleMobileAds/Common/IAdLoaderClient.cs
+Assets/GoogleMobileAds/Common/IBannerClient.cs
+Assets/GoogleMobileAds/Common/ICustomNativeTemplateClient.cs
+Assets/GoogleMobileAds/Common/IInterstitialClient.cs
+Assets/GoogleMobileAds/Common/INativeExpressAdClient.cs
+Assets/GoogleMobileAds/Common/IRewardBasedVideoAdClient.cs
+Assets/GoogleMobileAds/Common/Utils.cs
+Assets/GoogleMobileAds/Platforms/Android/AdLoaderClient.cs
+Assets/GoogleMobileAds/Platforms/Android/BannerClient.cs
+Assets/GoogleMobileAds/Platforms/Android/CustomInAppPurchaseListener.cs
+Assets/GoogleMobileAds/Platforms/Android/CustomNativeTemplateClient.cs
+Assets/GoogleMobileAds/Platforms/Android/DefaultInAppPurchaseListener.cs
+Assets/GoogleMobileAds/Platforms/Android/InAppPurchase.cs
+Assets/GoogleMobileAds/Platforms/Android/InAppPurchaseResult.cs
+Assets/GoogleMobileAds/Platforms/Android/InterstitialClient.cs
+Assets/GoogleMobileAds/Platforms/Android/NativeExpressAdClient.cs
+Assets/GoogleMobileAds/Platforms/Android/RewardBasedVideoAdClient.cs
+Assets/GoogleMobileAds/Platforms/Android/Utils.cs
+Assets/GoogleMobileAds/Platforms/GoogleMobileAdsClientFactory.cs
+Assets/GoogleMobileAds/Platforms/iOS/AdLoaderClient.cs
+Assets/GoogleMobileAds/Platforms/iOS/BannerClient.cs
+Assets/GoogleMobileAds/Platforms/iOS/CustomNativeTemplateClient.cs
+Assets/GoogleMobileAds/Platforms/iOS/Externs.cs
+Assets/GoogleMobileAds/Platforms/iOS/InterstitialClient.cs
+Assets/GoogleMobileAds/Platforms/iOS/MonoPInvokeCallbackAttribute.cs
+Assets/GoogleMobileAds/Platforms/iOS/NativeExpressAdClient.cs
+Assets/GoogleMobileAds/Platforms/iOS/RewardBasedVideoAdClient.cs
+Assets/GoogleMobileAds/Platforms/iOS/Utils.cs
+Assets/Scripts/Actors/BasicMotor.cs
+Assets/Scripts/Actors/BeeController.cs
+Assets/Scripts/Actors/BeeData.cs
+Assets/Scripts/Actors/BeeFSM.cs
+Assets/Scripts/Actors/BeeSensor.cs
+Assets/Scripts/Actors/CostumeSwitcher.cs
+Assets/Scripts/Actors/DeathParticleSystemHandler.cs
+Assets/Scripts/Actors/FireBallController.cs
+Assets/Scripts/Actors/FireBeetleController.cs
+Assets/Scripts/Actors/FireBeetleData.cs
+Assets/Scripts/Actors/FireBeetleFSM.cs
+Assets/Scripts/Actors/FlyController.cs
+Assets/Scripts/Actors/FrogController.cs
+Assets/Scripts/Actors/FrogInputHandler.cs
+Assets/Scripts/Actors/FrogMovementPhysics.cs
+Assets/Scripts/Actors/JumpLineRenderer.cs
+Assets/Scripts/Actors/JumpMarkerSensor.cs
+Assets/Scripts/Actors/JumpPathSensor.cs
+Assets/Scripts/Actors/PlayerDetector.cs
+Assets/Scripts/Actors/RepeatedSideMovement.cs
+Assets/Scripts/Actors/ShotgunController.cs
+Assets/Scripts/Actors/SpritesFader.cs
+Assets/Scripts/AnalyticsHandler.cs
+Assets/Scripts/Animation/FireBeetleSpitExtension.cs
+Assets/Scripts/CameraVerticalFollow.cs
+"Assets/Scripts/Difficulty Managers/BeeSectionDifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/BladeSectionDifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/BugsDifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/DifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/FireBeetleDifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/FlyDifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/HeatVentDifficultyManager.cs"
+"Assets/Scripts/Difficulty Managers/ProcessorSectionDifficultyManager.cs"
+Assets/Scripts/Experimental/RandConsumer.cs
+Assets/Scripts/Experimental/RandomLogger.cs
+Assets/Scripts/Experimental/RandomStart.cs
+Assets/Scripts/FPSCounter.cs
+Assets/Scripts/GameObjectPoolManager.cs
+Assets/Scripts/General/BuilderWeight.cs
+Assets/Scripts/General/CleanSlateStartup.cs
+Assets/Scripts/General/GameFramework.cs
+Assets/Scripts/General/HighScoreButtonState.cs
+Assets/Scripts/General/MainGameController.cs
+Assets/Scripts/General/NewRowReached.cs
+Assets/Scripts/General/PowerupHandler.cs
+Assets/Scripts/General/Score.cs
+Assets/Scripts/General/ScoreData.cs
+Assets/Scripts/General/ScoreEvaluator.cs
+Assets/Scripts/General/ScoreHandler.cs
+Assets/Scripts/General/SoundController.cs
+Assets/Scripts/General/StarHandler.cs
+Assets/Scripts/General/TextureScroll.cs
+Assets/Scripts/HiResScreenShots.cs
+Assets/Scripts/Inspector/DifficultyParameter.cs
+Assets/Scripts/Interfaces.cs
+Assets/Scripts/LevelBuilding/Old/BladeSectionBuilder.cs
+Assets/Scripts/LevelBuilding/Old/LevelRow.cs
+Assets/Scripts/LevelBuilding/Old/LevelSection.cs
+Assets/Scripts/LevelBuilding/Old/LineBladesEmitter.cs
+Assets/Scripts/LevelBuilding/Old/LineBladesMovement.cs
+Assets/Scripts/LevelBuilding/Old/LineBladesReceiver.cs
+Assets/Scripts/LevelBuilding/Old/ObstacleSetter.cs
+Assets/Scripts/LevelBuilding/Old/ProcessorHeater.cs
+Assets/Scripts/LevelBuilding/Old/ProcessorSectionBuilder.cs
+Assets/Scripts/LevelBuilding/Old/SectionBuilderBees.cs
+Assets/Scripts/LevelBuilding/Refactored/ArenaBuilder.cs
+Assets/Scripts/LevelBuilding/Refactored/ArenaSectionDesigner.cs
+Assets/Scripts/LevelBuilding/Refactored/LevelData.cs
+Assets/Scripts/LevelBuilding/Refactored/LevelHandler.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/BladeRowMovement.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/ColdFogController.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/HeatVentController.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/HeatVentFSM.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/ProcessorFSM.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/ProcessorGroupController.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/ProcessorManager.cs
+Assets/Scripts/LevelBuilding/Refactored/Obstacles/ProcessorPatternConfigurator.cs
+Assets/Scripts/LevelBuilding/Refactored/RowCleaner.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderBlades.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderBugs.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderClear.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderConfigurator.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderHeatVent.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderProcessors.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionBuilderSelector.cs
+Assets/Scripts/LevelBuilding/Refactored/SectionDesigner.cs
+Assets/Scripts/LevelBuilding/Refactored/WallBuilder.cs
+Assets/Scripts/ObjectPool.cs
+Assets/Scripts/ServiceLocator.cs
+Assets/Scripts/SessionStatistics.cs
+"Assets/Scripts/Third Party/RandomMT.cs"
+Assets/Scripts/UI/AdHandler.cs
+Assets/Scripts/UI/CompositeButton.cs
+Assets/Scripts/UI/TutorialHandler.cs
+Assets/Scripts/UIHandler.cs
+Assets/Scripts/Utilities.cs
+Assets/Scripts/old/BeeStunnEffect.cs
+Assets/Scripts/old/ControllingCameraAspectScript.cs
+Assets/Scripts/old/FloorHandler.cs
+Assets/Scripts/old/FloorPlanLayer.cs
+Assets/Scripts/old/FrogMovementGrid.cs
+Assets/Scripts/old/GameController.cs
+Assets/Scripts/old/TestLevelBuilding.cs
+Assets/Scripts/old/TestMixedLevelBuilding.cs
+Assets/Scripts/old/TestSectionBuilderBlades.cs
+Assets/Scripts/old/TestSectionBuilderProcessors.cs
+-r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\System.Runtime.Serialization.dll"
+-r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\System.Xml.Linq.dll"
+-r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\UnityScript.dll"
+-r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\UnityScript.Lang.dll"
+-r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\unity\Boo.Lang.dll"
+-sdk:unity

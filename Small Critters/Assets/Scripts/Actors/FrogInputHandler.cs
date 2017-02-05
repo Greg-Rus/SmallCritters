@@ -56,7 +56,7 @@ public class FrogInputHandler : MonoBehaviour {
             }
         }
 #endif
-        if (!frogMovement.midJump)
+        if (!frogMovement.midJump && Time.timeScale > 0)
         {
             if (Input.GetMouseButtonDown(0))
             {

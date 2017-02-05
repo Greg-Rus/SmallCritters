@@ -27,7 +27,7 @@ public class MainGameController : MonoBehaviour {
 
     void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
         Screen.fullScreen = false;
         SetupGameFramework();
     }

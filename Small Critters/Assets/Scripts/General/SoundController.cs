@@ -29,23 +29,23 @@ public class SoundController : MonoBehaviour, IAudio {
     public AudioClip playerKilled;
     public AudioClip powerupJump;
    
-    public SoundController instance;
+    //public SoundController instance;
 
     private IPowerup powerupStatus;
     public bool isMusicOn;
     public bool isSoundFXOn;
 
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        currentMusic = mainMusic;
-    }
+    //void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
+    //    }
+    //}
 
     void Start()
     {
+        currentMusic = mainMusic;
         powerupStatus = ServiceLocator.getService<IPowerup>();
         
         if (PlayerPrefs.GetInt("Music") == (int)Toggled.On)

@@ -33,8 +33,9 @@ public class JumpLineRenderer : MonoBehaviour {
 		jumpMarker.SetActive(true);
 		jumpMarker.transform.position = this.transform.position;
 		jumpMarker.transform.rotation = this.transform.rotation;
-		lineRenderer.SetVertexCount(2);
-		lineRenderer.SetPosition(0, this.transform.position);
+		//lineRenderer.SetVertexCount(2);
+        lineRenderer.numPositions = 2;
+        lineRenderer.SetPosition(0, this.transform.position);
 		isStarted = true;
 
 	}
@@ -62,18 +63,24 @@ public class JumpLineRenderer : MonoBehaviour {
 
 		if(willDieIfJumps(dragVector))
 		{
-			lineRenderer.SetColors(Color.red,Color.red);
-		}
+			//lineRenderer.SetColors(Color.red,Color.red);
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
+
+        }
 		else
 		{
-			lineRenderer.SetColors(Color.white,Color.white);
-		}
+			//lineRenderer.SetColors(Color.white,Color.white);
+            lineRenderer.startColor = Color.white;
+            lineRenderer.endColor = Color.white;
+        }
 	}
 	public void stopDrawingJumpLine()
 	{
 		jumpMarker.SetActive(false);
-		lineRenderer.SetVertexCount(0);
-		isStarted = false;
+		//lineRenderer.SetVertexCount(0);
+        lineRenderer.numPositions = 0;
+        isStarted = false;
 	}
 	
 	public bool willDieIfJumps(Vector3 dragVector)

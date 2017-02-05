@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#if UNITY_IOS
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -29,16 +31,17 @@ namespace GoogleMobileAds.iOS
         public bool ContentAd;
     }
 
-    internal class AdLoaderClient : IAdLoaderClient
+    internal class AdLoaderClient : IAdLoaderClient, IDisposable
     {
         private IntPtr adLoaderPtr;
+        private IntPtr adLoaderClientPtr;
 
         private Dictionary<string, Action<CustomNativeTemplateAd, string>>
             customNativeTemplateCallbacks;
 
         public AdLoaderClient(AdLoader unityAdLoader)
         {
-            IntPtr adLoaderClientPtr = (IntPtr)GCHandle.Alloc(this);
+            this.adLoaderClientPtr = (IntPtr)GCHandle.Alloc(this);
 
             this.customNativeTemplateCallbacks = unityAdLoader.CustomNativeTemplateClickHandlers;
             string[] templateIdsArray = new string[unityAdLoader.TemplateIds.Count];
@@ -51,7 +54,7 @@ namespace GoogleMobileAds.iOS
             }
 
             this.AdLoaderPtr = Externs.GADUCreateAdLoader(
-                adLoaderClientPtr,
+                this.adLoaderClientPtr,
                 unityAdLoader.AdUnitId,
                 templateIdsArray,
                 templateIdsArray.Length,
@@ -95,6 +98,23 @@ namespace GoogleMobileAds.iOS
             Externs.GADURelease(requestPtr);
         }
 
+        // Destroys the AdLoader.
+        public void DestroyAdLoader()
+        {
+            this.AdLoaderPtr = IntPtr.Zero;
+        }
+
+        public void Dispose()
+        {
+            this.DestroyAdLoader();
+            ((GCHandle)this.adLoaderClientPtr).Free();
+        }
+
+        ~AdLoaderClient()
+        {
+            this.Dispose();
+        }
+
         [MonoPInvokeCallback(typeof(GADUAdLoaderDidReceiveNativeCustomTemplateAdCallback))]
         private static void AdLoaderDidReceiveNativeCustomTemplateAdCallback(
             IntPtr adLoader, IntPtr nativeCustomTemplateAd, string templateID)
@@ -104,12 +124,16 @@ namespace GoogleMobileAds.iOS
                     client.customNativeTemplateCallbacks.ContainsKey(templateID) ?
                     client.customNativeTemplateCallbacks[templateID] : null;
 
-            CustomNativeEventArgs args = new CustomNativeEventArgs()
+            if (client.OnCustomNativeTemplateAdLoaded != null)
             {
-                nativeAd = new CustomNativeTemplateAd(new CustomNativeTemplateClient(
-                    nativeCustomTemplateAd, clickHandler))
-            };
-            client.OnCustomNativeTemplateAdLoaded(client, args);
+                CustomNativeEventArgs args = new CustomNativeEventArgs()
+                {
+                    nativeAd = new CustomNativeTemplateAd(new CustomNativeTemplateClient(
+                        nativeCustomTemplateAd, clickHandler))
+                };
+                client.OnCustomNativeTemplateAdLoaded(client, args);
+            }
+
         }
 
         [MonoPInvokeCallback(typeof(GADUAdLoaderDidFailToReceiveAdWithErrorCallback))]
@@ -117,11 +141,14 @@ namespace GoogleMobileAds.iOS
             IntPtr adLoader, string error)
         {
             AdLoaderClient client = IntPtrToAdLoaderClient(adLoader);
-            AdFailedToLoadEventArgs args = new AdFailedToLoadEventArgs()
+            if (client.OnAdFailedToLoad != null)
             {
-                Message = error
-            };
-            client.OnAdFailedToLoad(client, args);
+                AdFailedToLoadEventArgs args = new AdFailedToLoadEventArgs()
+                {
+                    Message = error
+                };
+                client.OnAdFailedToLoad(client, args);
+            }
         }
 
         private static AdLoaderClient IntPtrToAdLoaderClient(IntPtr adLoader)
@@ -131,3 +158,5 @@ namespace GoogleMobileAds.iOS
         }
     }
 }
+
+#endif

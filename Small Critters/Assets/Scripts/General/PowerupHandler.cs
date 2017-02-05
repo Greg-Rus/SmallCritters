@@ -19,8 +19,6 @@ public class PowerupHandler : MonoBehaviour, IPowerup
     public ParticleSystem powerupFullEffect;
 
     private float powerupStartTime;
-    
-
     private IAudio myAudio;
 
     void Start()

@@ -8,23 +8,23 @@ public class ProcessorFSM: IProcessorFSM{
 
 	public Color maxHeatupColor = Color.red;
 	public float totalCycleTime;
-	private Dictionary<ProcessorState, float> stateTimers;
-	private Dictionary <ProcessorState, Action<ProcessorManager>> transitions;
+	private Dictionary<int, float> stateTimers;
+	private Dictionary <int, Action<ProcessorManager>> transitions;
 
 	
 	public ProcessorFSM()
 	{
-		stateTimers = new Dictionary<ProcessorState, float> ();
-		stateTimers.Add (ProcessorState.Cool, 1f);
-		stateTimers.Add (ProcessorState.HeatingUp, 1f);
-		stateTimers.Add (ProcessorState.Hot, 1f);
-		stateTimers.Add (ProcessorState.CoolingDown, 1f);
+		stateTimers = new Dictionary<int, float> ();
+		stateTimers.Add ((int)ProcessorState.Cool, 1f);
+		stateTimers.Add ((int)ProcessorState.HeatingUp, 1f);
+		stateTimers.Add ((int)ProcessorState.Hot, 1f);
+		stateTimers.Add ((int)ProcessorState.CoolingDown, 1f);
 		
-		transitions = new Dictionary<ProcessorState, Action<ProcessorManager>>();
-		transitions.Add (ProcessorState.Cool, TransitionToHeatingUp);
-		transitions.Add (ProcessorState.HeatingUp, TransitionToHot);
-		transitions.Add (ProcessorState.Hot, TransitionToCoolingDown);
-		transitions.Add (ProcessorState.CoolingDown, TransitionToCool);
+		transitions = new Dictionary<int, Action<ProcessorManager>>();
+		transitions.Add ((int)ProcessorState.Cool, TransitionToHeatingUp);
+		transitions.Add ((int)ProcessorState.HeatingUp, TransitionToHot);
+		transitions.Add ((int)ProcessorState.Hot, TransitionToCoolingDown);
+		transitions.Add ((int)ProcessorState.CoolingDown, TransitionToCool);
 		
 		CalculateTotalCycleTime ();
 	}
@@ -33,7 +33,7 @@ public class ProcessorFSM: IProcessorFSM{
 	{
 		for(int i = 0; i < stateTimers.Count ;++i)
 		{
-			stateTimers [(ProcessorState)i] = timers[i];	
+			stateTimers [i] = timers[i];	
 		}
 		CalculateTotalCycleTime ();
 	}
@@ -85,7 +85,7 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	private void HeatUp(ProcessorManager processor)
 	{
-		float heatUpPercent = TimerProgressPercent(processor, stateTimers[ProcessorState.HeatingUp]);
+		float heatUpPercent = TimerProgressPercent(processor, stateTimers[(int)ProcessorState.HeatingUp]);
 		processor.TintProcessorSprite(Color.white, maxHeatupColor, heatUpPercent);
 		if(heatUpPercent >= 0.99f)
 		{
@@ -115,7 +115,7 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	private void CoolDown(ProcessorManager processor)
 	{
-		float coolDownPercent = TimerProgressPercent(processor, stateTimers[ProcessorState.CoolingDown]);
+		float coolDownPercent = TimerProgressPercent(processor, stateTimers[(int)ProcessorState.CoolingDown]);
 		processor.TintProcessorSprite(maxHeatupColor, Color.white, coolDownPercent);
 		if(coolDownPercent >= 0.99f)
 		{
@@ -137,17 +137,17 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	public void SetCycleCompletion(ProcessorManager processor, float cyclePercent)
 	{
-		transitions[ProcessorState.CoolingDown](processor);
+		transitions[(int)ProcessorState.CoolingDown](processor);
 		ProcessorState targetState = ProcessorState.Cool;
 
-		float targetStateStayTime = stateTimers[targetState];
+		float targetStateStayTime = stateTimers[(int)targetState];
 		
 		while (targetStateStayTime < totalCycleTime * cyclePercent) 
 		{
-			transitions[targetState](processor);
+			transitions[(int)targetState](processor);
 			++targetState;
 			
-			targetStateStayTime += stateTimers[targetState];
+			targetStateStayTime += stateTimers[(int)targetState];
 		}
 		processor.state = targetState;
 		processor.stateExitTime = Time.timeSinceLevelLoad + (targetStateStayTime - (totalCycleTime * cyclePercent));
@@ -155,7 +155,7 @@ public class ProcessorFSM: IProcessorFSM{
 	
 	private void SetStateAndTimer(ProcessorManager processor, ProcessorState state)
 	{
-		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[state];
+		processor.stateExitTime = Time.timeSinceLevelLoad + stateTimers[(int)state];
 		processor.state = state;
 	}
 }

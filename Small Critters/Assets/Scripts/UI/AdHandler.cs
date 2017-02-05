@@ -12,13 +12,10 @@ public class AdHandler : MonoBehaviour {
     bool isAdFinished = true;
     IAudio myAudio;
     // Use this for initialization
-    void Awake ()
-    {
-        myUIHandler = GetComponent<UIHandler>();
-    }
 
     void Start()
     {
+        myUIHandler = GetComponent<UIHandler>();
         myAudio = ServiceLocator.getService<IAudio>();
     }
 
