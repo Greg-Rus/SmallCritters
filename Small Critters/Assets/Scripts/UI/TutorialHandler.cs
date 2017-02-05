@@ -8,14 +8,13 @@ public class TutorialHandler : MonoBehaviour {
     public GameObject bonusButton;
     public Text score;
     public Button menuButton;
-    private int currentImage = 0;
+    public UIHandler myUI;
+    public int currentImage = 0;
 
     public void LoadTutorial()
     {
-        menuButton.interactable = false;
-        score.text = "77";
-        bonusButton.SetActive(false);
-        Time.timeScale = 0;
+        myUI.UpdateUIScore(77);
+        myUI.SetBonusButtonActive(false);
         currentImage = 0;
         DisplayTutorialImage();
     }
@@ -28,12 +27,13 @@ public class TutorialHandler : MonoBehaviour {
     public void OnNext()
     {
         ++currentImage;
-        if (currentImage == tutorialScreens.Length - 1)
+        if (currentImage == tutorialScreens.Length - 2)
         {
-            score.text = "";
-            bonusButton.SetActive(true);
+            //score.text = "";
+            myUI.UpdateUIScore("");
+            myUI.SetBonusButtonActive(true);
         }
-        if (currentImage == tutorialScreens.Length)
+        if (currentImage == tutorialScreens.Length - 1)
         {
             ExitTutorial();
         }
@@ -42,9 +42,7 @@ public class TutorialHandler : MonoBehaviour {
 
     private void ExitTutorial()
     {
-        menuButton.interactable = true;
-        Time.timeScale = 1;
-        currentImage = 0;
-        this.gameObject.SetActive(false);
+        PlayerPrefs.SetInt("showTutorial", (int)Toggled.Off);
+        myUI.OnMenuBack();
     }
 }

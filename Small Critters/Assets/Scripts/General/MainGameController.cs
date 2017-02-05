@@ -37,18 +37,7 @@ public class MainGameController : MonoBehaviour {
         levelHandler = gameFramework.BuildGameFramework();
         StartNewGame();
 		BuildInitialLevel();
-        DisplayTutorial();
     }
-
-    private void DisplayTutorial()
-    {
-        int lastGameDay = PlayerPrefs.GetInt("showTutorial");
-        if (lastGameDay != 0)
-        {
-            uiHandler.ShowTutorial();
-        }
-		PlayerPrefs.SetInt("showTutorial", 0);
-	}
 
     private void SetupGameFramework()
     {

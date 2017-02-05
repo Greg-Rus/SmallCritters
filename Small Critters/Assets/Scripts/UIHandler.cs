@@ -11,6 +11,7 @@ public class UIHandler : MonoBehaviour {
     public GameObject mainMenu;
     public GameObject highScoresMenu;
     public GameObject optionsMenu;
+    public GameObject tutorialPanel;
     public Text scoreField;
     public HighScoreButtonState lastRunScoreButton;
     public HighScoreButtonState[] scoreButtons;
@@ -33,7 +34,7 @@ public class UIHandler : MonoBehaviour {
     public float powerupFillSpeed;
     private float powerupTargetFill;
 
-    public TutorialHandler tutorialHandler;
+    private TutorialHandler tutorialHandler;
 
     private ScoreData scoreData;
     public delegate void ActionSequence();
@@ -63,6 +64,7 @@ public class UIHandler : MonoBehaviour {
         scoreHandler = ServiceLocator.getService<IScoreForUI>();
         mySoundFX = ServiceLocator.getService<IAudio>();
         myAds = GetComponent<AdHandler>();
+        tutorialHandler = tutorialPanel.GetComponent<TutorialHandler>();
         Time.timeScale = 1;
         RestoreMenuState();
         inputChecks += CheckForQuitButtonPress;
@@ -79,10 +81,10 @@ public class UIHandler : MonoBehaviour {
 
     private void CheckForFirstRowReached()
     {
-        if (scoreField.text != "")
+        if (!isMenuContext && scoreField.text != "")
         {
             inputChecks -= CheckForFirstRowReached;
-            DisableBonusButton();
+            SetBonusButtonActive(false);
         }
     }
 
@@ -169,6 +171,16 @@ public class UIHandler : MonoBehaviour {
             PlayerPrefs.SetInt("SoundFX", (int)Toggled.On);
             soundFX.isOn = true;
         }
+
+        if (PlayerPrefs.GetInt("showTutorial") == (int)Toggled.On)
+        {
+            showTutorialToggle.isOn = true;
+            ShowTutorial();
+        }
+        else
+        {
+            showTutorialToggle.isOn = false;
+        }
     }
 
 	public void PropagateButtonStateToChildren(Button button)
@@ -181,7 +193,6 @@ public class UIHandler : MonoBehaviour {
 		}
 	}
 
-
     public void OnMenuQuitPrompt()
     {
         if (isMenuContext)
@@ -191,8 +202,6 @@ public class UIHandler : MonoBehaviour {
         else EnableMenuContext();
         OpenMenu(quitPrompt);
     }
-
-
 
     public void EnableMenuContext()
     {
@@ -292,6 +301,10 @@ public class UIHandler : MonoBehaviour {
     {
         scoreField.text = newSocore.ToString();
     }
+    public void UpdateUIScore(string  newSocore)
+    {
+        scoreField.text = newSocore;
+    }
 
     public void UpdateHighScoresMenu()
     {
@@ -372,8 +385,6 @@ public class UIHandler : MonoBehaviour {
         }
     }
 
-
-
     private IEnumerator RadialFillImage(Image image, float targetFill, float fillSpeed, bool isWorkingFlag)
     {
 
@@ -403,12 +414,13 @@ public class UIHandler : MonoBehaviour {
 
     public void OnToggledTutorial()
     {
-        PlayerPrefs.SetInt("showTutorial", 1);
+        PlayerPrefs.SetInt("showTutorial", (int)Toggled.On);
     }
 
     public void ShowTutorial()
     {
-        tutorialHandler.gameObject.SetActive(true);
+        EnableMenuContext();
+        OpenMenu(tutorialPanel);
         tutorialHandler.LoadTutorial();
         showTutorialToggle.isOn = false;
     }
@@ -456,9 +468,9 @@ public class UIHandler : MonoBehaviour {
         DisableMenuContext();
     }
 
-    private void DisableBonusButton()
+    public void SetBonusButtonActive(bool state)
     {
-        bonusButton.SetActive(false);
+        bonusButton.SetActive(state);
     }
 
     public void AdWatched()
