@@ -14,6 +14,7 @@ public class HeatVentController : MonoBehaviour {
 	public float minFlickerSpeed = 5f;
 	public float maxFlickerSpeed = 10f;
 	public ParticleSystem flame;
+    private ParticleSystem.MainModule flameModule;
     public Sprite leftArrow;
     public Sprite rightArrow;
     public SpriteRenderer cautionArrowDecal;
@@ -52,9 +53,9 @@ public class HeatVentController : MonoBehaviour {
         cautionDecalTransform = cautionArrowDecal.transform;
         thicknessFrom = maxShaftScale;
 		thicknessTo = minShaftScale;
-		flame.startLifetime = length* 0.1f;
-		
-		tipStartPosition = lightTip.transform.localPosition;
+        flameModule = flame.main;
+        flameModule.startLifetime = length* 0.1f;
+        tipStartPosition = lightTip.transform.localPosition;
 		
 		fsm = new HeatVentFSM();
 	}
@@ -69,7 +70,7 @@ public class HeatVentController : MonoBehaviour {
 		this.length = length;
 		fsm.SetStateTimes(timers);
 		fsm.SetCycleCompletion(this, cycleCompletion);
-		flame.startLifetime = length* 0.1f;
+        flameModule.startLifetime = length* 0.1f;
         cautionDecalTransform.rotation = Quaternion.identity;
         if (transform.rotation.eulerAngles.z == 0)
         {
@@ -176,7 +177,7 @@ public class HeatVentController : MonoBehaviour {
 	{
 		if(killArea.size.x < length)
 		{
-			Vector2 newKillAreaSize = new Vector2(killArea.size.x +  Time.deltaTime * flame.startSpeed * 1f, 1f); //The exact velocity of the particle is not exposed in the API. 0.7 is the current best guesstimate
+			Vector2 newKillAreaSize = new Vector2(killArea.size.x +  Time.deltaTime * flameModule.startSpeed.Evaluate(0f) * 1f, 1f); //The exact velocity of the particle is not exposed in the API. 0.7 is the current best guesstimate
 			killArea.size = newKillAreaSize;
 			Vector2 newKillAreaOffset = new Vector2(newKillAreaSize.x * 0.5f, 0f);
 			killArea.offset = newKillAreaOffset;
@@ -187,7 +188,7 @@ public class HeatVentController : MonoBehaviour {
 	{
 		if(killArea.size.x > 1f)
 		{
-			float areaDelta = Time.deltaTime * flame.startSpeed * 1f;
+			float areaDelta = Time.deltaTime * flameModule.startSpeed.Evaluate(0f) * 1f;
 			Vector2 newKillAreaSize = new Vector2(killArea.size.x -  areaDelta, 1f);
 			killArea.size = newKillAreaSize;
 			Vector2 newKillAreaOffset = new Vector2(killArea.offset.x + areaDelta * 0.5f, 0f);
