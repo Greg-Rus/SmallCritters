@@ -299,6 +299,7 @@ public class UIHandler : MonoBehaviour {
 
     public void UpdateUIScore(int newSocore)
     {
+        Debug.Log(newSocore);
         scoreField.text = newSocore.ToString();
     }
     public void UpdateUIScore(string  newSocore)

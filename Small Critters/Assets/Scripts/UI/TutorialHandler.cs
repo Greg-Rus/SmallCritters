@@ -27,15 +27,16 @@ public class TutorialHandler : MonoBehaviour {
     public void OnNext()
     {
         ++currentImage;
-        if (currentImage == tutorialScreens.Length - 2)
+        if (currentImage == tutorialScreens.Length - 1)
         {
             //score.text = "";
             myUI.UpdateUIScore("");
             myUI.SetBonusButtonActive(true);
         }
-        if (currentImage == tutorialScreens.Length - 1)
+        if (currentImage == tutorialScreens.Length)
         {
             ExitTutorial();
+            return;
         }
         DisplayTutorialImage();
     }
