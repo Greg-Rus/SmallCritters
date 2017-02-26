@@ -10,11 +10,13 @@ public class TutorialHandler : MonoBehaviour {
     public Button menuButton;
     public UIHandler myUI;
     public int currentImage = 0;
+    public int nextImage = 0;
+    public Button backButton;
 
     public void LoadTutorial()
     {
         myUI.UpdateUIScore(77);
-        myUI.SetBonusButtonActive(false);
+        myUI.bonusButton.SetActive(false);
         currentImage = 0;
         DisplayTutorialImage();
     }
@@ -22,22 +24,51 @@ public class TutorialHandler : MonoBehaviour {
     private void DisplayTutorialImage()
     {
         tutorialPanel.sprite = tutorialScreens[currentImage];
+        myUI.GetBonusButton().interactable = false;
     }
 
     public void OnNext()
     {
-        ++currentImage;
-        if (currentImage == tutorialScreens.Length - 1)
+        ++nextImage;
+        if (nextImage == 1)
         {
-            //score.text = "";
-            myUI.UpdateUIScore("");
-            myUI.SetBonusButtonActive(true);
+            backButton.interactable = true;
+            Utilities.PropagateButtonStateToChildren(backButton);
         }
-        if (currentImage == tutorialScreens.Length)
+        ChangeImage();
+    }
+
+    public void OnBack()
+    {
+        --nextImage;
+        if (nextImage == 0)
+        {
+            backButton.interactable = false;
+            Utilities.PropagateButtonStateToChildren(backButton);
+        }
+        ChangeImage();
+    }
+
+    private void ChangeImage()
+    {
+        if (nextImage == 5 && currentImage < nextImage)
+        {
+            myUI.UpdateUIScore("");
+            myUI.bonusButton.SetActive(true);
+        }
+
+        if (nextImage == 4 && currentImage > nextImage)
+        {
+            myUI.UpdateUIScore(77);
+            myUI.bonusButton.SetActive(false);
+        }
+
+        if (nextImage == tutorialScreens.Length)
         {
             ExitTutorial();
             return;
         }
+        currentImage = nextImage;
         DisplayTutorialImage();
     }
 
@@ -45,5 +76,6 @@ public class TutorialHandler : MonoBehaviour {
     {
         PlayerPrefs.SetInt("showTutorial", (int)Toggled.Off);
         myUI.OnMenuBack();
+        myUI.GetBonusButton().interactable = true;
     }
 }

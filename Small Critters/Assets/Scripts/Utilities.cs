@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Utilities : MonoBehaviour {
     static MonoBehaviour instance;
@@ -35,4 +36,14 @@ public class Utilities : MonoBehaviour {
 		float rounded = integerPart * orderOfMagnitude;
 		return rounded;
 	}
+
+    public static void PropagateButtonStateToChildren(Button button)
+    {
+        Image[] images = button.GetComponentsInChildren<Image>();
+        Color targetColor = (button.interactable) ? button.colors.normalColor : button.colors.disabledColor;
+        foreach (Image image in images)
+        {
+            image.color = targetColor;
+        }
+    }
 }

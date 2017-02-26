@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5a2b68b5ed1a3ee41b50395d87b8477a
-timeCreated: 1459443787
+timeCreated: 1487708198
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,12 +8,13 @@ TextureImporter:
     21300002: Icons_1
     21300004: Icons_2
     21300006: Icons_3
-  serializedVersion: 2
+    21300008: Icons_4
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -25,10 +26,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 1024
@@ -39,9 +38,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -49,85 +46,115 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 64
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 1024
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Icons_0
+    - serializedVersion: 2
+      name: Icons_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -24, y: 32}
-        - {x: -26, y: 30}
-        - {x: -26, y: -27}
-        - {x: -24, y: -32}
-        - {x: 0, y: -32}
-        - {x: 21, y: -27}
-        - {x: 28, y: -11}
-        - {x: 28, y: 10}
-        - {x: -5, y: 32}
-    - name: Icons_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Icons_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 60
         y: 0
-        width: 64
-        height: 64
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-        - {x: 32, y: 23}
-        - {x: 29, y: 32}
-    - name: Icons_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Icons_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 120
         y: 0
-        width: 64
-        height: 64
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -28, y: 32}
-        - {x: -32, y: 21}
-        - {x: -32, y: -12}
-        - {x: -23, y: -32}
-        - {x: 24, y: -32}
-        - {x: 32, y: -17}
-        - {x: 32, y: 28}
-        - {x: 21, y: 32}
-    - name: Icons_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Icons_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 180
         y: 0
-        width: 64
-        height: 64
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -20, y: 32}
-        - {x: -32, y: 13}
-        - {x: -32, y: -19}
-        - {x: -14, y: -32}
-        - {x: 20, y: -32}
-        - {x: 32, y: -21}
-        - {x: 32, y: 21}
-        - {x: 15, y: 32}
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Icons_4
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: UI
   userData: 

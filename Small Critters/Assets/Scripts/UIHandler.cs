@@ -43,6 +43,7 @@ public class UIHandler : MonoBehaviour {
     public Text ammoCount;
     public Action<SwipeDirection> OnSwipeDirectionChange;
     public GameObject bonusButton;
+    private Button bonusButtonScript;
     public GameObject bonusMenu;
     public GameObject newGameMenu;
     public Button customGameButton;
@@ -65,6 +66,7 @@ public class UIHandler : MonoBehaviour {
         mySoundFX = ServiceLocator.getService<IAudio>();
         myAds = GetComponent<AdHandler>();
         tutorialHandler = tutorialPanel.GetComponent<TutorialHandler>();
+        bonusButtonScript = bonusButton.GetComponentInChildren<Button>(true);
         Time.timeScale = 1;
         RestoreMenuState();
         inputChecks += CheckForQuitButtonPress;
@@ -84,7 +86,7 @@ public class UIHandler : MonoBehaviour {
         if (!isMenuContext && scoreField.text != "")
         {
             inputChecks -= CheckForFirstRowReached;
-            SetBonusButtonActive(false);
+            bonusButton.SetActive(false);
         }
     }
 
@@ -118,12 +120,12 @@ public class UIHandler : MonoBehaviour {
         {
             seedInput.text = PlayerPrefs.GetString("Seed");
             customGameButton.interactable = true;
-			PropagateButtonStateToChildren(customGameButton);
+			Utilities.PropagateButtonStateToChildren(customGameButton);
 		}
         else
         {
 			customGameButton.interactable = false;
-			PropagateButtonStateToChildren(customGameButton);
+            Utilities.PropagateButtonStateToChildren(customGameButton);
 		}
 
 
@@ -183,23 +185,13 @@ public class UIHandler : MonoBehaviour {
         }
     }
 
-	public void PropagateButtonStateToChildren(Button button)
-	{
-		Image[] images = button.GetComponentsInChildren<Image>();
-		Color targetColor = (button.interactable) ? button.colors.normalColor : button.colors.disabledColor;
-		foreach (Image image in images)
-		{
-			image.color = targetColor;
-		}
-	}
-
     public void OnMenuQuitPrompt()
     {
         if (isMenuContext)
         {
             SetActiveToAllOpenMenus(false);
         }
-        else EnableMenuContext();
+        //else EnableMenuContext();
         OpenMenu(quitPrompt);
     }
 
@@ -221,7 +213,7 @@ public class UIHandler : MonoBehaviour {
 
     public void OnMenuQuitGame()
     {
-        PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
+        //PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
         ReportSessionSummary();
         Application.Quit();
     }
@@ -236,7 +228,7 @@ public class UIHandler : MonoBehaviour {
 
     public void OnMenuMain()
     {
-        if (!isMenuContext) EnableMenuContext();
+        //if (!isMenuContext) EnableMenuContext();
         OpenMenu(mainMenu);
     }
 
@@ -268,6 +260,7 @@ public class UIHandler : MonoBehaviour {
     }
     private void OpenMenu(GameObject menu)
     {
+        if (!isMenuContext) EnableMenuContext();
         menu.SetActive(true);
         menuStack.Push(menu);
     }
@@ -299,7 +292,6 @@ public class UIHandler : MonoBehaviour {
 
     public void UpdateUIScore(int newSocore)
     {
-        Debug.Log(newSocore);
         scoreField.text = newSocore.ToString();
     }
     public void UpdateUIScore(string  newSocore)
@@ -358,7 +350,7 @@ public class UIHandler : MonoBehaviour {
 		{
 			customGameButton.interactable = false;
 		}
-		PropagateButtonStateToChildren(customGameButton);
+        Utilities.PropagateButtonStateToChildren(customGameButton);
 	}
 
     public void UpdateHearts(float amount)
@@ -420,7 +412,6 @@ public class UIHandler : MonoBehaviour {
 
     public void ShowTutorial()
     {
-        EnableMenuContext();
         OpenMenu(tutorialPanel);
         tutorialHandler.LoadTutorial();
         showTutorialToggle.isOn = false;
@@ -446,7 +437,6 @@ public class UIHandler : MonoBehaviour {
     public void OnBonusPress()
     {
         bonusButton.SetActive(false);
-        if (!isMenuContext) EnableMenuContext();
         OpenMenu(bonusMenu);
     }
 
@@ -469,9 +459,9 @@ public class UIHandler : MonoBehaviour {
         DisableMenuContext();
     }
 
-    public void SetBonusButtonActive(bool state)
+    public Button GetBonusButton()
     {
-        bonusButton.SetActive(state);
+        return bonusButtonScript;
     }
 
     public void AdWatched()

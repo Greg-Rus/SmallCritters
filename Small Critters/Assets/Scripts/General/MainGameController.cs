@@ -22,7 +22,6 @@ public class MainGameController : MonoBehaviour {
     public TextAsset nouns;
     public TextAsset adjectives;
     public Text LevelNameLabel;
-    //public int daysToRemindMovementTutorial;
     private IGameProgressReporting newRowScore;
 
     void Awake()
