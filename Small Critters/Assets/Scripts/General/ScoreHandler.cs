@@ -11,6 +11,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public MainGameController gameController;
     public UIHandler uiHandler;
     public PowerupHandler powerupHandler;
+    public NotificationHandler myNotifications;
     public int score = 0;
     public int rowMultiplier = 1;
     public int scoringDistance = 3;
@@ -67,16 +68,33 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public void EnemyDead(GameObject enemy, string causeOfDeath)
     {
         int starCount = 0;
+ 
 
         switch (enemy.name)
         {
-            case "Bee":           starCount = beeScoreEvaluator.EvaluateKill(causeOfDeath); break;
+            case "Bee":           starCount = beeScoreEvaluator.EvaluateKill(causeOfDeath);
+                                  ProcessNotification(beeScoreEvaluator.GetNotificationForDeathType(causeOfDeath)); break;
             case "Fly":           starCount = 1; break;
-            case "FireBeetle":    starCount = fireBeetleScoreEvaluator.EvaluateKill(causeOfDeath); break;
+            case "FireBeetle":    starCount = fireBeetleScoreEvaluator.EvaluateKill(causeOfDeath);
+                                  ProcessNotification(fireBeetleScoreEvaluator.GetNotificationForDeathType(causeOfDeath)); break;
         }
+
+        
 
         if(starCount > 0) SpawnStars(starCount, enemy.transform.position, 1);
         
+    }
+
+    private void ProcessNotification(string notification)
+    {
+        if (notification == "shot")
+        {
+
+        }
+        else
+        {
+            myNotifications.ShowNotification(notification);
+        }
     }
 
     private void SpawnStars(int count, Vector3 position, int points)

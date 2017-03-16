@@ -6,11 +6,17 @@ using System;
 public class ScoreEvaluator {
 
     public int deathViaBlade;
+    public string NoteTextBlade;
     public int deathViaVent;
+    public string NoteTextVent;
     public int deatchViaBee;
+    public string NoteTextBee;
     public int deathViaProcessor;
+    public string NoteTextProcessor;
     public int deathViaFireBeetle;
+    public string NoteTextBeetle;
     public int deathViaOther;
+    public string NoteTextOther;
     public int dathViaPellet;
 
     public int EvaluateKill(string causeOfDeath)
@@ -27,5 +33,19 @@ public class ScoreEvaluator {
             default:            starCount = deathViaOther; break;
         }
         return starCount;
+    }
+
+    public string GetNotificationForDeathType(string causeOfDeath)
+    {
+        switch (causeOfDeath)
+        {
+            case "Blade": return NoteTextBlade;
+            case "Flame": return NoteTextVent;
+            case "Sting": return NoteTextBee;
+            case "Processor": return NoteTextProcessor;
+            case "Pellet": return "shot";
+            case "FlameBall": return NoteTextBeetle;
+            default: return "";
+        }
     }
 }

@@ -218,6 +218,8 @@
     <Compile Include="Assets\Scripts\Third Party\RandomMT.cs" />
     <Compile Include="Assets\Scripts\UI\AdHandler.cs" />
     <Compile Include="Assets\Scripts\UI\CompositeButton.cs" />
+    <Compile Include="Assets\Scripts\UI\NotificationController.cs" />
+    <Compile Include="Assets\Scripts\UI\NotificationHandler.cs" />
     <Compile Include="Assets\Scripts\UI\TutorialHandler.cs" />
     <Compile Include="Assets\Scripts\UIHandler.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
