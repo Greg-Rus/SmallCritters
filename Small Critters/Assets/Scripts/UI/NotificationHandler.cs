@@ -12,10 +12,16 @@ public class NotificationHandler : MonoBehaviour {
     //public float dropSpeed = 10f;
     public float dropDistance;
     public bool test = false;
+    public bool multiKill = false;
+    private int killCount = 0;
+    public float multiKillTimeFrame = 0.5f;
+    public string[] multiKillNotices;
+    private IAudio myAudio;
 
 	// Use this for initialization
 	void Start ()
     {
+        myAudio = ServiceLocator.getService<IAudio>();
         var rectTransforms = GetComponentsInChildren<NotificationController>();
         freeNotificationObjects = new Queue<NotificationController>();
         activeNotificationObjects = new Queue<NotificationController>();
@@ -36,6 +42,24 @@ public class NotificationHandler : MonoBehaviour {
 
     public void ShowNotification(string text)
     {
+        if (text == "shot")
+        {
+            if (!multiKill)
+            {
+                multiKill = true;
+                StartCoroutine("MultiKilltimer");
+            }
+            else
+            {
+                StopCoroutine("MultiKilltimer");
+                StartCoroutine("MultiKilltimer");
+                
+            }
+            ++killCount;
+            if(killCount >= multiKillNotices.Length) text = multiKillNotices[multiKillNotices.Length - 1];
+            else text = multiKillNotices[killCount - 1];
+
+        }
         NotificationController rect;
         if (freeNotificationObjects.Count > 0)
         {
@@ -51,6 +75,7 @@ public class NotificationHandler : MonoBehaviour {
         rect.StartUp(OnNotificationExpired);
         rect.SetNotificationText(text);
         MoveDownActiveNotifications();
+        myAudio.PlaySound(Sound.Notification);
     }
 
     private void MoveDownActiveNotifications()
@@ -68,5 +93,12 @@ public class NotificationHandler : MonoBehaviour {
         var rect = activeNotificationObjects.Dequeue();
         rect.Reset();
         freeNotificationObjects.Enqueue(rect);
+    }
+
+    IEnumerator MultiKilltimer()
+    {
+        yield return new WaitForSeconds(multiKillTimeFrame);
+        multiKill = false;
+        killCount = 0;
     }
 }

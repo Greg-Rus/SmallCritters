@@ -28,6 +28,7 @@ public class SoundController : MonoBehaviour, IAudio {
     public AudioClip playerHit;
     public AudioClip playerKilled;
     public AudioClip powerupJump;
+    public AudioClip notification;
    
     //public SoundController instance;
 
@@ -94,6 +95,7 @@ public class SoundController : MonoBehaviour, IAudio {
                 case Sound.PlayerKilled: myAudio.Stop(); myMusic.Stop(); myAudio.PlayOneShot(playerKilled); break;
                 case Sound.EatFly: myAudio.PlayOneShot(eatFly); break;
                 case Sound.Silence: myAudio.Stop(); break;
+                case Sound.Notification: myAudio.PlayOneShot(notification); break;
                 default: break;
             }
         }

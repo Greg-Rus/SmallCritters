@@ -87,14 +87,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
 
     private void ProcessNotification(string notification)
     {
-        if (notification == "shot")
-        {
-
-        }
-        else
-        {
-            myNotifications.ShowNotification(notification);
-        }
+        myNotifications.ShowNotification(notification);
     }
 
     private void SpawnStars(int count, Vector3 position, int points)

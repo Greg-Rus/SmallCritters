@@ -16,7 +16,7 @@ public enum Toggled { On, Off};
 public enum Sound
 {
     Silence, Jump, ShotgunBlastAndCock, ShotgunFire, ShotgunCock, BeeCharge, BeeStunHit, FullHeart, StarPickup, BeatleCharge, BeatleSpit,
-    EatFly, StartPowerup, KilledByFire, KilledByImpact, PlayerHit, PlayerKilled
+    EatFly, StartPowerup, KilledByFire, KilledByImpact, PlayerHit, PlayerKilled, Notification
 };
 public enum ScoreStarState { Starting, Waiting, Following, BeingPickedUp};
 
