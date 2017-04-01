@@ -1,51 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
+public class ScoreEvaluator: MonoBehaviour {
+
+    public ScoreEvent[] scoreEvents;
+    private Dictionary<string, ScoreEvent> eventMap;
+
+    void Start()
+    {
+        eventMap = new Dictionary<string, ScoreEvent>();
+        for (int i = 0; i < scoreEvents.Length; ++i)
+        {
+            eventMap.Add(scoreEvents[i].name, scoreEvents[i]);
+        }
+    }
+
+    public int GetScoreForKill(string type)
+    {
+        ScoreEvent scoreEvent = eventMap[type];
+        return scoreEvent.value;
+    }
+
+    public string GetNotificationForKill(string type)
+    {
+        ScoreEvent scoreEvent = eventMap[type];
+        ++scoreEvent.count;
+        return scoreEvent.text;
+    }
+}
 [Serializable]
-public class ScoreEvaluator {
-
-    public int deathViaBlade;
-    public string NoteTextBlade;
-    public int deathViaVent;
-    public string NoteTextVent;
-    public int deatchViaBee;
-    public string NoteTextBee;
-    public int deathViaProcessor;
-    public string NoteTextProcessor;
-    public int deathViaFireBeetle;
-    public string NoteTextBeetle;
-    public int deathViaOther;
-    public string NoteTextOther;
-    public int dathViaPellet;
-
-    public int EvaluateKill(string causeOfDeath)
-    {
-        int starCount = 0;
-        switch (causeOfDeath)
-        {
-            case "Blade":       starCount = deathViaBlade; break;
-            case "Flame":       starCount = deathViaVent; break;
-            case "Sting":       starCount = deatchViaBee; break;
-            case "Processor":   starCount = deathViaProcessor; break;
-            case "Pellet":      starCount = dathViaPellet; break;
-            case "FlameBall":   starCount = deathViaFireBeetle; break;
-            default:            starCount = deathViaOther; break;
-        }
-        return starCount;
-    }
-
-    public string GetNotificationForDeathType(string causeOfDeath)
-    {
-        switch (causeOfDeath)
-        {
-            case "Blade": return NoteTextBlade;
-            case "Flame": return NoteTextVent;
-            case "Sting": return NoteTextBee;
-            case "Processor": return NoteTextProcessor;
-            case "Pellet": return "shot";
-            case "FlameBall": return NoteTextBeetle;
-            default: return "";
-        }
-    }
+public class ScoreEvent
+{
+    public string name = "";
+    public string text = "";
+    public int value = 0;
+    public int count = 0;
 }

@@ -46,6 +46,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         motor.enabled = false;
 		attackCharge.Clear();
 		attackCharge.Stop();
+        myAnimator.Rebind();
 	}
     void Update()
     {

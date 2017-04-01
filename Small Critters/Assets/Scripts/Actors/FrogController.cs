@@ -17,6 +17,7 @@ public class FrogController : MonoBehaviour {
     public float HPprogressPerFly = 0.1f;
 
     private bool invulnerable = false;
+    private bool isAlive = true;
     private IAudio myAudio;
 
     void Start () {
@@ -44,6 +45,7 @@ public class FrogController : MonoBehaviour {
     {
         if (other.CompareTag("Hazard")) 
         {
+            Debug.Log("Triger :" + other.name);
             TakeHit(other.name);
         }
     }
@@ -88,9 +90,14 @@ public class FrogController : MonoBehaviour {
 
 	public void Die(string causeOfDeath)
 	{
-		gameObject.SetActive(false);
-        OnFrogDeath(causeOfDeath);
-        myAudio.PlaySound(Sound.PlayerKilled);
+        Debug.Log(causeOfDeath);
+        if (isAlive)
+        {
+            isAlive = false;
+            gameObject.SetActive(false);
+            OnFrogDeath(causeOfDeath);
+            myAudio.PlaySound(Sound.PlayerKilled);
+        }
     }
 
     public void FillHP()

@@ -29,6 +29,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
 
     public ScoreEvaluator beeScoreEvaluator;
     public ScoreEvaluator fireBeetleScoreEvaluator;
+    public ScoreEvaluatorShots shotsScoreEvaluator;
 
     XmlSerializer serializer;
 
@@ -68,22 +69,41 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public void EnemyDead(GameObject enemy, string causeOfDeath)
     {
         int starCount = 0;
- 
-
-        switch (enemy.name)
+        if (causeOfDeath == "pellet")
         {
-            case "Bee":           starCount = beeScoreEvaluator.EvaluateKill(causeOfDeath);
-                                  ProcessNotification(beeScoreEvaluator.GetNotificationForDeathType(causeOfDeath)); break;
-            case "Fly":           starCount = 1; break;
-            case "FireBeetle":    starCount = fireBeetleScoreEvaluator.EvaluateKill(causeOfDeath);
-                                  ProcessNotification(fireBeetleScoreEvaluator.GetNotificationForDeathType(causeOfDeath)); break;
+           
         }
-
+        else
+        {
+            switch (enemy.name)
+            {
+                case "Bee":
+                    starCount = beeScoreEvaluator.GetScoreForKill(causeOfDeath);
+                    ProcessNotification(beeScoreEvaluator.GetNotificationForKill(causeOfDeath)); break;
+                case "Fly": starCount = 1; break;
+                case "FireBeetle":
+                    starCount = fireBeetleScoreEvaluator.GetScoreForKill(causeOfDeath);
+                    ProcessNotification(fireBeetleScoreEvaluator.GetNotificationForKill(causeOfDeath)); break;
+            }
+        }
         
-
-        if(starCount > 0) SpawnStars(starCount, enemy.transform.position, 1);
-        
+        if(starCount > 0) SpawnStars(starCount, enemy.transform.position, 1); 
     }
+
+    //private NotificationType CauseOfDeathToNotificationType(string causeOfDeath)
+    //{
+    //    switch (causeOfDeath)
+    //    {
+    //        case "Blade": return NotificationType.BladeKill;
+    //        case "Flame": return NotificationType.VentKill;
+    //        case "Sting": return NotificationType.OtherBee;
+    //        case "Processor": return NotificationType.ProcessorKill;
+    //        case "Pellet": return NotificationType.SingleKill;
+    //        case "FlameBall": return NotificationType.OtherBeetle;
+    //        case "ColdFog": return NotificationType.ColdKill;
+    //        default: Debug.LogError("Unsupported cause of death: " + causeOfDeath); return NotificationType.Undefined;
+    //    }
+    //}
 
     private void ProcessNotification(string notification)
     {

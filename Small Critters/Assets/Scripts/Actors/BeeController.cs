@@ -38,6 +38,7 @@ public class BeeController : MonoBehaviour {
         MakeBeeGrounded();
         myFSM.Reset();
         motor.speed = 0;
+        myAnimator.Rebind();
     }
     void Update()
     {

@@ -13,7 +13,7 @@ public class NotificationController : MonoBehaviour {
     private Action callBack;
     private float timer;
     private Text myText;
-	// Use this for initialization
+
 	void Start ()
     {
         myRect = GetComponent<RectTransform>();
@@ -42,11 +42,10 @@ public class NotificationController : MonoBehaviour {
 
     public void Reset()
     {
+        myText.text = "";
         StopAllCoroutines();
         myRect.localPosition = Vector3.zero;
         this.transform.localScale = Vector3.one;
-        //myRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 100f);
-
     }
 
     IEnumerator Wait()
@@ -68,7 +67,6 @@ public class NotificationController : MonoBehaviour {
             timer -= Time.deltaTime;
             float newScale = timer / shrinkTime;
             this.transform.localScale = Vector3.one * newScale;
-            //myRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,100*newScale);
             yield return null;
         }
         callBack();

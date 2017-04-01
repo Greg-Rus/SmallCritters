@@ -170,9 +170,11 @@
     <Compile Include="Assets\Scripts\General\MainGameController.cs" />
     <Compile Include="Assets\Scripts\General\NewRowReached.cs" />
     <Compile Include="Assets\Scripts\General\PowerupHandler.cs" />
+    <Compile Include="Assets\Scripts\General\RunStatistics.cs" />
     <Compile Include="Assets\Scripts\General\Score.cs" />
     <Compile Include="Assets\Scripts\General\ScoreData.cs" />
     <Compile Include="Assets\Scripts\General\ScoreEvaluator.cs" />
+    <Compile Include="Assets\Scripts\General\ScoreEvaluatorShots.cs" />
     <Compile Include="Assets\Scripts\General\ScoreHandler.cs" />
     <Compile Include="Assets\Scripts\General\SoundController.cs" />
     <Compile Include="Assets\Scripts\General\StarHandler.cs" />
@@ -218,6 +220,7 @@
     <Compile Include="Assets\Scripts\Third Party\RandomMT.cs" />
     <Compile Include="Assets\Scripts\UI\AdHandler.cs" />
     <Compile Include="Assets\Scripts\UI\CompositeButton.cs" />
+    <Compile Include="Assets\Scripts\UI\ExtraStar.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationController.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationHandler.cs" />
     <Compile Include="Assets\Scripts\UI\TutorialHandler.cs" />
