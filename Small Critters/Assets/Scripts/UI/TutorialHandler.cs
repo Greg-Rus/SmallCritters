@@ -18,6 +18,7 @@ public class TutorialHandler : MonoBehaviour {
         myUI.UpdateUIScore(77);
         myUI.bonusButton.SetActive(false);
         currentImage = 0;
+        nextImage = 0;
         DisplayTutorialImage();
     }
 
@@ -72,10 +73,17 @@ public class TutorialHandler : MonoBehaviour {
         DisplayTutorialImage();
     }
 
+    public void ResetUIState()
+    {
+        myUI.UpdateUIScore("");
+        myUI.bonusButton.SetActive(true);
+        myUI.GetBonusButton().interactable = true;
+    }
+
     private void ExitTutorial()
     {
-        PlayerPrefs.SetInt("showTutorial", (int)Toggled.Off);
         myUI.OnMenuBack();
+        myUI.UpdateUIScore("");
         myUI.GetBonusButton().interactable = true;
     }
 }

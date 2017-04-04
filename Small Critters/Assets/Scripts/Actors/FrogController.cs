@@ -45,7 +45,6 @@ public class FrogController : MonoBehaviour {
     {
         if (other.CompareTag("Hazard")) 
         {
-            Debug.Log("Triger :" + other.name);
             TakeHit(other.name);
         }
     }
@@ -90,7 +89,6 @@ public class FrogController : MonoBehaviour {
 
 	public void Die(string causeOfDeath)
 	{
-        Debug.Log(causeOfDeath);
         if (isAlive)
         {
             isAlive = false;

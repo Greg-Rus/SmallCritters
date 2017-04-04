@@ -20,7 +20,7 @@ public class UIHandler : MonoBehaviour {
     public Toggle seededToggle;
     public Toggle swipeUpToggle;
     public Toggle swipeDownToggle;
-    public Toggle showTutorialToggle;
+    //public Toggle showTutorialToggle;
 
     public bool isMenuContext = false;
     public InputField seedInput;
@@ -95,6 +95,7 @@ public class UIHandler : MonoBehaviour {
         if (Time.timeSinceLevelLoad > inactivityTimeToMovementTutorial)
         {
             inputChecks -= CheckIdleTime;
+            inputChecks -= CheckIfStoppedIdling;
             ShowTutorial();
         }
     }
@@ -103,6 +104,7 @@ public class UIHandler : MonoBehaviour {
         if (Input.anyKeyDown)
         {
             inputChecks -= CheckIdleTime;
+            inputChecks -= CheckIfStoppedIdling;
         }
     }
 
@@ -174,15 +176,15 @@ public class UIHandler : MonoBehaviour {
             soundFX.isOn = true;
         }
 
-        if (PlayerPrefs.GetInt("showTutorial") == (int)Toggled.On)
-        {
-            showTutorialToggle.isOn = true;
-            ShowTutorial();
-        }
-        else
-        {
-            showTutorialToggle.isOn = false;
-        }
+        //if (PlayerPrefs.GetInt("showTutorial") == (int)Toggled.On)
+        //{
+        //    showTutorialToggle.isOn = true;
+        //    ShowTutorial();
+        //}
+        //else
+        //{
+        //    showTutorialToggle.isOn = false;
+        //}
     }
 
     public void OnMenuQuitPrompt()
@@ -280,6 +282,11 @@ public class UIHandler : MonoBehaviour {
         else if (menuStack.Peek() == quitPrompt)
         {
             SetActiveToAllOpenMenus(true);
+            CloseMenu(menuStack.Peek());
+        }
+        else if (menuStack.Peek() == tutorialPanel)
+        {
+            tutorialHandler.ResetUIState();
             CloseMenu(menuStack.Peek());
         }
         else
@@ -405,16 +412,16 @@ public class UIHandler : MonoBehaviour {
         }
     }
 
-    public void OnToggledTutorial()
-    {
-        PlayerPrefs.SetInt("showTutorial", (int)Toggled.On);
-    }
+    //public void OnToggledTutorial()
+    //{
+    //    PlayerPrefs.SetInt("showTutorial", (int)Toggled.On);
+    //}
 
     public void ShowTutorial()
     {
         OpenMenu(tutorialPanel);
         tutorialHandler.LoadTutorial();
-        showTutorialToggle.isOn = false;
+        //showTutorialToggle.isOn = false;
     }
 
     public void PowerupMode(bool isActive)

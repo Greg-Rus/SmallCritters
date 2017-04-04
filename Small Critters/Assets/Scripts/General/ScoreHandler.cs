@@ -69,9 +69,10 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public void EnemyDead(GameObject enemy, string causeOfDeath)
     {
         int starCount = 0;
-        if (causeOfDeath == "pellet")
+        if (causeOfDeath == "Pellet")
         {
-           
+            starCount = shotsScoreEvaluator.GetScoreForKill(causeOfDeath);
+            ProcessNotification(shotsScoreEvaluator.GetNotificationForKill(causeOfDeath));
         }
         else
         {

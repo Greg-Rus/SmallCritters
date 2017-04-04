@@ -22,7 +22,7 @@ public enum NotificationType {
     Undefined, BladeKill, ProcessorKill, VentKill, ColdKill, OtherBee, OtherBeetle,
     SingleKill, DoubleKill, TrippleKill, QuadKill, QuintKill, Overkill, RiskyJump
 };
-public enum ScoreStarState { Starting, Waiting, Following, BeingPickedUp};
+public enum ScoreStarState { Starting, Waiting, Decaying, Following, BeingPickedUp};
 
 public interface Imovement {
 	

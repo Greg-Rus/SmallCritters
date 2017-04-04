@@ -11,11 +11,14 @@ public class StarHandler : MonoBehaviour {
     public float decayScaleThreshold;
     public float normalScale = 1f;
     public float initialScale = 0.1f;
+    public float waitTime = 5;
     public int points;
     public float scoringDistance;
     public float pickUpDistance = 0.1f;
     public ScoreStarState state;
     public CircleCollider2D playerDetectionCircle;
+    public SpriteRenderer myRenderer;
+    public string pickUpLayerName;
 
     private Action<int> OnStarPickup;
     private IAudio myAudio;
@@ -24,7 +27,8 @@ public class StarHandler : MonoBehaviour {
 
 
 
-    void Start () {
+    void Start ()
+    {
         transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
         myAudio = ServiceLocator.getService<IAudio>();
     }
@@ -43,7 +47,8 @@ public class StarHandler : MonoBehaviour {
         switch (state)
         {
             case ScoreStarState.Starting: Inflate(); break;
-            case ScoreStarState.Waiting: Decay(); break;
+            case ScoreStarState.Waiting: Wait(); break;
+            case ScoreStarState.Decaying: Decay(); break;
             case ScoreStarState.Following: MoveToFrog(); CheckForFrogProximity(); break;
             case ScoreStarState.BeingPickedUp: MoveToFrog(); Deflate(); break;
         }
@@ -59,10 +64,21 @@ public class StarHandler : MonoBehaviour {
             state = ScoreStarState.Waiting;
         }
     }
+    void Wait()
+    {
+        waitTime -= Time.deltaTime;
+        if (waitTime <= 0) state = ScoreStarState.Decaying;
+        if (frog != null)
+        {
+            transform.localScale = Vector3.one;
+            state = ScoreStarState.Following;
+        }
+    }
     void Decay()
     {
         if (frog != null)
         {
+            transform.localScale = Vector3.one;
             state = ScoreStarState.Following;
         }
         else
@@ -78,6 +94,7 @@ public class StarHandler : MonoBehaviour {
 
     void MoveToFrog()
     {
+        myRenderer.sortingLayerName = pickUpLayerName;
         vectorToFrog = frog.position - transform.position;
         float angle = Mathf.Atan2(vectorToFrog.y, vectorToFrog.x) * Mathf.Rad2Deg;
         float newAngle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, angle, turnSpeed * Time.deltaTime);
