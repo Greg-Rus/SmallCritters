@@ -229,6 +229,8 @@
     <Compile Include="Assets\Scripts\UI\ExtraStar.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationController.cs" />
     <Compile Include="Assets\Scripts\UI\NotificationHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\SummaryItemHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\SummaryMenuController.cs" />
     <Compile Include="Assets\Scripts\UI\TutorialHandler.cs" />
     <Compile Include="Assets\Scripts\UIHandler.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
