@@ -46,6 +46,8 @@ public class UIHandler : MonoBehaviour {
     private Button bonusButtonScript;
     public GameObject bonusMenu;
     public GameObject newGameMenu;
+    public GameObject runSummaryMenu;
+    public SummaryMenuController runSummaryConroller;
     public Button customGameButton;
     public Toggle music;
     public Toggle soundFX;
@@ -502,5 +504,15 @@ public class UIHandler : MonoBehaviour {
             ServiceLocator.getService<IAudio>().SetSoundFXOn(false);
             PlayerPrefs.SetInt("SoundFX", (int)Toggled.Off);
         }
+    }
+
+    public void AddSummaryItem(string text, int count, int points, bool animate = true)
+    {
+        if (!isMenuContext)
+        {
+            EnableMenuContext();
+            OpenMenu(runSummaryMenu);
+        }
+        runSummaryConroller.DisplaySummaryItem(text, count, points, animate);
     }
 }

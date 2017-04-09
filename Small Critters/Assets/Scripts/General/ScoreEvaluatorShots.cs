@@ -8,6 +8,7 @@ public class ScoreEvaluatorShots : MonoBehaviour
     public ScoreEvaluator shotsScoreData;
     private int killCount = 0;
     private bool multiKill;
+    public ScoreEvent[] scoreEvents { get { return shotsScoreData.scoreEvents; } }
 
     public int GetScoreForKill(string type)
     {

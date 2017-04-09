@@ -166,6 +166,33 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             }
         }
         SaveScores();
+        PresentRunSummary();
+    }
+
+    private void PresentRunSummary()
+    {
+        foreach (ScoreEvent se in shotsScoreEvaluator.scoreEvents)
+        {
+            if (se.count > 0)
+            {
+                uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+            }
+        }
+        foreach (ScoreEvent se in fireBeetleScoreEvaluator.scoreEvents)
+        {
+            if (se.count > 0)
+            {
+                uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+            }
+        }
+        foreach (ScoreEvent se in  beeScoreEvaluator.scoreEvents)
+        {
+            if (se.count > 0)
+            {
+                uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+            }
+        }
+        
     }
 
     public ScoreData GetScoreData()
