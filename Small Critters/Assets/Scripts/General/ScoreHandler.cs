@@ -166,16 +166,18 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             }
         }
         SaveScores();
-        PresentRunSummary();
+        StartCoroutine(PresentRunSummary());
     }
 
-    private void PresentRunSummary()
+    IEnumerator PresentRunSummary()
     {
+
         foreach (ScoreEvent se in shotsScoreEvaluator.scoreEvents)
         {
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                yield return new WaitForSecondsRealtime(0.5f);
             }
         }
         foreach (ScoreEvent se in fireBeetleScoreEvaluator.scoreEvents)
@@ -183,16 +185,18 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                yield return new WaitForSecondsRealtime(0.5f);
             }
         }
-        foreach (ScoreEvent se in  beeScoreEvaluator.scoreEvents)
+        foreach (ScoreEvent se in beeScoreEvaluator.scoreEvents)
         {
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                yield return new WaitForSecondsRealtime(0.5f);
             }
         }
-        
+
     }
 
     public ScoreData GetScoreData()
