@@ -26,7 +26,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public int starValue = 2;
     public ScoreData scoreData;
     public GameObject star;
-
+    public float summarySpawnSpeed;
     public ScoreEvaluator beeScoreEvaluator;
     public ScoreEvaluator fireBeetleScoreEvaluator;
     public ScoreEvaluatorShots shotsScoreEvaluator;
@@ -177,7 +177,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
-                yield return new WaitForSecondsRealtime(0.5f);
+                yield return new WaitForSecondsRealtime(summarySpawnSpeed);
             }
         }
         foreach (ScoreEvent se in fireBeetleScoreEvaluator.scoreEvents)
@@ -185,7 +185,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
-                yield return new WaitForSecondsRealtime(0.5f);
+                yield return new WaitForSecondsRealtime(summarySpawnSpeed);
             }
         }
         foreach (ScoreEvent se in beeScoreEvaluator.scoreEvents)
@@ -193,10 +193,10 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
-                yield return new WaitForSecondsRealtime(0.5f);
+                yield return new WaitForSecondsRealtime(summarySpawnSpeed);
             }
         }
-
+        uiHandler.OnSummaryCompositionFinished();
     }
 
     public ScoreData GetScoreData()
@@ -229,4 +229,15 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             gameController.RestartGame();
         }
     }
+    public void RestartGame()
+    {
+        gameController.RestartGame();
+    }
+
+    public void SpeedUpSummary()
+    {
+        summarySpawnSpeed *= 0.2f;
+    }
+
+
 }

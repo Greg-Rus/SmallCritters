@@ -9,43 +9,36 @@ public class SummaryMenuController : MonoBehaviour {
     public RectTransform ScrollViewRect;
     public Scrollbar scrollBar;
     public Text finalScore;
+    public SoundController myAudio;
     private float summaryItemHeight;
     private float lastSummaryItemPositionY = 0;
     public bool test = false;
     private int testNumber = 0;
     private int lastScoreCount = 0;
     private float scoreCountDuration = 1f;
-	// Use this for initialization
-	void Awake ()
+    
+    private Vector3 endPointerScreenPositoin;
+    // Use this for initialization
+    void Awake ()
     {
         summaryItemHeight = SummaryItemPrefab.GetComponent<RectTransform>().rect.height;
         lastSummaryItemPositionY = summaryItemHeight * -0.5f;
     }
-	
-	// Update is called once per frame
-	//void Update () {
- //       if (test)
- //       {
- //           test = !test;
- //           ++testNumber;
- //           DisplaySummaryItem("Test " + testNumber + " !", 2, 300);
- //       }
-	//}
+
 
     public void DisplaySummaryItem(string text, int count, int points, bool animate =true)
     {
-        Debug.Log("Before :" + lastSummaryItemPositionY);
         lastSummaryItemPositionY -= summaryItemHeight;
         ContentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, lastSummaryItemPositionY * -1f + summaryItemHeight * 0.5f);
         GameObject newSummaryItem = Instantiate(SummaryItemPrefab, new Vector3(700f, lastSummaryItemPositionY, 0f), Quaternion.identity) as GameObject;
-        Debug.Log(text + "At :" + lastSummaryItemPositionY);
         newSummaryItem.transform.SetParent(ContentRect.transform, false);
         
         SummaryItemHandler handler = newSummaryItem.GetComponent<SummaryItemHandler>();
         handler.SetText(text);
         handler.SetCount(count);
-        handler.SetPoints(points);
+        handler.SetPoints(points*count);
         handler.myController = this;
+        handler.myAudio = myAudio;
 
         if (ContentRect.rect.height >= ScrollViewRect.rect.height)
         {

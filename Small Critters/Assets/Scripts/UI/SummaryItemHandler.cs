@@ -12,6 +12,7 @@ public class SummaryItemHandler : MonoBehaviour {
     private int points;
     public RectTransform myRect;
     public SummaryMenuController myController;
+    public IAudio myAudio;
 	// Use this for initialization
 
     public void SetText(string text)
@@ -38,5 +39,14 @@ public class SummaryItemHandler : MonoBehaviour {
     public void OnAnimationFinished()
     {
         myController.OnSummaryScoreVisible(points * count) ;
+        myAudio.PlaySound(Sound.SummaryScore);
     }
+    public void OnMultiplyerShown()
+    {
+        myAudio.PlaySound(Sound.SummaryMutliplyer);
+    }
+    public void OnSummaryItemNameShown()
+    {
+        myAudio.PlaySound(Sound.SummaryText);
+    } 
 }

@@ -60,6 +60,8 @@ public class UIHandler : MonoBehaviour {
     private bool isHeartIconUpdating = false;
     private IAudio mySoundFX;
     private Stack<GameObject> menuStack;
+    private Vector3 startPointerScreenPositoin;
+    private bool showingRunSummary = false;
 
     // Use this for initialization
     void Start () {
@@ -107,6 +109,32 @@ public class UIHandler : MonoBehaviour {
         {
             inputChecks -= CheckIdleTime;
             inputChecks -= CheckIfStoppedIdling;
+        }
+    }
+    private void CheckIfTappedInstedOfDrag()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            startPointerScreenPositoin = Input.mousePosition;
+            Debug.Log("Click start");
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            var deltaDrag = Input.mousePosition - startPointerScreenPositoin;
+            Debug.Log("Click end with distance: " + deltaDrag);
+            if (deltaDrag.sqrMagnitude < 0.5f)
+            {
+                if (showingRunSummary)
+                {
+                    Debug.Log("Speedup");
+                    scoreHandler.SpeedUpSummary();
+                }
+                else
+                {
+                    Debug.Log("Restart");
+                    scoreHandler.RestartGame();
+                }
+            }
         }
     }
 
@@ -510,9 +538,16 @@ public class UIHandler : MonoBehaviour {
     {
         if (!isMenuContext)
         {
+            showingRunSummary = true;
             EnableMenuContext();
             OpenMenu(runSummaryMenu);
+            inputChecks += CheckIfTappedInstedOfDrag;
         }
         runSummaryConroller.DisplaySummaryItem(text, count, points, animate);
+    }
+    public void OnSummaryCompositionFinished()
+    {
+        showingRunSummary = false;
+        Debug.Log("Run summary finished");
     }
 }

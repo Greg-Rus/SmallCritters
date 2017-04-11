@@ -29,6 +29,9 @@ public class SoundController : MonoBehaviour, IAudio {
     public AudioClip playerKilled;
     public AudioClip powerupJump;
     public AudioClip notification;
+    public AudioClip summaryText;
+    public AudioClip summaryMultiplyer;
+    public AudioClip summaryScore;
    
     //public SoundController instance;
 
@@ -96,6 +99,9 @@ public class SoundController : MonoBehaviour, IAudio {
                 case Sound.EatFly: myAudio.PlayOneShot(eatFly); break;
                 case Sound.Silence: myAudio.Stop(); break;
                 case Sound.Notification: myAudio.PlayOneShot(notification); break;
+                case Sound.SummaryText: myAudio.PlayOneShot(summaryText); break;
+                case Sound.SummaryMutliplyer: break;//myAudio.pitch = 1.5f; myAudio.PlayOneShot(summaryText); break;
+                case Sound.SummaryScore: break;// myAudio.pitch = 2f; myAudio.PlayOneShot(summaryText); break;
                 default: break;
             }
         }

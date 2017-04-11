@@ -115,7 +115,7 @@ public class MainGameController : MonoBehaviour {
     {
         Time.timeScale = 0.5f;
         ReportRunStatistics(causeOfDeath);
-        StartCoroutine(restartLevelAterSeconds(1f));
+        //StartCoroutine(restartLevelAterSeconds(1f));
     }
 
     private void ReportRunStatistics(string causeOfDeath)

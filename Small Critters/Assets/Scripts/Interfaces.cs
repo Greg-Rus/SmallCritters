@@ -16,7 +16,7 @@ public enum Toggled { On, Off};
 public enum Sound
 {
     Silence, Jump, ShotgunBlastAndCock, ShotgunFire, ShotgunCock, BeeCharge, BeeStunHit, FullHeart, StarPickup, BeatleCharge, BeatleSpit,
-    EatFly, StartPowerup, KilledByFire, KilledByImpact, PlayerHit, PlayerKilled, Notification
+    EatFly, StartPowerup, KilledByFire, KilledByImpact, PlayerHit, PlayerKilled, Notification, SummaryText, SummaryMutliplyer, SummaryScore
 };
 public enum NotificationType {
     Undefined, BladeKill, ProcessorKill, VentKill, ColdKill, OtherBee, OtherBeetle,
@@ -164,6 +164,8 @@ public interface IScoreForUI
 {
     ScoreData GetScoreData();
     void RestartRun(int button);
+    void RestartGame();
+    void SpeedUpSummary();
 }
 
 public interface IPowerup
