@@ -26,7 +26,7 @@ public class MainGameController : MonoBehaviour {
 
     void Awake()
     {
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 45;
         Screen.fullScreen = false;
         SetupGameFramework();
     }
@@ -146,10 +146,14 @@ public class MainGameController : MonoBehaviour {
 	IEnumerator restartLevelAterSeconds(float seconds) 
 	{
 		yield return new WaitForSeconds(seconds);
-        RestartGame();
+        RestartGameImmediate();
+    }
+    public void RestartGameAfterSeconds(float seconds)
+    {
+        StartCoroutine(restartLevelAterSeconds(seconds));
     }
 
-    public void RestartGame()
+    public void RestartGameImmediate()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
@@ -158,7 +162,7 @@ public class MainGameController : MonoBehaviour {
     {
         PlayerPrefs.SetString("GameMode", "Radom");
         PlayerPrefs.SetString("Seed", "");
-        RestartGame();
+        RestartGameImmediate();
     }
 
     private void NewRowReached(object sender, NewRowReached newRowReachedEventArgs)

@@ -548,6 +548,5 @@ public class UIHandler : MonoBehaviour {
     public void OnSummaryCompositionFinished()
     {
         showingRunSummary = false;
-        Debug.Log("Run summary finished");
     }
 }

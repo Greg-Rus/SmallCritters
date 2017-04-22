@@ -171,12 +171,13 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
 
     IEnumerator PresentRunSummary()
     {
-
+        bool runHadEvents = false;
         foreach (ScoreEvent se in shotsScoreEvaluator.scoreEvents)
         {
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                runHadEvents = true;
                 yield return new WaitForSecondsRealtime(summarySpawnSpeed);
             }
         }
@@ -185,6 +186,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                runHadEvents = true;
                 yield return new WaitForSecondsRealtime(summarySpawnSpeed);
             }
         }
@@ -193,10 +195,19 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
             if (se.count > 0)
             {
                 uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                runHadEvents = true;
                 yield return new WaitForSecondsRealtime(summarySpawnSpeed);
             }
         }
-        uiHandler.OnSummaryCompositionFinished();
+        if (runHadEvents)
+        {
+            uiHandler.OnSummaryCompositionFinished();
+        }
+        else
+        {
+            gameController.RestartGameAfterSeconds(0.5f);
+        }
+        
     }
 
     public ScoreData GetScoreData()
@@ -221,17 +232,17 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
         if (button == -1)
         {
             PlayerPrefs.SetString("Seed", scoreData.lastRun.hash);
-            gameController.RestartGame();
+            gameController.RestartGameImmediate();
         }
         else
         {
             PlayerPrefs.SetString("Seed", scoreData.scores[button].hash);
-            gameController.RestartGame();
+            gameController.RestartGameImmediate();
         }
     }
     public void RestartGame()
     {
-        gameController.RestartGame();
+        gameController.RestartGameImmediate();
     }
 
     public void SpeedUpSummary()

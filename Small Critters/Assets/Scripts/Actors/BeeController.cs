@@ -12,6 +12,7 @@ public class BeeController : MonoBehaviour {
     private bool alive = false;
     private string currentAnimation;
     private IAudio myAudio;
+    private SpriteRenderer myRederer;
 
     public BeeData data = new BeeData();
     public int flyLayer;
@@ -25,6 +26,7 @@ public class BeeController : MonoBehaviour {
         myAnimator = GetComponent<Animator>();
         motor = GetComponent<BasicMotor>();
         myFSM = new BeeFSM(this);
+        myRederer = GetComponentInChildren<SpriteRenderer>();
     }
     void Start()
     {
@@ -70,7 +72,7 @@ public class BeeController : MonoBehaviour {
         {
             alive = false;
             particlesHandler.OnDeath(causeOfDeath);
-            deathReport.EnemyDead(this.gameObject, causeOfDeath);
+            if(myRederer.isVisible) deathReport.EnemyDead(this.gameObject, causeOfDeath);
             SetAnimation("Idle");
             WaitUntillAnimatorResets();
             myAudio.PlayEnemyDeathSound(causeOfDeath);

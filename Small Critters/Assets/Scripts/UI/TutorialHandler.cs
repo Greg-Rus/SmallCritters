@@ -12,9 +12,11 @@ public class TutorialHandler : MonoBehaviour {
     public int currentImage = 0;
     public int nextImage = 0;
     public Button backButton;
+    private string currentScore;
 
     public void LoadTutorial()
     {
+        currentScore = myUI.scoreField.text;
         myUI.UpdateUIScore(77);
         myUI.bonusButton.SetActive(false);
         currentImage = 0;
@@ -75,15 +77,25 @@ public class TutorialHandler : MonoBehaviour {
 
     public void ResetUIState()
     {
-        myUI.UpdateUIScore("");
-        myUI.bonusButton.SetActive(true);
-        myUI.GetBonusButton().interactable = true;
+        if (currentScore == "")
+        {
+            myUI.UpdateUIScore("");
+            myUI.bonusButton.SetActive(true);
+            myUI.GetBonusButton().interactable = true;
+        }
+        else
+        {
+            myUI.UpdateUIScore(currentScore);
+            myUI.bonusButton.SetActive(false);
+            myUI.GetBonusButton().interactable = true;
+        }
+        
     }
 
     private void ExitTutorial()
     {
+        ResetUIState();
         myUI.OnMenuBack();
-        myUI.UpdateUIScore("");
-        myUI.GetBonusButton().interactable = true;
+
     }
 }

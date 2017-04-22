@@ -26,11 +26,14 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
     private FireBeetleFSM FSM;
     private BasicMotor motor;
     private float shotCooldownTimeout = 0f;
+    private SpriteRenderer myRenderer;
+
 
     void Awake()
     {
         FSM = new FireBeetleFSM(this);
         motor = GetComponent<BasicMotor>();
+        myRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Start()
@@ -60,7 +63,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
 		GameObject newFireBall = Instantiate(fireBall, firingPoint.position, Quaternion.identity) as GameObject;
         FireBallController newBallController = newFireBall.GetComponent<FireBallController>();
         Vector3 heading = (frog.transform.position - firingPoint.transform.position).normalized;
-        newBallController.Aim(firingPoint, maxProjectileRange); //TODO Decide max range in DifficultyManager;
+        newBallController.Aim(firingPoint, maxProjectileRange);
         newBallController.myRigidBody.AddForce(heading * fireBallSpeed, ForceMode2D.Impulse);
         myAudio.PlaySound(Sound.BeatleSpit);
     }
@@ -85,7 +88,7 @@ public class FireBeetleController : MonoBehaviour, IPlayerDetection
         if (alive)
         {
             alive = false;
-            deathReport.EnemyDead(this.gameObject, causeOfDeath);
+            if(myRenderer.isVisible) deathReport.EnemyDead(this.gameObject, causeOfDeath);
             deathParticles.OnDeath(causeOfDeath);
             SetAnimation("Idle");
             WaitUntillAnimatorResets();
