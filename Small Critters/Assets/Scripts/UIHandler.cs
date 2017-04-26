@@ -116,22 +116,18 @@ public class UIHandler : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             startPointerScreenPositoin = Input.mousePosition;
-            Debug.Log("Click start");
         }
         if (Input.GetMouseButtonUp(0))
         {
             var deltaDrag = Input.mousePosition - startPointerScreenPositoin;
-            Debug.Log("Click end with distance: " + deltaDrag);
             if (deltaDrag.sqrMagnitude < 0.5f)
             {
                 if (showingRunSummary)
                 {
-                    Debug.Log("Speedup");
                     scoreHandler.SpeedUpSummary();
                 }
                 else
                 {
-                    Debug.Log("Restart");
                     scoreHandler.RestartGame();
                 }
             }

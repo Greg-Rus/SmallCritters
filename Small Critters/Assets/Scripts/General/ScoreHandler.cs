@@ -171,6 +171,8 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
 
     IEnumerator PresentRunSummary()
     {
+        Time.timeScale = 0.5f;
+        yield return new WaitForSecondsRealtime(1f);
         bool runHadEvents = false;
         foreach (ScoreEvent se in shotsScoreEvaluator.scoreEvents)
         {

@@ -13,7 +13,6 @@ public class SummaryMenuController : MonoBehaviour {
     private float summaryItemHeight;
     private float lastSummaryItemPositionY = 0;
     public bool test = false;
-    private int testNumber = 0;
     private int lastScoreCount = 0;
     private float scoreCountDuration = 1f;
     
@@ -60,24 +59,24 @@ public class SummaryMenuController : MonoBehaviour {
         finalScore.text = lastScoreCount.ToString();
     }
 
-    IEnumerator AddToFinalSocreDynamic(int points)
-    {
-        float pointPool = points;
-        float startTime = Time.timeSinceLevelLoad;
-        float endTime = scoreCountDuration + startTime;
-        float t = 0;
-        float newPoints = 0;
-        float oldPoints = 0;
+    //IEnumerator AddToFinalSocreDynamic(int points)
+    //{
+    //    float pointPool = points;
+    //    float startTime = Time.timeSinceLevelLoad;
+    //    float endTime = scoreCountDuration + startTime;
+    //    float t = 0;
+    //    float newPoints = 0;
+    //    float oldPoints = 0;
 
-        while (t != 1f)
-        {
-            oldPoints = newPoints;
-            t += Time.deltaTime * scoreCountDuration;
-            newPoints = Mathf.Lerp(0, points, t);
-            float pointDelta = newPoints - oldPoints;
-            finalScore.text = ((int)pointDelta).ToString();
-            yield return null;
-        }
+    //    while (t != 1f)
+    //    {
+    //        oldPoints = newPoints;
+    //        t += Time.deltaTime * scoreCountDuration;
+    //        newPoints = Mathf.Lerp(0, points, t);
+    //        float pointDelta = newPoints - oldPoints;
+    //        finalScore.text = ((int)pointDelta).ToString();
+    //        yield return null;
+    //    }
         
-    }
+    //}
 }

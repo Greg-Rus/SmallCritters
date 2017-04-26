@@ -7,13 +7,11 @@ public class ScoreEvaluatorShots : MonoBehaviour
     public float multiKillTimeFrame;
     public ScoreEvaluator shotsScoreData;
     private int killCount = 0;
-    private bool multiKill;
     public ScoreEvent[] scoreEvents { get { return shotsScoreData.scoreEvents; } }
 
     public int GetScoreForKill(string type)
     {
         StopAllCoroutines();
-        multiKill = true;
         ++killCount;
         StartCoroutine(MultiKilltimer());
         if (killCount <= shotsScoreData.scoreEvents.Length)
@@ -42,7 +40,6 @@ public class ScoreEvaluatorShots : MonoBehaviour
     IEnumerator MultiKilltimer()
     {
         yield return new WaitForSeconds(multiKillTimeFrame);
-        multiKill = false;
         killCount = 0;
     }
 }

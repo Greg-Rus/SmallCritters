@@ -113,9 +113,7 @@ public class MainGameController : MonoBehaviour {
 
     void HandleFrogDeath(string causeOfDeath)
     {
-        Time.timeScale = 0.5f;
         ReportRunStatistics(causeOfDeath);
-        //StartCoroutine(restartLevelAterSeconds(1f));
     }
 
     private void ReportRunStatistics(string causeOfDeath)
@@ -146,7 +144,7 @@ public class MainGameController : MonoBehaviour {
 	IEnumerator restartLevelAterSeconds(float seconds) 
 	{
 		yield return new WaitForSeconds(seconds);
-        RestartGameImmediate();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
     public void RestartGameAfterSeconds(float seconds)
     {
