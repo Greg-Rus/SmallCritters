@@ -9,31 +9,31 @@ public class ScoreEvaluatorShots : MonoBehaviour
     private int killCount = 0;
     public ScoreEvent[] scoreEvents { get { return shotsScoreData.scoreEvents; } }
 
-    public int GetScoreForKill(string type)
+    public int GetScoreForEvent(string type)
     {
         StopAllCoroutines();
         ++killCount;
         StartCoroutine(MultiKilltimer());
         if (killCount <= shotsScoreData.scoreEvents.Length)
         {
-            return shotsScoreData.GetScoreForKill(killCount.ToString());
+            return shotsScoreData.GetScoreForEvent(killCount.ToString());
         }
         else
         {
-            return shotsScoreData.GetScoreForKill(shotsScoreData.scoreEvents.Length.ToString());
+            return shotsScoreData.GetScoreForEvent(shotsScoreData.scoreEvents.Length.ToString());
         }
         
     }
 
-    public string GetNotificationForKill(string type)
+    public string GetNotificationForEvent(string type)
     {
         if (killCount <= shotsScoreData.scoreEvents.Length)
         {
-            return shotsScoreData.GetNotificationForKill(killCount.ToString());
+            return shotsScoreData.GetNotificationForEvent(killCount.ToString());
         }
         else
         {
-            return shotsScoreData.GetNotificationForKill(shotsScoreData.scoreEvents.Length.ToString());
+            return shotsScoreData.GetNotificationForEvent(shotsScoreData.scoreEvents.Length.ToString());
         }
     }
 

@@ -53,7 +53,7 @@ public class NotificationController : MonoBehaviour {
         float timer = waitTime;
         while (timer > 0)
         {
-            timer -= Time.deltaTime;
+            timer -= Time.unscaledDeltaTime;
             yield return null;
         }
         StartCoroutine(Shrink());
@@ -64,7 +64,7 @@ public class NotificationController : MonoBehaviour {
         timer = shrinkTime;
         while (timer > 0)
         {
-            timer -= Time.deltaTime;
+            timer -= Time.unscaledDeltaTime;
             float newScale = timer / shrinkTime;
             this.transform.localScale = Vector3.one * newScale;
             yield return null;
@@ -77,7 +77,7 @@ public class NotificationController : MonoBehaviour {
         while (myRect.localPosition.y > target)
         {
             Vector3 newPosition = myRect.localPosition;
-            newPosition.y -= dropSpeed * Time.deltaTime;
+            newPosition.y -= dropSpeed * Time.unscaledDeltaTime;
             myRect.localPosition = newPosition;
             yield return null;
         }

@@ -12,6 +12,7 @@ public class UIHandler : MonoBehaviour {
     public GameObject highScoresMenu;
     public GameObject optionsMenu;
     public GameObject tutorialPanel;
+    public GameObject inputTutorial;
     public Text scoreField;
     public HighScoreButtonState lastRunScoreButton;
     public HighScoreButtonState[] scoreButtons;
@@ -65,6 +66,7 @@ public class UIHandler : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        UpdateUIScore("");
         menuStack = new Stack<GameObject>();
         scoreHandler = ServiceLocator.getService<IScoreForUI>();
         mySoundFX = ServiceLocator.getService<IAudio>();
@@ -99,8 +101,8 @@ public class UIHandler : MonoBehaviour {
         if (Time.timeSinceLevelLoad > inactivityTimeToMovementTutorial)
         {
             inputChecks -= CheckIdleTime;
-            inputChecks -= CheckIfStoppedIdling;
-            ShowTutorial();
+            //inputChecks -= CheckIfStoppedIdling;
+            inputTutorial.SetActive(true);
         }
     }
     private void CheckIfStoppedIdling()
@@ -109,6 +111,7 @@ public class UIHandler : MonoBehaviour {
         {
             inputChecks -= CheckIdleTime;
             inputChecks -= CheckIfStoppedIdling;
+            inputTutorial.SetActive(false);
         }
     }
     private void CheckIfTappedInstedOfDrag()
@@ -301,24 +304,26 @@ public class UIHandler : MonoBehaviour {
 
     public void OnMenuBack()
     {
-        if (menuStack.Count == 1)
-        {
-            DisableMenuContext();
-        }
-        else if (menuStack.Peek() == quitPrompt)
+       
+        if (menuStack.Count > 1 && menuStack.Peek() == quitPrompt)
         {
             SetActiveToAllOpenMenus(true);
             CloseMenu(menuStack.Peek());
         }
-        else if (menuStack.Peek() == tutorialPanel)
+        else if (menuStack.Count > 1 && menuStack.Peek() == tutorialPanel)
         {
             tutorialHandler.ResetUIState();
             CloseMenu(menuStack.Peek());
         }
-        else
+        else if (menuStack.Count > 1)
         {
             CloseMenu(menuStack.Peek());
         }
+        else
+        {
+            DisableMenuContext();
+        }
+        
         
         
     }

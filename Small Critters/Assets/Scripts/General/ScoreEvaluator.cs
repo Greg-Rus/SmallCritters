@@ -17,17 +17,24 @@ public class ScoreEvaluator: MonoBehaviour {
         }
     }
 
-    public int GetScoreForKill(string type)
+    public int GetScoreForEvent(string type, int count = 1)
     {
         ScoreEvent scoreEvent = eventMap[type];
-        return scoreEvent.value;
+        scoreEvent.count += count;
+        return scoreEvent.value * count; ;
     }
 
-    public string GetNotificationForKill(string type)
+    public string GetNotificationForEvent(string type)
     {
         ScoreEvent scoreEvent = eventMap[type];
-        ++scoreEvent.count;
+        //++scoreEvent.count;
         return scoreEvent.text;
+    }
+
+    public void AddCount(string type, int count)
+    {
+        ScoreEvent scoreEvent = eventMap[type];
+        scoreEvent.count += count;
     }
 }
 [Serializable]

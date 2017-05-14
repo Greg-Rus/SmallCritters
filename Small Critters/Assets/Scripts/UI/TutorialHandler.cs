@@ -54,7 +54,7 @@ public class TutorialHandler : MonoBehaviour {
 
     private void ChangeImage()
     {
-        if (nextImage == 5 && currentImage < nextImage)
+        if (nextImage == 3 && currentImage < nextImage)
         {
             myUI.UpdateUIScore("");
             myUI.bonusButton.SetActive(true);

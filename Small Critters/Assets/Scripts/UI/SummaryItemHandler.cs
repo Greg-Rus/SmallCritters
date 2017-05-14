@@ -38,7 +38,7 @@ public class SummaryItemHandler : MonoBehaviour {
 
     public void OnAnimationFinished()
     {
-        myController.OnSummaryScoreVisible(points * count) ;
+        myController.OnSummaryScoreVisible(points) ;
         myAudio.PlaySound(Sound.SummaryScore);
     }
     public void OnMultiplyerShown()

@@ -30,15 +30,16 @@ public class NotificationHandler : MonoBehaviour {
             freeNotificationObjects.Enqueue(rect);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (test)
         {
             test = false;
             ShowNotification("TOASTY!!");
         }
-	}
+    }
 
     public void ShowNotification(string text)
     {

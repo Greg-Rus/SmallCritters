@@ -30,6 +30,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
     public ScoreEvaluator beeScoreEvaluator;
     public ScoreEvaluator fireBeetleScoreEvaluator;
     public ScoreEvaluatorShots shotsScoreEvaluator;
+    public ScoreEvaluator generalScoreEvaluator;
 
     XmlSerializer serializer;
 
@@ -60,9 +61,9 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
         }
     }
 
-    public void NewRowsReached(int rows)
+    public void NewRowsReached(int rowsTraversed)
     {
-        score += rows * rowMultiplier;
+        score += generalScoreEvaluator.GetScoreForEvent("Distance", rowsTraversed);
         UpdateUIScore();
     }
 
@@ -71,24 +72,29 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
         int starCount = 0;
         if (causeOfDeath == "Pellet")
         {
-            starCount = shotsScoreEvaluator.GetScoreForKill(causeOfDeath);
-            ProcessNotification(shotsScoreEvaluator.GetNotificationForKill(causeOfDeath));
+            starCount = shotsScoreEvaluator.GetScoreForEvent(causeOfDeath);
+            ProcessNotification(shotsScoreEvaluator.GetNotificationForEvent(causeOfDeath));
         }
         else
         {
             switch (enemy.name)
             {
                 case "Bee":
-                    starCount = beeScoreEvaluator.GetScoreForKill(causeOfDeath);
-                    ProcessNotification(beeScoreEvaluator.GetNotificationForKill(causeOfDeath)); break;
-                case "Fly": starCount = 1; break;
+                    starCount = beeScoreEvaluator.GetScoreForEvent(causeOfDeath);
+                    ProcessNotification(beeScoreEvaluator.GetNotificationForEvent(causeOfDeath)); break;
+                case "Fly": starCount = generalScoreEvaluator.GetScoreForEvent("Fly"); break;
                 case "FireBeetle":
-                    starCount = fireBeetleScoreEvaluator.GetScoreForKill(causeOfDeath);
-                    ProcessNotification(fireBeetleScoreEvaluator.GetNotificationForKill(causeOfDeath)); break;
+                    starCount = fireBeetleScoreEvaluator.GetScoreForEvent(causeOfDeath);
+                    ProcessNotification(fireBeetleScoreEvaluator.GetNotificationForEvent(causeOfDeath)); break;
             }
         }
-        
-        if(starCount > 0) SpawnStars(starCount, enemy.transform.position, 1); 
+
+        if (starCount > 0)
+        {
+            score += starCount;
+            UpdateUIScore();
+            SpawnStars(starCount, enemy.transform.position);
+        } 
     }
 
     //private NotificationType CauseOfDeathToNotificationType(string causeOfDeath)
@@ -111,7 +117,7 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
         myNotifications.ShowNotification(notification);
     }
 
-    private void SpawnStars(int count, Vector3 position, int points)
+    private void SpawnStars(int count, Vector3 position)
     {
         Vector3 offset = Vector3.zero;
         for (int i = 0; i < count; ++i)
@@ -123,15 +129,16 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
                                             Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360))
                                             ) as GameObject;
             StarHandler newStarHandler = newStar.GetComponent<StarHandler>();
-            newStarHandler.Configure(points, scoringDistance, StarCollected);
+            newStarHandler.Configure(scoringDistance, StarCollected);
         }
     }
 
-    public void StarCollected(int points)
+    public void StarCollected()
     {
-        score += points;
+        int starValue = generalScoreEvaluator.GetScoreForEvent("Star");
+        score += starValue;
         UpdateUIScore();
-        powerupHandler.UpdatePoints(points);
+        powerupHandler.UpdatePoints(starValue);
     }
 
     public void RunEnd(string cuseOfDeath)
@@ -174,6 +181,15 @@ public class ScoreHandler : MonoBehaviour, IDeathReporting, IGameProgressReporti
         Time.timeScale = 0.5f;
         yield return new WaitForSecondsRealtime(1f);
         bool runHadEvents = false;
+        foreach (ScoreEvent se in generalScoreEvaluator.scoreEvents)
+        {
+            if (se.count > 0)
+            {
+                uiHandler.AddSummaryItem(se.text, se.count, se.value, true);
+                runHadEvents = true;
+                yield return new WaitForSecondsRealtime(summarySpawnSpeed);
+            }
+        }
         foreach (ScoreEvent se in shotsScoreEvaluator.scoreEvents)
         {
             if (se.count > 0)

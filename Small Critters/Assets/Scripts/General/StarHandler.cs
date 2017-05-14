@@ -12,7 +12,6 @@ public class StarHandler : MonoBehaviour {
     public float normalScale = 1f;
     public float initialScale = 0.1f;
     public float waitTime = 5;
-    public int points;
     public float scoringDistance;
     public float pickUpDistance = 0.1f;
     public ScoreStarState state;
@@ -20,7 +19,7 @@ public class StarHandler : MonoBehaviour {
     public SpriteRenderer myRenderer;
     public string pickUpLayerName;
 
-    private Action<int> OnStarPickup;
+    private Action OnStarPickup;
     private IAudio myAudio;
     Vector3 vectorToFrog;
     float scale;
@@ -33,11 +32,10 @@ public class StarHandler : MonoBehaviour {
         myAudio = ServiceLocator.getService<IAudio>();
     }
 
-    public void Configure(int points, float scoringDistance, Action<int> OnStarPickup  )
+    public void Configure(float scoringDistance, Action OnStarPickup  )
     {
         vectorToFrog = Vector3.zero;
         transform.localScale = Vector3.one * initialScale;
-        this.points = points;
         playerDetectionCircle.radius = scoringDistance;
         this.OnStarPickup = OnStarPickup;
     }
@@ -116,7 +114,7 @@ public class StarHandler : MonoBehaviour {
         ChangeScale(-inflateSpeed);
         if (transform.localScale.x <= initialScale)
         {
-            OnStarPickup(points);
+            OnStarPickup();
             myAudio.PlaySound(Sound.StarPickup);
             Destroy(this.gameObject);
         }
