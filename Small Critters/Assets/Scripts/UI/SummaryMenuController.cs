@@ -21,7 +21,7 @@ public class SummaryMenuController : MonoBehaviour {
     void Awake ()
     {
         summaryItemHeight = SummaryItemPrefab.GetComponent<RectTransform>().rect.height;
-        lastSummaryItemPositionY = summaryItemHeight * -0.5f;
+        lastSummaryItemPositionY = summaryItemHeight * 0.5f;
     }
 
 

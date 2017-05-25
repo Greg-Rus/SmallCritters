@@ -34,33 +34,34 @@ public class NotificationHandler : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (test)
-        {
-            test = false;
-            ShowNotification("TOASTY!!");
-        }
+        //if (test)
+        //{
+        //    test = false;
+        //    ShowNotification("TOASTY!!");
+        //}
     }
 
     public void ShowNotification(string text)
     {
-        if (text == "shot")
-        {
-            if (!multiKill)
-            {
-                multiKill = true;
-                StartCoroutine("MultiKilltimer");
-            }
-            else
-            {
-                StopCoroutine("MultiKilltimer");
-                StartCoroutine("MultiKilltimer");
-                
-            }
-            ++killCount;
-            if(killCount >= multiKillNotices.Length) text = multiKillNotices[multiKillNotices.Length - 1];
-            else text = multiKillNotices[killCount - 1];
+        //if (text == "shot")
+        //{
+        //    if (!multiKill)
+        //    {
+        //        multiKill = true;
+        //        StartCoroutine("MultiKilltimer");
+        //    }
+        //    else
+        //    {
+        //        StopCoroutine("MultiKilltimer");
+        //        StartCoroutine("MultiKilltimer");
 
-        }
+        //    }
+        //    ++killCount;
+        //    if(killCount >= multiKillNotices.Length) text = multiKillNotices[multiKillNotices.Length - 1];
+        //    else text = multiKillNotices[killCount - 1];
+
+        //}
+        Debug.Log("Still in use");
         NotificationController rect;
         if (freeNotificationObjects.Count > 0)
         {
