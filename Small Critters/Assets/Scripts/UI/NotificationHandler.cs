@@ -61,7 +61,6 @@ public class NotificationHandler : MonoBehaviour {
         //    else text = multiKillNotices[killCount - 1];
 
         //}
-        Debug.Log("Still in use");
         NotificationController rect;
         if (freeNotificationObjects.Count > 0)
         {

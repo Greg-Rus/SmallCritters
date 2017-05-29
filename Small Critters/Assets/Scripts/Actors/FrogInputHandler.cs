@@ -99,6 +99,19 @@ public class FrogInputHandler : MonoBehaviour {
                         frogMovement.makeMove(dragVector);
                     }
                 }
+                else //if(dragVector.sqrMagnitude <= Mathf.Pow(minimalDragDistance, 2f) && powerupHandler.powerupModeOn && !reloading)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+                    //Debug.DrawRay(ray.origin, Vector2.zero, Color.cyan, 10f);
+                    if (hit)
+                    {
+                        Debug.Log(hit.collider.gameObject.name);
+                        Vector3 frogWorldPosition = Camera.main.ScreenToWorldPoint(transform.position);
+                        frogMovement.rotateToDirection(ray.origin - frogWorldPosition);
+                    }
+                }
                 jumpLineRenderer.stopDrawingJumpLine();
             }
         }
