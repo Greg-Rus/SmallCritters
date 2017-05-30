@@ -19,8 +19,9 @@ public class FrogInputHandler : MonoBehaviour {
     private ShotgunController shotgun;
     private IPowerup powerupHandler;
     private bool reloading = false;
+    public LayerMask fireingTargetMask;
 
-	void Awake ()
+    void Awake ()
     {
         frogMovement = GetComponent<Imovement>() as Imovement ;
         shotgun = GetComponentInChildren<ShotgunController>(true);
@@ -102,14 +103,10 @@ public class FrogInputHandler : MonoBehaviour {
                 else //if(dragVector.sqrMagnitude <= Mathf.Pow(minimalDragDistance, 2f) && powerupHandler.powerupModeOn && !reloading)
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-                    //Debug.DrawRay(ray.origin, Vector2.zero, Color.cyan, 10f);
+                    RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, fireingTargetMask);
                     if (hit)
                     {
-                        Debug.Log(hit.collider.gameObject.name);
-                        Vector3 frogWorldPosition = Camera.main.ScreenToWorldPoint(transform.position);
-                        frogMovement.rotateToDirection(ray.origin - frogWorldPosition);
+                        StartCoroutine(RotateAndFire());
                     }
                 }
                 jumpLineRenderer.stopDrawingJumpLine();
@@ -147,5 +144,22 @@ public class FrogInputHandler : MonoBehaviour {
     public void ReloadComplete()
     {
         reloading = false;
+    }
+
+    IEnumerator RotateAndFire()
+    {
+        Vector3 targetWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetWorldPosition.z = 0f;
+        Vector3 frogWorldPosition = transform.position;
+        frogWorldPosition.z = 0f;
+        frogMovement.rotateToDirection(targetWorldPosition - frogWorldPosition);
+
+        yield return new WaitForFixedUpdate();
+
+        if (powerupHandler.powerupModeOn && !reloading)
+        {
+            shotgun.Shoot();
+            reloading = true;
+        }
     }
 }
