@@ -26,14 +26,16 @@ public class ShotgunController : MonoBehaviour {
         myAudio = ServiceLocator.getService<IAudio>();
     }
 	
-    public void Shoot()
+    public void Shoot(Vector3 globalTargetLocation)
     {
+        AimAtPosition(globalTargetLocation);
         FirePellets();
         StopCoroutine(CleanUpPelletsAfterSeconds(2f));
         StartCoroutine(CleanUpPelletsAfterSeconds(2f));
         powerup.OnShotFired();
         animator.SetTrigger("Shoot");
         myAudio.PlaySound(Sound.ShotgunBlastAndCock);
+        transform.LookAt(transform.parent.up);
     }
 
     private void FirePellets()
@@ -78,9 +80,10 @@ public class ShotgunController : MonoBehaviour {
 
     public void AimAtPosition(Vector3 position)
     {
+        Vector3 localTargetPosition = shotgunTransform.InverseTransformPoint(position);
         Vector3 vectorToPosition = (position - shotgunTransform.transform.position).normalized;
         float rot_z = Mathf.Atan2(vectorToPosition.y, vectorToPosition.x) * Mathf.Rad2Deg;
-        shotgunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        shotgunTransform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90f);
     }
 
 

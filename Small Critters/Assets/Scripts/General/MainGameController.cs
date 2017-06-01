@@ -48,6 +48,7 @@ public class MainGameController : MonoBehaviour {
         gameFramework.poolParent = poolParent;
         gameFramework.powerupHandler = powerupHandler;
         gameFramework.soundController = soundController;
+        gameFramework.UI = uiHandler;
     }
 		
 	private void StartNewGame()

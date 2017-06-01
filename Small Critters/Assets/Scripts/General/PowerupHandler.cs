@@ -16,7 +16,7 @@ public class PowerupHandler : MonoBehaviour, IPowerup
     public float totalTimeOnPowerup = 0;
     public int totalNumberOfPowerups = 0;
     public int maxAmmoThisRun = 0;
-    public ParticleSystem powerupFullEffect;
+    public ParticleSystem powerupFullEffect { get;  set; }
 
     private float powerupStartTime;
     private IAudio myAudio;

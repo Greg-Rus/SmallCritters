@@ -174,6 +174,12 @@ public interface IPowerup
     void OnShotFired();
     void SetBonus();
     bool powerupModeOn { get; }
+    ParticleSystem powerupFullEffect { set; }
+}
+
+public interface IUI
+{
+    ParticleSystem heartFilledEffect { set; }
 }
 
 public interface IAudio

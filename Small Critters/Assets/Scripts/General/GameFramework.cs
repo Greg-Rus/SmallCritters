@@ -10,6 +10,7 @@ public class GameFramework {
     public Transform poolParent;
     public PowerupHandler powerupHandler;
     public SoundController soundController;
+    public UIHandler UI;
 	GameObjectPoolManager poolManager;
 	ISectionBuilderConfiguration sectionBuilderConfigurator;
 	ISectionBuilderSelection sectionBuilderSeclector;
@@ -60,6 +61,7 @@ public class GameFramework {
         ServiceLocator.addService<IScoreForUI>(scoreHandler);
         ServiceLocator.addService<IPowerup>(powerupHandler);
         ServiceLocator.addService<IAudio>(soundController);
+        ServiceLocator.addService<IUI>(UI);
     }
 	
 	private void SetupSectionBuilders()

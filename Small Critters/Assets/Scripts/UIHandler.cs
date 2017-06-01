@@ -5,7 +5,8 @@ using System;
 using UnityEngine.UI;
 
 public enum MenuLevel {MenuOff, MenuBackground, MainMenu, SubMenu, QuitPrompt, Bonus };
-public class UIHandler : MonoBehaviour {
+public class UIHandler : MonoBehaviour, IUI
+{
     public GameObject pausePanel;
     public GameObject quitPrompt;
     public GameObject mainMenu;
@@ -52,7 +53,7 @@ public class UIHandler : MonoBehaviour {
     public Button customGameButton;
     public Toggle music;
     public Toggle soundFX;
-    public ParticleSystem heartFilledEffect;
+    public ParticleSystem heartFilledEffect { get; set; }
 
     private AdHandler myAds;
     private float powerupIconFillTarget;

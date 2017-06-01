@@ -92,7 +92,7 @@ public class FrogInputHandler : MonoBehaviour {
                     frogMovement.rotateToDirection(dragVector);
                     if (powerupHandler.powerupModeOn && jumpLineRenderer.CanFireAtTarget(dragVector) && !reloading)
                     {
-                        shotgun.Shoot();
+                        shotgun.Shoot(transform.position + dragVector);
                         reloading = true;
                     }
                     else
@@ -158,7 +158,7 @@ public class FrogInputHandler : MonoBehaviour {
 
         if (powerupHandler.powerupModeOn && !reloading)
         {
-            shotgun.Shoot();
+            shotgun.Shoot(targetWorldPosition);
             reloading = true;
         }
     }
