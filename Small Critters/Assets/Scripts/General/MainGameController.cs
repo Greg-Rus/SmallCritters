@@ -154,6 +154,7 @@ public class MainGameController : MonoBehaviour {
 
     public void RestartGameImmediate()
     {
+        Debug.Log("restarting");
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 

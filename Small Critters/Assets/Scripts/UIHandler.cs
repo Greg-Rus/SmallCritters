@@ -117,11 +117,13 @@ public class UIHandler : MonoBehaviour, IUI
     }
     private void CheckIfTappedInstedOfDrag()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)runSummaryMenu.transform, Input.mousePosition))
         {
             startPointerScreenPositoin = Input.mousePosition;
+            Debug.Log("Internal tap");
         }
-        if (Input.GetMouseButtonUp(0))
+
+        if (Input.GetMouseButtonUp(0) && RectTransformUtility.RectangleContainsScreenPoint((RectTransform)runSummaryMenu.transform, Input.mousePosition))
         {
             var deltaDrag = Input.mousePosition - startPointerScreenPositoin;
             if (deltaDrag.sqrMagnitude < 0.5f)
@@ -173,9 +175,9 @@ public class UIHandler : MonoBehaviour, IUI
         }
         else
         {
-            PlayerPrefs.SetInt("SwipeControlls", (int)SwipeDirection.Forward);
-            swipeUpToggle.isOn = true;
-            swipeDownToggle.isOn = false;
+            PlayerPrefs.SetInt("SwipeControlls", (int)SwipeDirection.Backward);
+            swipeUpToggle.isOn = false;
+            swipeDownToggle.isOn = true;
         }
 
         if (PlayerPrefs.GetInt("Music") == (int)Toggled.On)
@@ -205,16 +207,6 @@ public class UIHandler : MonoBehaviour, IUI
             PlayerPrefs.SetInt("SoundFX", (int)Toggled.On);
             soundFX.isOn = true;
         }
-
-        //if (PlayerPrefs.GetInt("showTutorial") == (int)Toggled.On)
-        //{
-        //    showTutorialToggle.isOn = true;
-        //    ShowTutorial();
-        //}
-        //else
-        //{
-        //    showTutorialToggle.isOn = false;
-        //}
     }
 
     public void OnMenuQuitPrompt()
@@ -223,7 +215,6 @@ public class UIHandler : MonoBehaviour, IUI
         {
             SetActiveToAllOpenMenus(false);
         }
-        //else EnableMenuContext();
         OpenMenu(quitPrompt);
     }
 
@@ -245,7 +236,6 @@ public class UIHandler : MonoBehaviour, IUI
 
     public void OnMenuQuitGame()
     {
-        //PlayerPrefs.SetInt("LastGameDay", System.DateTime.Today.DayOfYear);
         ReportSessionSummary();
         Application.Quit();
     }
@@ -260,7 +250,6 @@ public class UIHandler : MonoBehaviour, IUI
 
     public void OnMenuMain()
     {
-        //if (!isMenuContext) EnableMenuContext();
         OpenMenu(mainMenu);
     }
 
@@ -277,6 +266,11 @@ public class UIHandler : MonoBehaviour, IUI
     public void OnNewGameMenu()
     {
         OpenMenu(newGameMenu);
+    }
+
+    public void OnCoffee()
+    {
+        Application.OpenURL("https://ko-fi.com/fiasco");
     }
 
     private void SetActiveToAllOpenMenus(bool state)
@@ -305,7 +299,6 @@ public class UIHandler : MonoBehaviour, IUI
 
     public void OnMenuBack()
     {
-       
         if (menuStack.Count > 1 && menuStack.Peek() == quitPrompt)
         {
             SetActiveToAllOpenMenus(true);
@@ -316,6 +309,10 @@ public class UIHandler : MonoBehaviour, IUI
             tutorialHandler.ResetUIState();
             CloseMenu(menuStack.Peek());
         }
+        else if (menuStack.Count >= 1 && menuStack.Peek() == runSummaryMenu)
+        {
+            scoreHandler.RestartGame();
+        }
         else if (menuStack.Count > 1)
         {
             CloseMenu(menuStack.Peek());
@@ -324,9 +321,6 @@ public class UIHandler : MonoBehaviour, IUI
         {
             DisableMenuContext();
         }
-        
-        
-        
     }
 
     public void UpdateUIScore(int newSocore)
@@ -444,16 +438,10 @@ public class UIHandler : MonoBehaviour, IUI
         }
     }
 
-    //public void OnToggledTutorial()
-    //{
-    //    PlayerPrefs.SetInt("showTutorial", (int)Toggled.On);
-    //}
-
     public void ShowTutorial()
     {
         OpenMenu(tutorialPanel);
         tutorialHandler.LoadTutorial();
-        //showTutorialToggle.isOn = false;
     }
 
     public void PowerupMode(bool isActive)

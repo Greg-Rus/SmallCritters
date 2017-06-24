@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SummaryMenuController : MonoBehaviour {
+
+public class SummaryMenuController : MonoBehaviour
+{
     public GameObject SummaryItemPrefab;
     public RectTransform ContentRect;
     public RectTransform ScrollViewRect;
@@ -77,6 +79,6 @@ public class SummaryMenuController : MonoBehaviour {
     //        finalScore.text = ((int)pointDelta).ToString();
     //        yield return null;
     //    }
-        
+
     //}
 }
