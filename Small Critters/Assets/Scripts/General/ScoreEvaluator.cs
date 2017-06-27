@@ -27,7 +27,6 @@ public class ScoreEvaluator: MonoBehaviour {
     public string GetNotificationForEvent(string type)
     {
         ScoreEvent scoreEvent = eventMap[type];
-        //++scoreEvent.count;
         return scoreEvent.text;
     }
 

@@ -12,11 +12,17 @@ public class FlyController : MonoBehaviour {
     private Vector3 vectorToDestination;
     private Vector3 heading;
     private BasicMotor motor;
+    private bool isAlive = true;
 
     void Start()
     {
         motor = GetComponent<BasicMotor>();
         deathReport = ServiceLocator.getService<IDeathReporting>();
+    }
+
+    void OnEnable()
+    {
+        isAlive = true;
     }
 
 	void Update ()
@@ -65,8 +71,13 @@ public class FlyController : MonoBehaviour {
 
     private void Die(string causeOfDeath)
     {
-        deathReport.EnemyDead(this.gameObject, causeOfDeath);
-        this.gameObject.SetActive(false);
+        if (isAlive)
+        {
+            isAlive = false;
+            deathReport.EnemyDead(this.gameObject, causeOfDeath);
+            this.gameObject.SetActive(false);
+        }
+        
     }
 
     private void Rebound(Collision2D collision)
