@@ -40,7 +40,7 @@ public class HiResScreenShots : MonoBehaviour
             byte[] bytes = screenShot.EncodeToPNG();
             string filename = ScreenShotName(resWidth, resHeight);
             //System.IO.File.WriteAllBytes(filename, bytes);
-            Application.CaptureScreenshot(filename);
+            ScreenCapture.CaptureScreenshot(filename);
             Debug.Log(string.Format("Took screenshot to: {0}", filename));
             takeHiResShot = false;
         }

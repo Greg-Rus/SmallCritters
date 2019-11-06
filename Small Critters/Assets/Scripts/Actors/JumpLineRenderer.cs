@@ -34,7 +34,7 @@ public class JumpLineRenderer : MonoBehaviour {
 		jumpMarker.transform.position = this.transform.position;
 		jumpMarker.transform.rotation = this.transform.rotation;
 		//lineRenderer.SetVertexCount(2);
-        lineRenderer.numPositions = 2;
+        lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, this.transform.position);
 		isStarted = true;
 
@@ -79,7 +79,7 @@ public class JumpLineRenderer : MonoBehaviour {
 	{
 		jumpMarker.SetActive(false);
 		//lineRenderer.SetVertexCount(0);
-        lineRenderer.numPositions = 0;
+        lineRenderer.positionCount = 0;
         isStarted = false;
 	}
 	
